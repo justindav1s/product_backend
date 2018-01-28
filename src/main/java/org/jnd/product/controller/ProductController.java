@@ -48,9 +48,9 @@ public class ProductController {
 
 
     @RequestMapping(value = "/{productId}", method = RequestMethod.GET, produces = "application/json")
-    ResponseEntity<Product> get(@PathVariable Integer productId, @RequestHeader HttpHeaders headers) {
+    ResponseEntity<Product> get(@PathVariable String productId, @RequestHeader HttpHeaders headers) {
 
-        String[] args = { ProductController.class.getName(), "get", "product", productId.toString() };
+        String[] args = { ProductController.class.getName(), "get", "product", productId };
         String[] keys = { "keycloak_name", "keycloak_email", "x-forwarded-for", "keycloak_username", "keycloak_subject" };
 
         log.debug("Product get : "+productId);
@@ -61,8 +61,8 @@ public class ProductController {
         return new ResponseEntity<Product>(product, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
-    ResponseEntity<Product[]> getAll(@RequestHeader HttpHeaders headers) {
+    @RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json")
+    ResponseEntity<Object[]> getAll(@RequestHeader HttpHeaders headers) {
 
         String[] args = { ProductController.class.getName(), "get", "product", "all" };
         String[] keys = { "keycloak_name", "keycloak_email", "x-forwarded-for", "keycloak_username", "keycloak_subject" };
@@ -70,8 +70,8 @@ public class ProductController {
         log.debug("Product get All");
         log.debug(InfoLineBuilder.getLine(args, headers, keys));
 
-        Product[] products = (Product[])repository.values().toArray();
+        Object[] products = repository.values().toArray();
 
-        return new ResponseEntity<Product[]>(products, HttpStatus.OK);
+        return new ResponseEntity<Object[]>(products, HttpStatus.OK);
     }
 }
