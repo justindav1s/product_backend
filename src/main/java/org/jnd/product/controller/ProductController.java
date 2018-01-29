@@ -39,7 +39,7 @@ public class ProductController {
             repository.put("8", new Product("8", "tea"));
             repository.put("9", new Product("9", "biscuits"));
             repository.put("10", new Product("10", "cake"));
-            repository.put("11", new Product("11", "chocolate"));
+
         }
 
     }
@@ -68,6 +68,23 @@ public class ProductController {
         String[] keys = { "keycloak_name", "keycloak_email", "x-forwarded-for", "keycloak_username", "keycloak_subject" };
 
         log.debug("Product get All");
+        log.debug(InfoLineBuilder.getLine(args, headers, keys));
+
+        Object[] products = repository.values().toArray();
+
+        return new ResponseEntity<Object[]>(products, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/create/{productId}/{productName}", method = RequestMethod.POST, produces = "application/json")
+    ResponseEntity<Object[]> create(@PathVariable String productId, @PathVariable String productName, @RequestHeader HttpHeaders headers) {
+
+        String[] args = { ProductController.class.getName(), "get", "product", "all" };
+        String[] keys = { "keycloak_name", "keycloak_email", "x-forwarded-for", "keycloak_username", "keycloak_subject" };
+
+        Product p = new Product(productId, productName);
+        repository.put(productId, p);
+
+        log.debug("Product Create");
         log.debug(InfoLineBuilder.getLine(args, headers, keys));
 
         Object[] products = repository.values().toArray();
