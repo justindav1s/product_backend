@@ -9,7 +9,7 @@ properties(
 
 node('maven') {
     stage ('build for base docker image') {
-        openshiftBuild(namespace: '${PROJECT}',
+        openshiftBuild(namespace: '${NAMESPACE}',
                 buildConfig: '${APPLICATION_TYPE}-${ENVIRONMENT_NAME}-docker-build',
                 showBuildLogs: 'true',
                 waitTime: '3000000')
