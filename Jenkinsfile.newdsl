@@ -15,7 +15,7 @@ pipeline {
         echo "Doing the Openshift Build"
         script {
             openshift.withCluster() {
-                def models = openshift.process( "templates/docker-bc.yml" )
+                def models = openshift.create( "templates/docker-bc.yml" )
             }
         }
       }
