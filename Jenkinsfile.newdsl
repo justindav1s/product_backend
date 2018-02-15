@@ -8,6 +8,9 @@ pipeline {
       steps{
         echo "Hi !"
       }
+      steps {
+              sh "mvn install"
+      }
     }
   }
 }
