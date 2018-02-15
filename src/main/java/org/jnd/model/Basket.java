@@ -17,10 +17,10 @@ public class Basket {
 
     public Basket(String id) {
         this.id = id;
-        products = new ArrayList<Product>();
+        products = new ArrayList<>();
     }
 
-    private ArrayList<Product> products = new ArrayList<Product>();
+    private ArrayList<Product> products = new ArrayList<>();
 
     public String getId() {
         return id;
