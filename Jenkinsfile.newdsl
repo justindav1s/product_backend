@@ -7,7 +7,7 @@ pipeline {
     stage('Maven Build') {
       steps{
         echo "Doing the Maven build"
-        sh "mvn -U -B -s settings.xml install deploy"
+        #sh "mvn -U -B -s settings.xml install deploy"
       }
     }
     stage('Openshift Build') {
