@@ -1,4 +1,27 @@
 <settings>
+
+    <servers>
+        <server>
+            <id>nexus-snapshots</id>
+            <username>admin</username>
+            <password>admin123</password>
+        </server>
+        <server>
+            <id>nexus-releases</id>
+            <username>admin</username>
+            <password>admin123</password>
+        </server>
+    </servers>
+
+    <mirrors>
+        <mirror>
+            <id>central</id>
+            <name>central</name>
+            <url>http://nexus:8081/repository/maven-group/</url>
+            <mirrorOf>*</mirrorOf>
+        </mirror>
+    </mirrors>
+
     <pluginGroups>
         <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
     </pluginGroups>
