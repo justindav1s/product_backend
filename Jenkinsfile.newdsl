@@ -4,10 +4,16 @@ pipeline {
   }
 
   stages {
-    stage('Build') {
+    stage('Maven Build') {
       steps{
-        echo "Doing the build"
+        echo "Doing the Maven build"
         sh "mvn -U -B -s settings.xml install deploy"
+      }
+    }
+    stage('Openshift Build') {
+      steps{
+        echo "Doing the Openshift Build"
+        def models = openshift.process( "templates/docker-bc.yml"
       }
     }
   }

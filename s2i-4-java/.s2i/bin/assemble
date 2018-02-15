@@ -15,17 +15,10 @@ if [[ "$1" == "-h" ]]; then
 	exec /usr/libexec/s2i/usage
 fi
 
-echo "---> Installing application source"
-cp -Rf /tmp/src/. ./
-
-echo "---> Building Spring Boot application from source"
+echo "---> Getting Spring Boot application from Nexus"
 echo "--> # MVN_ARGS = $MVN_ARGS"
 pwd
-#cd java-app
+
 pwd
-if [ -f "mvnw" ]; then
-  ./mvnw -B clean install $MVN_ARGS
-else
-  mvn -B clean install $MVN_ARGS
-fi
+./getartefact.sh ${NEXUS_SERVICE} ${NEXUS_PORT} ${GRP} ${ARTEFACT} ${VERSION} ${PACKAGING}
 

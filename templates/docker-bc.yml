@@ -1,0 +1,107 @@
+---
+kind: Template
+apiVersion: v1
+metadata:
+  name: docker-buildconfig
+  annotations:
+    openshift.io/display-name: A Docker Build Config template
+    tags: openshift,build,buildconfig,docker
+objects:
+- kind: BuildConfig
+  apiVersion: v1
+  metadata:
+    name: "${NAMESPACE}-docker-build"
+    labels:
+      app: "${NAMESPACE}"
+  spec:
+    triggers:
+    - type: ImageChange
+      imageChange: {}
+    - type: ConfigChange
+    source:
+      type: Git
+      git:
+        uri: "${SOURCE_REPOSITORY_URL}"
+        ref: "${SOURCE_REPOSITORY_REF}"
+    strategy:
+      dockerStrategy:
+        dockerfilePath: "${DOCKERFILE_PATH}/${DOCKERFILE_NAME}"
+        env:
+          - name: "DOCKERFILE_PATH"
+            value: "${DOCKERFILE_PATH}"
+    output:
+      to:
+        kind: "ImageStreamTag"
+        name: "${S2I_IMAGESTREAM}:latest"
+    resources: {}
+    postCommit: {}
+- kind: BuildConfig
+  apiVersion: v1
+  metadata:
+    name: "${NAMESPACE}-docker-build-pipeline"
+    labels:
+      app: "${NAMESPACE}"
+  spec:
+    triggers:
+    - type: ImageChange
+      imageChange: {}
+    - type: ConfigChange
+    source:
+      type: Git
+      git:
+        uri: "${SOURCE_REPOSITORY_URL}"
+        ref: "${SOURCE_REPOSITORY_REF}"
+    strategy:
+      jenkinsPipelineStrategy:
+        jenkinsfilePath: "${JENKINSFILE}"
+        env:
+        - name: APPLICATION_NAME
+          value: "${APPLICATION_NAME}"
+        - name: APPLICATION_TYPE
+          value: "${APPLICATION_TYPE}"
+        - name: NAMESPACE
+          value: "${NAMESPACE}"
+- kind: ImageStream
+  apiVersion: v1
+  metadata:
+    name: "${S2I_IMAGESTREAM}"
+    labels:
+      app: "${NAMESPACE}"
+parameters:
+- name: NAMESPACE
+  description: The namespace target for the build
+  required: true
+- name: S2I_IMAGESTREAM
+  description: The name of the the image
+  value: "s2i-4-java"
+  required: true
+- name: APPLICATION_NAME
+  description: The name of the environment. eg. product,basket ....
+  value: "dev"
+  required: true
+- name: APPLICATION_TYPE
+  description: The name of the application type, eg webapp, service, database
+  value: "services"
+  required: true
+- description: Git source URI for application
+  name: SOURCE_REPOSITORY_URL
+  value: "https://github.com/justindav1s/simple-java-service.git"
+  required: true
+- description: Git branch/tag reference
+  name: SOURCE_REPOSITORY_REF
+  value: "master"
+  required: false
+- name: DOCKERFILE_PATH
+  displayName: Dockerfile path
+  description: Path within Git Repo wehere Dockerfile can be found.
+  value: "s2i-4-java"
+  required: true
+- name: DOCKERFILE_NAME
+  displayName: Dockerfile name
+  description: Name of Dockerfile.
+  value: "Dockfile.ocp"
+- name: JENKINSFILE
+  displayName: Dockerfile path
+  description: Path within Git Repo wehere Dockerfile can be found.
+  value: "ocp/pipelines/Jenkinsfile.dockerbuild.groovy"
+  required: true
