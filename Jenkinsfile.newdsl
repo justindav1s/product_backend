@@ -13,8 +13,9 @@ pipeline {
     stage('Openshift Build') {
       steps{
         echo "Doing the Openshift Build"
-        def models = openshift.process( "templates/docker-bc.yml"
+        def models = openshift.process( "templates/docker-bc.yml" )
       }
     }
+
   }
 }
