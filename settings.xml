@@ -22,6 +22,7 @@
         </mirror>
     </mirrors>
 
+
     <pluginGroups>
         <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
     </pluginGroups>
