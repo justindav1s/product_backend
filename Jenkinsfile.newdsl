@@ -7,7 +7,7 @@ pipeline {
     stage('Build') {
       steps{
         echo "Doing the build"
-        sh "mvn -B install"
+        sh "mvn -B -s settings.xml install sonar:sonar"
       }
     }
   }
