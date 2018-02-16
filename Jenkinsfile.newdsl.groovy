@@ -7,7 +7,7 @@ pipeline {
     stage('Maven Build') {
       steps{
         echo "Doing the Maven build"
-        sh "mvn -U -B -s settings.xml install sonar:sonar deploy -Dsonar.login=ce60f9d40cba6f25ab731fbc2384e1f691a11c48"
+        sh "mvn -U -B -s settings.xml install deploy"
       }
     }
 
