@@ -20,12 +20,13 @@ public class TestController {
 
 
     @RequestMapping(value = "/echo/{echoStr}", method = RequestMethod.GET)
-    ResponseEntity<> echo(@PathVariable String echoStr) {
+    ResponseEntity<Response> echo(@PathVariable String echoStr) {
 
         log.debug("Echo : "+echoStr);
 
         Response r = new Response();
         r.setDate(new Date().toString());
+        //r.setPrincipal(currentUser.getName());
         r.setEchoing(echoStr);
         r.setMessage("Looks like everything is OK");
 
