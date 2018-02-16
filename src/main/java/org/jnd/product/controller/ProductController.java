@@ -18,6 +18,8 @@ import javax.annotation.PostConstruct;
 @RequestMapping("/product")
 public class ProductController {
 
+    public static final String PRODUCT = "product";
+    public static final String GET = "get";
     private Log log = LogFactory.getLog(ProductController.class);
 
     @Autowired
@@ -50,11 +52,9 @@ public class ProductController {
     @RequestMapping(value = "/{productId}", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<Product> get(@PathVariable String productId, @RequestHeader HttpHeaders headers) {
 
-        String[] args = { ProductController.class.getName(), "get", "product", productId };
-        String[] keys = { "keycloak_name", "keycloak_email", "x-forwarded-for", "keycloak_username", "keycloak_subject" };
+        String[] args = { ProductController.class.getName(), GET, PRODUCT, productId };
 
         log.debug("Product get : "+productId);
-        log.debug(InfoLineBuilder.getLine(args, headers, keys));
 
         Product product = repository.get(productId);
 
@@ -64,11 +64,9 @@ public class ProductController {
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<Object[]> getAll(@RequestHeader HttpHeaders headers) {
 
-        String[] args = { ProductController.class.getName(), "get", "product", "all" };
-        String[] keys = { "keycloak_name", "keycloak_email", "x-forwarded-for", "keycloak_username", "keycloak_subject" };
+        String[] args = { ProductController.class.getName(), GET, PRODUCT, "all" };
 
         log.debug("Product get All");
-        log.debug(InfoLineBuilder.getLine(args, headers, keys));
 
         Object[] products = repository.values().toArray();
 
@@ -78,14 +76,12 @@ public class ProductController {
     @RequestMapping(value = "/create/{productId}/{productName}", method = RequestMethod.POST, produces = "application/json")
     ResponseEntity<Object[]> create(@PathVariable String productId, @PathVariable String productName, @RequestHeader HttpHeaders headers) {
 
-        String[] args = { ProductController.class.getName(), "get", "product", "all" };
-        String[] keys = { "keycloak_name", "keycloak_email", "x-forwarded-for", "keycloak_username", "keycloak_subject" };
+        String[] args = { ProductController.class.getName(), GET, PRODUCT, "all" };
 
         Product p = new Product(productId, productName);
         repository.put(productId, p);
 
         log.debug("Product Create");
-        log.debug(InfoLineBuilder.getLine(args, headers, keys));
 
         Object[] products = repository.values().toArray();
 

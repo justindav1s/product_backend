@@ -2,7 +2,6 @@ package org.jnd.model.trace;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jnd.product.controller.ProductController;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
