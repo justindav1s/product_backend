@@ -34,7 +34,7 @@ public class Basket {
         return products;
     }
 
-    public void setProducts(ArrayList<Product> items) {
+    public void setProducts(List<Product> items) {
         this.products = items;
     }
 
