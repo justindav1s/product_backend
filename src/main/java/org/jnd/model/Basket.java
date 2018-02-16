@@ -17,7 +17,6 @@ public class Basket {
 
     public Basket(String id) {
         this.id = id;
-        products = new ArrayList<>();
     }
 
     private ArrayList<Product> products = new ArrayList<>();
