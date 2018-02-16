@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by justin on 13/10/2015.
@@ -19,7 +20,7 @@ public class Basket {
         this.id = id;
     }
 
-    private ArrayList<Product> products = new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -29,12 +30,12 @@ public class Basket {
         this.id = id;
     }
 
-    public ArrayList<Product> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 
     public void setProducts(ArrayList<Product> items) {
-        this.products = products;
+        this.products = items;
     }
 
     @Override
