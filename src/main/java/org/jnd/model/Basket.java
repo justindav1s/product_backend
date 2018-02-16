@@ -19,7 +19,7 @@ public class Basket {
         this.id = id;
     }
 
-    private ArrayList<Product> products = new ArrayList<>();
+    private ArrayList<> products = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -29,11 +29,11 @@ public class Basket {
         this.id = id;
     }
 
-    public ArrayList<Product> getProducts() {
+    public ArrayList<> getProducts() {
         return products;
     }
 
-    public void setProducts(ArrayList<Product> items) {
+    public void setProducts(ArrayList<> items) {
         this.products = products;
     }
 
