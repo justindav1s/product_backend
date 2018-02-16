@@ -26,7 +26,6 @@ public class TestController {
 
         Response r = new Response();
         r.setDate(new Date().toString());
-        //r.setPrincipal(currentUser.getName());
         r.setEchoing(echoStr);
         r.setMessage("Looks like everything is OK");
 
