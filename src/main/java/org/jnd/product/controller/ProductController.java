@@ -2,7 +2,6 @@ package org.jnd.product.controller;
 
 import org.jnd.product.repository.ProductRepository;
 import org.jnd.model.Product;
-import org.jnd.model.trace.InfoLineBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,6 @@ import javax.annotation.PostConstruct;
 @RequestMapping("/product")
 public class ProductController {
 
-    public static final String PRODUCT = "product";
-    public static final String GET = "get";
     private Log log = LogFactory.getLog(ProductController.class);
 
     @Autowired
@@ -52,31 +49,26 @@ public class ProductController {
     @RequestMapping(value = "/{productId}", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<Product> get(@PathVariable String productId, @RequestHeader HttpHeaders headers) {
 
-        String[] args = { ProductController.class.getName(), GET, PRODUCT, productId };
 
         log.debug("Product get : "+productId);
 
         Product product = repository.get(productId);
 
-        return new ResponseEntity<Product>(product, HttpStatus.OK);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<Object[]> getAll(@RequestHeader HttpHeaders headers) {
 
-        String[] args = { ProductController.class.getName(), GET, PRODUCT, "all" };
-
         log.debug("Product get All");
 
         Object[] products = repository.values().toArray();
 
-        return new ResponseEntity<Object[]>(products, HttpStatus.OK);
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/create/{productId}/{productName}", method = RequestMethod.POST, produces = "application/json")
     ResponseEntity<Object[]> create(@PathVariable String productId, @PathVariable String productName, @RequestHeader HttpHeaders headers) {
-
-        String[] args = { ProductController.class.getName(), GET, PRODUCT, "all" };
 
         Product p = new Product(productId, productName);
         repository.put(productId, p);
@@ -85,6 +77,6 @@ public class ProductController {
 
         Object[] products = repository.values().toArray();
 
-        return new ResponseEntity<Object[]>(products, HttpStatus.OK);
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 }

@@ -24,6 +24,8 @@ public class InfoLineBuilder {
         }
     }
 
+    private InfoLineBuilder() {}
+
     public static String getLine(String[] args, Map<String,List<String>> map, String[] keys)   {
        StringBuilder builder = new StringBuilder();
 
