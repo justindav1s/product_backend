@@ -13,8 +13,6 @@ public class Product {
     private String id;
     private String name = null;
 
-    private Product() {}
-
     public Product(String id, String name) {
         this.id = id;
         this.name = name;

@@ -13,8 +13,6 @@ public class Order {
     private Payment payment = null;
     private Boolean confirmed = false;
 
-    public Order() {}
-
     public String getId() {
         return id;
     }

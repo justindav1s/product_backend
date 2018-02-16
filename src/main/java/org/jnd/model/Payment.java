@@ -15,8 +15,6 @@ public class Payment {
     private String expiry =null;
     private String cvc = null;
 
-    public Payment() {}
-
     public String getCardType() {
         return cardType;
     }
