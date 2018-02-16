@@ -15,9 +15,9 @@ pipeline {
     stage('Sonar Analysis') {
       steps {
         echo "Doing the Sonar Analysis"
-        sh "mvn sonar:sonar \\\n" +
+        sh "mvn -B sonar:sonar \\\n" +
                 "  -Dsonar.host.url=https://sonarqube-cicd.apps.ocp.datr.eu \\\n" +
-                "  -Dsonar.login=ce60f9d40cba6f25ab731fbc2384e1f691a11c48"
+                "  -Dsonar.login=a4238b69e9c491ca39a810e87e9e43327e1841e4"
       }
     }
 
