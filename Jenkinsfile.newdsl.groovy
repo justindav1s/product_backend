@@ -30,7 +30,7 @@ pipeline {
                       echo "Hello from project ${openshift.project()} in cluster ${openshift.cluster()}"
                   }
                   // But we can easily change project contexts
-                  openshift.withProject( 'test' ) {
+                  openshift.withProject( 'cicd' ) {
                       echo "Hello from a non-default project: ${openshift.project()}"
                       openshift.newApp("https://raw.githubusercontent.com/siamaksade/mapit-spring/master/mapit-template.yaml")
                   }
