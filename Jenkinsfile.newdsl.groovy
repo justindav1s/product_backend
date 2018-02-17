@@ -21,16 +21,16 @@ pipeline {
       }
     }
 
-//    stage('Openshift Build') {
-//      steps{
-//        echo "Doing the Openshift Build"
-//        script {
-//            openshift.withCluster() {
-//                def models = openshift.create( "templates/docker-bc.yml" )
-//            }
-//        }
-//      }
-//    }
+    stage('Openshift Build') {
+      steps{
+        echo "Doing the Openshift Build"
+        script {
+            openshift.withCluster() {
+                def models = openshift.create( "templates/docker-bc.yml" )
+            }
+        }
+      }
+    }
 
   }
 }
