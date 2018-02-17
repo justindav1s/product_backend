@@ -29,7 +29,7 @@ pipeline {
                   // But we can easily change project contexts
                   openshift.withProject( 'jenkins' ) {
                       echo "Hello from a non-default project: ${openshift.project()}"
-                      openshift.newApp("https://raw.githubusercontent.com/siamaksade/mapit-spring/master/mapit-template.yaml")
+                      openshift.newApp("https://raw.githubusercontent.com/siamaksade/mapit-spring/master/mapit-template.yaml", "--strategy=pipeline")
                   }
               }
           }
