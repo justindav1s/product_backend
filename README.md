@@ -14,5 +14,5 @@ mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get \
 
 curl https://justin-admin:04aa8e41ad277bda62e6b584e918a037@jenkins-cicd.apps.ocp.datr.eu/job/test/build?token=12jnd34
 
-curl https://justin-admin:69e0e1e99466af7532b4d21731523536@jenkins-cicd.apps.ocp.datr.eu/job/product_backend/build?token=product_backend
+curl https://justin-admin:2aec819fed47c83e80a2ed50b7cb69e0@jenkins-cicd.apps.ocp.datr.eu/job/product_backend/build?token=product
 

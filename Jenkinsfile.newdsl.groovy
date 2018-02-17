@@ -24,11 +24,13 @@ pipeline {
     stage('Openshift Build') {
       steps{
         echo "Doing the Openshift Build"
-        openshift.withCluster() {
-          openshift.withProject( 'cicd' ) {
-            echo "Hello from project ${openshift.project()} in cluster ${openshift.cluster()}"
+          script {
+              openshift.withCluster() {
+                  openshift.withProject('cicd') {
+                      echo "Hello from project ${openshift.project()} in cluster ${openshift.cluster()}"
+                  }
+              }
           }
-        }
       }
     }
 
