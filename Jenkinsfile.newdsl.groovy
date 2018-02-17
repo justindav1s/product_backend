@@ -29,6 +29,10 @@ pipeline {
                   openshift.withProject('cicd') {
                       echo "Hello from project ${openshift.project()} in cluster ${openshift.cluster()}"
                   }
+                  // But we can easily change project contexts
+                  openshift.withProject( 'test' ) {
+                      echo "Hello from a non-default project: ${openshift.project()}"
+                  }
               }
           }
       }
