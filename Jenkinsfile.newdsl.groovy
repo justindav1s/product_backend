@@ -17,7 +17,7 @@ pipeline {
         echo "Doing the Sonar Analysis"
         sh "mvn -B sonar:sonar \\\n" +
                 "  -Dsonar.host.url=https://sonarqube-cicd.apps.ocp.datr.eu \\\n" +
-                "  -Dsonar.login=a4238b69e9c491ca39a810e87e9e43327e1841e4"
+                "  -Dsonar.login=3a520d0add2d09c66a38a9837e73962c613b802d"
       }
     }
 
