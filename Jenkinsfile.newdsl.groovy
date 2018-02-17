@@ -24,10 +24,10 @@ pipeline {
     stage('Openshift Build') {
       steps{
         echo "Doing the Openshift Build"
-        script {
-            openshift.withCluster() {
-                def models = openshift.create( "templates/docker-bc.yml" )
-            }
+        openshift.withCluster() {
+          openshift.withProject( 'cicd' ) {
+            echo "Hello from project ${openshift.project()} in cluster ${openshift.cluster()}"
+          }
         }
       }
     }
