@@ -1,0 +1,10 @@
+/projects/product_backend/src/main/java/org/jnd/model/trace/InfoLineBuilder.java
+/projects/product_backend/src/main/java/org/jnd/model/Payment.java
+/projects/product_backend/src/main/java/org/jnd/model/Product.java
+/projects/product_backend/src/main/java/org/jnd/model/Basket.java
+/projects/product_backend/src/main/java/org/jnd/product/repository/ProductRepository.java
+/projects/product_backend/src/main/java/org/jnd/product/controller/ConfigController.java
+/projects/product_backend/src/main/java/org/jnd/product/controller/ProductController.java
+/projects/product_backend/src/main/java/org/jnd/product/controller/TestController.java
+/projects/product_backend/src/main/java/org/jnd/model/Order.java
+/projects/product_backend/src/main/java/org/jnd/product/ProductApplication.java

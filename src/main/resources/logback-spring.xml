@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="LOG_FILE" value="/log/spring.log"/>
-    <include resource="org/springframework/boot/logging/logback/base.xml"/>
-
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/log/simple.%d{yyyy-MM-dd}.log</fileNamePattern>
-        </rollingPolicy>
-
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%relative [%thread] %level %logger - %msg%n</pattern>
+            <pattern>%-5relative %-5level %logger{35} - %msg%n</pattern>
         </encoder>
     </appender>
-
-
+    
     <logger name="org.springframework.web" level="INFO"/>
     <logger name="org.springframework.boot" level="INFO"/>
     <logger name="org.mongodb" level="ERROR"/>
@@ -23,7 +14,7 @@
     <logger name="org.springframework" level="INFO"/>
 
     <root level="INFO">
-        <appender-ref ref="FILE" />
+        <appender-ref ref="STDOUT" />
     </root>
 
 </configuration>
