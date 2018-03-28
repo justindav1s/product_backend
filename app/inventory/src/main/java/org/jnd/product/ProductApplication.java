@@ -8,6 +8,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Properties;
+
 @ComponentScan
 @SpringBootApplication(scanBasePackages={"org.jnd"})
 @RestController
@@ -16,6 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-        SpringApplication.run(ProductApplication.class, args);
+        SpringApplication app = new SpringApplication(ProductApplication.class);
+        Properties p = new Properties();
+        p.setProperty("logging.level.org.springframework", "INFO");
+        app.setDefaultProperties(p);
+
+        app.run(ProductApplication.class, args);
     }
 }

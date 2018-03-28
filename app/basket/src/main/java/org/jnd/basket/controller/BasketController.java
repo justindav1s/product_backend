@@ -42,8 +42,9 @@ public class BasketController {
         log.debug("Create");
 
         //log.debug("ProductApi: User={}, Auth={}, called with productId={}", currentUser.getName(), authorizationHeader, basketId);
-        basketRepository.insert(new Basket(basketId));
-        Basket basket = basketRepository.findOne(basketId);
+        Basket basket = new Basket(basketId);
+        basketRepository.put(basketId, basket);
+        basket = basketRepository.get(basketId);
         return new ResponseEntity<>(basket, null, HttpStatus.CREATED);
     }
 
@@ -54,7 +55,7 @@ public class BasketController {
         log.debug(InfoLineBuilder.getLine(args, headers, keys));
 
         log.debug("Remove Basket#"+basketId);
-        basketRepository.delete(basketId);
+//        basketRepository.delete(basketId);
         return new ResponseEntity<>(null, null, HttpStatus.GONE);
     }
 
@@ -65,7 +66,7 @@ public class BasketController {
         log.debug(InfoLineBuilder.getLine(args, headers, keys));
 
         log.debug("Clearing all Baskets");
-        basketRepository.deleteAll();
+//        basketRepository.deleteAll();
         return new ResponseEntity<>(null, null, HttpStatus.GONE);
     }
 
@@ -79,7 +80,7 @@ public class BasketController {
         log.debug("Basket #"+basketId+" Add Product#"+productId);
 
         Product product = productrepository.getProduct(productId);
-        Basket basket = basketRepository.findOne(basketId);
+        Basket basket = basketRepository.get(basketId);
         if (basket.getProducts() != null) {
             basket.getProducts().add(product);
         }
@@ -87,8 +88,7 @@ public class BasketController {
             basket.setProducts(new ArrayList<>());
             basket.getProducts().add(product);
         }
-        basketRepository.save(basket);
-        basket = basketRepository.findOne(basketId);
+        basket.getProducts().add(product);
         return new ResponseEntity<>(basket, null, HttpStatus.OK);
     }
 
@@ -101,12 +101,10 @@ public class BasketController {
         log.debug("Basket #"+basketId+" Add Product#"+productId);
 
         Product product = productrepository.getProduct(productId);
-        Basket basket = basketRepository.findOne(basketId);
+        Basket basket = basketRepository.get(basketId);
         if (basket.getProducts() != null) {
             basket.getProducts().remove(product);
         }
-        basketRepository.save(basket);
-        basket = basketRepository.findOne(basketId);
         return new ResponseEntity<>(basket, null, HttpStatus.OK);
     }
 
@@ -118,12 +116,11 @@ public class BasketController {
 
         log.debug("Basket #"+basketId+" Emptying");
 
-        Basket basket = basketRepository.findOne(basketId);
+        Basket basket = basketRepository.get(basketId);
         if (basket.getProducts() != null) {
             basket.getProducts().clear();
         }
-        basketRepository.save(basket);
-        basket = basketRepository.findOne(basketId);
+        basket = basketRepository.get(basketId);
         return new ResponseEntity<>(basket, null, HttpStatus.OK);
     }
 
@@ -136,14 +133,14 @@ public class BasketController {
 
         log.debug("Get basket : "+basketId);
 
-        Basket basket = basketRepository.findOne(basketId);
+        Basket basket = basketRepository.get(basketId);
 
         return new ResponseEntity<>(basket, null, HttpStatus.OK);
     }
 
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    ResponseEntity<List<Basket>>  list(@RequestHeader HttpHeaders headers) {
+    ResponseEntity<Object>  list(@RequestHeader HttpHeaders headers) {
 
         String[] args = { BasketController.class.getName(), "list", "basket" };
         log.debug(InfoLineBuilder.getLine(args, headers, keys));
@@ -151,7 +148,7 @@ public class BasketController {
 
         log.debug("List baskets");
 
-        List<Basket> baskets = basketRepository.findAll();
+        Object[] baskets = basketRepository.entrySet().toArray();
 
         return new ResponseEntity<>(baskets, null, HttpStatus.OK);
     }
