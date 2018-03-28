@@ -1,19 +1,20 @@
-package org.jnd.model;
+package org.jnd.microservices.model;
 
-import org.springframework.data.annotation.Id;
+
 
 /**
  * Created by justin on 13/10/2015.
  */
 public class Payment {
 
-    @Id
     private String id;
     private String cardType = null;
     private String cardNum = null;
     private String cardName = null;
     private String expiry =null;
     private String cvc = null;
+
+    public Payment() {}
 
     public String getCardType() {
         return cardType;

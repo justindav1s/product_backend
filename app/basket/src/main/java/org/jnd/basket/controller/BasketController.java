@@ -1,14 +1,13 @@
-package com.ib.booking.basket.controller;
+package org.jnd.basket.controller;
 
-import com.ib.booking.basket.proxies.ProductRepositoryProxy;
-import com.ib.booking.basket.repositories.BasketRepository;
-import com.ib.commercial.model.Basket;
-import com.ib.commercial.model.Product;
-import com.ib.commercial.trace.InfoLineBuilder;
+import org.jnd.basket.proxies.ProductRepositoryProxy;
+import org.jnd.basket.repositories.BasketRepository;
+import org.jnd.microservices.model.Basket;
+import org.jnd.microservices.model.Product;
+import org.jnd.microservices.trace.InfoLineBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.cloud.security.oauth2.resource.EnableOAuth2Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +21,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/basket")
-//@EnableOAuth2Resource
 public class BasketController {
 
     private static final Logger log = LoggerFactory.getLogger(BasketController.class);

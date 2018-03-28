@@ -1,6 +1,5 @@
-package com.ib.booking.basket.proxies;
+package org.jnd.basket.proxies;
 
-import com.ib.booking.basket.controller.BasketController;
 import com.ib.commercial.model.Product;
 import com.ib.commercial.trace.InfoLineBuilder;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;

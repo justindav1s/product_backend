@@ -1,11 +1,9 @@
-package org.jnd.model;
+package org.jnd.microservices.model;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by justin on 13/10/2015.
@@ -13,14 +11,14 @@ import java.util.List;
 public class Basket {
 
 
-    @Id
     private String id;
 
     public Basket(String id) {
         this.id = id;
+        products = new ArrayList<Product>();
     }
 
-    private List<Product> products = new ArrayList<>();
+    private ArrayList<Product> products = new ArrayList<Product>();
 
     public String getId() {
         return id;
@@ -30,12 +28,12 @@ public class Basket {
         this.id = id;
     }
 
-    public List<Product> getProducts() {
+    public ArrayList<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> items) {
-        this.products = items;
+    public void setProducts(ArrayList<Product> items) {
+        this.products = products;
     }
 
     @Override

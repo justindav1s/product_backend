@@ -1,4 +1,4 @@
-package com.ib.booking.basket.controller;
+package org.jnd.basket.controller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

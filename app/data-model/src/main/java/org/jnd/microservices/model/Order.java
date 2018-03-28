@@ -1,17 +1,17 @@
-package org.jnd.model;
+package org.jnd.microservices.model;
 
-import org.springframework.data.annotation.Id;
 
 /**
  * Created by justin on 13/10/2015.
  */
 public class Order {
 
-    @Id
     private String id;
     private Basket basket = null;
     private Payment payment = null;
     private Boolean confirmed = false;
+
+    public Order() {}
 
     public String getId() {
         return id;

@@ -1,17 +1,17 @@
-package org.jnd.model;
+package org.jnd.microservices.model;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.springframework.data.annotation.Id;
 
 /**
  * Created by justin on 13/10/2015.
  */
 public class Product {
 
-    @Id
     private String id;
     private String name = null;
+
+    private Product() {}
 
     public Product(String id, String name) {
         this.id = id;

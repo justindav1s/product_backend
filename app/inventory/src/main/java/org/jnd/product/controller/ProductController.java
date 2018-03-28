@@ -1,7 +1,7 @@
 package org.jnd.product.controller;
 
 import org.jnd.product.repository.ProductRepository;
-import org.jnd.model.Product;
+import org.jnd.microservices.model.Product;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;

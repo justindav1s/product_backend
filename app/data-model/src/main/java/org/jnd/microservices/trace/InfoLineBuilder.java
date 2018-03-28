@@ -1,7 +1,4 @@
-package org.jnd.model.trace;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+package org.jnd.microservices.trace;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -13,18 +10,14 @@ import java.util.Map;
  */
 public class InfoLineBuilder {
 
-    private static Log log = LogFactory.getLog(InfoLineBuilder.class);
-
     private static String hostname = null;
     static {
         try {
             hostname = InetAddress.getLocalHost().getHostName();
         } catch (UnknownHostException e) {
-            log.error(e);
+            e.printStackTrace();
         }
     }
-
-    private InfoLineBuilder() {}
 
     public static String getLine(String[] args, Map<String,List<String>> map, String[] keys)   {
        StringBuilder builder = new StringBuilder();

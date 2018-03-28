@@ -1,6 +1,6 @@
 package org.jnd.product;
 
-import org.jnd.model.Product;
+import org.jnd.microservices.model.Product;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jnd.product.controller.ProductController;

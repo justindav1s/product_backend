@@ -1,4 +1,4 @@
-package com.ib.booking.basket;
+package org.jnd.basket;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

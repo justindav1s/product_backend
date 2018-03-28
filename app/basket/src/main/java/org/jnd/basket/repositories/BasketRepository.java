@@ -1,4 +1,4 @@
-package org.jnd.product.repository;
+package org.jnd.basket.repositories;
 
 import org.jnd.microservices.model.Product;
 import org.springframework.stereotype.Component;
@@ -8,7 +8,7 @@ import java.util.HashMap;
 /**
  * Created by justin on 13/10/2015.
  */
-@Component("ProductRepository")
-public abstract class ProductRepository extends HashMap<String, Product>{
+@Component("BasketRepositoryRepository")
+public abstract class BasketRepository extends HashMap<String, Product>{
 
 }
