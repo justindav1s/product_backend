@@ -9,7 +9,7 @@ import java.util.HashMap;
 /**
  * Created by justin on 13/10/2015.
  */
-@Component("BasketRepositoryRepository")
-public abstract class BasketRepository extends HashMap<String, Basket>{
+@Component("BasketRepository")
+public class BasketRepository extends HashMap<String, Basket>{
 
 }

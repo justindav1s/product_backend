@@ -19,9 +19,7 @@ public class ProductRepositoryProxy {
 
     private Log log = LogFactory.getLog(ProductRepositoryProxy.class);
 
-
-    @Autowired
-    private RestTemplate loadBalancedRestTemplate;
+    private RestTemplate restTemplate = new RestTemplate();;
 
     public Product getProduct(String id) {
 
@@ -30,7 +28,7 @@ public class ProductRepositoryProxy {
 
 
         ResponseEntity<Product> exchange =
-                this.loadBalancedRestTemplate.exchange(
+                this.restTemplate.exchange(
                         "http://product/product/{id}",
                         HttpMethod.GET,
                         null,
