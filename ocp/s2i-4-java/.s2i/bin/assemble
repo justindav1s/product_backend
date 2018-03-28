@@ -20,5 +20,5 @@ echo "--> # MVN_ARGS = $MVN_ARGS"
 pwd
 
 pwd
-./getartefact.sh ${NEXUS_SERVICE} ${NEXUS_PORT} ${GRP} ${ARTEFACT} ${VERSION} ${PACKAGING}
+getartefact.sh ${NEXUS_SERVICE} ${NEXUS_PORT} ${GRP} ${ARTEFACT} ${VERSION} ${PACKAGING}
 

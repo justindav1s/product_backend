@@ -39,7 +39,7 @@ ENV MAVEN_HOME /usr/share/maven
 
 RUN mkdir -p /usr/libexec/s2i
 
-COPY ./.s2i/bin/ /usr/libexec/s2i
+COPY .s2i/bin /usr/libexec/s2i
 
 RUN groupadd -r service && useradd -u 1001 -g service service
 
