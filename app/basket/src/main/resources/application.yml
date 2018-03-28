@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+spring:
+  oauth2:
+    resource:
+      userInfoUri: http://${DOCKER_MACHINE_ADDR}:9080/auth/realms/master/protocol/openid-connect/userinfo
+  data:
+    mongodb:
+      host: data_mongo_1
+      port : 27017
+  cloud:
+    config:
+      discovery:
+        enabled: true
+
+eureka:
+  client:
+    registryFetchIntervalSeconds: 3
+    serviceUrl:
+      defaultZone: http://eureka:8761/eureka/
+    healthcheck:
+      enabled: true
+  instance:
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 5
+
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+
+ribbon:
+  eureka:
+    enabled: true
+
+
