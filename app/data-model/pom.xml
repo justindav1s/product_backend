@@ -12,6 +12,15 @@
 
     <name>data-model</name>
 
+    <distributionManagement>
+        <repository>
+            <id>nexus</id>
+            <name>Nexus</name>
+            <url>https://nexus-cicd.apps.ocp.datr.eu</url>
+        </repository>
+    </distributionManagement>
+
+
     <dependencies>
 
         <dependency>

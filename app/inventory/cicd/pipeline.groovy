@@ -38,7 +38,7 @@ node('maven') {
         // Publish the built war file to Nexus
         stage('Publish to Nexus') {
             echo "Publish to Nexus"
-            sh "mvn -U -B -s ../settings.xml deploy -DskipTests -DaltDeploymentRepository=nexus-snapshots::default::${nexus_url}"
+            sh "mvn -U -B -s ../settings.xml deploy -DskipTests"
         }
 
     }
