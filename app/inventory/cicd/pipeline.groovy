@@ -7,8 +7,6 @@ node('maven') {
         dir path: "app/inventory"
     }
 
-    def approval_required = true
-
     def dev_project  = "${org}-dev"
     def prod_project = "${org}-prod"
     def app_url_dev  = "http://${app_name}.${dev_project}.svc:8080"
@@ -22,8 +20,6 @@ node('maven') {
 
     stage('Build war') {
         echo "Building version ${version}"
-        pwd
-        sh "ls -ltr"
         sh "mvn -U -B -q -s ../settings.xml clean package -DskipTests"
     }
 
