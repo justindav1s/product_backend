@@ -44,19 +44,12 @@ public class ProductRepositoryProxy {
         return resp;
     }
 
-    public Product getAllProducts() {
+    public Object getAllProducts() {
 
         String id = "all";
 
-        ResponseEntity<Product> exchange =
-                this.restTemplate.exchange(
-                        "http://inventory:8080/product/{id}",
-                        HttpMethod.GET,
-                        null,
-                        new ParameterizedTypeReference<Product>() {},
-                        id);
+        Object resp = restTemplate.getForObject("http://inventory:8080/product/all", Object.class);
 
-        Product resp = exchange.getBody();
         log.debug("Product Response : "+resp);
 
         if (resp == null)
