@@ -51,7 +51,7 @@ node('maven') {
             echo "Version : ${version}"
             echo "Packaging : ${packaging}"
 
-            sh "mvn -q -s settings.xml dependency:copy -DstripVersion=true -Dartifact=${groupId}:${artifactId}:${version}:${packaging} -DoutputDirectory=."
+            sh "mvn -q -s ../settings.xml dependency:copy -DstripVersion=true -Dartifact=${groupId}:${artifactId}:${version}:${packaging} -DoutputDirectory=."
             sh "cp \$(find . -type f -name \"${artifactId}-*.${packaging}\")  ${artifactId}.${packaging}"
             sh "pwd; ls -ltr"
             sh "oc start-build ${app_name} --follow --from-file=${artifactId}.${packaging} -n ${dev_project}"
