@@ -4,6 +4,9 @@ node('maven') {
 
     stage('Checkout Source') {
         git url: "${git_url}"
+    }
+
+    stage('Canging workspace location') {
         dir path: "app/inventory"
     }
 
