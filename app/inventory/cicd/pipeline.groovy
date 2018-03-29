@@ -4,6 +4,7 @@ node('maven') {
 
     stage('Checkout Source') {
         git url: "${git_url}"
+        dir path: "app/inventory"
     }
 
     def approval_required = true
@@ -21,7 +22,6 @@ node('maven') {
 
     stage('Build war') {
         echo "Building version ${version}"
-        dir path: "app/inventory"
         pwd
         sh "ls -ltr"
         sh "mvn -U -B -q -s ../settings.xml clean package -DskipTests"
