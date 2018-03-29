@@ -10,15 +10,15 @@ node('maven') {
         dir path: "app/inventory"
     }
 
-    def dev_project  = "${org}-dev"
-    def prod_project = "${org}-prod"
-    def app_url_dev  = "http://${app_name}.${dev_project}.svc:8080"
-    def groupId      = getGroupIdFromPom("pom.xml")
-    def artifactId   = getArtifactIdFromPom("pom.xml")
-    def version      = getVersionFromPom("pom.xml")
-    def packaging    = getPackagingFromPom("pom.xml")
-    def sonar_url    = "http://sonarqube.cicd.svc:9000"
-    def nexus_url    = "http://nexus.cicd.svc:8081/repository/maven-snapshots"
+//    def dev_project  = "${org}-dev"
+//    def prod_project = "${org}-prod"
+//    def app_url_dev  = "http://${app_name}.${dev_project}.svc:8080"
+//    def groupId      = getGroupIdFromPom("pom.xml")
+//    def artifactId   = getArtifactIdFromPom("pom.xml")
+//    def version      = getVersionFromPom("pom.xml")
+//    def packaging    = getPackagingFromPom("pom.xml")
+//    def sonar_url    = "http://sonarqube.cicd.svc:9000"
+//    def nexus_url    = "http://nexus.cicd.svc:8081/repository/maven-snapshots"
 
 
     stage('Build war') {
