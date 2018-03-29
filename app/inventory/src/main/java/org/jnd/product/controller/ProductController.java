@@ -57,7 +57,7 @@ public class ProductController {
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<Object[]> getAll(@RequestHeader HttpHeaders headers) {
 
         log.debug("Product get All");

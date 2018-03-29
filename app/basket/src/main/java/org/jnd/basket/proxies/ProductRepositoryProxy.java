@@ -29,7 +29,7 @@ public class ProductRepositoryProxy {
 
         ResponseEntity<Product> exchange =
                 this.restTemplate.exchange(
-                        "http://product/product/{id}",
+                        "http://inventory:8080/product/{id}",
                         HttpMethod.GET,
                         null,
                         new ParameterizedTypeReference<Product>() {},
@@ -44,5 +44,27 @@ public class ProductRepositoryProxy {
         return resp;
     }
 
+    public Product getAllProducts() {
+
+        String[] args = { ProductRepositoryProxy.class.getName(), "getProduct", "basket", id };
+        log.debug(InfoLineBuilder.getLine(args, null, null));
+
+
+        ResponseEntity<Product> exchange =
+                this.restTemplate.exchange(
+                        "http://inventory:8080/product/{id}",
+                        HttpMethod.GET,
+                        null,
+                        new ParameterizedTypeReference<Product>() {},
+                        id);
+
+        Product resp = exchange.getBody();
+        log.debug("Product Response : "+resp);
+
+        if (resp == null)
+            throw new RuntimeException();
+
+        return resp;
+    }
 
 }
