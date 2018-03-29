@@ -46,9 +46,7 @@ public class ProductRepositoryProxy {
 
     public Object getAllProducts() {
 
-        String id = "all";
-
-        Object resp = restTemplate.getForObject("http://inventory:8080/product/all", Object.class);
+        Object resp = restTemplate.getForObject("http://inventory:8080/product/", Object.class);
 
         log.debug("Product Response : "+resp);
 
