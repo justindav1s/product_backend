@@ -7,7 +7,7 @@ S2I_IMAGE=redhat-openjdk18-openshift:1.2
 
 #setup Jenkins Jobs
 JENKINS_USER=justin-admin
-JENKINS_TOKEN=ef09f2fdff580b687a6a05cad57c9429
+JENKINS_TOKEN=8d2dd9709fb7ebd87d77bf9d2ef4a1f1
 JENKINS=jenkins-cicd.apps.ocp.datr.eu
 
 CRUMB_JSON=$(curl -s "https://${JENKINS_USER}:${JENKINS_TOKEN}@${JENKINS}/crumbIssuer/api/json")
@@ -15,6 +15,13 @@ CRUMB_JSON=$(curl -s "https://${JENKINS_USER}:${JENKINS_TOKEN}@${JENKINS}/crumbI
 echo CRUMB_JSON=$CRUMB_JSON
 CRUMB=$(echo $CRUMB_JSON | jq -r .crumb)
 echo CRUMB=$CRUMB
+
+curl -v -H "Content-Type: text/xml" \
+  --user ${JENKINS_USER}:${JENKINS_TOKEN} \
+  -H Jenkins-Crumb:${CRUMB} \
+  -X POST https://${JENKINS}/job/amazin-inventory/doDelete
+
+sleep 5
 
 curl -v -H "Content-Type: text/xml" \
   --user ${JENKINS_USER}:${JENKINS_TOKEN} \

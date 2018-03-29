@@ -21,25 +21,25 @@ node('maven') {
 
     stage('Build war') {
         echo "Building version ${version}"
-        sh "mvn -U -q -s settings.xml clean package -DskipTests"
+        sh "cd app/inventory; mvn -U -B -q -s ../settings.xml clean package -DskipTests"
     }
 
     // Using Maven run the unit tests
     stage('Unit Tests') {
         echo "Running Unit Tests"
-        sh "mvn -B -s settings.xml test"
+        sh "cd app/inventory; mvn -U -B -q -s ../mvn -B -s settings.xml test"
     }
 
     // Using Maven call SonarQube for Code Analysis
     stage('Code Analysis') {
         echo "Running Code Analysis"
-        sh "mvn -q -s settings.xml sonar:sonar -DskipTests -Dsonar.host.url=${sonar_url}"
+        sh "cd app/inventory; mvn -U -B -q -s ../settings.xml sonar:sonar -DskipTests -Dsonar.host.url=${sonar_url}"
     }
 
     // Publish the built war file to Nexus
     stage('Publish to Nexus') {
         echo "Publish to Nexus"
-        sh "mvn -q -s settings.xml deploy -DskipTests -DaltDeploymentRepository=nexus::default::${nexus_url}"
+        sh "cd app/inventory; mvn -U -B -q -s ../settings.xml deploy -DskipTests -DaltDeploymentRepository=nexus::default::${nexus_url}"
     }
 
     //Build the OpenShift Image in OpenShift and tag it.
