@@ -48,10 +48,6 @@ public class ProductRepositoryProxy {
 
         String id = "all";
 
-        String[] args = { ProductRepositoryProxy.class.getName(), "getProduct", "basket", id };
-        log.debug(InfoLineBuilder.getLine(args, null, null));
-
-
         ResponseEntity<Product> exchange =
                 this.restTemplate.exchange(
                         "http://inventory:8080/product/{id}",
