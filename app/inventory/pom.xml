@@ -4,9 +4,9 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.jnd</groupId>
+	<groupId>org.jnd.microservices</groupId>
 	<artifactId>inventory</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>inventory</name>
