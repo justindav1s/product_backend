@@ -20,19 +20,19 @@ node('maven') {
 
         stage('Build jar') {
             echo "Building version : ${version}"
-            sh "mvn -U -B -s ../settings.xml clean package -DskipTests"
+            sh "mvn -U -B -q -s ../settings.xml clean package -DskipTests"
         }
 
         // Using Maven run the unit tests
         stage('Unit Tests') {
             echo "Running Unit Tests"
-            sh "mvn -U -B -s ../settings.xml test"
+            sh "mvn -U -B -q -s ../settings.xml test"
         }
 
         // Using Maven call SonarQube for Code Analysis
         stage('Code Analysis') {
             echo "Running Code Analysis"
-            sh "mvn -U -B -s ../settings.xml sonar:sonar -Dsonar.host.url=${sonar_url}"
+            sh "mvn -U -B -q -s ../settings.xml sonar:sonar -Dsonar.host.url=${sonar_url}"
         }
 
         // Publish the built war file to Nexus
