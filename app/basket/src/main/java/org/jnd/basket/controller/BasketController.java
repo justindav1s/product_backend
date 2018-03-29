@@ -153,4 +153,16 @@ public class BasketController {
         return new ResponseEntity<>(baskets, null, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/inventory", method = RequestMethod.GET)
+    ResponseEntity<Object> getInventory() {
+
+
+        log.debug("Basket inventory #");
+
+        Object inventory = productrepository.getAllProducts();
+        log.debug("Basket inventory : "+inventory);
+
+        return new ResponseEntity<>(inventory, null, HttpStatus.OK);
+    }
+
 }

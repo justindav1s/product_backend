@@ -46,6 +46,8 @@ public class ProductRepositoryProxy {
 
     public Product getAllProducts() {
 
+        String id = "all";
+
         String[] args = { ProductRepositoryProxy.class.getName(), "getProduct", "basket", id };
         log.debug(InfoLineBuilder.getLine(args, null, null));
 
