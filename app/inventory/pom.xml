@@ -15,7 +15,7 @@
 		<repository>
 			<id>nexus</id>
 			<name>Nexus</name>
-			<url>https://nexus-cicd.apps.ocp.datr.eu/repository/maven-public</url>
+			<url>https://nexus-cicd.apps.ocp.datr.eu/repository/maven-snapshots</url>
 		</repository>
 	</distributionManagement>
 
