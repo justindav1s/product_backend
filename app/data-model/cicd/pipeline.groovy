@@ -19,26 +19,26 @@ node('maven') {
         def nexus_url    = "http://nexus.cicd.svc:8081/repository/maven-snapshots"
 
         stage('Build jar') {
-            echo "Building version"
+            echo "Building version : ${version}"
             sh "mvn -U -B -q -s ../settings.xml clean package -DskipTests"
         }
 
         // Using Maven run the unit tests
         stage('Unit Tests') {
             echo "Running Unit Tests"
-            sh "mvn -U -B -q -s ../settings.xml test"
+            sh "mvn -U -B -s ../settings.xml test"
         }
 
         // Using Maven call SonarQube for Code Analysis
         stage('Code Analysis') {
             echo "Running Code Analysis"
-            sh "mvn -U -B -q -s ../settings.xml sonar:sonar -DskipTests -Dsonar.host.url=${sonar_url}"
+            sh "mvn -U -B -s ../settings.xml sonar:sonar -Dsonar.host.url=${sonar_url}"
         }
 
         // Publish the built war file to Nexus
         stage('Publish to Nexus') {
             echo "Publish to Nexus"
-            sh "mvn -U -B -q -s ../settings.xml deploy -DskipTests -DaltDeploymentRepository=nexus::default::${nexus_url}"
+            sh "mvn -U -B -s ../settings.xml deploy -DskipTests -DaltDeploymentRepository=nexus-snapshots::default::${nexus_url}"
         }
 
     }
