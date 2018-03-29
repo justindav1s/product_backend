@@ -20,7 +20,7 @@ node('maven') {
 
         stage('Build jar') {
             echo "Building version : ${version}"
-            sh "mvn -U -B -q -s ../settings.xml clean package -DskipTests"
+            sh "mvn -U -B -s ../settings.xml clean package -DskipTests"
         }
 
         // Using Maven run the unit tests
