@@ -50,7 +50,7 @@ node('maven') {
             echo "Artifact ID : ${artifactId}"
             echo "Version : ${version}"
             echo "Packaging : ${packaging}"
-
+            sh "mvn -U -B -q -s ../settings.xml clean"
             sh "mvn -q -s ../settings.xml dependency:copy -DstripVersion=true -Dartifact=${groupId}:${artifactId}:${version}:${packaging} -DoutputDirectory=."
             sh "cp \$(find . -type f -name \"${artifactId}-*.${packaging}\")  ${artifactId}.${packaging}"
             sh "pwd; ls -ltr"
