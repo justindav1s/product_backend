@@ -15,6 +15,7 @@ import javax.annotation.PostConstruct;
 
 @RestController
 @RequestMapping("/product")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ProductController {
 
     private Log log = LogFactory.getLog(ProductController.class);
