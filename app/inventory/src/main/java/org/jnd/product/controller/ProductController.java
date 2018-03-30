@@ -15,7 +15,6 @@ import javax.annotation.PostConstruct;
 
 @RestController
 @RequestMapping("/product")
-@CrossOrigin(origins = "http://localhost:4200")
 public class ProductController {
 
     private Log log = LogFactory.getLog(ProductController.class);
@@ -44,20 +43,7 @@ public class ProductController {
 
     }
 
-
-
-
-    @RequestMapping(value = "/{productId}", method = RequestMethod.GET, produces = "application/json")
-    ResponseEntity<Product> get(@PathVariable String productId, @RequestHeader HttpHeaders headers) {
-
-
-        log.debug("Product get : "+productId);
-
-        Product product = repository.get(productId);
-
-        return new ResponseEntity<>(product, HttpStatus.OK);
-    }
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<Object[]> getAll(@RequestHeader HttpHeaders headers) {
 
@@ -68,6 +54,22 @@ public class ProductController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(value = "/{productId}", method = RequestMethod.GET, produces = "application/json")
+    ResponseEntity<Product> get(@PathVariable Integer productId, @RequestHeader HttpHeaders headers) {
+
+
+        log.debug("Product get : "+productId);
+
+        Product product = repository.get(productId);
+
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
+
+
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(value = "/create/{productId}/{productName}", method = RequestMethod.POST, produces = "application/json")
     ResponseEntity<Object[]> create(@PathVariable String productId, @PathVariable String productName, @RequestHeader HttpHeaders headers) {
 
