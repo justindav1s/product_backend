@@ -69,7 +69,7 @@ public class ProductController {
         Product product = repository.get(productId);
         HttpHeaders responseheaders = new HttpHeaders();
         responseheaders.add("Access-Control-Allow-Origin", "http://localhost:4200");
-
+        log.debug("Added Headers "+responseheaders);
         return new ResponseEntity<>(product, responseheaders, HttpStatus.OK);
     }
 
