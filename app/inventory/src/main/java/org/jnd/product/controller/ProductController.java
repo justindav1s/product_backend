@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -43,7 +43,7 @@ public class ProductController {
 
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<Object[]> getAll(@RequestHeader HttpHeaders headers) {
 
@@ -55,7 +55,7 @@ public class ProductController {
     }
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin
     @RequestMapping(value = "/{productId}", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<Product> get(@PathVariable Integer productId, @RequestHeader HttpHeaders headers) {
 
@@ -69,7 +69,7 @@ public class ProductController {
 
 
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin
     @RequestMapping(value = "/create/{productId}/{productName}", method = RequestMethod.POST, produces = "application/json")
     ResponseEntity<Object[]> create(@PathVariable String productId, @PathVariable String productName, @RequestHeader HttpHeaders headers) {
 
