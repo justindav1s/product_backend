@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.swing.text.html.HTML;
 
 @CrossOrigin
 @RestController
@@ -51,7 +52,10 @@ public class ProductController {
 
         Object[] products = repository.values().toArray();
 
-        return new ResponseEntity<>(products, HttpStatus.OK);
+        HttpHeaders responseheaders = new HttpHeaders();
+        responseheaders.add("Access-Control-Allow-Origin", "http://localhost:4200");
+
+        return new ResponseEntity<>(products, responseheaders, HttpStatus.OK);
     }
 
 
@@ -63,8 +67,10 @@ public class ProductController {
         log.debug("Product get : "+productId);
 
         Product product = repository.get(productId);
+        HttpHeaders responseheaders = new HttpHeaders();
+        responseheaders.add("Access-Control-Allow-Origin", "http://localhost:4200");
 
-        return new ResponseEntity<>(product, HttpStatus.OK);
+        return new ResponseEntity<>(product, responseheaders, HttpStatus.OK);
     }
 
 
