@@ -101,7 +101,7 @@ public class ProductController {
 
         log.debug("Product get : "+productId);
 
-        Product product = repository.get(productId);
+        Product product = repository.get(Integer.toString(productId));
 
         return new ResponseEntity<>(product, HttpStatus.OK);
     }

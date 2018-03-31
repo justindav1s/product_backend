@@ -12,7 +12,7 @@ import { Location } from '@angular/common';
 })
 export class DetailsComponent implements OnInit {
 
-  products: Product;
+  product: Product;
 
   constructor(
     private inventoryService: InventoryService,
@@ -21,6 +21,12 @@ export class DetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.getProduct();
   }
 
+  getProduct(): void {
+    const productId = this.route.snapshot.paramMap.get('productId');
+    console.log("productId : " productId);
+    this.inventoryService.getProduct(productId).subscribe(product => this.product = product);
+  }
 }
