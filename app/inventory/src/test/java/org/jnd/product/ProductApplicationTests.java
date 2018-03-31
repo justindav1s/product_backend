@@ -3,6 +3,7 @@ package org.jnd.product;
 import org.jnd.microservices.model.Product;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jnd.microservices.model.ProductType;
 import org.jnd.product.controller.ProductController;
 import org.jnd.product.repository.ProductRepository;
 import org.junit.Test;
@@ -29,16 +30,26 @@ public class ProductApplicationTests {
 		log.debug("TESTING : Setting up repository");
 
 		if(repository.size() == 0) {
-			repository.put("1", new Product("1", "marmalade"));
-			repository.put("2", new Product("2", "milk"));
-			repository.put("3", new Product("3", "baked beans"));
-			repository.put("4", new Product("4", "bread"));
-			repository.put("5", new Product("5", "beef"));
-			repository.put("6", new Product("6", "chicken"));
-			repository.put("7", new Product("7", "coffee"));
-			repository.put("8", new Product("8", "tea"));
-			repository.put("9", new Product("9", "biscuits"));
-			repository.put("10", new Product("10", "cake"));
+			repository.put("1", new Product("1", "marmalade", ProductType.FOOD, 1.29f, 12));
+			repository.put("2", new Product("2", "milk", ProductType.FOOD, 0.83f, 20));
+			repository.put("3", new Product("3", "baked beans", ProductType.FOOD, 0.79f, 23));
+			repository.put("4", new Product("4", "bread", ProductType.FOOD, 1.09f, 80));
+			repository.put("5", new Product("5", "beef steak", ProductType.FOOD, 6.99f, 5));
+			repository.put("6", new Product("6", "chicken", ProductType.FOOD, 3.99f, 8));
+			repository.put("7", new Product("7", "coffee", ProductType.FOOD, 3.39f, 12));
+			repository.put("8", new Product("8", "tea", ProductType.FOOD, 1.29f, 72));
+			repository.put("9", new Product("9", "biscuits", ProductType.FOOD, 0.79f, 23));
+			repository.put("10", new Product("10", "cake", ProductType.FOOD, 2.79f, 15));
+
+			repository.put("11", new Product("11", "socks", ProductType.CLOTHES, 3.39f, 20));
+			repository.put("12", new Product("12", "jacket", ProductType.CLOTHES, 49.99f, 5));
+			repository.put("13", new Product("13", "shoes", ProductType.CLOTHES, 59.99f, 10));
+			repository.put("14", new Product("14", "hat", ProductType.CLOTHES, 20.99f, 2));
+
+			repository.put("15", new Product("15", "camera", ProductType.GADGET, 43.39f, 20));
+			repository.put("16", new Product("16", "tv", ProductType.GADGET, 499.99f, 5));
+			repository.put("17", new Product("17", "iPad", ProductType.GADGET, 599.99f, 10));
+			repository.put("18", new Product("18", "Robot", ProductType.GADGET, 99.99f, 2));
 		}
 
 	}
@@ -50,7 +61,7 @@ public class ProductApplicationTests {
 	@Test
 	public void loadAll() {
 		log.debug("TEST : loadAll");
-		assertTrue(repository.size() == 10);
+		assertTrue(repository.size() == 18);
 		log.debug("TEST : Product count : "+repository.size());
 		repository.clear();
 	}

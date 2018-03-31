@@ -10,12 +10,18 @@ public class Product {
 
     private String id;
     private String name = null;
+    private ProductType type = null;
+    private Float price = null;
+    private Integer inStock = 0;
 
     private Product() {}
 
-    public Product(String id, String name) {
+    public Product(String id, String name, ProductType type, Float price, Integer inStock) {
         this.id = id;
         this.name = name;
+        this.type = type;
+        this.price = price;
+        this.inStock = inStock;
     }
 
     public String getId() {
@@ -34,6 +40,30 @@ public class Product {
         this.name = name;
     }
 
+    public Integer getInStock() {
+        return inStock;
+    }
+
+    public void setInStock(Integer inStock) {
+        this.inStock = inStock;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public ProductType getType() {
+        return type;
+    }
+
+    public void setType(ProductType type) {
+        this.type = type;
+    }
+
+    public void setPrice(Float price) {
+
+        this.price = price;
+    }
 
     @Override
     public int hashCode() {
