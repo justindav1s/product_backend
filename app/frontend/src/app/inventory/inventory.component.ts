@@ -19,7 +19,7 @@ export class InventoryComponent implements OnInit {
   }
 
   getAllProducts(): void {
-    this.inventoryService.getAllProducts().subscribe(products => this.products = products);
+    this.inventoryService.getProductsByType("clothes").subscribe(products => this.products = products);
   }
 
 }

@@ -7,11 +7,14 @@ import { HttpClientModule }    from '@angular/common/http';
 import { AppRoutingModule }     from './app-routing.module';
 import { InventoryService }          from './inventory.service';
 import { InventoryComponent } from './inventory/inventory.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { CategoriesService } from './categories.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    InventoryComponent
+    InventoryComponent,
+    CategoriesComponent
   ],
   imports: [
     BrowserModule,
@@ -19,7 +22,7 @@ import { InventoryComponent } from './inventory/inventory.component';
     AppRoutingModule,
     HttpClientModule,
   ],
-  providers: [InventoryService,],
+  providers: [InventoryService, CategoriesService,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
