@@ -2,7 +2,7 @@
   <div class="col-md-1"></div>
   <div *ngIf="products">
     <div class="list-group, col-md-2">
-      <a href="/show/{{product.type}}/details/{{product.id}}" *ngFor="let product of products" class="list-group-item">{{product.name | titlecase}}</a>
+      <a href="/show/{{product.type | lowercase}}/details/{{product.id}}" *ngFor="let product of products" class="list-group-item">{{product.name | titlecase}}</a>
     </div>
   </div>
 </div>
