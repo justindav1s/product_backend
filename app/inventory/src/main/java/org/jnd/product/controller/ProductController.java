@@ -84,7 +84,7 @@ public class ProductController {
         log.debug("Product get of type :"+type);
         ArrayList products = new ArrayList();
         for (Product p : repository.values()){
-            if (p.getType().equals(type))   {
+            if (p.getType().toString().equalsIgnoreCase(type))   {
                 products.add(p);
             }
         };
