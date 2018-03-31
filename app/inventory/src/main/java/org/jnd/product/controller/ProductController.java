@@ -68,13 +68,16 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/types", method = RequestMethod.GET, produces = "application/json")
-    ResponseEntity<Object[]> getTypes(@RequestHeader HttpHeaders headers) {
+    ResponseEntity<String[]> getTypes(@RequestHeader HttpHeaders headers) {
 
         log.debug("Product get types");
 
-        Object[] types = ProductType.values();
+        ArrayList types = new ArrayList();
+        for (ProductType pt : ProductType.values()){
+            types.add(pt.toString());
+        }
 
-        return new ResponseEntity<>(types, HttpStatus.OK);
+        return new ResponseEntity(types, HttpStatus.OK);
     }
 
 

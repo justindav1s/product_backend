@@ -9,12 +9,14 @@ import { InventoryService }          from './inventory.service';
 import { InventoryComponent } from './inventory/inventory.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoriesService } from './categories.service';
+import { TitleCasePipe } from './title-case.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     InventoryComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    TitleCasePipe
   ],
   imports: [
     BrowserModule,

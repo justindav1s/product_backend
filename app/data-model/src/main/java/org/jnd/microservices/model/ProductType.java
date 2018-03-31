@@ -11,7 +11,7 @@ public enum ProductType {
             case FOOD:
                 return "food";
             case GADGET:
-                return "gadget";
+                return "gadgets";
             case CLOTHES:
                 return "clothes";
         }
