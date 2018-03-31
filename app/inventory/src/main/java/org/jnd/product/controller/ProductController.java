@@ -44,7 +44,8 @@ public class ProductController {
 
     }
 
-    @CrossOrigin
+
+
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<Object[]> getAll(@RequestHeader HttpHeaders headers) {
 
@@ -52,14 +53,10 @@ public class ProductController {
 
         Object[] products = repository.values().toArray();
 
-        HttpHeaders responseheaders = new HttpHeaders();
-        responseheaders.add("Access-Control-Allow-Origin", "http://localhost:4200");
-
-        return new ResponseEntity<>(products, responseheaders, HttpStatus.OK);
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
 
-    @CrossOrigin
     @RequestMapping(value = "/{productId}", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<Product> get(@PathVariable Integer productId, @RequestHeader HttpHeaders headers) {
 
@@ -67,15 +64,10 @@ public class ProductController {
         log.debug("Product get : "+productId);
 
         Product product = repository.get(productId);
-        HttpHeaders responseheaders = new HttpHeaders();
-        responseheaders.add("Access-Control-Allow-Origin", "http://localhost:4200");
-        log.debug("Added Headers "+responseheaders);
-        return new ResponseEntity<>(product, responseheaders, HttpStatus.OK);
+
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
-
-
-    @CrossOrigin
     @RequestMapping(value = "/create/{productId}/{productName}", method = RequestMethod.POST, produces = "application/json")
     ResponseEntity<Object[]> create(@PathVariable String productId, @PathVariable String productName, @RequestHeader HttpHeaders headers) {
 
