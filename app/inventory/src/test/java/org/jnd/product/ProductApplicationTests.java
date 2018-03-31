@@ -46,10 +46,10 @@ public class ProductApplicationTests {
 			repository.put("13", new Product("13", "shoes", ProductType.CLOTHES, 59.99f, 10));
 			repository.put("14", new Product("14", "hat", ProductType.CLOTHES, 20.99f, 2));
 
-			repository.put("15", new Product("15", "camera", ProductType.GADGET, 43.39f, 20));
-			repository.put("16", new Product("16", "tv", ProductType.GADGET, 499.99f, 5));
-			repository.put("17", new Product("17", "iPad", ProductType.GADGET, 599.99f, 10));
-			repository.put("18", new Product("18", "Robot", ProductType.GADGET, 99.99f, 2));
+			repository.put("15", new Product("15", "camera", ProductType.GADGETS, 43.39f, 20));
+			repository.put("16", new Product("16", "tv", ProductType.GADGETS, 499.99f, 5));
+			repository.put("17", new Product("17", "iPad", ProductType.GADGETS, 599.99f, 10));
+			repository.put("18", new Product("18", "Robot", ProductType.GADGETS, 99.99f, 2));
 		}
 
 	}
