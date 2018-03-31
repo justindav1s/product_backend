@@ -1,6 +1,14 @@
-<div class="col-md-1"></div>
-<div *ngIf="product">
-  <div class="list-group, col-md-2">
-    <a class="list-group-item">{{product.name}}</a>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div *ngIf="products">
+    <div class="list-group, col-md-2">
+      <a href="/show/{{product.type | toLowerCase}}/details/{{product.id}}" *ngFor="let product of products" class="list-group-item">{{product.name | titlecase}}</a>
+    </div>
+  </div>
+  <div class="col-md-1"></div>
+  <div *ngIf="product">
+    <div class="list-group, col-md-2">
+      <a class="list-group-item">{{product.name}}</a>
+    </div>
   </div>
 </div>

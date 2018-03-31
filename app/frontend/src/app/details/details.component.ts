@@ -21,7 +21,14 @@ export class DetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.getAllProducts();
     this.getProduct();
+  }
+
+  getAllProducts(): void {
+    const productType = this.route.snapshot.paramMap.get('productType');
+    console.log("productType : " productType);
+    this.inventoryService.getProductsByType(productType).subscribe(products => this.products = products);
   }
 
   getProduct(): void {
@@ -29,4 +36,5 @@ export class DetailsComponent implements OnInit {
     console.log("productId : " productId);
     this.inventoryService.getProduct(productId).subscribe(product => this.product = product);
   }
+
 }

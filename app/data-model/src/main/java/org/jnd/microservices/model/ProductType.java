@@ -3,14 +3,14 @@ package org.jnd.microservices.model;
 public enum ProductType {
 
     FOOD,
-    GADGET,
+    GADGETS,
     CLOTHES;
 
     public String toString(){
         switch(this){
             case FOOD:
                 return "food";
-            case GADGET:
+            case GADGETS:
                 return "gadgets";
             case CLOTHES:
                 return "clothes";
@@ -21,8 +21,8 @@ public enum ProductType {
     public static ProductType value(Class<ProductType> enumType, String value){
         if(value.equalsIgnoreCase(FOOD.toString()))
             return ProductType.FOOD;
-        else if(value.equalsIgnoreCase(GADGET.toString()))
-            return ProductType.GADGET;
+        else if(value.equalsIgnoreCase(GADGETS.toString()))
+            return ProductType.GADGETS;
         else if(value.equalsIgnoreCase(CLOTHES.toString()))
             return ProductType.CLOTHES;
         else

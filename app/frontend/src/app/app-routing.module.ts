@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/show', pathMatch: 'full' },
   { path: 'show', component: InventoryComponent },
   { path: 'show/:productType', component: InventoryComponent },
-  { path: 'show/details/:productId', component: DetailsComponent },
+  { path: 'show/:productType/details/:productId', component: DetailsComponent },
 ];
 
 @NgModule({
