@@ -10,13 +10,15 @@ import { InventoryComponent } from './inventory/inventory.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoriesService } from './categories.service';
 import { TitleCasePipe } from './title-case.pipe';
+import { DetailsComponent } from './details/details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InventoryComponent,
     CategoriesComponent,
-    TitleCasePipe
+    TitleCasePipe,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,

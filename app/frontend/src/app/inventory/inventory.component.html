@@ -1,9 +1,10 @@
-<div style="text-align:left">
-<h2>Inventory</h2>
-<ul class="products">
-  <li *ngFor="let product of products">
-    <a routerLink="/detail/{{product.id}}">
-      <span class="badge">{{product.id}}</span> {{product.name}}
-    </a>
-  </li>
-</ul>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div *ngIf="products">
+    <div class="list-group, col-md-2">
+      <a href="/show/details/{{product.id}}" *ngFor="let product of products" class="list-group-item">{{product.name | titlecase}}</a>
+    </div>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>

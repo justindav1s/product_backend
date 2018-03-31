@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { Product } from '../product';
 import { InventoryService } from '../inventory.service';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-inventory',
@@ -12,14 +14,20 @@ export class InventoryComponent implements OnInit {
 
   products: Product[];
 
-  constructor(private inventoryService: InventoryService) { }
+  constructor(
+    private inventoryService: InventoryService,
+    private route: ActivatedRoute,
+    private location: Location
+  ) {}
 
   ngOnInit() {
     this.getAllProducts();
   }
 
   getAllProducts(): void {
-    this.inventoryService.getProductsByType("clothes").subscribe(products => this.products = products);
+    const productType = this.route.snapshot.paramMap.get('productType');
+    console.log("productType : " productType);
+    this.inventoryService.getProductsByType(productType).subscribe(products => this.products = products);
   }
 
 }

@@ -1,0 +1,6 @@
+<div class="col-md-1"></div>
+<div *ngIf="details">
+  <div class="list-group, col-md-2">
+    <a href="/details/{{product.id}}" *ngFor="let product of products" class="list-group-item">{{product.name}}</a>
+  </div>
+</div>
