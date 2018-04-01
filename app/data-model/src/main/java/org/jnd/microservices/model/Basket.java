@@ -11,20 +11,20 @@ import java.util.ArrayList;
 public class Basket {
 
 
-    private String id;
+    private int id;
 
-    public Basket(String id) {
+    public Basket(int id) {
         this.id = id;
         products = new ArrayList<Product>();
     }
 
     private ArrayList<Product> products = new ArrayList<Product>();
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

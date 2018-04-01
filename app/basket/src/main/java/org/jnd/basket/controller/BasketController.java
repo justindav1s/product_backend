@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("/basket")
 public class BasketController {
@@ -31,51 +31,36 @@ public class BasketController {
     @Autowired
     private BasketRepository basketRepository;
 
-    String[] keys = { "keycloak_name", "keycloak_email", "x-forwarded-for", "keycloak_username", "keycloak_subject" };
+    @RequestMapping(value = "/create", method = RequestMethod.PUT)
+    ResponseEntity<?> create( @RequestHeader HttpHeaders headers) {
 
-    @RequestMapping(value = "/create/{basketId}", method = RequestMethod.PUT)
-    ResponseEntity<?> create(@PathVariable String basketId, @RequestHeader HttpHeaders headers) {
+        log.debug("Basket Create");
 
-        String[] args = { BasketController.class.getName(), "create", "basket", basketId };
-        log.debug(InfoLineBuilder.getLine(args, headers, keys));
-
-        log.debug("Create");
-
-        //log.debug("ProductApi: User={}, Auth={}, called with productId={}", currentUser.getName(), authorizationHeader, basketId);
+        int basketId = basketRepository.size() + 1;
         Basket basket = new Basket(basketId);
-        basketRepository.put(basketId, basket);
+        basketRepository.put(Integer.toString(basketId), basket);
         basket = basketRepository.get(basketId);
         return new ResponseEntity<>(basket, null, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/remove/{basketId}", method = RequestMethod.DELETE)
-    ResponseEntity<?> delete(@PathVariable String basketId, @RequestHeader HttpHeaders headers)    {
-
-        String[] args = { BasketController.class.getName(), "remove", "basket", basketId };
-        log.debug(InfoLineBuilder.getLine(args, headers, keys));
+    ResponseEntity<?> delete(@PathVariable int basketId, @RequestHeader HttpHeaders headers)    {
 
         log.debug("Remove Basket#"+basketId);
-//        basketRepository.delete(basketId);
-        return new ResponseEntity<>(null, null, HttpStatus.GONE);
+        basketRepository.remove(Integer.toString(basketId));
+        return new ResponseEntity<>("DELETED", null, HttpStatus.GONE);
     }
 
     @RequestMapping(value = "/clearall", method = RequestMethod.DELETE)
     ResponseEntity<?> clearall(@RequestHeader HttpHeaders headers)    {
 
-        String[] args = { BasketController.class.getName(), "clearall", "basket" };
-        log.debug(InfoLineBuilder.getLine(args, headers, keys));
-
         log.debug("Clearing all Baskets");
-//        basketRepository.deleteAll();
-        return new ResponseEntity<>(null, null, HttpStatus.GONE);
+        basketRepository.clear();
+        return new ResponseEntity<>("CLEAR", null, HttpStatus.GONE);
     }
 
     @RequestMapping(value = "/{basketId}/add/{productId}", method = RequestMethod.PUT)
     ResponseEntity<Basket> add(@PathVariable String basketId, @PathVariable String productId, @RequestHeader HttpHeaders headers) {
-
-
-        String[] args = { BasketController.class.getName(), "add", "basket", basketId, productId };
-        log.debug(InfoLineBuilder.getLine(args, headers, keys));
 
         log.debug("Basket #"+basketId+" Add Product#"+productId);
 
@@ -95,9 +80,6 @@ public class BasketController {
     @RequestMapping(value = "/{basketId}/remove/{productId}", method = RequestMethod.DELETE)
     ResponseEntity<Basket> remove(@PathVariable String basketId, @PathVariable String productId, @RequestHeader HttpHeaders headers) {
 
-        String[] args = { BasketController.class.getName(), "remove", "basket", basketId, productId };
-        log.debug(InfoLineBuilder.getLine(args, headers, keys));
-
         log.debug("Basket #"+basketId+" Add Product#"+productId);
 
         Product product = productrepository.getProduct(productId);
@@ -110,9 +92,6 @@ public class BasketController {
 
     @RequestMapping(value = "/{basketId}/empty", method = RequestMethod.POST)
     ResponseEntity<Basket> empty(@PathVariable String basketId, @RequestHeader HttpHeaders headers) {
-
-        String[] args = { BasketController.class.getName(), "empty", "basket", basketId };
-        log.debug(InfoLineBuilder.getLine(args, headers, keys));
 
         log.debug("Basket #"+basketId+" Emptying");
 
@@ -127,10 +106,6 @@ public class BasketController {
     @RequestMapping(value = "/{basketId}", method = RequestMethod.GET)
     ResponseEntity<Basket>  get(@PathVariable String basketId, @RequestHeader HttpHeaders headers) {
 
-        String[] args = { BasketController.class.getName(), "get", "basket", basketId };
-        log.debug(InfoLineBuilder.getLine(args, headers, keys));
-
-
         log.debug("Get basket : "+basketId);
 
         Basket basket = basketRepository.get(basketId);
@@ -141,10 +116,6 @@ public class BasketController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     ResponseEntity<Object>  list(@RequestHeader HttpHeaders headers) {
-
-        String[] args = { BasketController.class.getName(), "list", "basket" };
-        log.debug(InfoLineBuilder.getLine(args, headers, keys));
-
 
         log.debug("List baskets");
 

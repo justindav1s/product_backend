@@ -11,6 +11,8 @@ import { CategoriesComponent } from './categories/categories.component';
 import { CategoriesService } from './categories.service';
 import { TitleCasePipe } from './title-case.pipe';
 import { DetailsComponent } from './details/details.component';
+import { BasketComponent } from './basket/basket.component';
+import { BasketService } from './basket.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { DetailsComponent } from './details/details.component';
     InventoryComponent,
     CategoriesComponent,
     TitleCasePipe,
-    DetailsComponent
+    DetailsComponent,
+    BasketComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,7 @@ import { DetailsComponent } from './details/details.component';
     AppRoutingModule,
     HttpClientModule,
   ],
-  providers: [InventoryService, CategoriesService,],
+  providers: [InventoryService, CategoriesService, BasketService,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
