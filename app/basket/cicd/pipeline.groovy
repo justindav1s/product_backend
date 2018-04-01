@@ -43,7 +43,7 @@ node('maven') {
 
         //Build the OpenShift Image in OpenShift and tag it.
         stage('Build and Tag OpenShift Image') {
-            echo "Building OpenShift container image tasks:${devTag}"
+            echo "Building OpenShift container image ${app_name}:${devTag}"
             echo "Project : ${dev_project}"
             echo "App : ${app_name}"
             echo "Group ID : ${groupId}"
@@ -56,7 +56,7 @@ node('maven') {
             sh "pwd; ls -ltr"
             sh "oc start-build ${app_name} --follow --from-file=${artifactId}.${packaging} -n ${dev_project}"
             openshiftVerifyBuild apiURL: '', authToken: '', bldCfg: app_name, checkForTriggeredDeployments: 'true', namespace: dev_project, verbose: 'false', waitTime: ''
-            openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: devTag, destinationAuthToken: '', destinationNamespace: dev_project, namespace: dev_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
+            //openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: devTag, destinationAuthToken: '', destinationNamespace: dev_project, namespace: dev_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
         }
 
         // Deploy the built image to the Development Environment.
