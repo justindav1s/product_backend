@@ -51,13 +51,13 @@ node('maven') {
             echo "Version : ${version}"
             echo "Packaging : ${packaging}"
 
-            sh "mvn -U -B -q -s ../settings.xml clean"
-            sh "mvn -q -s ../settings.xml dependency:copy -DstripVersion=true -Dartifact=${groupId}:${artifactId}:${version}:${packaging} -DoutputDirectory=."
-            sh "cp \$(find . -type f -name \"${artifactId}-*.${packaging}\")  ${artifactId}.${packaging}"
+            //sh "mvn -U -B -q -s ../settings.xml clean"
+            //sh "mvn -q -s ../settings.xml dependency:copy -DstripVersion=true -Dartifact=${groupId}:${artifactId}:${version}:${packaging} -DoutputDirectory=."
+            //sh "cp \$(find . -type f -name \"${artifactId}-*.${packaging}\")  ${artifactId}.${packaging}"
             sh "pwd; ls -ltr"
-            //sh "ls -ltr target"
-            //sh "oc start-build ${app_name} --follow --from-file=target/${artifactId}-${version}.${packaging} -n ${dev_project}"
-            sh "oc start-build ${app_name} --follow --from-file=${artifactId}.${packaging} -n ${dev_project}"
+            sh "ls -ltr target"
+            sh "oc start-build ${app_name} --follow --from-file=target/${artifactId}-${version}.${packaging} -n ${dev_project}"
+            //sh "oc start-build ${app_name} --follow --from-file=${artifactId}.${packaging} -n ${dev_project}"
             openshiftVerifyBuild apiURL: '', authToken: '', bldCfg: app_name, checkForTriggeredDeployments: 'false', namespace: dev_project, verbose: 'false', waitTime: ''
             openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: devTag, destinationAuthToken: '', destinationNamespace: dev_project, namespace: dev_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
         }
