@@ -31,6 +31,7 @@ public class ProductController {
         log.debug("TESTING : Setting up repository");
 
         if(repository.size() == 0) {
+
             repository.put("1", new Product("1", "marmalade", ProductType.FOOD, 1.29f, 12));
             repository.put("2", new Product("2", "milk", ProductType.FOOD, 0.83f, 20));
             repository.put("3", new Product("3", "chocolate", ProductType.FOOD, 0.79f, 23));
