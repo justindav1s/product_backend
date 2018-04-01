@@ -38,8 +38,12 @@ public class BasketController {
 
         int basketId = basketRepository.size() + 1;
         Basket basket = new Basket(basketId);
+        log.debug("Basket Create #"+basketId);
+        log.debug("Basket Create :"+basket);
         basketRepository.put(Integer.toString(basketId), basket);
+        log.debug("Basket Repository :"+basketRepository);
         basket = basketRepository.get(basketId);
+        log.debug("Returning Basket :"+basket);
         return new ResponseEntity<>(basket, null, HttpStatus.CREATED);
     }
 
