@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { InventoryComponent }   from './inventory/inventory.component';
 import { DetailsComponent }   from './details/details.component';
+import { BasketComponent }   from './basket/basket.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/show', pathMatch: 'full' },
@@ -13,7 +14,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes, { enableTracing: true }), ],
+  imports: [ RouterModule.forRoot(routes, { enableTracing: false }), ],
   exports: [ RouterModule ],
   declarations: []
 })

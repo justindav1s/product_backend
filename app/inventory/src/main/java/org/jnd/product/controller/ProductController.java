@@ -33,9 +33,9 @@ public class ProductController {
         if(repository.size() == 0) {
             repository.put("1", new Product("1", "marmalade", ProductType.FOOD, 1.29f, 12));
             repository.put("2", new Product("2", "milk", ProductType.FOOD, 0.83f, 20));
-            repository.put("3", new Product("3", "baked beans", ProductType.FOOD, 0.79f, 23));
+            repository.put("3", new Product("3", "chocolate", ProductType.FOOD, 0.79f, 23));
             repository.put("4", new Product("4", "bread", ProductType.FOOD, 1.09f, 80));
-            repository.put("5", new Product("5", "beef steak", ProductType.FOOD, 6.99f, 5));
+            repository.put("5", new Product("5", "broccoli", ProductType.FOOD, 0.99f, 5));
             repository.put("6", new Product("6", "chicken", ProductType.FOOD, 3.99f, 8));
             repository.put("7", new Product("7", "coffee", ProductType.FOOD, 3.39f, 12));
             repository.put("8", new Product("8", "tea", ProductType.FOOD, 1.29f, 72));

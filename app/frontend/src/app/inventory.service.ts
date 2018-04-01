@@ -37,7 +37,7 @@ export class InventoryService {
   getProduct(id: number): Observable<Product> {
     const url = `${this.inventoryUrl}/${id}`;
     return this.http.get<Product>(url).pipe(
-      tap(_ => this.log(`fetched hero id=${id}`)),
+      tap(_ => this.log(`fetched product id=${id}`)),
       catchError(this.handleError<Product>(`getProduct id=${id}`))
     );
   }

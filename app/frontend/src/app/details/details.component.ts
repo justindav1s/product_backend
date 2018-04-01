@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-
-import { Product } from '../product';
-import { InventoryService } from '../inventory.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+
+import { Product } from '../product';
+import { Basket } from '../basket';
+
+import { InventoryService } from '../inventory.service';
+import { BasketService } from '../basket.service';
 
 @Component({
   selector: 'app-details',
@@ -13,9 +16,11 @@ import { Location } from '@angular/common';
 export class DetailsComponent implements OnInit {
 
   product: Product;
+  basket: Basket;
 
   constructor(
     private inventoryService: InventoryService,
+    private basketService: BasketService,
     private route: ActivatedRoute,
     private location: Location
   ) {}
@@ -23,6 +28,7 @@ export class DetailsComponent implements OnInit {
   ngOnInit() {
     this.getAllProducts();
     this.getProduct();
+      this.createBasket();
   }
 
   getAllProducts(): void {
@@ -37,4 +43,7 @@ export class DetailsComponent implements OnInit {
     this.inventoryService.getProduct(productId).subscribe(product => this.product = product);
   }
 
-}
+  createBasket(): void {
+    console.log("creating basket");
+    this.basketService.createBasket().subscribe(basket => this.basket = basket);
+  }

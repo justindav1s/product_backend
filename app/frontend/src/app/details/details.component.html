@@ -13,14 +13,17 @@
         <p><h3 class="pull-left">£ {{product.price}}</h3><a class="btn btn-primary btn-lg pull-right" href="#" role="button">add to basket</a>
       </div>
     </div>
-    <div *ngIf="product">
+    <div *ngIf="basket">
       <div class="list-group, col-md-4">
         <div>
           <nav class="navbar navbar-default">
             <div class="container-fluid">
               <div class="navbar-header">
-                <div class="navbar-brand pull-left">Basket</div>
+                <div class="navbar-brand pull-left">Basket # {{basket.id}}</div>
                 <a class="navbar-brand pull-right" href="#">Checkout</a>
+                <div class="list-group, col-md-2">
+                  <a href="/show/{{product.type | lowercase}}/details/{{product.id}}" *ngFor="let product of basket.products" class="list-group-item">{{product.name | titlecase}}</a>
+                </div>
               </div>
             </div>
           </nav>
