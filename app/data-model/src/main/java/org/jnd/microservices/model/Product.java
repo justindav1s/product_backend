@@ -86,4 +86,9 @@ public class Product {
                 append(id, rhs.id).
                 isEquals();
     }
+
+    @Override
+    public String toString(){
+        return org.apache.commons.lang3.builder.ReflectionToStringBuilder.toString(this);
+    }
 }
