@@ -34,7 +34,7 @@ public class BasketController {
     @RequestMapping(value = "/create", method = RequestMethod.PUT)
     ResponseEntity<?> create( @RequestHeader HttpHeaders headers) {
 
-        log.debug("Basket Create");
+        log.debug("1 Basket Create");
 
         int basketId = basketRepository.size() + 1;
         Basket basket = new Basket(basketId);
