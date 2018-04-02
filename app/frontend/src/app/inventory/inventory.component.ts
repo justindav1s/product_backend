@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 
 import { Product } from '../product';
 import { InventoryService } from '../inventory.service';
@@ -11,23 +11,23 @@ import { Location } from '@angular/common';
   styleUrls: ['./inventory.component.css']
 })
 export class InventoryComponent implements OnInit {
-
-  products: Product[];
-
+  @Input() products: Product[];
+  @Output() selectedProduct = new EventEmitter<Product>();
+  product: Product;
   constructor(
     private inventoryService: InventoryService,
-    private route: ActivatedRoute,
-    private location: Location
   ) {}
 
   ngOnInit() {
-    this.getAllProducts();
+    console.log("InventoryComponent : products : " + this.products);
   }
 
-  getAllProducts(): void {
-    const productType = this.route.snapshot.paramMap.get('productType');
-    console.log("productType : " productType);
-    this.inventoryService.getProductsByType(productType).subscribe(products => this.products = products);
+  onClickProduct(product: Product): void {
+    console.log("InventoryComponent : product clicked : " + product.id + ":" + product.name);
+    this.inventoryService.getProductById(product.id).subscribe( (product : Product) => {
+      console.log("InventoryComponent : product received : " + product);
+      this.selectedProduct.emit(product);
+      this.product = product;
+    });
   }
-
 }

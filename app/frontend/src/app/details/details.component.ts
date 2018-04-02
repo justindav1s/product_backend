@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Product } from '../product';
@@ -20,27 +19,13 @@ export class DetailsComponent implements OnInit {
 
   constructor(
     private inventoryService: InventoryService,
-    private basketService: BasketService,
-    private route: ActivatedRoute,
-    private location: Location
+    private basketService: BasketService
   ) {}
 
   ngOnInit() {
-    this.getAllProducts();
-    this.getProduct();
+    if (this.basket == null) {
       this.createBasket();
-  }
-
-  getAllProducts(): void {
-    const productType = this.route.snapshot.paramMap.get('productType');
-    console.log("productType : " productType);
-    this.inventoryService.getProductsByType(productType).subscribe(products => this.products = products);
-  }
-
-  getProduct(): void {
-    const productId = this.route.snapshot.paramMap.get('productId');
-    console.log("productId : " productId);
-    this.inventoryService.getProduct(productId).subscribe(product => this.product = product);
+    }
   }
 
   createBasket(): void {

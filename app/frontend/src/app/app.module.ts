@@ -26,10 +26,9 @@ import { BasketService } from './basket.service';
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule,
     HttpClientModule,
   ],
-  providers: [InventoryService, CategoriesService, BasketService,],
+  providers: [InventoryService, CategoriesService, BasketService, InventoryComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

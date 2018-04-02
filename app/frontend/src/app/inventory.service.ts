@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
@@ -12,7 +12,6 @@ const httpOptions = {
 
 @Injectable()
 export class InventoryService {
-
   private inventoryUrl = 'http://inventory-amazin-dev.apps.ocp.datr.eu/products/';
 
   constructor(private http: HttpClient) { }
@@ -30,18 +29,27 @@ export class InventoryService {
     const url = `${this.inventoryUrl}/type/${type}`;
     return this.http.get<Product[]>(url).pipe(
       tap(_ => this.log(`fetched products type=${type}`)),
+      tap(products => this.productListReceived(products)),
       catchError(this.handleError<Product[]>(`getProductsByType type=${type}`))
     );
   }
 
-  getProduct(id: number): Observable<Product> {
+  getProductById(id: number): Observable<Product> {
     const url = `${this.inventoryUrl}/${id}`;
     return this.http.get<Product>(url).pipe(
       tap(_ => this.log(`fetched product id=${id}`)),
+      tap(product => this.productReceived(product)),
       catchError(this.handleError<Product>(`getProduct id=${id}`))
     );
   }
 
+  productListReceived(products : Product[]) : void {
+    console.log("InventoryService : productListReceived : products : " + products);
+  }
+
+  productReceived(product: Product) : void {
+    console.log("InventoryService : productReceived : product : "  + product.id + ":" + product.name);
+  }
   /**
    * Handle Http operation that failed.
    * Let the app continue.
