@@ -23,7 +23,7 @@ export class BasketService {
     const url = `${this.basketUrl}/create`;
     return this.http.get<Basket>(url)
     .pipe(
-      tap(products => this.log(`fetched basket`)),
+      tap(_ => this.log(`fetched basket`)),
       catchError(this.handleError<Basket>(`createBasket`))
     );
   }
@@ -51,6 +51,6 @@ export class BasketService {
 
   /** Log a HeroService message with the MessageService */
   private log(message: string) {
-    console.log('InventoryService: ' + message);
+    console.log('BasketService: ' + message);
   }
 }

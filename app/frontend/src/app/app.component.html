@@ -1,25 +1,31 @@
 <p>
 <div class="container">
   <div class="row">
-    <nav class="navbar navbar-default">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">{{title}}</a>
-      </div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <app-categories (productList)="onNewProductList($event)"></app-categories>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">Login</a></li>
-          <li><a href="#">Sign Up</a></li>
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </nav>
+    <div class="col-md-12">
+      <nav class="navbar navbar-default">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">{{title}}</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <app-categories (productList)="onNewProductList($event)"></app-categories>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Login</a></li>
+            <li><a href="#">Sign Up</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+    </div>
   </div>
   <div class="row">
-    <div class=".col-md-4">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
       <app-inventory (selectedProduct)="onNewSelectedProduct($event)" [products]="products"></app-inventory>
     </div>
-    <div class=".col-md-4">
-      <app-details></app-details>
+    <div class="col-md-4">
+      <app-details [product]="product"></app-details>
+    </div>
+    <div class="col-md-4">
+      <app-basket></app-basket>
     </div>
   </div>
-  </div><!-- /.container-fluid -->
+</div><!-- /.container-fluid -->

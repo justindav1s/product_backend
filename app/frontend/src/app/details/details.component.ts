@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
 
 import { Product } from '../product';
@@ -14,7 +14,7 @@ import { BasketService } from '../basket.service';
 })
 export class DetailsComponent implements OnInit {
 
-  product: Product;
+  @Input() product: Product;
   basket: Basket;
 
   constructor(
@@ -23,12 +23,4 @@ export class DetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.basket == null) {
-      this.createBasket();
-    }
-  }
-
-  createBasket(): void {
-    console.log("creating basket");
-    this.basketService.createBasket().subscribe(basket => this.basket = basket);
   }

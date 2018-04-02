@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { BasketService } from '../basket.service';
 @Component({
   selector: 'app-basket',
   templateUrl: './basket.component.html',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BasketComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private basketService: BasketService
+  ) { }
 
   ngOnInit() {
+    this.createBasket();
   }
 
+  createBasket(): void {
+    console.log("creating basket");
+    this.basketService.createBasket().subscribe( (basket : Basket) => {
+      console.log("AppComponent : createBasket : " +basket.id);
+      this.basket = basket;
+    });
+  }
 }

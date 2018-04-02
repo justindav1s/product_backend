@@ -1,9 +1,6 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
-
 import { Product } from '../product';
 import { InventoryService } from '../inventory.service';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-inventory',
@@ -13,6 +10,7 @@ import { Location } from '@angular/common';
 export class InventoryComponent implements OnInit {
   @Input() products: Product[];
   @Output() selectedProduct = new EventEmitter<Product>();
+
   product: Product;
   constructor(
     private inventoryService: InventoryService,
