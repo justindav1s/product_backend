@@ -22,16 +22,23 @@ public class UserController {
 
     private static int nextId = 0;
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    ResponseEntity<?> create(User user, @RequestHeader HttpHeaders headers) {
+    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
+    ResponseEntity<?> create(@RequestBody User user, @RequestHeader HttpHeaders headers) {
 
         log.debug("User Create : " +user);
-
-        user.setId(nextId++);
+        nextId = nextId + 1;
+        user.setId(nextId);
         log.debug("User Create : " +user);
         userRepository.put(Integer.toString(user.getId()), user);
-        log.debug("Basket Repository :"+ userRepository);
         return new ResponseEntity<>(user, null, HttpStatus.CREATED);
     }
 
+    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
+    ResponseEntity<?> get(@PathVariable int userId, @RequestHeader HttpHeaders headers) {
+
+        log.debug("Get User : " + userId);
+        User user = userRepository.get(Integer.toString(userId));
+        log.debug("Get User : " + user);
+        return new ResponseEntity<>(user, null, HttpStatus.CREATED);
+    }
 }

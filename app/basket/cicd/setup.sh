@@ -8,6 +8,7 @@ JENKINS_USER=justin-admin
 JENKINS_TOKEN=8d2dd9709fb7ebd87d77bf9d2ef4a1f1
 JENKINS=jenkins-cicd.apps.ocp.datr.eu
 
+#turn on "Prevent Cross-site scripting"
 CRUMB_JSON=$(curl -s "https://${JENKINS_USER}:${JENKINS_TOKEN}@${JENKINS}/crumbIssuer/api/json")
 
 echo CRUMB_JSON=$CRUMB_JSON

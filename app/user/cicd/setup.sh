@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-APP=basket
+APP=user
 . ../../env.sh
 
 #setup Jenkins Jobs
@@ -8,10 +8,13 @@ JENKINS_USER=justin-admin
 JENKINS_TOKEN=8d2dd9709fb7ebd87d77bf9d2ef4a1f1
 JENKINS=jenkins-cicd.apps.ocp.datr.eu
 
-CRUMB_JSON=$(curl -s "https://${JENKINS_USER}:${JENKINS_TOKEN}@${JENKINS}/crumbIssuer/api/json")
+#turn on "Prevent Cross-site scripting"
+
+CRUMB_JSON=$(curl -v -s "https://${JENKINS_USER}:${JENKINS_TOKEN}@${JENKINS}/crumbIssuer/api/json")
 
 echo CRUMB_JSON=$CRUMB_JSON
 CRUMB=$(echo $CRUMB_JSON | jq -r .crumb)
+
 echo CRUMB=$CRUMB
 
 curl -v -H "Content-Type: text/xml" \
