@@ -31,12 +31,4 @@ export class AppComponent {
       this.product = product;
   }
 
-  createBasket(): void {
-    console.log("creating basket");
-    this.basketService.createBasket().subscribe( (basket : Basket) => {
-      console.log("AppComponent : createBasket : " +basket.id);
-      this.basket = basket;
-    });
-  }
-
 }

@@ -76,7 +76,7 @@ parameters:
   value: "s2i-4-java"
   required: true
 - name: APPLICATION_NAME
-  description: The name of the environment. eg. product,basket ....
+  description: The name of the environment. eg. product,user ....
   value: "dev"
   required: true
 - name: APPLICATION_TYPE

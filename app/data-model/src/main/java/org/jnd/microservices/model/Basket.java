@@ -2,6 +2,7 @@ package org.jnd.microservices.model;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import java.util.ArrayList;
 
@@ -58,6 +59,6 @@ public class Basket {
 
     @Override
     public String toString(){
-        return org.apache.commons.lang3.builder.ReflectionToStringBuilder.toString(this);
+        return ReflectionToStringBuilder.toString(this);
     }
 }

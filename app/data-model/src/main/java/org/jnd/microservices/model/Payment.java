@@ -1,6 +1,7 @@
 package org.jnd.microservices.model;
 
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
  * Created by justin on 13/10/2015.
@@ -62,5 +63,9 @@ public class Payment {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String toString(){
+        return ReflectionToStringBuilder.toString(this);
     }
 }

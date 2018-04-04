@@ -1,4 +1,4 @@
-package org.jnd.basket.proxies;
+package org.jnd.user.proxies;
 
 import org.jnd.microservices.model.Product;
 import org.jnd.microservices.trace.InfoLineBuilder;
@@ -23,7 +23,7 @@ public class ProductRepositoryProxy {
 
     public Product getProduct(String id) {
 
-        String[] args = { ProductRepositoryProxy.class.getName(), "getProduct", "basket", id };
+        String[] args = { ProductRepositoryProxy.class.getName(), "getProduct", "user", id };
         log.debug(InfoLineBuilder.getLine(args, null, null));
 
 

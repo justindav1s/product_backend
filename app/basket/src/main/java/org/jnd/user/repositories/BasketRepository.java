@@ -1,4 +1,4 @@
-package org.jnd.basket.repositories;
+package org.jnd.user.repositories;
 
 import org.jnd.microservices.model.Basket;
 import org.jnd.microservices.model.Product;

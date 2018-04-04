@@ -1,7 +1,7 @@
-package org.jnd.basket.controller;
+package org.jnd.user.controller;
 
-import org.jnd.basket.proxies.ProductRepositoryProxy;
-import org.jnd.basket.repositories.BasketRepository;
+import org.jnd.user.proxies.ProductRepositoryProxy;
+import org.jnd.user.repositories.BasketRepository;
 import org.jnd.microservices.model.Basket;
 import org.jnd.microservices.model.Product;
 import org.jnd.microservices.trace.InfoLineBuilder;
@@ -20,7 +20,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/basket")
+@RequestMapping("/user")
 public class BasketController {
 
     private static final Logger log = LoggerFactory.getLogger(BasketController.class);
@@ -110,7 +110,7 @@ public class BasketController {
     @RequestMapping(value = "/{basketId}", method = RequestMethod.GET)
     ResponseEntity<Basket>  get(@PathVariable int basketId, @RequestHeader HttpHeaders headers) {
 
-        log.debug("Get basket : "+basketId);
+        log.debug("Get user : "+basketId);
 
         Basket basket = basketRepository.get(Integer.toString(basketId));
 

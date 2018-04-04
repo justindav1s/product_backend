@@ -1,4 +1,4 @@
-package org.jnd.basket;
+package org.jnd.user;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

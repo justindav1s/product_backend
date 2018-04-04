@@ -24,3 +24,13 @@ export class DetailsComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  onAddToBasket(product: Product) : void  {
+    console.log("Add to basket : "  + product.id + ":" + product.name );
+    this.basketService.addProductToBasket(product).subscribe( (basket : Basket) => {
+      console.log("AppComponent : createBasket : " +basket.id);
+      this.basket = basket;
+    });
+  }
+
+}

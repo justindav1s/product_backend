@@ -2,20 +2,20 @@ apiVersion: v1
 kind: Template
 metadata:
   creationTimestamp: null
-  name: basket-dev-dc
+  name: user-dev-dc
 objects:
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
     labels:
-      app: basket
-    name: basket
+      app: user
+    name: user
   spec:
     replicas: 1
     revisionHistoryLimit: 10
     selector:
-      app: basket
-      deploymentconfig: basket
+      app: user
+      deploymentconfig: user
     strategy:
       activeDeadlineSeconds: 21600
       resources: {}
@@ -29,11 +29,11 @@ objects:
     template:
       metadata:
         labels:
-          app: basket
-          deploymentconfig: basket
+          app: user
+          deploymentconfig: user
       spec:
         containers:
-        - name: basket
+        - name: user
           image: " "
           imagePullPolicy: Always
           env:

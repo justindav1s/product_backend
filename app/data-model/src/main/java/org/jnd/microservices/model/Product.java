@@ -2,6 +2,7 @@ package org.jnd.microservices.model;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
  * Created by justin on 13/10/2015.
@@ -89,6 +90,6 @@ public class Product {
 
     @Override
     public String toString(){
-        return org.apache.commons.lang3.builder.ReflectionToStringBuilder.toString(this);
+        return ReflectionToStringBuilder.toString(this);
     }
 }

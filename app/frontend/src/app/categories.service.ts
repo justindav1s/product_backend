@@ -17,12 +17,12 @@ export class CategoriesService {
 
   constructor(private http: HttpClient) { }
 
-  getCategories(): Observable<String[]> {
+  getCategories(): Observable<string[]> {
     const url = `${this.catgegoriesUrl}`;
-    return this.http.get<String[]>(url)
+    return this.http.get<string[]>(url)
     .pipe(
       tap(products => this.log(`fetched all categories`)),
-      catchError(this.handleError<String[]>(`getCategories`))
+      catchError(this.handleError<string[]>(`getCategories`))
     );
   }
 

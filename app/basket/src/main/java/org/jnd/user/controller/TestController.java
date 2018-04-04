@@ -1,4 +1,4 @@
-package org.jnd.basket.controller;
+package org.jnd.user.controller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -15,7 +15,7 @@ import java.util.Date;
  */
 
 @RestController
-@RequestMapping("/basket/test")
+@RequestMapping("/user/test")
 public class TestController {
 
     private Log log = LogFactory.getLog(TestController.class);
