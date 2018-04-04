@@ -18,7 +18,7 @@ echo CRUMB=$CRUMB
 curl -v -H "Content-Type: text/xml" \
   --user ${JENKINS_USER}:${JENKINS_TOKEN} \
   -H Jenkins-Crumb:${CRUMB} \
-  -X POST https://${JENKINS}/job/amazin-basket/doDelete
+  -X POST https://${JENKINS}/job/amazin-${APP}/doDelete
 
 sleep 5
 
@@ -26,5 +26,5 @@ curl -v -H "Content-Type: text/xml" \
   --user ${JENKINS_USER}:${JENKINS_TOKEN} \
   -H Jenkins-Crumb:${CRUMB} \
   --data-binary @config.xml \
-  -X POST https://${JENKINS}/createItem?name=amazin-basket
+  -X POST https://${JENKINS}/createItem?name=amazin-${APP}
 

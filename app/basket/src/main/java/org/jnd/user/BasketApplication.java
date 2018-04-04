@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @Configuration
@@ -17,8 +18,8 @@ public class BasketApplication {
         SpringApplication.run(BasketApplication.class, args);
     }
 
-    @RequestMapping("/")
+    @RequestMapping(value = "/health", method = RequestMethod.GET)
     public String ping() {
-        return BasketApplication.class+" UP\n";
+        return "OK";
     }
 }
