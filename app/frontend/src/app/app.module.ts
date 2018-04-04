@@ -13,6 +13,7 @@ import { TitleCasePipe } from './title-case.pipe';
 import { DetailsComponent } from './details/details.component';
 import { BasketComponent } from './basket/basket.component';
 import { BasketService } from './basket.service';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { BasketService } from './basket.service';
     CategoriesComponent,
     TitleCasePipe,
     DetailsComponent,
-    BasketComponent
+    BasketComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

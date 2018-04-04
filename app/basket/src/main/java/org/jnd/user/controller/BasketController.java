@@ -20,7 +20,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/basket")
 public class BasketController {
 
     private static final Logger log = LoggerFactory.getLogger(BasketController.class);
