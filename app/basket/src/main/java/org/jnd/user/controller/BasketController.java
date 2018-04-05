@@ -76,7 +76,7 @@ public class BasketController {
         return new ResponseEntity<>("CLEAR", null, HttpStatus.GONE);
     }
 
-    @RequestMapping(value = "/{basketId}/add/{productId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{basketId}/add/{productId}", method = RequestMethod.PUT)
     ResponseEntity<Basket> add(@PathVariable int basketId, @PathVariable String productId, @RequestHeader HttpHeaders headers) {
 
         log.debug("Basket #"+basketId+" Add Product#"+productId);
@@ -91,7 +91,7 @@ public class BasketController {
             basket.getProducts().add(product);
         }
         basket.getProducts().add(product);
-        return new ResponseEntity<>(basket, null, HttpStatus.OK);
+        return new ResponseEntity<>(basket, null, HttpStatus.ACCEPTED);
     }
 
     @RequestMapping(value = "/{basketId}/remove/{productId}", method = RequestMethod.DELETE)
@@ -104,10 +104,10 @@ public class BasketController {
         if (basket.getProducts() != null) {
             basket.getProducts().remove(product);
         }
-        return new ResponseEntity<>(basket, null, HttpStatus.OK);
+        return new ResponseEntity<>(basket, null, HttpStatus.GONE);
     }
 
-    @RequestMapping(value = "/{basketId}/empty", method = RequestMethod.POST)
+    @RequestMapping(value = "/{basketId}/empty", method = RequestMethod.DELETE)
     ResponseEntity<Basket> empty(@PathVariable int basketId, @RequestHeader HttpHeaders headers) {
 
         log.debug("Basket #"+basketId+" Emptying");
@@ -117,7 +117,7 @@ public class BasketController {
             basket.getProducts().clear();
         }
         basket = basketRepository.get(basketId);
-        return new ResponseEntity<>(basket, null, HttpStatus.OK);
+        return new ResponseEntity<>(basket, null, HttpStatus.GONE);
     }
 
     @RequestMapping(value = "/get/{basketId}", method = RequestMethod.GET)

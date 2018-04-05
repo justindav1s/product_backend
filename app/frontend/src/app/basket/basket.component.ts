@@ -33,10 +33,16 @@ export class BasketComponent implements OnInit {
       let cur  = JSON.stringify(chng.currentValue);
       let prev = JSON.stringify(chng.previousValue);
       console.log(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
-      if (propName == "basket")  {
-        console.log("lets load the basket");  
+      if (propName == "basket" && this.basket)  {
+        console.log("lets load the basket");
+        console.log("BasketComponent : basket BEFORE : " + JSON.stringify(this.basket));
+        this.basketService.getBasket(this.basket).subscribe( (basket: Basket) => {
+          console.log("BasketComponent : basket AFTER : " + JSON.stringify(basket));
+          this.basket = basket
+        });
       }
     }
   }
+
 
 }
