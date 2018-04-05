@@ -40,7 +40,7 @@ public class UserController {
             nextId = nextId + 1;
             user.setId(nextId);
             log.debug("User Create : " +user);
-            userRepository.put(Integer.toString(user.getId()), user);
+            userRepository.put(user.getUsername(), user);
         }
 
         //get user's basket data

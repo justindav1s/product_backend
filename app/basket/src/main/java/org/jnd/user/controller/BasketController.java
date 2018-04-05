@@ -40,7 +40,7 @@ public class BasketController {
 
         //check to see whether a basket already exists
         if (user.getBasketId() > 0){
-            basket = basketRepository.get(Integer.toString(user.getBasketId()));
+            basket = basketRepository.get(user.getUsername());
             log.debug("Basket exists :"+basket);
         }
 
@@ -52,8 +52,8 @@ public class BasketController {
             user.setBasketId(basket.getId());
             log.debug("Basket Create #"+basketId);
             log.debug("Basket Create :"+basket);
-            basketRepository.put(Integer.toString(basketId), basket);
-            basket = basketRepository.get(Integer.toString(basketId));
+            basketRepository.put(user.getUsername(), basket);
+            basket = basketRepository.get(user.getUsername());
         }
 
         log.debug("Returning user with basket data :"+user);
