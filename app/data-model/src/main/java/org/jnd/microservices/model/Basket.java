@@ -27,8 +27,7 @@ public class Basket {
     }
 
     public void setTotal(float total) {
-        DecimalFormat df = new DecimalFormat("#.##");
-        String formatted = df.format(total);
+        String formatted = String.format("%.2f", total);
         this.total = formatted;
     }
 
