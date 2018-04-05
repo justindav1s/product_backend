@@ -1,11 +1,10 @@
 package org.jnd.user.controller;
 
+import org.jnd.microservices.model.Basket;
+import org.jnd.microservices.model.Product;
 import org.jnd.microservices.model.User;
 import org.jnd.user.proxies.ProductRepositoryProxy;
 import org.jnd.user.repositories.BasketRepository;
-import org.jnd.microservices.model.Basket;
-import org.jnd.microservices.model.Product;
-import org.jnd.microservices.trace.InfoLineBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 @CrossOrigin
 @RestController

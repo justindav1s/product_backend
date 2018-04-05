@@ -23,8 +23,7 @@ public class ProductRepositoryProxy {
 
     public Product getProduct(String id) {
 
-        String[] args = { ProductRepositoryProxy.class.getName(), "getProduct", "user", id };
-        log.debug(InfoLineBuilder.getLine(args, null, null));
+        log.debug("ProductRepositoryProxy get Product id : "+id);
 
 
         ResponseEntity<Product> exchange =

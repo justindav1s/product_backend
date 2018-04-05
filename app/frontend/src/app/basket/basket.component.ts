@@ -39,6 +39,7 @@ export class BasketComponent implements OnInit {
         this.basketService.getBasket(this.basket).subscribe( (basket: Basket) => {
           console.log("BasketComponent : basket AFTER : " + JSON.stringify(basket));
           this.basket = basket
+          this.basketService.setBasket(basket);
         });
       }
     }

@@ -15,19 +15,15 @@ const httpOptions = {
 @Injectable()
 export class BasketService {
 
+  basket : Basket;
+
   private basketUrl = 'http://basket-amazin-dev.apps.ocp.datr.eu/basket';
 
   constructor(private http: HttpClient) { }
 
-  // createBasket(): Observable<Basket> {
-  //   console.log("BasketService creating basket");
-  //   const url = `${this.basketUrl}/create`;
-  //   return this.http.get<Basket>(url)
-  //   .pipe(
-  //     tap(_ => this.log(`fetched basket`)),
-  //     catchError(this.handleError<Basket>(`createBasket`))
-  //   );
-  // }
+  setBasket(basket: Basket): void{
+    this.basket = basket;
+  }
 
   getBasket(basket: Basket): Observable<Basket> {
     console.log("getBasketForUser");
@@ -39,10 +35,10 @@ export class BasketService {
     );
   }
 
-  addProductToBasket(product: Product, basket: Basket): Observable<Basket> {
+  addProductToBasket(product: Product): Observable<Basket> {
     console.log("addProductToBasket");
-    const url = `${this.basketUrl}/${basket.id}/add/${basket.id}`;
-    return this.http.put<Basket>(url)
+    const url = `${this.basketUrl}/${this.basket.id}/add/${product.id}`;
+    return this.http.put<Basket>(url, null, httpOptions)
     .pipe(
       tap(_ => this.log(`fetched basket`)),
       catchError(this.handleError<Basket>(`createBasket`))
