@@ -51,7 +51,7 @@ public class BasketController {
         }
 
         user.setBasketId(basket.getId());
-
+        basket = calculateTotal(basket);
         log.debug("Returning user with basket data :"+user);
         return new ResponseEntity<>(user, null, HttpStatus.CREATED);
     }
@@ -87,6 +87,7 @@ public class BasketController {
             basket.getProducts().add(product);
         }
 
+        basket = calculateTotal(basket);
         return new ResponseEntity<>(basket, null, HttpStatus.ACCEPTED);
     }
 
@@ -100,6 +101,7 @@ public class BasketController {
         if (basket.getProducts() != null) {
             basket.getProducts().remove(product);
         }
+        basket = calculateTotal(basket);
         return new ResponseEntity<>(basket, null, HttpStatus.GONE);
     }
 
@@ -113,6 +115,7 @@ public class BasketController {
             basket.getProducts().clear();
         }
         basket = basketRepository.get(basketId);
+        basket = calculateTotal(basket);
         return new ResponseEntity<>(basket, null, HttpStatus.GONE);
     }
 
@@ -122,7 +125,7 @@ public class BasketController {
         log.debug("Get basket : "+basketId);
 
         Basket basket = basketRepository.get(basketId);
-
+        basket = calculateTotal(basket);
         return new ResponseEntity<>(basket, null, HttpStatus.OK);
     }
 
@@ -147,6 +150,19 @@ public class BasketController {
         log.debug("Basket inventory : "+inventory);
 
         return new ResponseEntity<>(inventory, null, HttpStatus.OK);
+    }
+
+
+    private Basket calculateTotal(Basket basket)    {
+
+        float total = 0.0f;
+        for (Product p : basket.getProducts())  {
+            total = total + p.getPrice();
+        }
+
+        basket.setTotal(total);
+        log.debug("Basket total : " + basket.getTotal());
+        return basket;
     }
 
 }

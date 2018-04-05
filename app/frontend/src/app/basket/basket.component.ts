@@ -28,6 +28,7 @@ export class BasketComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log("Something has changed !!");
     for (let propName in changes) {
       let chng = changes[propName];
       let cur  = JSON.stringify(chng.currentValue);

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Location } from '@angular/common';
 
 import { Product } from '../product';
@@ -16,6 +16,7 @@ export class DetailsComponent implements OnInit {
 
   @Input() product: Product;
   basket: Basket;
+  @Output() updatedBasket = new EventEmitter<Basket>();
 
   constructor(
     private inventoryService: InventoryService,
@@ -31,6 +32,7 @@ export class DetailsComponent implements OnInit {
     this.basketService.addProductToBasket(product).subscribe( (basket : Basket) => {
       console.log("AppComponent : createBasket : " +basket.id);
       this.basket = basket;
+      this.updatedBasket.emit(basket);
     });
   }
 

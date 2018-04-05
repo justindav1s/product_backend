@@ -1,19 +1,50 @@
 <div *ngIf="user">
-  <!--  -->
-    <div class="list-group">
-      <div>
-        <nav class="navbar navbar-default">
-          <div class="container-fluid">
-            <div class="navbar-header">
-                <div class="navbar-brand pull-left">Basket # {{basket.id}}</div>
-                <a class="navbar-brand pull-right" href="#">Checkout</a>
-                <div class="list-group, col-md-2">
-                  <a href="#" *ngFor="let product of products" class="list-group-item">{{product.name | titlecase}}</a>
-                </div>
-            </div>
-          </div>
-        </nav>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-7">
+          <div class="navbar-brand">Basket # {{basket.id}}</div>
+        </div>
+        <div class="col-md-5">
+          <div class="navbar-brand">Total £ 10.99</div>
+        </div>
       </div>
     </div>
-  <!-- </div> -->
+  </nav>
+  <div class="list-group">
+    <div class="list-group-item">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-4">
+            <h4>Item</h4>
+          </div>
+          <div class="col-md-3">
+            <h4>Price</h4>
+          </div>
+          <div class="col-md-3">
+            <h4>Quantity</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngFor="let product of basket.products" class="list-group-item">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-2">
+            <img src="assets/{{product.name | lowercase}}.jpeg" height="32" width="32">
+          </div>
+          <div class="col-md-4">
+            {{product.name | titlecase}}
+          </div>
+          <div class="col-md-4">
+            {{ product.price }}
+          </div>
+          <div class="col-md-2">
+            1
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

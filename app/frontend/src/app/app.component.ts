@@ -38,4 +38,9 @@ export class AppComponent {
       this.product = product;
   }
 
+  onUpdatedBasket(basket : Basket)  {
+      console.log("AppComponent : onUpdatedBasket : Basket JSON : " + JSON.stringify(this.basket));
+      this.basket = basket;
+  }
+
 }

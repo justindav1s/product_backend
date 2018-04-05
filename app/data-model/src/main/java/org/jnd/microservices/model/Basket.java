@@ -4,6 +4,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -14,6 +15,22 @@ public class Basket {
     private int id;
     private String userId;
     private ArrayList<Product> products = new ArrayList<Product>();
+    private String total = "0.00";
+
+    public Basket(int id) {
+        this.id = id;
+        products = new ArrayList<Product>();
+    }
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        String formatted = df.format(total);
+        this.total = "£ "+formatted;
+    }
 
     public String getUserId() {
         return userId;
@@ -21,11 +38,6 @@ public class Basket {
 
     public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-    public Basket(int id) {
-        this.id = id;
-        products = new ArrayList<Product>();
     }
 
     public int getId() {
