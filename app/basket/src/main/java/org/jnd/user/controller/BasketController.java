@@ -125,7 +125,7 @@ public class BasketController {
 
         log.debug("Get basket : "+basketId);
 
-        Basket basket = basketRepository.get(Integer.toString(basketId));
+        Basket basket = basketRepository.get(basketId);
 
         return new ResponseEntity<>(basket, null, HttpStatus.OK);
     }
