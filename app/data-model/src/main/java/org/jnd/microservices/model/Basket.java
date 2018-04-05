@@ -20,7 +20,7 @@ public class Basket {
     }
 
     public void setUserId(String userId) {
-        userId = userId;
+        this.userId = userId;
     }
 
     public Basket(int id) {
