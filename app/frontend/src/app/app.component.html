@@ -6,7 +6,7 @@
         <div class="navbar-header">
           <a class="navbar-brand" href="#">{{title}}</a>
         </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse">
           <app-categories (productList)="onNewProductList($event)"></app-categories>
           <app-login (loggedInUser)="onNewLogin($event)"></app-login>
         </div>
