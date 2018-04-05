@@ -29,7 +29,7 @@ public class Basket {
     public void setTotal(float total) {
         DecimalFormat df = new DecimalFormat("#.##");
         String formatted = df.format(total);
-        this.total = "£ "+formatted;
+        this.total = formatted;
     }
 
     public String getUserId() {

@@ -6,7 +6,7 @@
           <div class="navbar-brand">Basket # {{basket.id}}</div>
         </div>
         <div class="col-md-5">
-          <div class="navbar-brand">Total £ 10.99</div>
+          <div class="navbar-brand">Total £ {{basket.total}}</div>
         </div>
       </div>
     </div>
@@ -38,7 +38,7 @@
             {{product.name | titlecase}}
           </div>
           <div class="col-md-4">
-            {{ product.price }}
+            £ {{ product.price }}
           </div>
           <div class="col-md-2">
             1
