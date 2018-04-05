@@ -12,15 +12,15 @@ import java.util.ArrayList;
 public class Basket {
 
     private int id;
-    private int UserId;
+    private String userId;
     private ArrayList<Product> products = new ArrayList<Product>();
 
-    public int getUserId() {
-        return UserId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserId(int userId) {
-        UserId = userId;
+    public void setUserId(String userId) {
+        userId = userId;
     }
 
     public Basket(int id) {

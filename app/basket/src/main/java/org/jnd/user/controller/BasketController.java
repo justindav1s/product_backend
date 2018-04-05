@@ -48,7 +48,7 @@ public class BasketController {
         if (basket == null) {
             int basketId = basketRepository.size() + 1;
             basket = new Basket(basketId);
-            basket.setUserId(user.getId());
+            basket.setUserId(user.getUsername());
             user.setBasketId(basket.getId());
             log.debug("Basket Create #"+basketId);
             log.debug("Basket Create :"+basket);
