@@ -47,12 +47,13 @@ public class BasketController {
             int basketId = basketRepository.size() + 1;
             basket = new Basket(basketId);
             basket.setUserId(user.getUsername());
-            user.setBasketId(basket.getId());
             log.debug("Basket Create #"+basketId);
             log.debug("Basket Create :"+basket);
             basketRepository.put(user.getUsername(), basket);
             basket = basketRepository.get(user.getUsername());
         }
+
+        user.setBasketId(basket.getId());
 
         log.debug("Returning user with basket data :"+user);
         return new ResponseEntity<>(user, null, HttpStatus.CREATED);
