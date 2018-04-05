@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { User } from '../user';
-import { UserService } from '../user.service';
+import { User } from '../model/user';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     console.log("login");
     console.log("user.username : " + this.user.username);
     console.log("user.password : " + this.user.password);
-    this.userService.login(this.user).subscribe( (user: User[]) => {
+    this.userService.login(this.user).subscribe( (user: User) => {
       console.log("LoginComponent : user : " + user.id + " : " + user.username);
       this.loggedIn = true;
       this.loggedInUser.emit(user);

@@ -5,16 +5,16 @@ import { AppComponent } from './app.component';
 import { FormsModule }    from '@angular/forms';
 import { HttpClientModule }    from '@angular/common/http';
 import { AppRoutingModule }     from './app-routing.module';
-import { InventoryService }          from './inventory.service';
+import { InventoryService }          from './services/inventory.service';
 import { InventoryComponent } from './inventory/inventory.component';
 import { CategoriesComponent } from './categories/categories.component';
-import { CategoriesService } from './categories.service';
+import { CategoriesService } from './services/categories.service';
 import { TitleCasePipe } from './title-case.pipe';
 import { DetailsComponent } from './details/details.component';
 import { BasketComponent } from './basket/basket.component';
-import { BasketService } from './basket.service';
+import { BasketService } from './services/basket.service';
 import { LoginComponent } from './login/login.component';
-import { UserService } from './user.service';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [

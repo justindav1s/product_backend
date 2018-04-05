@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
-import { Product } from '../product';
-import { InventoryService } from '../inventory.service';
+import { Product } from '../model/product';
+import { InventoryService } from '../services/inventory.service';
 
 @Component({
   selector: 'app-inventory',

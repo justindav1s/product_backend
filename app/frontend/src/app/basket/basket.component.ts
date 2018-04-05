@@ -1,9 +1,9 @@
-import { Component, OnInit, OnChanges, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
 
-import { BasketService } from '../basket.service';
-import { Product } from '../product';
-import { Basket } from '../basket';
-import { User } from '../user';
+import { BasketService } from '../services/basket.service';
+import { Product } from '../model/product';
+import { Basket } from '../model/basket';
+import { User } from '../model/user';
 
 @Component({
   selector: 'app-basket',
@@ -22,9 +22,6 @@ export class BasketComponent implements OnInit {
 
   ngOnInit() {
     console.log("BasketComponent ngOnInit user : "  + this.user);
-    if (this.user) {
-      this.createBasket(this.user);
-    }
   }
 
   ngOnChanges(changes: SimpleChanges) {

@@ -1,8 +1,8 @@
 import { Component, OnInit, EventEmitter, Output} from '@angular/core';
 
-import { CategoriesService } from '../categories.service';
-import { InventoryService } from '../inventory.service';
-import { Product } from '../product';
+import { CategoriesService } from '../services/categories.service';
+import { InventoryService } from '../services/inventory.service';
+import { Product } from '../model/product';
 
 @Component({
   selector: 'app-categories',

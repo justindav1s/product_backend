@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 
-import { Product } from './product'
-import { Basket } from './basket';
-import { User } from './user';
+import { Product } from './model/product'
+import { Basket } from './model/basket';
+import { User } from './model/user';
 
 @Component({
   selector: 'app-root',

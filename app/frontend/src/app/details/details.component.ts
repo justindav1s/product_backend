@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Location } from '@angular/common';
 
-import { Product } from '../product';
-import { Basket } from '../basket';
+import { Product } from '../model/product';
+import { Basket } from '../model/basket';
 
-import { InventoryService } from '../inventory.service';
-import { BasketService } from '../basket.service';
+import { InventoryService } from '../services/inventory.service';
+import { BasketService } from '../services/basket.service';
 
 @Component({
   selector: 'app-details',
