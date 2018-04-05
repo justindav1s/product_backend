@@ -39,7 +39,7 @@ public class BasketController {
         Basket basket = null;
 
         basket = basketRepository.get(user.getUsername());
-        log.debug("Basket exists :"+basket);
+        log.debug("Basket exists ? Basket : "+basket);
 
 
         //basket does not exist : create it
@@ -47,6 +47,7 @@ public class BasketController {
             int basketId = basketRepository.size() + 1;
             basket = new Basket(basketId);
             basket.setUserId(user.getUsername());
+            log.debug("Basket Create for user : "+user.getUsername());
             log.debug("Basket Create #"+basketId);
             log.debug("Basket Create :"+basket);
             basketRepository.add(basket);
