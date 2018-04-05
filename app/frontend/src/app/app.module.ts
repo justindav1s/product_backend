@@ -31,7 +31,7 @@ import { UserService } from './user.service';
     FormsModule,
     HttpClientModule,
   ],
-  providers: [InventoryService, CategoriesService, BasketService, InventoryComponent, UserService],
+  providers: [InventoryService, CategoriesService, BasketService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

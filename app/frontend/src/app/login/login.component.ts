@@ -9,13 +9,14 @@ import { UserService } from '../user.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  @Output() user: User = new EventEmitter<User>();
+  user : User = new User();
+  @Output() loggedInUser = new EventEmitter<User>();
   loggedIn : boolean = false;
 
   constructor(private userService: UserService) { }
 
   ngOnInit() {
+    console.log("LoginComponent ngOnInit");
   }
 
   onSubmit(): void{
@@ -25,9 +26,10 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.user).subscribe( (user: User[]) => {
       console.log("LoginComponent : user : " + user.id + " : " + user.username);
       this.loggedIn = true;
-      this.user.emit(user);
+      this.loggedInUser.emit(user);
+      this.user = user;
     });
   }
-  get greeting() { return "Welcome " + user.username + " !"}
+  get greeting() { return "Welcome " + this.user.username + " !"}
   get diagnostic() { return JSON.stringify(this.user); }
 }

@@ -15,7 +15,6 @@ export class CategoriesComponent implements OnInit {
 
   categories : string[];
   selectedCategory: string;
-  productListAvailable = new EventEmitter<Product[]>();
   products: Product[];
 
   constructor
@@ -25,6 +24,7 @@ export class CategoriesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log("CategoriesComponent ngOnInit");
     this.getCategories();
   }
 
@@ -39,7 +39,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   getAllProductsForCategory(category: string): void {
-    console.log("InventoryComponent get inventory for category : " + category);
+    console.log("CategoriesComponent get inventory for category : " + category);
     this.inventoryService.getProductsByType(category).subscribe( (products: Product[]) => {
       console.log("CategoriesComponent : products : " + products);
       this.productList.emit(products);

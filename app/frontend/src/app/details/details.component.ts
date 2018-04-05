@@ -23,6 +23,7 @@ export class DetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    console.log("DetailsComponent ngOnInit");
   }
 
   onAddToBasket(product: Product) : void  {

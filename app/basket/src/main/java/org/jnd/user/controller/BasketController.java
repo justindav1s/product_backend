@@ -1,5 +1,6 @@
 package org.jnd.user.controller;
 
+import org.jnd.microservices.model.User;
 import org.jnd.user.proxies.ProductRepositoryProxy;
 import org.jnd.user.repositories.BasketRepository;
 import org.jnd.microservices.model.Basket;
@@ -31,20 +32,32 @@ public class BasketController {
     @Autowired
     private BasketRepository basketRepository;
 
-    @RequestMapping(value = "/create", method = RequestMethod.GET)
-    ResponseEntity<?> create( @RequestHeader HttpHeaders headers) {
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    ResponseEntity<?> create(@RequestBody User user, @RequestHeader HttpHeaders headers) {
 
-        log.debug("1 Basket Create");
+        log.debug("Basket Create for user : "+user);
+        Basket basket = null;
 
-        int basketId = basketRepository.size() + 1;
-        Basket basket = new Basket(basketId);
-        log.debug("Basket Create #"+basketId);
-        log.debug("Basket Create :"+basket);
-        basketRepository.put(Integer.toString(basketId), basket);
-        log.debug("Basket Repository :"+basketRepository);
-        basket = basketRepository.get(Integer.toString(basketId));
-        log.debug("Returning Basket :"+basket);
-        return new ResponseEntity<>(basket, null, HttpStatus.CREATED);
+        //check to see whether a basket already exists
+        if (user.getBasketId() > 0){
+            basket = basketRepository.get(Integer.toString(user.getBasketId()));
+            log.debug("Basket exists :"+basket);
+        }
+
+        //basket does not exist : create it
+        if (basket == null) {
+            int basketId = basketRepository.size() + 1;
+            basket = new Basket(basketId);
+            basket.setUserId(user.getId());
+            user.setBasketId(basket.getId());
+            log.debug("Basket Create #"+basketId);
+            log.debug("Basket Create :"+basket);
+            basketRepository.put(Integer.toString(basketId), basket);
+            basket = basketRepository.get(Integer.toString(basketId));
+        }
+
+        log.debug("Returning user with basket data :"+user);
+        return new ResponseEntity<>(user, null, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/remove/{basketId}", method = RequestMethod.DELETE)

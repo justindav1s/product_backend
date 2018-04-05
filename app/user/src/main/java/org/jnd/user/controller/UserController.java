@@ -1,6 +1,7 @@
 package org.jnd.user.controller;
 
 import org.jnd.microservices.model.User;
+import org.jnd.user.proxies.BasketRepositoryProxy;
 import org.jnd.user.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,16 +21,31 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private BasketRepositoryProxy basketRepositoryProxy;
+
     private static int nextId = 0;
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
     ResponseEntity<?> create(@RequestBody User user, @RequestHeader HttpHeaders headers) {
 
-        log.debug("User Create : " +user);
-        nextId = nextId + 1;
-        user.setId(nextId);
-        log.debug("User Create : " +user);
-        userRepository.put(Integer.toString(user.getId()), user);
+        //check to see whether user exists
+        if (userRepository.containsKey(user.getUsername())) {
+            //this user exists : retreive
+            user = userRepository.get(user.getUsername());
+            log.debug("User exists : " +user);
+        }
+        else    {
+            //this user does not exist : create
+            nextId = nextId + 1;
+            user.setId(nextId);
+            log.debug("User Create : " +user);
+            userRepository.put(Integer.toString(user.getId()), user);
+        }
+
+        //get user's basket data
+        user = basketRepositoryProxy.getBasket(user);
+
         return new ResponseEntity<>(user, null, HttpStatus.CREATED);
     }
 

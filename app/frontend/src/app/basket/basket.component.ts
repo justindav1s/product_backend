@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { BasketService } from '../basket.service';
 import { Product } from '../product';
 import { Basket } from '../basket';
+import { User } from '../user';
 
 @Component({
   selector: 'app-basket',
@@ -10,22 +11,21 @@ import { Basket } from '../basket';
   styleUrls: ['./basket.component.css']
 })
 export class BasketComponent implements OnInit {
+  @Input() user: User;
   basket : Basket;
   product : Product;
+  products: Product[] = new Array();
 
   constructor(
     private basketService: BasketService
   ) { }
 
   ngOnInit() {
-    this.createBasket();
+    console.log("BasketComponent ngOnInit user : "  + this.user);
+    if (this.user) {
+      this.createBasket(this.user);
+    }
   }
 
-  createBasket(): void {
-    console.log("creating basket");
-    this.basketService.createBasket().subscribe( (basket : Basket) => {
-      console.log("AppComponent : createBasket : " +basket.id);
-      this.basket = basket;
-    });
-  }
+
 }

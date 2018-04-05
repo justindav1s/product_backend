@@ -8,7 +8,7 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <app-categories (productList)="onNewProductList($event)"></app-categories>
-          <app-login></app-login>
+          <app-login (loggedInUser)="onNewLogin($event)"></app-login>
         </div>
       </nav>
     </div>
@@ -22,7 +22,7 @@
       <app-details [product]="product"></app-details>
     </div>
     <div class="col-md-4">
-      <app-basket></app-basket>
+      <app-basket [user]="user"></app-basket>
     </div>
   </div>
 </div><!-- /.container-fluid -->

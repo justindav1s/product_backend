@@ -5,6 +5,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 public class User {
 
     private int id;
+    private int basketId;
     private String username;
     private String password;
 
@@ -34,6 +35,14 @@ public class User {
 
     public String toString(){
         return ReflectionToStringBuilder.toString(this);
+    }
+
+    public int getBasketId() {
+        return basketId;
+    }
+
+    public void setBasketId(int basketId) {
+        this.basketId = basketId;
     }
 
 }

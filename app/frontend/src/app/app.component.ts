@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Product } from './product'
 import { Basket } from './basket';
-
-import { BasketService } from './basket.service';
+import { User } from './user';
 
 @Component({
   selector: 'app-root',
@@ -11,15 +10,19 @@ import { BasketService } from './basket.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  user: User;
   products: Product[];
   product: Product;
   basket: Basket;
 
   title = 'Amazin - Shopping Reimagined';
 
-  constructor(
-    private basketService: BasketService
-  ) {}
+  constructor() {}
+
+  onNewLogin(user : User)  {
+    console.log("AppComponent : onNewLogin : " + user.id + " : " + user.username);
+    this.user = user;
+  }
 
   onNewProductList(products : Product[])  {
     console.log("AppComponent : onNewProductList : " + products);

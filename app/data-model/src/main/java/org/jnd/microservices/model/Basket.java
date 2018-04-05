@@ -11,15 +11,22 @@ import java.util.ArrayList;
  */
 public class Basket {
 
-
     private int id;
+    private int UserId;
+    private ArrayList<Product> products = new ArrayList<Product>();
+
+    public int getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(int userId) {
+        UserId = userId;
+    }
 
     public Basket(int id) {
         this.id = id;
         products = new ArrayList<Product>();
     }
-
-    private ArrayList<Product> products = new ArrayList<Product>();
 
     public int getId() {
         return id;
