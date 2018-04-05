@@ -86,7 +86,7 @@ public class BasketController {
             basket.setProducts(new ArrayList<>());
             basket.getProducts().add(product);
         }
-        basket.getProducts().add(product);
+
         return new ResponseEntity<>(basket, null, HttpStatus.ACCEPTED);
     }
 
