@@ -5,13 +5,11 @@
         <nav class="navbar navbar-default">
           <div class="container-fluid">
             <div class="navbar-header">
-              <div *ngIf="basket">
                 <div class="navbar-brand pull-left">Basket # {{basket.id}}</div>
                 <a class="navbar-brand pull-right" href="#">Checkout</a>
                 <div class="list-group, col-md-2">
                   <a href="#" *ngFor="let product of products" class="list-group-item">{{product.name | titlecase}}</a>
                 </div>
-              </div>
             </div>
           </div>
         </nav>

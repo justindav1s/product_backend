@@ -20,8 +20,12 @@ export class AppComponent {
   constructor() {}
 
   onNewLogin(user : User)  {
-    console.log("AppComponent : onNewLogin : " + user.id + " : " + user.username);
     this.user = user;
+    console.log("AppComponent : onNewLogin : JSON : " + JSON.stringify(this.user));
+    console.log("AppComponent : onNewLogin : " + user.id + " : " + user.username+ " basketId : " + this.user.basketId);
+    this.basket = new Basket();
+    this.basket.id = this.user.basketId
+    console.log("AppComponent : onNewLogin : Basket JSON : " + JSON.stringify(this.basket));
   }
 
   onNewProductList(products : Product[])  {

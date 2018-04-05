@@ -49,8 +49,8 @@ public class BasketController {
             basket.setUserId(user.getUsername());
             log.debug("Basket Create #"+basketId);
             log.debug("Basket Create :"+basket);
-            basketRepository.put(user.getUsername(), basket);
-            basket = basketRepository.get(user.getUsername());
+            basketRepository.add(basket);
+            basket = basketRepository.get(basketId);
         }
 
         user.setBasketId(basket.getId());
@@ -60,10 +60,10 @@ public class BasketController {
     }
 
     @RequestMapping(value = "/remove/{basketId}", method = RequestMethod.DELETE)
-    ResponseEntity<?> delete(@PathVariable int basketId, @RequestHeader HttpHeaders headers)    {
+    ResponseEntity<?> delete(@RequestBody Basket basket, @RequestHeader HttpHeaders headers)    {
 
-        log.debug("Remove Basket#"+basketId);
-        basketRepository.remove(Integer.toString(basketId));
+        log.debug("Remove Basket : "+basket);
+        basketRepository.remove(basket);
         return new ResponseEntity<>("DELETED", null, HttpStatus.GONE);
     }
 
@@ -119,10 +119,10 @@ public class BasketController {
         return new ResponseEntity<>(basket, null, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{basketId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/get/{basketId}", method = RequestMethod.GET)
     ResponseEntity<Basket>  get(@PathVariable int basketId, @RequestHeader HttpHeaders headers) {
 
-        log.debug("Get user : "+basketId);
+        log.debug("Get basket : "+basketId);
 
         Basket basket = basketRepository.get(Integer.toString(basketId));
 
