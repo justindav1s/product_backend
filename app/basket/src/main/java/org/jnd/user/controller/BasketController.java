@@ -78,7 +78,7 @@ public class BasketController {
         log.debug("Basket #"+basketId+" Add Product#"+productId);
 
         Product product = productrepository.getProduct(productId);
-        Basket basket = basketRepository.get(Integer.toString(basketId));
+        Basket basket = basketRepository.get(basketId);
         if (basket.getProducts() != null) {
             basket.getProducts().add(product);
         }
