@@ -43,5 +43,10 @@ export class BasketComponent implements OnInit {
     }
   }
 
+  onClickRemoveProduct(event: Event)  {
+    console.log("BasketComponent onClickRemoveProduct");
+    console.log(event.target.attributes.getNamedItem('data-index').value);
+    console.log(event);
+  }
 
 }

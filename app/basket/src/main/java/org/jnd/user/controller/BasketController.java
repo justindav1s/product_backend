@@ -91,15 +91,14 @@ public class BasketController {
         return new ResponseEntity<>(basket, null, HttpStatus.ACCEPTED);
     }
 
-    @RequestMapping(value = "/{basketId}/remove/{productId}", method = RequestMethod.DELETE)
-    ResponseEntity<Basket> remove(@PathVariable int basketId, @PathVariable String productId, @RequestHeader HttpHeaders headers) {
+    @RequestMapping(value = "/{basketId}/remove/{productIndex}", method = RequestMethod.DELETE)
+    ResponseEntity<Basket> remove(@PathVariable int basketId, @PathVariable String productIndex, @RequestHeader HttpHeaders headers) {
 
-        log.debug("Basket #"+basketId+" Add Product#"+productId);
+        log.debug("Basket #"+basketId+" remove product at index "+productIndex);
 
-        Product product = productrepository.getProduct(productId);
         Basket basket = basketRepository.get(basketId);
         if (basket.getProducts() != null) {
-            basket.getProducts().remove(product);
+            basket.getProducts().remove(productIndex);
         }
         basket = calculateTotal(basket);
         return new ResponseEntity<>(basket, null, HttpStatus.GONE);
