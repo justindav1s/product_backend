@@ -6,7 +6,7 @@ node('nodejs') {
         git url: "${git_url}"
     }
 
-    dir('app/{{app-name}}') {
+    dir('app/{{ app_name }}') {
 
         def dev_project  = "${org}-dev"
         def prod_project = "${org}-prod"
