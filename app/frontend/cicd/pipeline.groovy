@@ -13,8 +13,6 @@ node('nodejs6') {
         def sonar_url    = "http://sonarqube.cicd.svc:9000"
 
         stage('npm') {
-          sh 'pwd'
-          sh 'ls -ltr $HOME/node_modules/.bin'
           sh 'npm install'
         }
 
