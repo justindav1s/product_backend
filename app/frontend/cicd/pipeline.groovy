@@ -17,7 +17,7 @@ node('nodejs') {
         }
 
         stage('Angular build') {
-          sh 'node_modules/.bin/ng build'
+          sh 'node_modules/.bin/ng build --prod'
         }
 
       //Build the OpenShift Image in OpenShift and tag it.
