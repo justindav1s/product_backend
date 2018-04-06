@@ -16,6 +16,11 @@ node('nodejs') {
           sh 'npm install'
         }
 
+        stage('upgrade') {
+          sh 'npm install -g n'
+          sh 'n stable'
+        }
+
         stage('Angular build') {
           sh 'node_modules/.bin/ng build --prod'
         }
