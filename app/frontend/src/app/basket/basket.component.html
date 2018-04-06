@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div *ngFor="let product of basket.products; index as i" class="list-group-item">
+    <div *ngFor="let product of basket.products" class="list-group-item">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-2">
@@ -40,8 +40,8 @@
             £ {{ product.price }}
           </div>
           <div class="col-md-2">
-            <a href="#" (click)="onClickRemoveProduct($event)" class="btn btn-primary">
-              <span class="glyphicon glyphicon-remove" aria-hidden="true" [attr.data-index]="i"></span>
+            <a href="#" (click)="onClickRemoveProduct(product)" class="btn btn-primary">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
             </a>
           </div>
         </div>

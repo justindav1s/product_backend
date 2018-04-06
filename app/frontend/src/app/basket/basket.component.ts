@@ -42,12 +42,10 @@ export class BasketComponent implements OnInit {
     }
   }
 
-  onClickRemoveProduct(event: Event)  {
+  onClickRemoveProduct(product: Product)  {
     console.log("BasketComponent onClickRemoveProduct");
-    console.log(event.target.attributes)
-    let itemAtIndex: number = event.target.attributes.getNamedItem('data-index').value;
-    console.log("Delete item at index : " +itemAtIndex);
-    this.basketService.removeProductFromBasket(itemAtIndex).subscribe( (basket: Basket) => {
+    console.log("Delete item at index : " +product.basketIndex);
+    this.basketService.removeProductFromBasket(product.basketIndex).subscribe( (basket: Basket) => {
       console.log("BasketComponent : removeProductFromBasket AFTER : " + JSON.stringify(basket));
       this.basket = basket
       this.basketService.setBasket(basket);
