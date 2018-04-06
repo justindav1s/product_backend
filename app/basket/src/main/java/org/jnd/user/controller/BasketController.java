@@ -92,7 +92,7 @@ public class BasketController {
     }
 
     @RequestMapping(value = "/{basketId}/remove/{productIndex}", method = RequestMethod.DELETE)
-    ResponseEntity<Basket> remove(@PathVariable int basketId, @PathVariable String productIndex, @RequestHeader HttpHeaders headers) {
+    ResponseEntity<Basket> remove(@PathVariable int basketId, @PathVariable int productIndex, @RequestHeader HttpHeaders headers) {
 
         log.debug("Basket #"+basketId+" remove product at index "+productIndex);
 

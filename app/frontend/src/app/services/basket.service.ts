@@ -45,6 +45,16 @@ export class BasketService {
     );
   }
 
+  removeProductFromBasket(itemAtIndex: number): Observable<Basket> {
+    console.log("removeProductFromBasket");
+    const url = `${this.basketUrl}/${this.basket.id}/remove/${itemAtIndex}`;
+    return this.http.delete<Basket>(url, httpOptions)
+    .pipe(
+      tap(_ => this.log(`fetched basket`)),
+      catchError(this.handleError<Basket>(`createBasket`))
+    );
+
+  }
   /**
    * Handle Http operation that failed.
    * Let the app continue.
