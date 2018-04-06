@@ -32,26 +32,26 @@ public class ProductController {
 
         if(repository.size() == 0) {
 
-            repository.put("1", new Product("1", "marmalade", ProductType.FOOD, 1.29f, 12));
-            repository.put("2", new Product("2", "milk", ProductType.FOOD, 0.83f, 20));
-            repository.put("3", new Product("3", "chocolate", ProductType.FOOD, 0.79f, 23));
-            repository.put("4", new Product("4", "bread", ProductType.FOOD, 1.09f, 80));
-            repository.put("5", new Product("5", "broccoli", ProductType.FOOD, 0.99f, 5));
-            repository.put("6", new Product("6", "chicken", ProductType.FOOD, 3.99f, 8));
-            repository.put("7", new Product("7", "coffee", ProductType.FOOD, 3.39f, 12));
-            repository.put("8", new Product("8", "tea", ProductType.FOOD, 1.29f, 72));
-            repository.put("9", new Product("9", "biscuits", ProductType.FOOD, 0.79f, 23));
-            repository.put("10", new Product("10", "cake", ProductType.FOOD, 2.79f, 15));
+            repository.put("1", new Product("1", "marmalade", ProductType.FOOD, 1.29f));
+            repository.put("2", new Product("2", "milk", ProductType.FOOD, 0.83f));
+            repository.put("3", new Product("3", "chocolate", ProductType.FOOD, 0.79f));
+            repository.put("4", new Product("4", "bread", ProductType.FOOD, 1.09f));
+            repository.put("5", new Product("5", "broccoli", ProductType.FOOD, 0.99f));
+            repository.put("6", new Product("6", "chicken", ProductType.FOOD, 3.99f));
+            repository.put("7", new Product("7", "coffee", ProductType.FOOD, 3.39f));
+            repository.put("8", new Product("8", "tea", ProductType.FOOD, 1.29f));
+            repository.put("9", new Product("9", "biscuits", ProductType.FOOD, 0.79f));
+            repository.put("10", new Product("10", "cake", ProductType.FOOD, 2.79f));
 
-            repository.put("11", new Product("11", "socks", ProductType.CLOTHES, 3.39f, 20));
-            repository.put("12", new Product("12", "jacket", ProductType.CLOTHES, 49.99f, 5));
-            repository.put("13", new Product("13", "shoes", ProductType.CLOTHES, 59.99f, 10));
-            repository.put("14", new Product("14", "hat", ProductType.CLOTHES, 20.99f, 2));
+            repository.put("11", new Product("11", "socks", ProductType.CLOTHES, 3.39f));
+            repository.put("12", new Product("12", "jacket", ProductType.CLOTHES, 49.99f));
+            repository.put("13", new Product("13", "shoes", ProductType.CLOTHES, 59.99f));
+            repository.put("14", new Product("14", "hat", ProductType.CLOTHES, 20.99f));
 
-            repository.put("15", new Product("15", "camera", ProductType.GADGETS, 43.39f, 20));
-            repository.put("16", new Product("16", "tv", ProductType.GADGETS, 499.99f, 5));
-            repository.put("17", new Product("17", "iPad", ProductType.GADGETS, 599.99f, 10));
-            repository.put("18", new Product("18", "Robot", ProductType.GADGETS, 99.99f, 2));
+            repository.put("15", new Product("15", "camera", ProductType.GADGETS, 43.39f));
+            repository.put("16", new Product("16", "tv", ProductType.GADGETS, 499.99f));
+            repository.put("17", new Product("17", "iPad", ProductType.GADGETS, 599.99f));
+            repository.put("18", new Product("18", "Robot", ProductType.GADGETS, 99.99f));
         }
 
     }
@@ -129,7 +129,7 @@ public class ProductController {
             type = ProductType.GADGETS;
         }
 
-        Product p = new Product(Integer.toString(productId), productName, type, productPrice, 0);
+        Product p = new Product(Integer.toString(productId), productName, type, productPrice);
 
         repository.put(Integer.toString(productId), p);
 
