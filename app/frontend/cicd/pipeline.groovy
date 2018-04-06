@@ -1,6 +1,6 @@
 #!groovy
 
-node('nodejs') {
+node('nodejs6') {
 
     stage('Checkout Source') {
         git url: "${git_url}"
