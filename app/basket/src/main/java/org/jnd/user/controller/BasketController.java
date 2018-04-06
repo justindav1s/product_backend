@@ -101,7 +101,7 @@ public class BasketController {
             basket.getProducts().remove(productIndex);
         }
         basket = calculateTotal(basket);
-        return new ResponseEntity<>(basket, null, HttpStatus.GONE);
+        return new ResponseEntity<>(basket, null, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{basketId}/empty", method = RequestMethod.DELETE)
@@ -115,7 +115,7 @@ public class BasketController {
         }
         basket = basketRepository.get(basketId);
         basket = calculateTotal(basket);
-        return new ResponseEntity<>(basket, null, HttpStatus.GONE);
+        return new ResponseEntity<>(basket, null, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/get/{basketId}", method = RequestMethod.GET)

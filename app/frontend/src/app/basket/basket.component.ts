@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, SimpleChanges, EventEmitter } from '@angular/core';
 
 import { BasketService } from '../services/basket.service';
 import { Product } from '../model/product';
@@ -13,8 +13,7 @@ import { User } from '../model/user';
 export class BasketComponent implements OnInit {
   @Input() user: User;
   @Input() basket : Basket;
-  product : Product;
-  products: Product[] = new Array();
+  @Output() updatedBasket = new EventEmitter<Basket>();
 
   constructor(
     private basketService: BasketService
@@ -51,6 +50,7 @@ export class BasketComponent implements OnInit {
       console.log("BasketComponent : removeProductFromBasket AFTER : " + JSON.stringify(basket));
       this.basket = basket
       this.basketService.setBasket(basket);
+      this.updatedBasket.emit(basket);
     });
   }
 
