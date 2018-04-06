@@ -61,7 +61,7 @@ public class BasketController {
 
         log.debug("Remove Basket : "+basket);
         basketRepository.remove(basket);
-        return new ResponseEntity<>("DELETED", null, HttpStatus.GONE);
+        return new ResponseEntity<>("DELETED", null, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/clearall", method = RequestMethod.DELETE)
@@ -69,7 +69,7 @@ public class BasketController {
 
         log.debug("Clearing all Baskets");
         basketRepository.clear();
-        return new ResponseEntity<>("CLEAR", null, HttpStatus.GONE);
+        return new ResponseEntity<>("CLEAR", null, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{basketId}/add/{productId}", method = RequestMethod.PUT)
@@ -80,15 +80,18 @@ public class BasketController {
         Product product = productrepository.getProduct(productId);
         Basket basket = basketRepository.get(basketId);
         if (basket.getProducts() != null) {
+            int basketIndex = basket.getProducts().size();
+            product.setBasketIndex(basketIndex);
             basket.getProducts().add(product);
         }
         else    {
             basket.setProducts(new ArrayList<>());
+            product.setBasketIndex(0);
             basket.getProducts().add(product);
         }
 
         basket = calculateTotal(basket);
-        return new ResponseEntity<>(basket, null, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(basket, null, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{basketId}/remove/{productIndex}", method = RequestMethod.DELETE)
@@ -99,6 +102,14 @@ public class BasketController {
         Basket basket = basketRepository.get(basketId);
         if (basket.getProducts() != null) {
             basket.getProducts().remove(productIndex);
+
+            //reset the indexes
+            int index = 0;
+            for (Product p : basket.getProducts())  {
+                p.setBasketIndex(index);
+                index = index +1;
+            }
+
         }
         basket = calculateTotal(basket);
         return new ResponseEntity<>(basket, null, HttpStatus.OK);

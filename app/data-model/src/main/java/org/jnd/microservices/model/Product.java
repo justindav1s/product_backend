@@ -13,16 +13,23 @@ public class Product {
     private String name = null;
     private ProductType type = null;
     private Float price = null;
-    private Integer inStock = 0;
+    private int basketIndex = 0;
 
     private Product() {}
 
-    public Product(String id, String name, ProductType type, Float price, Integer inStock) {
+    public Product(String id, String name, ProductType type, Float price) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.price = price;
-        this.inStock = inStock;
+    }
+
+    public int getBasketIndex() {
+        return basketIndex;
+    }
+
+    public void setBasketIndex(int basketIndex) {
+        this.basketIndex = basketIndex;
     }
 
     public String getId() {
@@ -41,13 +48,6 @@ public class Product {
         this.name = name;
     }
 
-    public Integer getInStock() {
-        return inStock;
-    }
-
-    public void setInStock(Integer inStock) {
-        this.inStock = inStock;
-    }
 
     public Float getPrice() {
         return price;

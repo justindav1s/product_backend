@@ -44,6 +44,7 @@ export class BasketComponent implements OnInit {
 
   onClickRemoveProduct(event: Event)  {
     console.log("BasketComponent onClickRemoveProduct");
+    console.log(event.target.attributes)
     let itemAtIndex: number = event.target.attributes.getNamedItem('data-index').value;
     console.log("Delete item at index : " +itemAtIndex);
     this.basketService.removeProductFromBasket(itemAtIndex).subscribe( (basket: Basket) => {
