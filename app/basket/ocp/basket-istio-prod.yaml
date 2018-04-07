@@ -71,7 +71,7 @@ metadata:
     app: basket
 spec:
   ports:
-  - name: 8080-tcp
+  - name: 8080-http
     protocol: TCP
     port: 8080
     targetPort: 8080
@@ -99,7 +99,7 @@ spec:
       - path: /.*
         backend:
           serviceName: basket
-          servicePort: 8080
+          servicePort: 8080-http
 
 kind: Route
 apiVersion: v1
@@ -111,7 +111,7 @@ metadata:
 spec:
   host: basket.apps.ocp.datr.eu
   port:
-    targetPort: 8080-tcp
+    targetPort: 8080-http
   to:
     kind: Service
     name: basket
