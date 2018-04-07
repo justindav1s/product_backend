@@ -77,6 +77,12 @@
 			<artifactId>jaeger-core</artifactId>
 			<version>0.26.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.uber.jaeger</groupId>
+			<artifactId>jaeger-b3</artifactId>
+			<version>0.26.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
