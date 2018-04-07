@@ -68,7 +68,13 @@
 
 		<dependency>
 			<groupId>io.opentracing.contrib</groupId>
-			<artifactId>opentracing-spring-web-autoconfigure</artifactId>
+			<artifactId>opentracing-spring-cloud-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.uber.jaeger</groupId>
+			<artifactId>jaeger-core</artifactId>
+			<version>0.26.0</version>
 		</dependency>
 
 	</dependencies>
