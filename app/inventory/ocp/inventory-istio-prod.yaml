@@ -98,10 +98,9 @@ metadata:
     app: inventory
 spec:
   ports:
-  - name: 8080-http
+  - name: http
     protocol: TCP
     port: 8080
-    targetPort: 8080
   selector:
     app: inventory
     deploymentconfig: inventory
@@ -126,7 +125,7 @@ spec:
       - path: /.*
         backend:
           serviceName: inventory
-          servicePort: 8080-http
+          servicePort: 8080
 
 kind: Route
 apiVersion: v1
@@ -138,7 +137,7 @@ metadata:
 spec:
   host: inventory.apps.ocp.datr.eu
   port:
-    targetPort: 8080-http
+    targetPort: 8080
   to:
     kind: Service
     name: inventory

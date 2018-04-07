@@ -65,6 +65,11 @@
 			<artifactId>logback-core</artifactId>
 			<version>1.2.3</version>
 		</dependency>
+
+		<dependency>
+			<groupId>io.opentracing.contrib</groupId>
+			<artifactId>opentracing-spring-web-autoconfigure</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

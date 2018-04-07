@@ -71,10 +71,9 @@ metadata:
     app: user
 spec:
   ports:
-  - name: 8080-http
+  - name: http
     protocol: TCP
     port: 8080
-    targetPort: 8080
   selector:
     app: user
     deploymentconfig: user
@@ -99,7 +98,7 @@ spec:
       - path: /.*
         backend:
           serviceName: user
-          servicePort: 8080-http
+          servicePort: 8080
 
 kind: Route
 apiVersion: v1
@@ -111,7 +110,7 @@ metadata:
 spec:
   host: user.apps.ocp.datr.eu
   port:
-    targetPort: 8080-http
+    targetPort: 8080
   to:
     kind: Service
     name: user
