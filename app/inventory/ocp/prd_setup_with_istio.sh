@@ -24,5 +24,5 @@ oc delete ingress -l app=${APP} -n ${PROD_PROJECT}
 oc label namespace ${PROD_PROJECT} istio-injection=enabled
 oc adm policy add-scc-to-user privileged -z default -n ${PROD_PROJECT}
 
-oc apply -f <(istioctl kube-inject --debug -f inventory-istio-prod.yaml)
+oc apply -f <(istioctl kube-inject --debug -f ${APP}-istio-prod.yaml)
 

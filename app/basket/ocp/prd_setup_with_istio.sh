@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-APP=user
+APP=basket
 
 . ../../env.sh
 

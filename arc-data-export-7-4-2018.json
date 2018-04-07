@@ -1,1 +1,89 @@
-{"createdAt":"2018-04-07T16:52:00.671Z","version":"12.1.2","kind":"ARC#AllDataExport","requests":[{"type":"saved","method":"DELETE","name":"DEV delete item from basket","url":"http://basket-amazin-dev.apps.ocp.datr.eu/basket/1/remove/1","updated":1523119159610,"_referenceLegacyProject":"ae5e11a3-ece6-4e9d-bb99-535dcba61259","kind":"ARC#RequestData"},{"type":"saved","method":"DELETE","name":"DEV empty basket","url":"http://basket-amazin-dev.apps.ocp.datr.eu/basket/1/empty","updated":1523119170816,"_referenceLegacyProject":"ae5e11a3-ece6-4e9d-bb99-535dcba61259","kind":"ARC#RequestData"},{"type":"saved","headers":"Content-Type: application/json","method":"GET","name":"DEV get basket","payload":"{ \"username\": \"justin\", \"password\": \"password\" }","url":"http://basket-amazin-dev.apps.ocp.datr.eu/basket/get/1","updated":1523119195825,"_referenceLegacyProject":"ae5e11a3-ece6-4e9d-bb99-535dcba61259","kind":"ARC#RequestData"},{"type":"saved","headers":"Content-Type: application/json","method":"POST","name":"DEV login","payload":"{ \"username\": \"justin5\", \"password\": \"password\" }","url":"http://user-amazin-dev.apps.ocp.datr.eu/user/login","updated":1523119185197,"_referenceLegacyProject":"ae5e11a3-ece6-4e9d-bb99-535dcba61259","kind":"ARC#RequestData"},{"type":"saved","headers":"Content-Type: application/json","method":"POST","name":"PRD login","payload":"{ \"username\": \"justin5\", \"password\": \"password\" }","url":"http://user.apps.ocp.datr.eu/user/login","updated":1523119881251,"_referenceLegacyProject":"ae5e11a3-ece6-4e9d-bb99-535dcba61259","kind":"ARC#RequestData"},{"method":"GET","queryModel":[],"url":"http://inventory.apps.ocp.datr.eu/products/all","name":"PRD Products Get All","type":"saved","updated":1523119222612,"_referenceLegacyProject":"ae5e11a3-ece6-4e9d-bb99-535dcba61259","kind":"ARC#RequestData"},{"type":"saved","method":"GET","name":"PRD Products Get one","url":"http://inventory.apps.ocp.datr.eu/products/2","updated":1523119134056,"_referenceLegacyProject":"ae5e11a3-ece6-4e9d-bb99-535dcba61259","kind":"ARC#RequestData"}],"projects":[{"name":"Amazin","order":0,"created":1522931069168,"updated":1522931069168,"_referenceId":"ae5e11a3-ece6-4e9d-bb99-535dcba61259","kind":"ARC#ProjectData"}]}
+{
+  "createdAt": "2018-04-07T16:52:00.671Z",
+  "version": "12.1.2",
+  "kind": "ARC#AllDataExport",
+  "requests": [
+    {
+      "type": "saved",
+      "method": "DELETE",
+      "name": "DEV delete item from basket",
+      "url": "http://basket-amazin-dev.apps.ocp.datr.eu/basket/1/remove/1",
+      "updated": 1523119159610,
+      "_referenceLegacyProject": "ae5e11a3-ece6-4e9d-bb99-535dcba61259",
+      "kind": "ARC#RequestData"
+    },
+    {
+      "type": "saved",
+      "method": "DELETE",
+      "name": "DEV empty basket",
+      "url": "http://basket-amazin-dev.apps.ocp.datr.eu/basket/1/empty",
+      "updated": 1523119170816,
+      "_referenceLegacyProject": "ae5e11a3-ece6-4e9d-bb99-535dcba61259",
+      "kind": "ARC#RequestData"
+    },
+    {
+      "type": "saved",
+      "headers": "Content-Type: application/json",
+      "method": "GET",
+      "name": "DEV get basket",
+      "payload": "{ \"username\": \"justin\", \"password\": \"password\" }",
+      "url": "http://basket-amazin-dev.apps.ocp.datr.eu/basket/get/1",
+      "updated": 1523119195825,
+      "_referenceLegacyProject": "ae5e11a3-ece6-4e9d-bb99-535dcba61259",
+      "kind": "ARC#RequestData"
+    },
+    {
+      "type": "saved",
+      "headers": "Content-Type: application/json",
+      "method": "POST",
+      "name": "DEV login",
+      "payload": "{ \"username\": \"justin5\", \"password\": \"password\" }",
+      "url": "http://user-amazin-dev.apps.ocp.datr.eu/user/login",
+      "updated": 1523119185197,
+      "_referenceLegacyProject": "ae5e11a3-ece6-4e9d-bb99-535dcba61259",
+      "kind": "ARC#RequestData"
+    },
+    {
+      "type": "saved",
+      "headers": "Content-Type: application/json",
+      "method": "POST",
+      "name": "PRD login",
+      "payload": "{ \"username\": \"justin5\", \"password\": \"password\" }",
+      "url": "http://user.apps.ocp.datr.eu/user/login",
+      "updated": 1523119881251,
+      "_referenceLegacyProject": "ae5e11a3-ece6-4e9d-bb99-535dcba61259",
+      "kind": "ARC#RequestData"
+    },
+    {
+      "method": "GET",
+      "queryModel": [
+
+      ],
+      "url": "http://inventory.apps.ocp.datr.eu/products/all",
+      "name": "PRD Products Get All",
+      "type": "saved",
+      "updated": 1523119222612,
+      "_referenceLegacyProject": "ae5e11a3-ece6-4e9d-bb99-535dcba61259",
+      "kind": "ARC#RequestData"
+    },
+    {
+      "type": "saved",
+      "method": "GET",
+      "name": "PRD Products Get one",
+      "url": "http://inventory.apps.ocp.datr.eu/products/2",
+      "updated": 1523119134056,
+      "_referenceLegacyProject": "ae5e11a3-ece6-4e9d-bb99-535dcba61259",
+      "kind": "ARC#RequestData"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Amazin",
+      "order": 0,
+      "created": 1522931069168,
+      "updated": 1522931069168,
+      "_referenceId": "ae5e11a3-ece6-4e9d-bb99-535dcba61259",
+      "kind": "ARC#ProjectData"
+    }
+  ]
+}
