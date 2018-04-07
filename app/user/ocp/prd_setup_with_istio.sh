@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-APP=inventory
+APP=user
 
 . ../../env.sh
 
@@ -11,7 +11,6 @@ oc adm policy add-scc-to-user privileged -z default -n ${PROD_PROJECT}
 
 oc project ${PROD_PROJECT}
 
-oc delete template inventory-istio-dev-dc -n ${PROD_PROJECT}
 oc delete deploy -l app=${APP} -n ${PROD_PROJECT}
 oc delete deploymentconfigs -l app=${APP} -n ${PROD_PROJECT}
 oc delete po -l app=${APP} -n ${PROD_PROJECT}
@@ -24,5 +23,5 @@ oc delete ingress -l app=${APP} -n ${PROD_PROJECT}
 oc label namespace ${PROD_PROJECT} istio-injection=enabled
 oc adm policy add-scc-to-user privileged -z default -n ${PROD_PROJECT}
 
-oc apply -f <(istioctl kube-inject --debug -f inventory-istio-prod.yaml)
+oc apply -f <(istioctl kube-inject --debug -f user-istio-prod.yaml)
 
