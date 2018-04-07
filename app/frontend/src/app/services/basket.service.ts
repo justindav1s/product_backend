@@ -17,7 +17,8 @@ export class BasketService {
 
   basket : Basket;
 
-  private basketUrl = 'http://basket-amazin-dev.apps.ocp.datr.eu/basket';
+  //private basketUrl = 'http://basket-amazin-dev.apps.ocp.datr.eu/basket';
+  private basketUrl = 'http://basket.apps.ocp.datr.eu/basket';
 
   constructor(private http: HttpClient) { }
 

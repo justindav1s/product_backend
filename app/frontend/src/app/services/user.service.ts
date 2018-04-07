@@ -14,7 +14,8 @@ const httpOptions = {
 @Injectable()
 export class UserService {
 
-  private userUrl = 'http://user-amazin-dev.apps.ocp.datr.eu/user';
+  //private userUrl = 'http://user-amazin-dev.apps.ocp.datr.eu/user';
+  private userUrl = 'http://user.apps.ocp.datr.eu/user';
 
   constructor(private http: HttpClient) { }
 

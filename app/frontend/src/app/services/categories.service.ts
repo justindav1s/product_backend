@@ -13,7 +13,8 @@ const httpOptions = {
 @Injectable()
 export class CategoriesService {
 
-  private catgegoriesUrl = 'http://inventory-amazin-dev.apps.ocp.datr.eu/products/types';
+  //private catgegoriesUrl = 'http://inventory-amazin-dev.apps.ocp.datr.eu/products/types';
+  private catgegoriesUrl = 'http://inventory.apps.ocp.datr.eu/products/types';
 
   constructor(private http: HttpClient) { }
 

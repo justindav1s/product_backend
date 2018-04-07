@@ -12,7 +12,8 @@ const httpOptions = {
 
 @Injectable()
 export class InventoryService {
-  private inventoryUrl = 'http://inventory-amazin-dev.apps.ocp.datr.eu/products/';
+  //private inventoryUrl = 'http://inventory-amazin-dev.apps.ocp.datr.eu/products';
+  private inventoryUrl = 'http://inventory.apps.ocp.datr.eu/products';
 
   constructor(private http: HttpClient) { }
 
