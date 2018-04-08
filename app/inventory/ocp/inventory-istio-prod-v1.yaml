@@ -1,31 +1,4 @@
 ---
-apiVersion: v1
-kind: BuildConfig
-metadata:
-  annotations:
-  labels:
-    app: inventory
-  name: inventory
-spec:
-  output:
-    to:
-      kind: ImageStreamTag
-      name: 'inventory:latest'
-  postCommit: {}
-  resources: {}
-  runPolicy: Serial
-  source:
-    binary: {}
-    type: Binary
-  strategy:
-    sourceStrategy:
-      from:
-        kind: ImageStreamTag
-        name: 'redhat-openjdk18-openshift:1.2'
-        namespace: openshift
-    type: Source
-
----
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -58,7 +31,7 @@ spec:
         imagePullPolicy: Always
         env:
           - name: SPRING_PROFILES_ACTIVE
-            value: dev
+            value: v1
         livenessProbe:
           failureThreshold: 3
           httpGet:
@@ -93,9 +66,10 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: inventory
+  name: inventory-v1
   labels:
     app: inventory
+    version: v1
 spec:
   ports:
   - name: http
@@ -103,6 +77,7 @@ spec:
     port: 8080
   selector:
     app: inventory
+    version: v1
     deploymentconfig: inventory
   type: ClusterIP
   sessionAffinity: None
@@ -124,22 +99,5 @@ spec:
       paths:
       - path: /.*
         backend:
-          serviceName: inventory
+          serviceName: inventory-v1
           servicePort: 8080
-
-kind: Route
-apiVersion: v1
-metadata:
-  annotations:
-  labels:
-    app: inventory
-  name: inventory
-spec:
-  host: inventory.apps.ocp.datr.eu
-  port:
-    targetPort: 8080
-  to:
-    kind: Service
-    name: inventory
-    weight: 100
-  wildcardPolicy: None

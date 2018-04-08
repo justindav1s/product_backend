@@ -26,13 +26,13 @@ node('maven') {
         // Using Maven run the unit tests
         stage('Unit Tests') {
             echo "Running Unit Tests"
-            sh "mvn -U -B -q -s ../settings.xml test"
+            sh "mvn -U -B -q -s ../settings.xml test -Dspring.profiles.active=dev"
         }
 
         // Using Maven call SonarQube for Code Analysis
         stage('Code Analysis') {
             echo "Running Code Analysis"
-            sh "mvn -U -B -q -s ../settings.xml sonar:sonar -Dsonar.host.url=${sonar_url}"
+            sh "mvn -U -B -q -s ../settings.xml sonar:sonar -Dsonar.host.url=${sonar_url} -Dspring.profiles.active=dev"
         }
 
         // Publish the built war file to Nexus
