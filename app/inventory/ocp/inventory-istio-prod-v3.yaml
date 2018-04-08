@@ -3,8 +3,8 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    app: inventory
-  name: inventory
+    app: inventory-v3
+  name: inventory-v3
 spec:
   replicas: 1
   revisionHistoryLimit: 10
@@ -21,12 +21,12 @@ spec:
   template:
     metadata:
       labels:
-        app: inventory
-        deploymentconfig: inventory
+        app: inventory-v3
+        deploymentconfig: inventory-v3
         version: v3
     spec:
       containers:
-      - name: inventory
+      - name: inventory-v3
         image: docker-registry.default.svc:5000/amazin-dev/inventory:0.0.1-SNAPSHOT
         imagePullPolicy: Always
         env:
@@ -68,7 +68,7 @@ apiVersion: v1
 metadata:
   name: inventory-v3
   labels:
-    app: inventory
+    app: inventory-v3
     version: v3
 spec:
   ports:
@@ -76,9 +76,9 @@ spec:
     protocol: TCP
     port: 8080
   selector:
-    app: inventory
+    app: inventory-v3
     version: v3
-    deploymentconfig: inventory
+    deploymentconfig: inventory-v3
   type: ClusterIP
   sessionAffinity: None
 status:
@@ -88,9 +88,9 @@ status:
 kind: Ingress
 apiVersion: extensions/v1beta1
 metadata:
-  name: gateway
+  name: inventory-ingress-v3
   labels:
-    app: inventory
+    app: inventory-v3
   annotations:
     kubernetes.io/ingress.class: "istio"
 spec:
@@ -102,15 +102,16 @@ spec:
           serviceName: inventory-v3
           servicePort: 8080
 
+---
 kind: Route
 apiVersion: v1
 metadata:
   annotations:
   labels:
-    app: inventory
-  name: inventory
+    app: inventory-v3
+  name: inventory-v3
 spec:
-  host: inventory.apps.ocp.datr.eu
+  host: inventory-v3.apps.ocp.datr.eu
   port:
     targetPort: 8080
   to:
@@ -119,15 +120,16 @@ spec:
     weight: 100
   wildcardPolicy: None
 
+---
 kind: Route
 apiVersion: v1
 metadata:
   annotations:
   labels:
-    app: inventory
+    app: inventory-v3
   name: inventory
 spec:
-  host: inventory-v3.apps.ocp.datr.eu
+  host: inventory.apps.ocp.datr.eu
   port:
     targetPort: 8080
   to:

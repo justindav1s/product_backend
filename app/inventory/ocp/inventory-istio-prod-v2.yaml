@@ -3,8 +3,8 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    app: inventory
-  name: inventory
+    app: inventory-v2
+  name: inventory-v2
 spec:
   replicas: 1
   revisionHistoryLimit: 10
@@ -21,12 +21,12 @@ spec:
   template:
     metadata:
       labels:
-        app: inventory
-        deploymentconfig: inventory
+        app: inventory-v2
+        deploymentconfig: inventory-v2
         version: v2
     spec:
       containers:
-      - name: inventory
+      - name: inventory-v2
         image: docker-registry.default.svc:5000/amazin-dev/inventory:0.0.1-SNAPSHOT
         imagePullPolicy: Always
         env:
@@ -68,7 +68,7 @@ apiVersion: v1
 metadata:
   name: inventory-v2
   labels:
-    app: inventory
+    app: inventory-v2
     version: v2
 spec:
   ports:
@@ -76,9 +76,9 @@ spec:
     protocol: TCP
     port: 8080
   selector:
-    app: inventory
+    app: inventory-v2
     version: v2
-    deploymentconfig: inventory
+    deploymentconfig: inventory-v2
   type: ClusterIP
   sessionAffinity: None
 status:
@@ -88,9 +88,9 @@ status:
 kind: Ingress
 apiVersion: extensions/v1beta1
 metadata:
-  name: gateway
+  name: inventory-ingress-v2
   labels:
-    app: inventory
+    app: inventory-v2
   annotations:
     kubernetes.io/ingress.class: "istio"
 spec:
@@ -108,8 +108,8 @@ apiVersion: v1
 metadata:
   annotations:
   labels:
-    app: inventory
-  name: inventory
+    app: inventory-v2
+  name: inventory-v2
 spec:
   host: inventory-v2.apps.ocp.datr.eu
   port:

@@ -22,7 +22,7 @@ spec:
     metadata:
       labels:
         app: inventory-v1
-        deploymentconfig: inventory
+        deploymentconfig: inventory-v1
         version: v1
     spec:
       containers:
@@ -78,7 +78,7 @@ spec:
   selector:
     app: inventory
     version: v1
-    deploymentconfig: inventory
+    deploymentconfig: inventory-v1
   type: ClusterIP
   sessionAffinity: None
 status:
@@ -88,7 +88,7 @@ status:
 kind: Ingress
 apiVersion: extensions/v1beta1
 metadata:
-  name: ingress-v1
+  name: inventory-ingress-v1
   labels:
     app: inventory-v1
   annotations:
