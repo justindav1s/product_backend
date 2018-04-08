@@ -64,7 +64,7 @@ spec:
 
 ---
 kind: Service
-apiVersion: v2
+apiVersion: v1
 metadata:
   name: inventory-v2
   labels:
@@ -101,3 +101,21 @@ spec:
         backend:
           serviceName: inventory-v2
           servicePort: 8080
+
+---
+kind: Route
+apiVersion: v1
+metadata:
+  annotations:
+  labels:
+    app: inventory
+  name: inventory
+spec:
+  host: inventory-v2.apps.ocp.datr.eu
+  port:
+    targetPort: 8080
+  to:
+    kind: Service
+    name: inventory-v2
+    weight: 100
+  wildcardPolicy: None
