@@ -188,25 +188,6 @@ spec:
       terminationGracePeriodSeconds: 30
   test: false
 
-
----
-kind: Ingress
-apiVersion: extensions/v1beta1
-metadata:
-  name: inventory-ingress
-  labels:
-    app: inventory
-  annotations:
-    kubernetes.io/ingress.class: "istio"
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /.*
-        backend:
-          serviceName: inventory
-          servicePort: 8080
-
 ---
 kind: Service
 apiVersion: v1

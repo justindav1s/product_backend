@@ -2,7 +2,7 @@
 kind: Ingress
 apiVersion: extensions/v1beta1
 metadata:
-  name: inventory-ingress-v1
+  name: inventory-ingress
   labels:
     app: inventory
   annotations:
@@ -13,5 +13,5 @@ spec:
       paths:
       - path: /.*
         backend:
-          serviceName: inventory-v1
+          serviceName: inventory
           servicePort: 8080
