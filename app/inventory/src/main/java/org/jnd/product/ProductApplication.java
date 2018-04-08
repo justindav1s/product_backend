@@ -31,10 +31,6 @@ public class ProductApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(ProductApplication.class);
-        Properties p = new Properties();
-        p.setProperty("logging.level.org.springframework", "INFO");
-        app.setDefaultProperties(p);
-
         app.run(ProductApplication.class, args);
     }
 

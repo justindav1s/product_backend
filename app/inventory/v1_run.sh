@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-mvn -Dspring.profiles.active=dev clean test spring-boot:run
+mvn clean test spring-boot:run -Dspring.profiles.active="v1"
