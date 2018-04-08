@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-VERSION=v2
-APP=inventory-${VERSION}
+
+APP=inventory
 
 . ../../env.sh
 

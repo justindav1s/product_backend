@@ -1,0 +1,17 @@
+---
+kind: Ingress
+apiVersion: extensions/v1beta1
+metadata:
+  name: inventory-ingress-v1
+  labels:
+    app: inventory
+  annotations:
+    kubernetes.io/ingress.class: "istio"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /.*
+        backend:
+          serviceName: inventory-v1
+          servicePort: 8080
