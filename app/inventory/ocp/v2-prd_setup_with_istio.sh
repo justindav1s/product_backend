@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-APP=inventory
+VERSION=v2
+APP=inventory-${VERSION}
 
 . ../../env.sh
 
@@ -23,5 +24,5 @@ oc delete ingress -l app=${APP} -n ${PROD_PROJECT}
 oc label namespace ${PROD_PROJECT} istio-injection=enabled
 oc adm policy add-scc-to-user privileged -z default -n ${PROD_PROJECT}
 
-oc apply -f <(istioctl kube-inject -f ${APP}-istio-prod-v2.yaml)
+oc apply -f <(istioctl kube-inject -f ${APP}-istio-prod-${VERSION}.yaml)
 
