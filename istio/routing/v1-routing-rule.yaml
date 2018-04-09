@@ -9,3 +9,4 @@ spec:
   route:
   - labels:
       version: v1
+    weight: 100

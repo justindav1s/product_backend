@@ -32,7 +32,9 @@ Playbooks are  here :
 In the ```install/ansible``` folder, then run :
 
 ```
-playbook main.yml -e '{"istio": {"release_tag_name": "0.7.1", "delete_resources": true, "addon": ["grafana", "prometheus", "jaeger"]}}'
+ansible-playbook main.yml -e '{"istio": {"release_tag_name": "0.7.1", "delete_resources": true, "addon": ["grafana", "prometheus", "jaeger"]}}'
+
+ansible-playbook -i /root/bin/inventory/hosts main.yml -e '{"istio": {"release_tag_name": "0.7.1", "delete_resources": true, "addon": ["grafana", "prometheus", "jaeger", "servicegraph"]}}'
 ```
 
 ## Jaeger - Open Tracing
