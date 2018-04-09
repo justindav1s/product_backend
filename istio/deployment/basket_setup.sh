@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-APP=inventory
+APP=basket
 
 . ../../app/env.sh
 

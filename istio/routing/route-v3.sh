@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-istioctl delete routerules inventory-default
+#istioctl delete routerules inventory-default
 
-istioctl create -f v3-routing-rule.yaml
+istioctl replace -f v3-routing-rule.yaml
 
 
 
