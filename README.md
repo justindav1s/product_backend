@@ -23,18 +23,18 @@ And a frontend web application written in :
    * this app can be found in ```app/frontend```
 
 All this can be built and deployed CICD using :
-    * Openshift : https://www.openshift.com/
-    * Jenkins : https://jenkins.io/
-    * Pipelines scripts to do that are included here : ```app/..../cicd``` 
+   * Openshift : https://www.openshift.com/
+   * Jenkins : https://jenkins.io/
+   * Pipelines scripts to do that are included here : ```app/..../cicd``` 
 
 Further information about setting up CICD tools can be found here : 
-    * https://github.com/justindav1s/openshift-app-development
+   * https://github.com/justindav1s/openshift-app-development
  
 The microservives have been configured to support Open-tracing
-    * http://opentracing.io/
+   * http://opentracing.io/
     
 And in particular integrate with an open-tracing dashboard application called Jaeger
-    * http://www.jaegertracing.io/  
+   * http://www.jaegertracing.io/  
     
 Istio, see below, provides the base infrastructure to make tracing possible, but small changes are required to the configuration of the micro services to make them traceable.
 
