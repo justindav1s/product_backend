@@ -16,14 +16,18 @@ Composed of three microservices, written in Java, using Spring-Boot (https://pro
     
 3. Basket : provides basket fuctionality 
    * this services can be found in ```app/basket``` 
-   
-   
-And a frontend web application written in Angular5
-    * this services can be found in ```app/frontend```
+    
+And a frontend web application written in :
+    * Angular 5 : https://angular.io/
+    * Bootstrap 3 : https://getbootstrap.com/docs/3.3/
+    * this app can be found in ```app/frontend```
 
-This should all be built and deployed using Jenkins pipelines and Openshift, scripts to do that are included here.
+All this can be built and deployed CICD using :
+    * Openshift : https://www.openshift.com/
+    * Jenkins : https://jenkins.io/
+    * Pipelines scripts to do that are included here.
 
-Information about setting up CICD tools can be found here : 
+Further information about setting up CICD tools can be found here : 
     * https://github.com/justindav1s/openshift-app-development
  
 The microservives have been configured to support Open-tracing
@@ -36,7 +40,7 @@ Istio, see below, provides the base infrastructure to make tracing possible, but
 
 Using maven, there are additional dependencies in the pom : 
 
-```asciidoc
+```
 		<dependency>
 			<groupId>io.opentracing.contrib</groupId>
 			<artifactId>opentracing-spring-cloud-starter</artifactId>
@@ -64,8 +68,7 @@ Using maven, there are additional dependencies in the pom :
 
 and the implementation of a Jaeger client bean within the application code :
 
-```asciidoc
-
+```
     @Bean
     public io.opentracing.Tracer jaegerTracer() {
         Builder builder = new Builder("spring-boot",
