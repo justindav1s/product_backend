@@ -25,7 +25,7 @@ And a frontend web application written in :
 All this can be built and deployed CICD using :
     * Openshift : https://www.openshift.com/
     * Jenkins : https://jenkins.io/
-    * Pipelines scripts to do that are included here.
+    * Pipelines scripts to do that are included here : ```app/..../cicd``` 
 
 Further information about setting up CICD tools can be found here : 
     * https://github.com/justindav1s/openshift-app-development
