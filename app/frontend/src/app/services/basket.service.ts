@@ -8,7 +8,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Basket } from '../model/basket';
 import { Product } from '../model/product';
 
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -19,7 +19,7 @@ export class BasketService {
 
   basket : Basket;
 
-  private userUrl = `http://${environment.basket_backend}/basket`;
+  private basketUrl = `http://${environment.basket_backend}/basket`;
 
   constructor(private http: HttpClient) { }
 

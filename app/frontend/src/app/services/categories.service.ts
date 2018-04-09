@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -14,7 +14,7 @@ const httpOptions = {
 @Injectable()
 export class CategoriesService {
 
-  private userUrl = `http://${environment.inventory_backend}/products/types`;
+  private catgegoriesUrl = `http://${environment.inventory_backend}/products/types`;
 
   constructor(private http: HttpClient) { }
 
