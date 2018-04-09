@@ -7,9 +7,9 @@ A basic shopping application for a store called "Amazin".
 
 Composed of three microservices, written in Java, using Spring-Boot (https://projects.spring.io/spring-boot/) , deployed as executable jar files, and exposing RESTful endpoints. The 3 services are :
 1. User : manages user logon
-    * this services can be found in ```app/user```
+   * this services can be found in ```app/user```
 2. Inventory : provides data to users about what's available to buy, this comes in three versions (controlled by spring.active.profiles)
-    * this services can be found in ```app/inventory```, this service in three versions (controlled by spring.active.profiles)
+   * this services can be found in ```app/inventory```, this service in three versions (controlled by spring.active.profiles)
         1. Food only (v1)
         2. Food and clothes (v2)
         3. Food clothes and gadgets (v3)
@@ -18,9 +18,9 @@ Composed of three microservices, written in Java, using Spring-Boot (https://pro
    * this services can be found in ```app/basket``` 
     
 And a frontend web application written in :
-    * Angular 5 : https://angular.io/
-    * Bootstrap 3 : https://getbootstrap.com/docs/3.3/
-    * this app can be found in ```app/frontend```
+   * Angular 5 : https://angular.io/
+   * Bootstrap 3 : https://getbootstrap.com/docs/3.3/
+   * this app can be found in ```app/frontend```
 
 All this can be built and deployed CICD using :
     * Openshift : https://www.openshift.com/
