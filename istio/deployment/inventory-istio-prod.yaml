@@ -189,24 +189,6 @@ spec:
   test: false
 
 ---
-kind: Ingress
-apiVersion: extensions/v1beta1
-metadata:
-  name: inventory-ingress
-  labels:
-    app: inventory
-  annotations:
-    kubernetes.io/ingress.class: "istio"
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /.*
-        backend:
-          serviceName: inventory
-          servicePort: 8080
-
----
 kind: Service
 apiVersion: v1
 metadata:
@@ -222,21 +204,3 @@ spec:
     app: inventory
   type: ClusterIP
   sessionAffinity: None
-
----
-kind: Route
-apiVersion: v1
-metadata:
-  annotations:
-  labels:
-    app: inventory
-  name: inventory
-spec:
-  host: inventory.apps.ocp.datr.eu
-  port:
-    targetPort: 8080
-  to:
-    kind: Service
-    name: inventory
-    weight: 100
-  wildcardPolicy: None

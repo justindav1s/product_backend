@@ -3,8 +3,8 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    app: user
-  name: user
+    app: basket
+  name: basket
 spec:
   replicas: 1
   revisionHistoryLimit: 10
@@ -21,17 +21,17 @@ spec:
   template:
     metadata:
       labels:
-        app: user
-        deploymentconfig: user
+        app: basket
+        deploymentconfig: basket
         version: v1
     spec:
       containers:
-      - name: user
-        image: docker-registry.default.svc:5000/amazin-dev/user:0.0.1-SNAPSHOT
+      - name: basket
+        image: docker-registry.default.svc:5000/amazin-dev/basket:0.0.1-SNAPSHOT
         imagePullPolicy: Always
         env:
           - name: SPRING_PROFILES_ACTIVE
-            value: dev
+            value: prd
         livenessProbe:
           failureThreshold: 3
           httpGet:
@@ -66,53 +66,16 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: user
+  name: basket
   labels:
-    app: user
+    app: basket
 spec:
   ports:
   - name: http
     protocol: TCP
     port: 8080
   selector:
-    app: user
-    deploymentconfig: user
+    app: basket
+    deploymentconfig: basket
   type: ClusterIP
   sessionAffinity: None
-status:
-  loadBalancer: {}
-
----
-kind: Ingress
-apiVersion: extensions/v1beta1
-metadata:
-  name: gateway
-  labels:
-    app: user
-  annotations:
-    kubernetes.io/ingress.class: "istio"
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /.*
-        backend:
-          serviceName: user
-          servicePort: 8080
-
-kind: Route
-apiVersion: v1
-metadata:
-  annotations:
-  labels:
-    app: user
-  name: user
-spec:
-  host: user.apps.ocp.datr.eu
-  port:
-    targetPort: 8080
-  to:
-    kind: Service
-    name: user
-    weight: 100
-  wildcardPolicy: None

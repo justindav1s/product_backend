@@ -2,7 +2,7 @@
 
 APP=inventory
 
-. ../../env.sh
+. ../../app/env.sh
 
 oc login https://${IP}:8443 -u $USER
 
@@ -25,6 +25,3 @@ oc delete routes -l app=${APP} -n ${PROD_PROJECT}
 oc delete ingress -l app=${APP} -n ${PROD_PROJECT}
 
 oc apply -f <(istioctl kube-inject -f ${APP}-istio-prod.yaml)
-
-
-
