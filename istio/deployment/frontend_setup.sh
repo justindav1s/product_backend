@@ -3,7 +3,7 @@
 APP=frontend
 S2I_IMAGE=nginx:latest
 
-. ../../env.sh
+. ../../app/env.sh
 
 oc login https://${IP}:8443 -u $USER
 
