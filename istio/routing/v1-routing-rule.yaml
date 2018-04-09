@@ -1,7 +1,7 @@
 apiVersion: config.istio.io/v1alpha2
 kind: RouteRule
 metadata:
-  name: inventory-v1
+  name: inventory-default
 spec:
   destination:
     name: inventory
