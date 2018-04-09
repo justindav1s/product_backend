@@ -6,14 +6,16 @@ import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Product } from '../model/product';
 
+import { environment } from '../environments/environment';
+
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
 @Injectable()
 export class InventoryService {
-  //private inventoryUrl = 'http://inventory-amazin-dev.apps.ocp.datr.eu/products';
-  private inventoryUrl = 'http://inventory.apps.ocp.datr.eu/products';
+
+  private userUrl = `http://${environment.inventory_backend}/products`;
 
   constructor(private http: HttpClient) { }
 

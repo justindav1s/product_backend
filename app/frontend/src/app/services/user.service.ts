@@ -7,6 +7,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { User } from '../model/user';
 
+import { environment } from '../environments/environment';
+
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -15,7 +17,7 @@ const httpOptions = {
 export class UserService {
 
   //private userUrl = 'http://user-amazin-dev.apps.ocp.datr.eu/user';
-  private userUrl = 'http://user.apps.ocp.datr.eu/user';
+  private userUrl = `http://${environment.user_backend}/user`;
 
   constructor(private http: HttpClient) { }
 
