@@ -85,9 +85,27 @@ and the implementation of a Jaeger client bean within the application code :
 Note, no chaanges are required to the code implementing business logic.
 
 
+### Jaeger - Open Tracing
+
+- https://medium.com/jaegertracing/using-opentracing-with-istio-envoy-d8a4246bdc15
+- https://github.com/pavolloffay/opentracing-spring-boot-istio
+- https://github.com/jaegertracing/jaeger-client-java
+- http://www.hawkular.org/blog/2017/06/9/opentracing-spring-boot.html
+- https://github.com/opentracing/opentracing-javascript
+
+
 # Istio
 
 https://istio.io/
+
+This provides a high configurable network layer in which the microservices reside, enabling to control how the interest. Tis allow for :
+   * Routing
+   * Content-based routing
+   * Load balancing
+   * Security Policy enforcement
+   * Monitoring
+   * Tools to deal with application instability like Circuit Breaking
+   
 
 ## Install
 
@@ -105,13 +123,6 @@ ansible-playbook main.yml -e '{"istio": {"release_tag_name": "0.7.1", "delete_re
 ansible-playbook -i /root/bin/inventory/hosts main.yml -e '{"istio": {"release_tag_name": "0.7.1", "delete_resources": true, "addon": ["grafana", "prometheus", "jaeger", "servicegraph"]}}'
 ```
 
-## Jaeger - Open Tracing
-
-- https://medium.com/jaegertracing/using-opentracing-with-istio-envoy-d8a4246bdc15
-- https://github.com/pavolloffay/opentracing-spring-boot-istio
-- https://github.com/jaegertracing/jaeger-client-java
-- http://www.hawkular.org/blog/2017/06/9/opentracing-spring-boot.html
-- https://github.com/opentracing/opentracing-javascript
 
 ## Servicegraph
 
