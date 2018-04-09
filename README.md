@@ -7,27 +7,30 @@ A basic shopping application for a store called "Amazin".
 
 Composed of three microservices, written in Java, using Spring-Boot (https://projects.spring.io/spring-boot/) , deployed as executable jar files, and exposing RESTful endpoints. The 3 services are :
 1. User : manages user logon
-    - this services can be found in ```app/user```
+    * this services can be found in ```app/user```
 2. Inventory : provides data to users about what's available to buy, this comes in three versions (controlled by spring.active.profiles)
-    - this services can be found in ```app/inventory```, this service in three versions (controlled by spring.active.profiles)
-        1. Food only.
-        2. Food and clothes
-        3. Food clothes and gadgets
+    * this services can be found in ```app/inventory```, this service in three versions (controlled by spring.active.profiles)
+        1. Food only (v1)
+        2. Food and clothes (v2)
+        3. Food clothes and gadgets (v3)
     
 3. Basket : provides basket fuctionality 
- 
-A frontend web application written in Angular5
+   * this services can be found in ```app/basket``` 
+   
+   
+And a frontend web application written in Angular5
+    * this services can be found in ```app/frontend```
 
 This should all be built and deployed using Jenkins pipelines and Openshift, scripts to do that are included here.
 
 Information about setting up CICD tools can be found here : 
-    - https://github.com/justindav1s/openshift-app-development
+    * https://github.com/justindav1s/openshift-app-development
  
 The microservives have been configured to support Open-tracing
-    - http://opentracing.io/
+    * http://opentracing.io/
     
 And in particular integrate with an open-tracing dashboard application called Jaeger
-    - http://www.jaegertracing.io/  
+    * http://www.jaegertracing.io/  
     
 Istio, see below, provides the base infrastructure to make tracing possible, but small changes are required to the configuration of the micro services to make them traceable.
 
