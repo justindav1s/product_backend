@@ -38,7 +38,7 @@ public class ProductController {
 
         log.debug("Product get types");
 
-        ArrayList types = repository.getTypes();
+        ArrayList<String> types = (ArrayList)repository.getTypes();
 
         return new ResponseEntity(types, HttpStatus.OK);
     }
