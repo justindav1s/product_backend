@@ -78,4 +78,27 @@ public class ProductControllerIntTest {
         Product p = (Product)products.get(0);
         assertNotNull(p);
     }
+
+    @Test
+    public void getAllGadgetsAllTest200()
+            throws Exception {
+
+        MvcResult result = mvc.perform(get("/products/type/gadgets")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        String json = result.getResponse().getContentAsString();
+        log.debug("result : " + json);
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayList<Product> products;
+        products = mapper.readValue(json, new TypeReference<ArrayList<Product>>() {});
+        assertNotNull(products);
+        assertTrue(products.size() > 1);
+        assertTrue((Product)products.get(0) instanceof Product);
+        Product p = (Product)products.get(0);
+        assertNotNull(p);
+    }
 }
