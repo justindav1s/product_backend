@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jnd.microservices.model.Product;
-import org.jnd.product.controller.ProductController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +29,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT, classes = ProductApplication.class)
 @AutoConfigureMockMvc
 @TestPropertySource(locations = "classpath:application-integrationtest.properties")
-@ActiveProfiles("dev")
-public class ProductControllerIntTest {
+@ActiveProfiles("v3")
+public class ProductControllerV3IntTest {
 
-	private Log log = LogFactory.getLog(ProductControllerIntTest.class);
+	private Log log = LogFactory.getLog(ProductControllerV3IntTest.class);
 
 	@Autowired
 	private MockMvc mvc;
