@@ -16,11 +16,10 @@ import java.util.HashMap;
 
 @Component("ProductRepository")
 @Profile("dev")
-public class DefaultProductRepository implements ProductRepository {
+public class DefaultProductRepository extends RepositoryBase {
 
     private Log log = LogFactory.getLog(DefaultProductRepository.class);
-    private HashMap<String, Product> products = new HashMap<String, Product>();
-    private ArrayList<String> types = new ArrayList<String>();
+
 
     @Autowired
     private ProductCache cache;
@@ -30,27 +29,19 @@ public class DefaultProductRepository implements ProductRepository {
 
         log.debug("TESTING : Setting up repository");
 
-        if(types.size() == 0) {
-            types.add(ProductType.FOOD.toString());
-            types.add(ProductType.CLOTHES.toString());
-            types.add(ProductType.GADGETS.toString());
+        if(getTypes().size() == 0) {
+            getTypes().add(ProductType.FOOD.toString());
+            getTypes().add(ProductType.CLOTHES.toString());
+            getTypes().add(ProductType.GADGETS.toString());
         }
 
-        if(products.size() == 0) {
-            products.putAll(cache.getFood());
-            products.putAll(cache.getClothes());
-            products.putAll(cache.getGadgets());
+        if(getProducts().size() == 0) {
+            getProducts().putAll(cache.getFood());
+            getProducts().putAll(cache.getClothes());
+            getProducts().putAll(cache.getGadgets());
         }
 
     }
 
-    @Override
-    public HashMap<String, Product> getProducts() {
-        return products;
-    }
 
-    @Override
-    public ArrayList<String> getTypes() {
-        return types;
-    }
 }
