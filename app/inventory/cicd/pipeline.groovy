@@ -24,7 +24,7 @@ node('maven') {
         }
 
         // Using Maven run the unit tests
-        stage('Unit Tests') {
+        stage('Unit/Integration Tests') {
             echo "Running Unit Tests"
             sh "mvn -U -B -q -s ../settings.xml test"
             archive "target/**/*"
