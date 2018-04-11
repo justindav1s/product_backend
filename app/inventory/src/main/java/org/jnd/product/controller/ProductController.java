@@ -69,16 +69,16 @@ public class ProductController {
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/create/{productName}/{productType}/{price}", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/create/{productName}/{productType}/{productPrice}", method = RequestMethod.POST, produces = "application/json")
     ResponseEntity<Object[]> create(@PathVariable String productName,
                                     @PathVariable String productType,
-                                    @PathVariable Float productPrice,
+                                    @PathVariable String productPrice,
                                     @RequestHeader HttpHeaders headers) {
 
         log.debug("Product Create : "+productName);
 
         int productCount = repository.getProducts().values().toArray().length;
-        int productId = productCount++;
+        int productId = productCount + 1;
 
         ProductType type = null;
         if (productType.equalsIgnoreCase(ProductType.CLOTHES.toString()))    {
@@ -91,7 +91,7 @@ public class ProductController {
             type = ProductType.GADGETS;
         }
 
-        Product p = new Product(Integer.toString(productId), productName, type, productPrice);
+        Product p = new Product(Integer.toString(productId), productName, type, Float.valueOf(productPrice));
 
         repository.getProducts().put(Integer.toString(productId), p);
 
@@ -99,6 +99,6 @@ public class ProductController {
 
         Object[] products = repository.getProducts().values().toArray();
 
-        return new ResponseEntity<>(products, HttpStatus.OK);
+        return new ResponseEntity<>(products, HttpStatus.CREATED);
     }
 }

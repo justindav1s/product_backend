@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -120,5 +121,20 @@ public class ProductControllerIntTest {
         assertNotNull(product);
         log.debug("getAProductTest200 result : " + product +" type : "+product.getType());
         assertTrue(product.getType().toString() == "food");
+    }
+
+    @Test
+    public void createAProductTest200()
+            throws Exception {
+
+        MvcResult result = mvc.perform(post("/products/create/ham/food/0.99")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        String json = result.getResponse().getContentAsString();
+        log.debug("createAProductTest200 result : " + json);
     }
 }
