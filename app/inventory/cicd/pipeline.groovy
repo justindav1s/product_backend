@@ -27,6 +27,8 @@ node('maven') {
         stage('Unit Tests') {
             echo "Running Unit Tests"
             sh "mvn -U -B -q -s ../settings.xml test -Dspring.profiles.active=dev"
+            archive "target/**/*"
+            junit 'target/surefire-reports/*.xml'
         }
 
         stage('Coverage') {
