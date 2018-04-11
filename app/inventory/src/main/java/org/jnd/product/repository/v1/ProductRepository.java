@@ -27,15 +27,9 @@ public class ProductRepository extends RepositoryBase {
     @PostConstruct
     public void init()  {
 
-        log.debug("TESTING : Setting up repository");
-
-        if(getTypes().size() == 0) {
-            getTypes().add(ProductType.FOOD.toString());
-        }
-
-        if(getProducts().size() == 0) {
-            getProducts().putAll(cache.getFood());
-        }
+        log.debug("Setting up repository");
+        getTypes().add(ProductType.FOOD.toString());
+        getProducts().putAll(cache.getFood());
 
     }
 }

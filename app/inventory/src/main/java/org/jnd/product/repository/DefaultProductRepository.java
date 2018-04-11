@@ -27,19 +27,14 @@ public class DefaultProductRepository extends RepositoryBase {
     @PostConstruct
     public void init()  {
 
-        log.debug("TESTING : Setting up repository");
+        log.debug("Setting up repository");
 
-        if(getTypes().size() == 0) {
-            getTypes().add(ProductType.FOOD.toString());
-            getTypes().add(ProductType.CLOTHES.toString());
-            getTypes().add(ProductType.GADGETS.toString());
-        }
-
-        if(getProducts().size() == 0) {
-            getProducts().putAll(cache.getFood());
-            getProducts().putAll(cache.getClothes());
-            getProducts().putAll(cache.getGadgets());
-        }
+        getTypes().add(ProductType.FOOD.toString());
+        getTypes().add(ProductType.CLOTHES.toString());
+        getTypes().add(ProductType.GADGETS.toString());
+        getProducts().putAll(cache.getFood());
+        getProducts().putAll(cache.getClothes());
+        getProducts().putAll(cache.getGadgets());
 
     }
 
