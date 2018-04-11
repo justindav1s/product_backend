@@ -80,10 +80,10 @@ public class ProductControllerIntTest {
     }
 
     @Test
-    public void getAllGadgetsAllTest200()
+    public void getAllFoodTest200()
             throws Exception {
 
-        MvcResult result = mvc.perform(get("/products/type/gadgets")
+        MvcResult result = mvc.perform(get("/products/type/food")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
@@ -100,5 +100,25 @@ public class ProductControllerIntTest {
         assertTrue((Product)products.get(0) instanceof Product);
         Product p = (Product)products.get(0);
         assertNotNull(p);
+    }
+
+    @Test
+    public void getAProductTest200()
+            throws Exception {
+
+        MvcResult result = mvc.perform(get("/products/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        String json = result.getResponse().getContentAsString();
+        log.debug("getAProductTest200 result : " + json);
+        ObjectMapper mapper = new ObjectMapper();
+        Product product = mapper.readValue(json, Product.class);
+        assertNotNull(product);
+        log.debug("getAProductTest200 result : " + product);
+        assertTrue(product.getType().equals("food"));
     }
 }
