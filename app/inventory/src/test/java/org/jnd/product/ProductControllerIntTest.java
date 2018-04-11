@@ -157,7 +157,7 @@ public class ProductControllerIntTest {
     public void createGadgetProductTest200()
             throws Exception {
 
-        MvcResult result = mvc.perform(post("/products/create/drone/gadget/59.99")
+        MvcResult result = mvc.perform(post("/products/create/drone/gadgets/59.99")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(content()
