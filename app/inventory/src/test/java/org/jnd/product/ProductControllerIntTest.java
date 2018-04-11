@@ -124,7 +124,7 @@ public class ProductControllerIntTest {
     }
 
     @Test
-    public void createAProductTest200()
+    public void createFoodProductTest200()
             throws Exception {
 
         MvcResult result = mvc.perform(post("/products/create/ham/food/0.99")
@@ -135,6 +135,36 @@ public class ProductControllerIntTest {
                 .andReturn();
 
         String json = result.getResponse().getContentAsString();
-        log.debug("createAProductTest200 result : " + json);
+        log.debug("createFoodProductTest200 result : " + json);
+    }
+
+    @Test
+    public void createClothesProductTest200()
+            throws Exception {
+
+        MvcResult result = mvc.perform(post("/products/create/trousers/clothes/29.99")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        String json = result.getResponse().getContentAsString();
+        log.debug("createClothesProductTest200 result : " + json);
+    }
+
+    @Test
+    public void createGadgetProductTest200()
+            throws Exception {
+
+        MvcResult result = mvc.perform(post("/products/create/drone/gadgets/59.99")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andReturn();
+
+        String json = result.getResponse().getContentAsString();
+        log.debug("createGadgetProductTest200 result : " + json);
     }
 }
