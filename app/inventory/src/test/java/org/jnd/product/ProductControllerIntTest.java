@@ -118,7 +118,7 @@ public class ProductControllerIntTest {
         ObjectMapper mapper = new ObjectMapper();
         Product product = mapper.readValue(json, Product.class);
         assertNotNull(product);
-        log.debug("getAProductTest200 result : " + product);
-        assertTrue(product.getType().equals("food"));
+        log.debug("getAProductTest200 result : " + product +" type : "+product.getType());
+        assertTrue(product.getType().toString() == "food");
     }
 }
