@@ -1,10 +1,10 @@
 package org.jnd.product.controller;
 
-import org.jnd.microservices.model.ProductType;
-import org.jnd.product.repository.ProductRepository;
-import org.jnd.microservices.model.Product;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jnd.microservices.model.Product;
+import org.jnd.microservices.model.ProductType;
+import org.jnd.product.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
