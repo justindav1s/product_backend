@@ -7,8 +7,8 @@ import java.util.HashMap;
 
 public class RepositoryBase implements ProductRepository{
 
-    private HashMap<String, Product> products = new HashMap<String, Product>();
-    private ArrayList<String> types = new ArrayList<String>();
+    private HashMap<String, Product> products = new HashMap<>();
+    private ArrayList<String> types = new ArrayList<>();
 
     public HashMap<String, Product> getProducts() {
         return products;

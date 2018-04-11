@@ -5,13 +5,14 @@ import org.jnd.microservices.model.ProductType;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.Map;
 
 @Component("ProductCache")
 public class ProductCache {
 
-    public HashMap<String, Product> getFood()   {
+    public Map<String, Product> getFood()   {
 
-        HashMap<String, Product> food = new HashMap<String, Product>();
+        HashMap<String, Product> food = new HashMap<>();
         food.put("1", new Product("1", "marmalade", ProductType.FOOD, 1.29f));
         food.put("2", new Product("2", "milk", ProductType.FOOD, 0.83f));
         food.put("3", new Product("3", "chocolate", ProductType.FOOD, 0.79f));
@@ -26,9 +27,9 @@ public class ProductCache {
         return food;
     }
 
-    public HashMap<String, Product> getClothes() {
+    public Map<String, Product> getClothes() {
 
-        HashMap<String, Product> clothes = new HashMap<String, Product>();
+        HashMap<String, Product> clothes = new HashMap<>();
         clothes.put("11", new Product("11", "socks", ProductType.CLOTHES, 3.39f));
         clothes.put("12", new Product("12", "jacket", ProductType.CLOTHES, 49.99f));
         clothes.put("13", new Product("13", "shoes", ProductType.CLOTHES, 59.99f));
@@ -36,9 +37,9 @@ public class ProductCache {
         return clothes;
     }
 
-    public HashMap<String, Product> getGadgets() {
+    public Map<String, Product> getGadgets() {
 
-        HashMap<String, Product> gadgets = new HashMap<String, Product>();
+        HashMap<String, Product> gadgets = new HashMap<>();
         gadgets.put("11", new Product("11", "socks", ProductType.CLOTHES, 3.39f));
         gadgets.put("12", new Product("12", "jacket", ProductType.CLOTHES, 49.99f));
         gadgets.put("13", new Product("13", "shoes", ProductType.CLOTHES, 59.99f));

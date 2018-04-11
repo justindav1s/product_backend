@@ -53,7 +53,7 @@ public class ProductController {
             if (p.getType().toString().equalsIgnoreCase(type))   {
                 products.add(p);
             }
-        };
+        }
 
         return new ResponseEntity(products, HttpStatus.OK);
     }
