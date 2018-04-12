@@ -2,9 +2,7 @@ package org.jnd.product;
 
 
 import io.jaegertracing.Tracer.Builder;
-import io.jaegertracing.metrics.Metrics;
-import io.jaegertracing.metrics.NullStatsReporter;
-import io.jaegertracing.metrics.StatsFactoryImpl;
+import io.jaegertracing.metrics.*;
 import io.jaegertracing.propagation.B3TextMapCodec;
 import io.jaegertracing.reporters.RemoteReporter;
 import io.jaegertracing.reporters.Reporter;
@@ -33,27 +31,19 @@ public class ProductApplication extends SpringBootServletInitializer {
     }
 
     @Bean
-    @SuppressWarnings( "deprecation" )
     public io.opentracing.Tracer jaegerTracer() {
+
         Reporter reporter = new RemoteReporter.Builder().withFlushInterval(10)
                 .withMaxQueueSize(65000)
                 .withSender(new HttpSender("http://jaeger-collector.istio-system:14268/api/traces"))
-                .withMetrics(new Metrics(new StatsFactoryImpl(new NullStatsReporter())))
+                .withMetrics(new Metrics(new NoopMetricsFactory()))
                 .build();
 
-
-        Builder builder = new Builder("spring-boot")
+        Builder builder = new Builder("inventory")
                 .withReporter(reporter)
                 .withSampler(new ConstSampler(true))
                 .registerInjector(Format.Builtin.HTTP_HEADERS, new B3TextMapCodec())
                 .registerExtractor(Format.Builtin.HTTP_HEADERS, new B3TextMapCodec());
-
-//        Builder builder = new Builder("spring-boot",
-//                new RemoteReporter(new HttpSender("http://jaeger-collector.istio-system:14268/api/traces"), 10,
-//                        65000, new Metrics(new StatsFactoryImpl(new NullStatsReporter()))),
-//                new ConstSampler(true))
-//                .registerInjector(Format.Builtin.HTTP_HEADERS, new B3TextMapCodec())
-//                .registerExtractor(Format.Builtin.HTTP_HEADERS, new B3TextMapCodec());
 
         return builder.build();
     }
