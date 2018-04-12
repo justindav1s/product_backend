@@ -80,6 +80,20 @@ and the implementation of a Jaeger client bean within the application code :
         return builder.build();
     }
     
+    or more recently
+    
+            Reporter reporter = new RemoteReporter.Builder().withFlushInterval(10)
+                    .withMaxQueueSize(65000)
+                    .withSender(new HttpSender("http://jaeger-collector.istio-system:14268/api/traces"))
+                    .withMetrics(new Metrics(new NoopMetricsFactory()))
+                    .build();
+    
+            Builder builder = new Builder("inventory")
+                    .withReporter(reporter)
+                    .withSampler(new ConstSampler(true))
+                    .registerInjector(Format.Builtin.HTTP_HEADERS, new B3TextMapCodec())
+                    .registerExtractor(Format.Builtin.HTTP_HEADERS, new B3TextMapCodec()); 
+    
 ```
 
 Note, no chaanges are required to the code implementing business logic.
