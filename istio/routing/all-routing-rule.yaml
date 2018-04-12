@@ -12,7 +12,7 @@ spec:
     weight: 100
   - labels:
       version: v2
-    weight: 100
+    weight: 0
   - labels:
       version: v3
-    weight: 100
+    weight: 0
