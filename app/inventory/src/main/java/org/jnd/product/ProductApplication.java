@@ -26,8 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(ProductApplication.class);
-        app.run(ProductApplication.class, args);
+        SpringApplication.run(ProductApplication.class, args);
     }
 
     @Bean
