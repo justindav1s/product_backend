@@ -42,7 +42,7 @@ public class UserApplication {
                 .withMetrics(new Metrics(new NoopMetricsFactory()))
                 .build();
 
-        Builder builder = new Builder("inventory")
+        Builder builder = new Builder("user")
                 .withReporter(reporter)
                 .withSampler(new ConstSampler(true))
                 .registerInjector(Format.Builtin.HTTP_HEADERS, new B3TextMapCodec())
