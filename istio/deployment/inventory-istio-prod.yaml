@@ -22,7 +22,7 @@ spec:
     metadata:
       labels:
         app: inventory
-        version: v1
+        version: inventory-v1
     spec:
       containers:
       - name: inventory
@@ -86,7 +86,7 @@ spec:
     metadata:
       labels:
         app: inventory
-        version: v2
+        version: inventory-v2
     spec:
       containers:
       - name: inventory
@@ -149,7 +149,7 @@ spec:
     metadata:
       labels:
         app: inventory
-        version: v3
+        version: inventory-v3
     spec:
       containers:
       - name: inventory
