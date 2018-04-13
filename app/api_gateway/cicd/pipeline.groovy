@@ -24,15 +24,22 @@ node('maven') {
         }
 
         // Using Maven run the unit tests
-        stage('Unit Tests') {
+        stage('Unit/Integration Tests') {
             echo "Running Unit Tests"
-            sh "mvn -U -B -q -s ../settings.xml test"
+            sh "mvn -U -B -q -s ../settings.xml -Dspring.profiles.active=test test"
+            archive "target/**/*"
+            junit 'target/surefire-reports/*.xml'
+        }
+
+        stage('Coverage') {
+            echo "Running Coverage"
+            sh "mvn -U -B -q -s ../settings.xml -Dspring.profiles.active=test test clean org.jacoco:jacoco-maven-plugin:prepare-agent install"
         }
 
         // Using Maven call SonarQube for Code Analysis
         stage('Code Analysis') {
             echo "Running Code Analysis"
-            sh "mvn -U -B -q -s ../settings.xml sonar:sonar -Dsonar.host.url=${sonar_url}"
+            sh "mvn -U -B -q -s ../settings.xml -Dspring.profiles.active=test sonar:sonar -Dsonar.host.url=${sonar_url}"
         }
 
         // Publish the built war file to Nexus
