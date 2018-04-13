@@ -3,8 +3,8 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    app: api_gateway
-  name: api_gateway
+    app: api-gateway
+  name: api-gateway
 spec:
   replicas: 1
   revisionHistoryLimit: 10
@@ -21,13 +21,13 @@ spec:
   template:
     metadata:
       labels:
-        app: api_gateway
-        deploymentconfig: api_gateway
+        app: api-gateway
+        deploymentconfig: api-gateway
         version: v1
     spec:
       containers:
-      - name: api_gateway
-        image: docker-registry.default.svc:5000/amazin-dev/api_gateway:0.0.1-SNAPSHOT
+      - name: api-gateway
+        image: docker-registry.default.svc:5000/amazin-dev/api-gateway:0.0.1-SNAPSHOT
         imagePullPolicy: Always
         env:
           - name: SPRING_PROFILES_ACTIVE
@@ -66,16 +66,16 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: api_gateway
+  name: api-gateway
   labels:
-    app: api_gateway
+    app: api-gateway
 spec:
   ports:
   - name: http
     protocol: TCP
     port: 8080
   selector:
-    app: api_gateway
-    deploymentconfig: api_gateway
+    app: api-gateway
+    deploymentconfig: api-gateway
   type: ClusterIP
   sessionAffinity: None
