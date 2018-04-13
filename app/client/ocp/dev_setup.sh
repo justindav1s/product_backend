@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-APP=user
+APP=client
 S2I_IMAGE=redhat-openjdk18-openshift:1.2
 
 . ../../env.sh

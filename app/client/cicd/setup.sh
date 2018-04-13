@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-APP=user
+APP=client
 . ../../env.sh
 
 #setup Jenkins Jobs

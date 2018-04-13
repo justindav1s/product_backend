@@ -2,20 +2,20 @@ apiVersion: v1
 kind: Template
 metadata:
   creationTimestamp: null
-  name: user-dev-dc
+  name: client-dev-dc
 objects:
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
     labels:
-      app: user
-    name: user
+      app: client
+    name: client
   spec:
     replicas: 1
     revisionHistoryLimit: 10
     selector:
-      app: user
-      deploymentconfig: user
+      app: client
+      deploymentconfig: client
     strategy:
       activeDeadlineSeconds: 21600
       resources: {}
@@ -29,11 +29,11 @@ objects:
     template:
       metadata:
         labels:
-          app: user
-          deploymentconfig: user
+          app: client
+          deploymentconfig: client
       spec:
         containers:
-        - name: user
+        - name: client
           image: " "
           imagePullPolicy: Always
           env:

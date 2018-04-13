@@ -3,7 +3,7 @@
     <actions>
         <io.jenkins.blueocean.service.embedded.BlueOceanUrlAction plugin="blueocean-rest-impl@1.1.4">
             <blueOceanUrlObject class="io.jenkins.blueocean.service.embedded.BlueOceanUrlObjectImpl">
-                <mappedUrl>blue/organizations/jenkins/amazin-user</mappedUrl>
+                <mappedUrl>blue/organizations/jenkins/amazin-client</mappedUrl>
             </blueOceanUrlObject>
         </io.jenkins.blueocean.service.embedded.BlueOceanUrlAction>
     </actions>
@@ -29,7 +29,7 @@
                 <hudson.model.StringParameterDefinition>
                     <name>app_name</name>
                     <description>the product name</description>
-                    <defaultValue>user</defaultValue>
+                    <defaultValue>client</defaultValue>
                 </hudson.model.StringParameterDefinition>
                 <hudson.model.StringParameterDefinition>
                     <name>git_url</name>
@@ -74,7 +74,7 @@
             <submoduleCfg class="list"/>
             <extensions/>
         </scm>
-        <scriptPath>app/user/cicd/pipeline.groovy</scriptPath>
+        <scriptPath>app/client/cicd/pipeline.groovy</scriptPath>
         <lightweight>true</lightweight>
     </definition>
     <triggers/>
