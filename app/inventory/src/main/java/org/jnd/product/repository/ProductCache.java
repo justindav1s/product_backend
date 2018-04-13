@@ -40,10 +40,10 @@ public class ProductCache {
     public Map<String, Product> getGadgets() {
 
         HashMap<String, Product> gadgets = new HashMap<>();
-        gadgets.put("11", new Product("11", "socks", ProductType.CLOTHES, 3.39f));
-        gadgets.put("12", new Product("12", "jacket", ProductType.CLOTHES, 49.99f));
-        gadgets.put("13", new Product("13", "shoes", ProductType.CLOTHES, 59.99f));
-        gadgets.put("14", new Product("14", "hat", ProductType.CLOTHES, 20.99f));
+        gadgets.put("11", new Product("11", "iPad", ProductType.GADGETS, 399.39f));
+        gadgets.put("12", new Product("12", "TV", ProductType.GADGETS, 499.99f));
+        gadgets.put("13", new Product("13", "Robot", ProductType.GADGETS, 159.99f));
+        gadgets.put("14", new Product("14", "Camera", ProductType.GADGETS, 2000.99f));
         return gadgets;
     }
 }
