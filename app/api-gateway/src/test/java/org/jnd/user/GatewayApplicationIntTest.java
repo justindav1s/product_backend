@@ -218,7 +218,7 @@ public class GatewayApplicationIntTest {
 
 		result = mvc.perform(delete("/api/logout/"+user.getId())
 				.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isGone())
+				.andExpect(status().isOk())
 				.andReturn();
 
 		String resp = result.getResponse().getContentAsString();
@@ -269,7 +269,7 @@ public class GatewayApplicationIntTest {
 		//cleanup by logging out
 		result = mvc.perform(delete("/api/logout/"+user.getId())
 				.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isGone())
+				.andExpect(status().isOk())
 				.andReturn();
 
 		String resp = result.getResponse().getContentAsString();
@@ -319,7 +319,7 @@ public class GatewayApplicationIntTest {
 		//Add to Basket
 		result = mvc.perform(delete("/api/basket/"+user.getBasketId()+"/remove/"+0)
 				.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isGone())
+				.andExpect(status().isOk())
 				.andExpect(content()
 						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andReturn();
@@ -334,7 +334,7 @@ public class GatewayApplicationIntTest {
 		//cleanup by logging out
 		result = mvc.perform(delete("/api/logout/"+user.getId())
 				.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isGone())
+				.andExpect(status().isOk())
 				.andReturn();
 
 		String resp = result.getResponse().getContentAsString();
