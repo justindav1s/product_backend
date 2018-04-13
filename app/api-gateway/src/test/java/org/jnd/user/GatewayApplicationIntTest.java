@@ -184,8 +184,9 @@ public class GatewayApplicationIntTest {
 	public void getBasketTest200() throws Exception {
 
 		ObjectMapper mapper = new ObjectMapper();
+		String uuid = String.valueOf(System.currentTimeMillis());
 
-		User user = new User("justin1", "password");
+		User user = new User(uuid, "password");
 		MvcResult result = mvc.perform(post("/api/login")
 				.content(mapper.writeValueAsString(user))
 				.contentType(MediaType.APPLICATION_JSON))
@@ -231,8 +232,10 @@ public class GatewayApplicationIntTest {
 
 		ObjectMapper mapper = new ObjectMapper();
 
+		String uuid = String.valueOf(System.currentTimeMillis());
+
 		//Login and get a basket
-		User user = new User("justinAdd", "password");
+		User user = new User(uuid, "password");
 		MvcResult result = mvc.perform(post("/api/login")
 				.content(mapper.writeValueAsString(user))
 				.contentType(MediaType.APPLICATION_JSON))
@@ -279,9 +282,9 @@ public class GatewayApplicationIntTest {
 	public void removeFromBasketTest200() throws Exception {
 
 		ObjectMapper mapper = new ObjectMapper();
-
+		String uuid = String.valueOf(System.currentTimeMillis());
 		//Login and get a basket
-		User user = new User("justinRemove4", "password");
+		User user = new User(uuid, "password");
 		MvcResult result = mvc.perform(post("/api/login")
 				.content(mapper.writeValueAsString(user))
 				.contentType(MediaType.APPLICATION_JSON))
