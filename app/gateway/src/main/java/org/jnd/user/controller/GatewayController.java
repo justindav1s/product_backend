@@ -62,16 +62,25 @@ public class GatewayController {
         return new ResponseEntity<>(basket, null, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/basket/add/{productid}", method = RequestMethod.PUT, produces = "application/json")
-    ResponseEntity<?> addToBasket(@PathVariable int productid, @RequestHeader HttpHeaders headers) {
+    @RequestMapping(value = "/basket/{basketid}/add/{productid}", method = RequestMethod.PUT, produces = "application/json")
+    ResponseEntity<?> addToBasket(@PathVariable int basketid, @PathVariable int productid, @RequestHeader HttpHeaders headers) {
 
-        return new ResponseEntity<>("OK", null, HttpStatus.CREATED);
+        Basket basket = basketProxy.addToBasket(basketid, productid);
+        return new ResponseEntity<>(basket, null, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/basket/remove/{itemAtIndex}", method = RequestMethod.DELETE, produces = "application/json")
-    ResponseEntity<?> removeFromBasket(@PathVariable int index, @RequestHeader HttpHeaders headers) {
+    @RequestMapping(value = "/basket/{basketid}/remove/{itemAtIndex}", method = RequestMethod.DELETE, produces = "application/json")
+    ResponseEntity<?> removeFromBasket(@PathVariable int basketid, @PathVariable int itemAtIndex, @RequestHeader HttpHeaders headers) {
 
-        return new ResponseEntity<>("OK", null, HttpStatus.GONE);
+        Basket basket = basketProxy.removefromBasket(basketid, itemAtIndex);
+        return new ResponseEntity<>(basket, null, HttpStatus.GONE);
+    }
+
+    @RequestMapping(value = "/basket/{basketid}/empty", method = RequestMethod.DELETE, produces = "application/json")
+    ResponseEntity<?> emptyBasket(@PathVariable int basketid, @RequestHeader HttpHeaders headers) {
+
+        Basket basket = basketProxy.emptyBasket(basketid);
+        return new ResponseEntity<>(basket, null, HttpStatus.GONE);
     }
 
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET, produces = "application/json")

@@ -22,11 +22,13 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.util.ArrayList;
 import java.util.List;
 
+import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -213,6 +215,120 @@ public class GatewayApplicationIntTest {
 		assertTrue(basket.getId() == user.getBasketId());
 
 
+		result = mvc.perform(delete("/api/logout/"+user.getId())
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isGone())
+				.andReturn();
+
+		String resp = result.getResponse().getContentAsString();
+		log.debug("result : " + json);
+		assertNotNull(resp);
+		assertTrue(resp.equals("LOGGED OUT"));
+	}
+
+	@Test
+	public void addToBasketTest200() throws Exception {
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		//Login and get a basket
+		User user = new User("justinAdd", "password");
+		MvcResult result = mvc.perform(post("/api/login")
+				.content(mapper.writeValueAsString(user))
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isCreated())
+				.andExpect(content()
+						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andReturn();
+
+		String json = result.getResponse().getContentAsString();
+		log.debug("result : " + json);
+		user = mapper.readValue(json, User.class);
+		assertNotNull(user);
+		assertTrue(user.getId() > 0);
+		assertTrue(user.getBasketId() > 0);
+
+		//Add to Basket
+		result = mvc.perform(put("/api/basket/"+user.getBasketId()+"/add/"+1)
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isCreated())
+				.andExpect(content()
+						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andReturn();
+
+		json = result.getResponse().getContentAsString();
+		log.debug("result : " + json);
+		Basket basket = mapper.readValue(json, new TypeReference<Basket>() {});
+		assertNotNull(basket);
+		assertNotNull(basket.getProducts().get(0));
+		assertTrue(basket.getId() == user.getBasketId());
+
+		//cleanup by logging out
+		result = mvc.perform(delete("/api/logout/"+user.getId())
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isGone())
+				.andReturn();
+
+		String resp = result.getResponse().getContentAsString();
+		log.debug("result : " + json);
+		assertNotNull(resp);
+		assertTrue(resp.equals("LOGGED OUT"));
+	}
+
+	@Test
+	public void removeFromBasketTest200() throws Exception {
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		//Login and get a basket
+		User user = new User("justinRemove4", "password");
+		MvcResult result = mvc.perform(post("/api/login")
+				.content(mapper.writeValueAsString(user))
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isCreated())
+				.andExpect(content()
+						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andReturn();
+
+		String json = result.getResponse().getContentAsString();
+		log.debug("result : " + json);
+		user = mapper.readValue(json, User.class);
+		assertNotNull(user);
+		assertTrue(user.getId() > 0);
+		assertTrue(user.getBasketId() > 0);
+
+		//Add to Basket
+		result = mvc.perform(put("/api/basket/"+user.getBasketId()+"/add/"+1)
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isCreated())
+				.andExpect(content()
+						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andReturn();
+
+		json = result.getResponse().getContentAsString();
+		log.debug("result : " + json);
+		Basket basket = mapper.readValue(json, new TypeReference<Basket>() {});
+		assertNotNull(basket);
+		assertNotNull(basket.getProducts().get(0));
+		assertTrue(basket.getId() == user.getBasketId());
+		assertTrue(basket.getProducts().size() == 1);
+
+		//Add to Basket
+		result = mvc.perform(delete("/api/basket/"+user.getBasketId()+"/remove/"+0)
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isGone())
+				.andExpect(content()
+						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+				.andReturn();
+
+		json = result.getResponse().getContentAsString();
+		log.debug("result : " + json);
+		basket = mapper.readValue(json, new TypeReference<Basket>() {});
+		assertNotNull(basket);
+		assertTrue(basket.getId() == user.getBasketId());
+		assertTrue(basket.getProducts().size() == 0);
+
+		//cleanup by logging out
 		result = mvc.perform(delete("/api/logout/"+user.getId())
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isGone())

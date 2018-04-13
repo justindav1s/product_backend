@@ -1,5 +1,7 @@
 package org.jnd.microservices.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -14,6 +16,9 @@ public class Basket {
 
     private int id;
     private String userId;
+
+    @JsonProperty("products")
+    @JsonDeserialize(as=ArrayList.class, contentAs=Product.class)
     private ArrayList<Product> products = new ArrayList<Product>();
     private String total = "0.00";
 
@@ -55,7 +60,7 @@ public class Basket {
     }
 
     public void setProducts(ArrayList<Product> items) {
-        this.products = products;
+        this.products = items;
     }
 
     @Override
