@@ -9,7 +9,6 @@ import com.uber.jaeger.reporters.RemoteReporter;
 import com.uber.jaeger.samplers.ConstSampler;
 import com.uber.jaeger.senders.HttpSender;
 import io.opentracing.propagation.Format;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
