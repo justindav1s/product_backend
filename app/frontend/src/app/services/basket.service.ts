@@ -19,7 +19,7 @@ export class BasketService {
 
   basket : Basket;
 
-  private basketUrl = `http://${environment.basket_backend}/basket`;
+  private basketUrl = `http://${environment.basket_backend}/api/basket`;
 
   constructor(private http: HttpClient) { }
 

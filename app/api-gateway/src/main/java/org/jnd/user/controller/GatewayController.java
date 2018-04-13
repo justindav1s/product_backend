@@ -27,6 +27,7 @@ import java.util.List;
  * ${environment.inventory_backend}/products/all GET
  * ${environment.inventory_backend}/products/type/${type} GET
  */
+
 @CrossOrigin
 @RestController
 @RequestMapping("/api")
@@ -45,7 +46,7 @@ public class GatewayController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
     ResponseEntity<?> login(@RequestBody User user, @RequestHeader HttpHeaders headers) {
-        user = userProxy.login(user);;
+        user = userProxy.login(user);
         return new ResponseEntity<>(user, null, HttpStatus.CREATED);
     }
 

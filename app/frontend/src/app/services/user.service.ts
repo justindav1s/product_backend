@@ -16,7 +16,7 @@ const httpOptions = {
 @Injectable()
 export class UserService {
 
-  private userUrl = `http://${environment.user_backend}/user`;
+  private userUrl = `http://${environment.user_backend}/api/user`;
 
   constructor(private http: HttpClient) { }
 

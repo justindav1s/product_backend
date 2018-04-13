@@ -8,9 +8,6 @@ import { Product } from '../model/product';
 
 import { environment } from '../../environments/environment';
 
-import { tracer } from 'basictracer'
-import { inf } from 'opentracing'
-
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -18,11 +15,9 @@ const httpOptions = {
 @Injectable()
 export class InventoryService {
   private tracer;
-  private inventoryUrl = `http://${environment.inventory_backend}/products`;
+  private inventoryUrl = `http://${environment.inventory_backend}/api/products`;
 
-  constructor(private http: HttpClient) {
-    tracer.configure();
- }
+  constructor(private http: HttpClient) {}
 
   getAllProducts(): Observable<Product[]> {
 
@@ -35,13 +30,10 @@ export class InventoryService {
   }
 
   getProductsByType(type: string): Observable<Product[]> {
-
-    let span = tracer.startSpan({operationName: "get-product-types"})
     const url = `${this.inventoryUrl}/type/${type}`;
     return this.http.get<Product[]>(url).pipe(
       tap(_ => this.log(`fetched products type=${type}`)),
       tap(products => this.productListReceived(products)),
-       tap(span.finish()),
       catchError(this.handleError<Product[]>(`getProductsByType type=${type}`))
     );
   }

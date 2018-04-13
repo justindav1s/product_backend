@@ -6,7 +6,7 @@
 
 export const environment = {
   production: false,
-  inventory_backend : "inventory-amazin-dev.apps.ocp.datr.eu",
-  basket_backend : "basket-amazin-dev.apps.ocp.datr.eu",
-  user_backend : "user-amazin-dev.apps.ocp.datr.eu"
+  inventory_backend : "api-gateway-amazin-dev.apps.ocp.datr.eu",
+  basket_backend : "api-gateway-amazin-dev.apps.ocp.datr.eu",
+  user_backend : "api-gateway-amazin-dev.apps.ocp.datr.eu"
 };

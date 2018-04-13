@@ -14,7 +14,7 @@ const httpOptions = {
 @Injectable()
 export class CategoriesService {
 
-  private catgegoriesUrl = `http://${environment.inventory_backend}/products/types`;
+  private catgegoriesUrl = `http://${environment.inventory_backend}/api/products/types`;
 
   constructor(private http: HttpClient) { }
 
