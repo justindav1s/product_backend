@@ -54,7 +54,7 @@ public class GatewayController {
     ResponseEntity<?> logout(@PathVariable int id, @RequestHeader HttpHeaders headers) {
 
         String response = userProxy.logout(id);
-        return new ResponseEntity<>(response, null, HttpStatus.GONE);
+        return new ResponseEntity<>(response, null, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/basket/get/{basketid}", method = RequestMethod.GET, produces = "application/json")
@@ -74,14 +74,14 @@ public class GatewayController {
     ResponseEntity<?> removeFromBasket(@PathVariable int basketid, @PathVariable int itemAtIndex, @RequestHeader HttpHeaders headers) {
 
         Basket basket = basketProxy.removefromBasket(basketid, itemAtIndex);
-        return new ResponseEntity<>(basket, null, HttpStatus.GONE);
+        return new ResponseEntity<>(basket, null, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/basket/{basketid}/empty", method = RequestMethod.DELETE, produces = "application/json")
     ResponseEntity<?> emptyBasket(@PathVariable int basketid, @RequestHeader HttpHeaders headers) {
 
         Basket basket = basketProxy.emptyBasket(basketid);
-        return new ResponseEntity<>(basket, null, HttpStatus.GONE);
+        return new ResponseEntity<>(basket, null, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET, produces = "application/json")
