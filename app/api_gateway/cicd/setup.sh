@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-APP=gateway
+APP=api_gateway
 . ../../env.sh
 
 #setup Jenkins Jobs

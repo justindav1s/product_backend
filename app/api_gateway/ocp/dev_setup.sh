@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-APP=gateway
+APP=api_gateway
 S2I_IMAGE=redhat-openjdk18-openshift:1.2
 
 . ../../env.sh
