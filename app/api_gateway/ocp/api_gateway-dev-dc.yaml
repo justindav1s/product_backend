@@ -2,20 +2,20 @@ apiVersion: v1
 kind: Template
 metadata:
   creationTimestamp: null
-  name: gateway-dev-dc
+  name: api_gateway-dev-dc
 objects:
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
     labels:
-      app: gateway
-    name: gateway
+      app: api_gateway
+    name: api_gateway
   spec:
     replicas: 1
     revisionHistoryLimit: 10
     selector:
-      app: gateway
-      deploymentconfig: gateway
+      app: api_gateway
+      deploymentconfig: api_gateway
     strategy:
       activeDeadlineSeconds: 21600
       resources: {}
@@ -29,11 +29,11 @@ objects:
     template:
       metadata:
         labels:
-          app: gateway
-          deploymentconfig: gateway
+          app: api_gateway
+          deploymentconfig: api_gateway
       spec:
         containers:
-        - name: gateway
+        - name: api_gateway
           image: " "
           imagePullPolicy: Always
           env:

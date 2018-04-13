@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-APP=client
+APP=api_gateway
 
 . ../../app/env.sh
 
