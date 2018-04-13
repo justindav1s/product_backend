@@ -1,5 +1,12 @@
 server:
   port: 8080
 
+basket:
+  host: basket
 
+inventory:
+  host: inventory
+
+user:
+  host: user
 

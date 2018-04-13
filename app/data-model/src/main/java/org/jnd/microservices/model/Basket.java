@@ -26,6 +26,9 @@ public class Basket {
         return total;
     }
 
+    public Basket() {
+    }
+
     public void setTotal(float total) {
         String formatted = String.format("%.2f", total);
         this.total = formatted;

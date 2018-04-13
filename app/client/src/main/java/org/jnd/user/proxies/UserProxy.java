@@ -3,18 +3,25 @@ package org.jnd.user.proxies;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jnd.microservices.model.Basket;
+import org.jnd.microservices.model.Product;
 import org.jnd.microservices.model.User;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 
 @Component("UserProxy")
 public class UserProxy {
 
     private Log log = LogFactory.getLog(UserProxy.class);
+
+    @Value( "${user.host}" )
+    String user_host;
 
     private RestTemplate restTemplate = new RestTemplate();;
 
@@ -26,7 +33,7 @@ public class UserProxy {
 
         ResponseEntity<User> exchange =
                 this.restTemplate.exchange(
-                        "http://istio-ingress.istio-system.svc/user/login",
+                        "http://"+ user_host +"/user/login",
                         HttpMethod.POST,
                         request,
                         User.class);
@@ -41,11 +48,9 @@ public class UserProxy {
     }
 
 
-    public User logout(User user) {
-
-        log.debug("UserProxy logout : "+user);
-        restTemplate.delete("http://istio-ingress.istio-system.svc/user/logout/{id}", user.getId());
-
-        return user;
+    public String logout(int id) {
+        log.debug("UserProxy logout user id : "+id);
+        restTemplate.delete("http://"+ user_host +"/user/logout/"+id);
+        return "LOGGED OUT";
     }
 }
