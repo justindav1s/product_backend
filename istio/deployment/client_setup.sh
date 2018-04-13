@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-APP=user
+APP=client
 
 . ../../app/env.sh
 

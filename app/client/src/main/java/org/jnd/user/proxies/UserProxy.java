@@ -26,7 +26,7 @@ public class UserProxy {
 
         ResponseEntity<User> exchange =
                 this.restTemplate.exchange(
-                        "http://192.168.0.131:32619/user/login",
+                        "http://istio-ingress.istio-system.svc/user/login",
                         HttpMethod.POST,
                         request,
                         User.class);
@@ -44,7 +44,7 @@ public class UserProxy {
     public User logout(User user) {
 
         log.debug("UserProxy logout : "+user);
-        restTemplate.delete("http://192.168.0.131:32619/user/logout/{id}", user.getId());
+        restTemplate.delete("http://istio-ingress.istio-system.svc/user/logout/{id}", user.getId());
 
         return user;
     }
