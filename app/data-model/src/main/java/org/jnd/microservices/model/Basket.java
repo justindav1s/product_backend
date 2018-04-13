@@ -17,8 +17,6 @@ public class Basket {
     private int id;
     private String userId;
 
-    @JsonProperty("products")
-    @JsonDeserialize(as=ArrayList.class, contentAs=Product.class)
     private ArrayList<Product> products = new ArrayList<Product>();
     private String total = "0.00";
 
