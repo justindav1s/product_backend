@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 
-HOST=192.168.0.131:32619
+HOST=api.amazin.apps.ocp.datr.eu/api
 
 for i in $(seq 1 1000)
 do
     echo Iteration \# ${i}
-    echo POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"password"}' http://${HOST}/user/login
-    curl -s -X POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"password"}' http://${HOST}/user/login
+    echo POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"password"}' http://${HOST}/login
+    curl -s -X POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"password"}' http://${HOST}/login
     echo
-    echo POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"passw' http://${HOST}/user/login
-    curl -s -X POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"passw' http://${HOST}/user/login
+    echo POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"passw' http://${HOST}/login
+    curl -s -X POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"passw' http://${HOST}/login
     echo
-    echo POST -H "Content-Type: application/json" -d "{\"username\":\"justin${i}\",\"password\":\"password\"}" http://${HOST}/user/login
-    BASKET=$(curl -s -X POST -H "Content-Type: application/json" -d "{\"username\":\"justin${i}\",\"password\":\"password\"}" http://${HOST}/user/login | jq .basketId)
+    echo POST -H "Content-Type: application/json" -d "{\"username\":\"justin${i}\",\"password\":\"password\"}" http://${HOST}/login
+    BASKET=$(curl -s -X POST -H "Content-Type: application/json" -d "{\"username\":\"justin${i}\",\"password\":\"password\"}" http://${HOST}/login | jq .basketId)
     echo
     echo GET http://${HOST}/products/all
     curl -s -X GET http://${HOST}/products/all
@@ -65,8 +65,8 @@ do
     echo PUT http://${HOST}/basket/${BASKET}/add/9
     curl -s -X PUT http://${HOST}/basket/${BASKET}/add/9
     echo
-    echo POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"password"}' http://${HOST}/user/login
-    curl -s -X POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"password"}' http://${HOST}/user/login
+    echo POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"password"}' http://${HOST}/login
+    curl -s -X POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"password"}' http://${HOST}/login
     echo
     echo GET http://${HOST}/products/all
     curl -s -X GET http://${HOST}/products/all
