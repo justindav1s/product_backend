@@ -2,11 +2,11 @@ server:
   port: 8080
 
 basket:
-  host: basket
+  host: basket:8080
 
 inventory:
-  host: inventory
+  host: inventory:8080
 
 user:
-  host: user
+  host: user:8080
 
