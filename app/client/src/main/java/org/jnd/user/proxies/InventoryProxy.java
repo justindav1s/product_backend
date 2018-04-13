@@ -1,7 +1,6 @@
 package org.jnd.user.proxies;
 
 import org.jnd.microservices.model.Product;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.slf4j.LoggerFactory;
@@ -13,10 +12,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 
-@Component("ProductRepositoryProxy")
-public class ProductRepositoryProxy {
+@Component("InventoryProxy")
+public class InventoryProxy {
 
-    private Log log = LogFactory.getLog(ProductRepositoryProxy.class);
+    private Log log = LogFactory.getLog(InventoryProxy.class);
 
     private RestTemplate restTemplate = new RestTemplate();;
 
@@ -27,7 +26,7 @@ public class ProductRepositoryProxy {
 
         ResponseEntity<Product> exchange =
                 this.restTemplate.exchange(
-                        "http://inventory:8080/products/{id}",
+                        "http://192.168.0.131:32619/products/{id}",
                         HttpMethod.GET,
                         null,
                         new ParameterizedTypeReference<Product>() {},

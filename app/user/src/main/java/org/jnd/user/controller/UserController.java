@@ -57,4 +57,11 @@ public class UserController {
         log.debug("Get User : " + user);
         return new ResponseEntity<>(user, null, HttpStatus.CREATED);
     }
+
+    @RequestMapping(value = "/logout/{userId}", method = RequestMethod.DELETE)
+    ResponseEntity<?> logout(@PathVariable int userId, @RequestHeader HttpHeaders headers) {
+        log.debug("Logout User : " + userId);
+        userRepository.remove(Integer.toString(userId));
+        return new ResponseEntity<>("LOOGGED OUT", null, HttpStatus.OK);
+    }
 }

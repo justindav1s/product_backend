@@ -8,11 +8,11 @@ spec:
   precedence: 1
   route:
   - labels:
-      version: v1
+      version: inventory-v1
     weight: 0
   - labels:
-      version: v2
+      version: inventory-v2
     weight: 100
   - labels:
-      version: v3
+      version: inventory-v3
     weight: 0
