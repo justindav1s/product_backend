@@ -6,7 +6,7 @@ APP=inventory
 
 #setup Jenkins Jobs
 JENKINS_USER=justin-admin
-JENKINS_TOKEN=8d2dd9709fb7ebd87d77bf9d2ef4a1f1
+JENKINS_TOKEN=a269a10c43b6cfa1e68c115ee6350345
 JENKINS=jenkins-cicd.apps.ocp.datr.eu
 
 #turn on "Prevent Cross-site scripting"
@@ -16,16 +16,16 @@ echo CRUMB_JSON=$CRUMB_JSON
 CRUMB=$(echo $CRUMB_JSON | jq -r .crumb)
 echo CRUMB=$CRUMB
 
-#curl -v -H "Content-Type: text/xml" \
-#  --user ${JENKINS_USER}:${JENKINS_TOKEN} \
-#  -H Jenkins-Crumb:${CRUMB} \
-#  -X POST https://${JENKINS}/job/amazin-inventory/doDelete
-#
-#sleep 5
-#
-#curl -v -H "Content-Type: text/xml" \
-#  --user ${JENKINS_USER}:${JENKINS_TOKEN} \
-#  -H Jenkins-Crumb:${CRUMB} \
-#  --data-binary @config.xml \
-#  -X POST https://${JENKINS}/createItem?name=amazin-inventory
+curl -v -H "Content-Type: text/xml" \
+  --user ${JENKINS_USER}:${JENKINS_TOKEN} \
+  -H Jenkins-Crumb:${CRUMB} \
+  -X POST https://${JENKINS}/job/amazin-inventory/doDelete
+
+sleep 5
+
+curl -v -H "Content-Type: text/xml" \
+  --user ${JENKINS_USER}:${JENKINS_TOKEN} \
+  -H Jenkins-Crumb:${CRUMB} \
+  --data-binary @config.xml \
+  -X POST https://${JENKINS}/createItem?name=amazin-inventory
 
