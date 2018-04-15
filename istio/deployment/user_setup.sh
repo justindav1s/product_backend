@@ -4,7 +4,7 @@ APP=user
 
 . ../../app/env.sh
 
-oc login https://${IP}:8443 -u $USER
+#oc login https://${IP}:8443 -u $USER
 
 oc project istio-system
 oc adm policy add-scc-to-user privileged -z default -n ${PROD_PROJECT}

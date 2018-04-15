@@ -3,7 +3,7 @@
 
 . ../../app/env.sh
 
-oc login https://${IP}:8443 -u $USER
+#oc login https://${IP}:8443 -u $USER
 
 oc delete project $PROD_PROJECT
 oc new-project $PROD_PROJECT 2> /dev/null
