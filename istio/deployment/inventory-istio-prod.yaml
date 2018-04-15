@@ -23,6 +23,7 @@ spec:
       labels:
         app: inventory
         version: v1
+        region: central
     spec:
       containers:
       - name: inventory
@@ -87,6 +88,7 @@ spec:
       labels:
         app: inventory
         version: v2
+        region: central
     spec:
       containers:
       - name: inventory
@@ -150,6 +152,7 @@ spec:
       labels:
         app: inventory
         version: v3
+        region: central
     spec:
       containers:
       - name: inventory

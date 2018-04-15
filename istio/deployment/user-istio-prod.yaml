@@ -24,6 +24,7 @@ spec:
         app: user
         deploymentconfig: user
         version: v1
+        region: central
     spec:
       containers:
       - name: user

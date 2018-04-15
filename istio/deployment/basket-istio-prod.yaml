@@ -24,6 +24,7 @@ spec:
         app: basket
         deploymentconfig: basket
         version: v1
+        region: central
     spec:
       containers:
       - name: basket

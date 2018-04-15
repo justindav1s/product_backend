@@ -31,6 +31,7 @@ objects:
         labels:
           app: frontend
           deploymentconfig: frontend
+          region: central
       spec:
         containers:
         - name: frontend

@@ -6,7 +6,8 @@ oc login https://${IP}:8443 -u $USER
 
 oc project ${PROD_PROJECT}
 
-oc delete ingress -l app=${APP} -n ${PROD_PROJECT}
+oc delete ingress gateway -n ${PROD_PROJECT}
+oc delete ingress amazin-gateway -n ${PROD_PROJECT}
 
 oc apply -f <(istioctl kube-inject -f app-ingress.yaml)
 

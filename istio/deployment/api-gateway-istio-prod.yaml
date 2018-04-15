@@ -24,6 +24,7 @@ spec:
         app: api-gateway
         deploymentconfig: api-gateway
         version: v1
+        region: central
     spec:
       containers:
       - name: api-gateway

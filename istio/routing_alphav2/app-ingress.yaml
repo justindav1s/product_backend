@@ -2,9 +2,9 @@
 kind: Ingress
 apiVersion: extensions/v1beta1
 metadata:
-  name: gateway
+  name: amazin-gateway
   labels:
-    app: inventory
+    app: amazin-gateway
   annotations:
     kubernetes.io/ingress.class: "istio"
 spec:
