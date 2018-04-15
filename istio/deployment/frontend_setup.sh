@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -x
+
 APP=frontend
 S2I_IMAGE=nginx:latest
 
@@ -16,7 +18,7 @@ oc delete template ${APP}-dev-dc -n ${PROD_PROJECT}
 oc delete configmap ${APP}-config -n ${PROD_PROJECT}
 
 echo Setting up ${APP} for ${PROD_PROJECT}
-oc new-build --binary=true --labels=app=${APP} --name=${APP} ${S2I_IMAGE} -n ${PROD_PROJECT}
+oc new-build ${S2I_IMAGE} --binary=true --labels=app=${APP} --name=${APP}  -n ${PROD_PROJECT}
 oc new-app -f ./${APP}-prod-dc.yaml --allow-missing-imagestream-tags=true -n ${PROD_PROJECT}
 oc expose dc ${APP} --port 8080 -n ${PROD_PROJECT}
 
