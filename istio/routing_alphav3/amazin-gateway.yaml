@@ -3,7 +3,10 @@ kind: Gateway
 metadata:
   name: amazin-gateway
 spec:
+  selector:
+    app: amazin
   servers:
   - port:
       number: 80
       name: http
+      protocol: http

@@ -16,3 +16,29 @@ spec:
   - labels:
       version: inventory-v3
     weight: 100
+---
+apiVersion: config.istio.io/v1alpha2
+kind: RouteRule
+metadata:
+  name: basket-lb
+spec:
+  destination:
+    name: basket
+  precedence: 1
+  route:
+  - labels:
+      version: basket-v1
+    weight: 100
+---
+apiVersion: config.istio.io/v1alpha2
+kind: RouteRule
+metadata:
+  name: user-lb
+spec:
+  destination:
+    name: inventory
+  precedence: 1
+  route:
+  - labels:
+      version: user-v1
+    weight: 100

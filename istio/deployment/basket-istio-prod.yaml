@@ -23,7 +23,7 @@ spec:
       labels:
         app: basket
         deploymentconfig: basket
-        version: v1
+        version: basket-v1
     spec:
       containers:
       - name: basket
