@@ -76,7 +76,6 @@ spec:
     port: 8080
   selector:
     app: api-gateway
-    deploymentconfig: api-gateway
   type: ClusterIP
   sessionAffinity: None
 
