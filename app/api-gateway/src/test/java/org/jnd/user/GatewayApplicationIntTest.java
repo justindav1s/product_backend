@@ -184,7 +184,7 @@ public class GatewayApplicationIntTest {
 	public void getBasketTest200() throws Exception {
 
 		ObjectMapper mapper = new ObjectMapper();
-		String uuid = String.valueOf(System.currentTimeMillis());
+		String uuid = String.valueOf(System.currentTimeMillis())+"get";
 
 		User user = new User(uuid, "password");
 		MvcResult result = mvc.perform(post("/api/login")
@@ -232,7 +232,7 @@ public class GatewayApplicationIntTest {
 
 		ObjectMapper mapper = new ObjectMapper();
 
-		String uuid = String.valueOf(System.currentTimeMillis());
+		String uuid = String.valueOf(System.currentTimeMillis())+"add";
 
 		//Login and get a basket
 		User user = new User(uuid, "password");
@@ -282,7 +282,7 @@ public class GatewayApplicationIntTest {
 	public void removeFromBasketTest200() throws Exception {
 
 		ObjectMapper mapper = new ObjectMapper();
-		String uuid = String.valueOf(System.currentTimeMillis());
+		String uuid = String.valueOf(System.currentTimeMillis())+"rem";
 		//Login and get a basket
 		User user = new User(uuid, "password");
 		MvcResult result = mvc.perform(post("/api/login")
