@@ -64,4 +64,10 @@ public class UserController {
         userRepository.remove(Integer.toString(userId));
         return new ResponseEntity<>("LOOGGED OUT", null, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/health", method = RequestMethod.GET)
+    public String ping() {
+        basketRepositoryProxy.getBasketHealth();
+        return "OK";
+    }
 }

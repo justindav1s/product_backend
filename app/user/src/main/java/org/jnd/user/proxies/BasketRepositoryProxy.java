@@ -45,4 +45,14 @@ public class BasketRepositoryProxy {
         return user;
     }
 
+    public String getBasketHealth() {
+
+        log.debug("BasketRepositoryProxy getBasketHealth for URL : "+"http://"+basket_host+"/basket/health");
+
+        String response = this.restTemplate.getForObject("http://"+basket_host+"/basket/health", String.class);
+
+        log.debug("Basket Health Response : "+response);
+
+        return response;
+    }
 }
