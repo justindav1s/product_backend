@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jnd.microservices.model.Basket;
 import org.jnd.microservices.model.User;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,9 @@ import org.springframework.web.client.RestTemplate;
 @Component("BasketRepositoryProxy")
 public class BasketRepositoryProxy {
 
+    @Value( "${basket.host}" )
+    String basket_host;
+
     private Log log = LogFactory.getLog(BasketRepositoryProxy.class);
 
     private RestTemplate restTemplate = new RestTemplate();;
@@ -23,11 +27,10 @@ public class BasketRepositoryProxy {
         log.debug("BasketRepositoryProxy getBasket for user : "+user);
 
         HttpEntity<User> request = new HttpEntity<>(user);
-        //Basket basket = restTemplate.postForObject("http://basket:8080/basket/create", request, Basket.class);
 
         ResponseEntity<User> exchange =
                 this.restTemplate.exchange(
-                        "http://basket:8080/basket/create",
+                        "http://"+basket_host+"/basket/create",
                         HttpMethod.POST,
                         request,
                         User.class);
