@@ -8,13 +8,13 @@ spec:
   precedence: 1
   route:
   - labels:
-      version: inventory-v1
+      version: v1
     weight: 0
   - labels:
-      version: inventory-v2
+      version: v2
     weight: 100
   - labels:
-      version: inventory-v3
+      version: v3
     weight: 0
 ---
 apiVersion: config.istio.io/v1alpha2
@@ -27,7 +27,7 @@ spec:
   precedence: 1
   route:
   - labels:
-      version: basket-v1
+      version: v1
     weight: 100
 ---
 apiVersion: config.istio.io/v1alpha2
@@ -36,9 +36,9 @@ metadata:
   name: user-lb
 spec:
   destination:
-    name: inventory
+    name: user
   precedence: 1
   route:
   - labels:
-      version: user-v1
+      version: v1
     weight: 100
