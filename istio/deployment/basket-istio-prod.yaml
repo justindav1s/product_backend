@@ -73,10 +73,6 @@ metadata:
 spec:
   ports:
   - name: http
-    protocol: TCP
     port: 8080
   selector:
     app: basket
-    deploymentconfig: basket
-  type: ClusterIP
-  sessionAffinity: None
