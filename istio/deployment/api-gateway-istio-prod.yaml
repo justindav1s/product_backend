@@ -79,3 +79,19 @@ spec:
     deploymentconfig: api-gateway
   type: ClusterIP
   sessionAffinity: None
+
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: api-gateway
+  name: api-gateway
+spec:
+  host: api.amazin.apps.ocp.datr.eu
+  port:
+    targetPort: http
+  to:
+    kind: Service
+    name: api-gateway
+    weight: 100
+  wildcardPolicy: None
