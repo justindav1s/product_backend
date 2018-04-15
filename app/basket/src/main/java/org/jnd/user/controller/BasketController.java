@@ -162,6 +162,10 @@ public class BasketController {
         return new ResponseEntity<>(inventory, null, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/health", method = RequestMethod.GET)
+    public String ping() {
+        return "OK";
+    }
 
     private Basket calculateTotal(Basket basket)    {
 

@@ -25,6 +25,7 @@ public class BasketRepositoryProxy {
     public User getBasket(User user) {
 
         log.debug("BasketRepositoryProxy getBasket for user : "+user);
+        log.debug("BasketRepositoryProxy getBasket for URL : "+"http://"+basket_host+"/basket/create");
 
         HttpEntity<User> request = new HttpEntity<>(user);
 
