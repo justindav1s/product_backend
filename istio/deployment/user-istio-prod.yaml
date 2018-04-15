@@ -23,7 +23,7 @@ spec:
       labels:
         app: user
         deploymentconfig: user
-        version: user-v1
+        version: v1
     spec:
       containers:
       - name: user
