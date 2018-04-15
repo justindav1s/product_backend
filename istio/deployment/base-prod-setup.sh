@@ -25,5 +25,5 @@ oc project istio-system
 oc adm policy add-scc-to-user privileged -z default -n ${PROD_PROJECT}
 
 oc project ${PROD_PROJECT}
-oc adm policy add-scc-to-user privileged -z default -n ${PROD_PROJECT}
+oc adm policy add-scc-to-user anyuid -z default -n ${PROD_PROJECT}
 oc label namespace ${PROD_PROJECT} istio-injection=enabled
