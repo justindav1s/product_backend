@@ -20,3 +20,10 @@ oc policy add-role-to-user view --serviceaccount=default -n ${PROD_PROJECT}
 
 #Allow all the downstream projects to pull the dev image
 oc policy add-role-to-group system:image-puller system:serviceaccounts:${PROD_PROJECT} -n ${DEV_PROJECT}
+
+oc project istio-system
+oc adm policy add-scc-to-user privileged -z default -n ${PROD_PROJECT}
+
+oc project ${PROD_PROJECT}
+oc adm policy add-scc-to-user privileged -z default -n ${PROD_PROJECT}
+oc label namespace ${PROD_PROJECT} istio-injection=enabled
