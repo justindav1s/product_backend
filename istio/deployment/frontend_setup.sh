@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-set -x
+#set -x
 
 APP=frontend
 S2I_IMAGE=nginx:latest
 
 . ../../app/env.sh
 
-#oc login https://${IP}:8443 -u $USER
+oc login https://${IP}:8443 -u $USER
 
 oc project ${PROD_PROJECT}
 
