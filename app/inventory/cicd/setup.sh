@@ -6,7 +6,7 @@ APP=inventory
 
 #setup Jenkins Jobs
 JENKINS_USER=justin-admin
-JENKINS_TOKEN=a269a10c43b6cfa1e68c115ee6350345
+JENKINS_TOKEN=d790ae2255b3934efc61e33c3a903d14
 JENKINS=jenkins-cicd.apps.ocp.datr.eu
 
 #turn on "Prevent Cross-site scripting"
