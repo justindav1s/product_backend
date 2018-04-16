@@ -22,11 +22,11 @@ public class UserProxy {
 
     private RestTemplate restTemplate = new RestTemplate();;
 
-    public User login(User user, HttpHeaders headers) {
+    public ResponseEntity<User> login(User user, HttpHeaders headers) {
 
         log.debug("UserProxy login : "+user);
 
-        HttpEntity<User> request = new HttpEntity<>(user);
+        HttpEntity<User> request = new HttpEntity<>(user, headers);
 
         ResponseEntity<User> exchange =
                 this.restTemplate.exchange(
@@ -41,7 +41,7 @@ public class UserProxy {
         if (user == null)
             throw new RuntimeException();
 
-        return user;
+        return exchange;
     }
 
 

@@ -46,8 +46,8 @@ public class GatewayController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
     ResponseEntity<?> login(@RequestBody User user, @RequestHeader HttpHeaders headers) {
-        user = userProxy.login(user, headers);
-        return new ResponseEntity<>(user, headers, HttpStatus.CREATED);
+        ResponseEntity<User> response = userProxy.login(user, headers);
+        return response;
     }
 
     @RequestMapping(value = "/logout/{id}", method = RequestMethod.DELETE, produces = "application/json")
@@ -87,8 +87,7 @@ public class GatewayController {
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<?> getProduct(@PathVariable int id, @RequestHeader HttpHeaders headers) {
 
-        Product p = inventoryProxy.getProduct(String.valueOf(id), headers);
-        return new ResponseEntity<>(p, headers, HttpStatus.OK);
+        return inventoryProxy.getProduct(String.valueOf(id), headers);;
     }
 
     @RequestMapping(value = "/products/types", method = RequestMethod.GET, produces = "application/json")
@@ -97,22 +96,19 @@ public class GatewayController {
         log.debug("BEFORE B3Headers");
         this.getB3Headers(headers);
 
-        List<String> types = inventoryProxy.getProductTypes(headers);
-        return new ResponseEntity<>(types, headers, HttpStatus.OK);
+        return inventoryProxy.getProductTypes(headers);
     }
 
     @RequestMapping(value = "/products/all", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<?> getAllProducts(@RequestHeader HttpHeaders headers) {
 
-        List<Product> products = inventoryProxy.getAllProducts(headers);
-        return new ResponseEntity<>(products, headers, HttpStatus.OK);
+        return inventoryProxy.getAllProducts(headers);
     }
 
     @RequestMapping(value = "/products/type/{type}", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<?> getAllProductsOfType(@PathVariable String type, @RequestHeader HttpHeaders headers) {
 
-        List<Product> products = inventoryProxy.getProductsofType(type, headers);
-        return new ResponseEntity<>(products, headers, HttpStatus.OK);
+        return inventoryProxy.getProductsofType(type, headers);
     }
 
     @RequestMapping(value = "/health", method = RequestMethod.GET)

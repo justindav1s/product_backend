@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.jnd.microservices.model.Product;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -24,63 +25,79 @@ public class InventoryProxy {
 
     private RestTemplate restTemplate = new RestTemplate();;
 
-    public Product getProduct(String id, HttpHeaders headers) {
+    public ResponseEntity<Product> getProduct(String id, HttpHeaders headers) {
 
         log.debug("ProductRepositoryProxy get Product id : "+id);
-
 
         ResponseEntity<Product> exchange =
                 this.restTemplate.exchange(
                         "http://"+inventory_host+"/products/{id}",
                         HttpMethod.GET,
-                        null,
+                        new HttpEntity<byte[]>(headers),
                         new ParameterizedTypeReference<Product>() {},
                         id);
 
         Product resp = exchange.getBody();
         log.debug("Product Response : "+resp);
 
-        if (resp == null)
+        if (exchange == null)
             throw new RuntimeException();
 
-        return resp;
+        return exchange;
     }
 
-    public List<Product> getAllProducts(HttpHeaders headers) {
+    public ResponseEntity<List> getAllProducts(HttpHeaders headers) {
 
-        List<Product> products = restTemplate.getForObject("http://"+inventory_host+"/products/all", List.class);
+        ResponseEntity<List> exchange =
+                this.restTemplate.exchange(
+                        "http://"+inventory_host+"/products/all",
+                        HttpMethod.GET,
+                        new HttpEntity<byte[]>(headers),
+                        new ParameterizedTypeReference<List>() {});
 
-        log.debug("Product Response : "+products);
+        log.debug("Producta Response : "+exchange.getBody());
 
-        if (products == null)
+        if (exchange == null)
             throw new RuntimeException();
 
-        return products;
+        return exchange;
     }
 
-    public List<Product> getProductsofType(String type, HttpHeaders headers) {
-        List<Product> products = restTemplate.getForObject("http://"+inventory_host+"/products/type/"+type, List.class);
-        ResponseEntity<List> response = restTemplate.getForEntity("http://"+inventory_host+"/products/type/"+type, List.class);
+    public ResponseEntity<List> getProductsofType(String type, HttpHeaders headers) {
+
+        ResponseEntity<List> exchange =
+                this.restTemplate.exchange(
+                        "http://"+inventory_host+"/products/type/{type}",
+                        HttpMethod.GET,
+                        new HttpEntity<byte[]>(headers),
+                        new ParameterizedTypeReference<List>() {},
+                        type);
 
         log.debug("AFTER B3Headers");
-        getB3Headers(response.getHeaders());
-        log.debug("Product Response : "+response.getBody());
+        getB3Headers(exchange.getHeaders());
+        log.debug("Product Response : "+exchange.getBody());
 
-        if (products == null)
+        if (exchange == null)
             throw new RuntimeException();
 
-        return response.getBody();
+        return exchange;
     }
 
-    public List<String> getProductTypes(HttpHeaders headers) {
-        List<String> products = restTemplate.getForObject("http://"+inventory_host+"/products/types", List.class);
+    public ResponseEntity<List> getProductTypes(HttpHeaders headers) {
 
-        log.debug("Product types response : "+products);
+        ResponseEntity<List> exchange =
+                this.restTemplate.exchange(
+                        "http://"+inventory_host+"/products/types",
+                        HttpMethod.GET,
+                        new HttpEntity<byte[]>(headers),
+                        new ParameterizedTypeReference<List>() {});
 
-        if (products == null)
+        log.debug("Product types response : "+exchange.getBody());
+
+        if (exchange == null)
             throw new RuntimeException();
 
-        return products;
+        return exchange;
     }
 
     public HttpHeaders getB3Headers(HttpHeaders headers)   {
