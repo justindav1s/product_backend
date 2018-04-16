@@ -32,6 +32,8 @@ public class ProductController {
 
         Object[] products = repository.getProducts().values().toArray();
 
+        log.debug("Product get types : "+products);
+
         return new ResponseEntity<>(products, headers, HttpStatus.OK);
     }
 
@@ -43,6 +45,8 @@ public class ProductController {
         this.getB3Headers(headers);
 
         ArrayList<String> types = (ArrayList)repository.getTypes();
+
+        log.debug("Product get types : "+types);
 
         return new ResponseEntity(types, headers, HttpStatus.OK);
     }
