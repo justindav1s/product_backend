@@ -48,7 +48,7 @@ public class ProductController {
 
         log.debug("Product get types : "+types);
 
-        return new ResponseEntity(types, headers, HttpStatus.OK);
+        return new ResponseEntity(types, null, HttpStatus.OK);
     }
 
 
