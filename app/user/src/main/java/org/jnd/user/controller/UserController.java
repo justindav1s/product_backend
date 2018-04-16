@@ -1,6 +1,7 @@
 package org.jnd.user.controller;
 
 import org.jnd.microservices.model.User;
+import org.jnd.microservices.model.utils.B3HeaderHelper;
 import org.jnd.user.proxies.BasketRepositoryProxy;
 import org.jnd.user.repositories.UserRepository;
 import org.slf4j.Logger;
@@ -29,6 +30,9 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
     ResponseEntity<?> create(@RequestBody User user, @RequestHeader HttpHeaders headers) {
 
+        log.debug("User login");
+        B3HeaderHelper.getB3Headers(headers);
+
         //check to see whether user exists
         if (userRepository.containsKey(user.getUsername())) {
             //this user exists : retreive
@@ -46,6 +50,8 @@ public class UserController {
         //get user's basket data
         ResponseEntity<User> responseEntity = basketRepositoryProxy.getBasket(user, headers);
 
+        B3HeaderHelper.getB3Headers(responseEntity.getHeaders());
+
         return responseEntity;
     }
 
@@ -53,6 +59,7 @@ public class UserController {
     ResponseEntity<?> get(@PathVariable int userId, @RequestHeader HttpHeaders headers) {
 
         log.debug("Get User : " + userId);
+        B3HeaderHelper.getB3Headers(headers);
         User user = userRepository.get(Integer.toString(userId));
         log.debug("Get User : " + user);
         return new ResponseEntity<>(user, null, HttpStatus.CREATED);

@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jnd.microservices.model.Basket;
 import org.jnd.microservices.model.User;
+import org.jnd.microservices.model.utils.B3HeaderHelper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -28,6 +29,8 @@ public class BasketRepositoryProxy {
         log.debug("BasketRepositoryProxy getBasket for user : "+user);
         log.debug("BasketRepositoryProxy getBasket for URL : "+"http://"+basket_host+"/basket/create");
 
+        B3HeaderHelper.getB3Headers(headers);
+
         HttpEntity<User> request = new HttpEntity<>(user, headers);
 
         ResponseEntity<User> exchange =
@@ -39,6 +42,8 @@ public class BasketRepositoryProxy {
 
         user = exchange.getBody();
         log.debug("Basket Response : "+user);
+
+        B3HeaderHelper.getB3Headers(exchange.getHeaders());
 
         if (user == null)
             throw new RuntimeException();
