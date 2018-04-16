@@ -6,6 +6,7 @@ import org.jnd.microservices.model.Basket;
 import org.jnd.microservices.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -22,12 +23,12 @@ public class BasketRepositoryProxy {
 
     private RestTemplate restTemplate = new RestTemplate();;
 
-    public User getBasket(User user) {
+    public ResponseEntity<User> getBasket(User user, HttpHeaders headers) {
 
         log.debug("BasketRepositoryProxy getBasket for user : "+user);
         log.debug("BasketRepositoryProxy getBasket for URL : "+"http://"+basket_host+"/basket/create");
 
-        HttpEntity<User> request = new HttpEntity<>(user);
+        HttpEntity<User> request = new HttpEntity<>(user, headers);
 
         ResponseEntity<User> exchange =
                 this.restTemplate.exchange(
@@ -42,7 +43,7 @@ public class BasketRepositoryProxy {
         if (user == null)
             throw new RuntimeException();
 
-        return user;
+        return exchange;
     }
 
     public String getBasketHealth() {
