@@ -5,8 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.jnd.microservices.model.Basket;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,7 +20,7 @@ public class BasketProxy {
 
     private RestTemplate restTemplate = new RestTemplate();;
 
-    public Basket addToBasket(int basketid, int productid) {
+    public ResponseEntity<Basket> addToBasket(int basketid, int productid, HttpHeaders headers) {
 
         log.debug(">> addToBasket basketid : "+basketid+" productid : "+productid);
 
@@ -29,14 +28,14 @@ public class BasketProxy {
                 this.restTemplate.exchange(
                         "http://"+basket_host+"/basket/{basketid}/add/{productid}",
                         HttpMethod.PUT,
-                        null,
+                        new HttpEntity<byte[]>(headers),
                         new ParameterizedTypeReference<Basket>() {},
                         basketid, productid);
 
-        return exchange.getBody();
+        return exchange;
     }
 
-    public Basket removefromBasket(int basketid, int productindex) {
+    public ResponseEntity<Basket> removefromBasket(int basketid, int productindex, HttpHeaders headers) {
 
         log.debug(">> removefromBasket basketid : "+basketid+" productindex : "+productindex);
 
@@ -44,25 +43,32 @@ public class BasketProxy {
                 this.restTemplate.exchange(
                         "http://"+basket_host+"/basket/{basketid}/remove/{productindex}",
                         HttpMethod.DELETE,
-                        null,
+                        new HttpEntity<byte[]>(headers),
                         new ParameterizedTypeReference<Basket>() {},
                         basketid, productindex);
 
-        return exchange.getBody();
+        return exchange;
     }
 
-    public Basket getBasket(int basketid) {
-        Basket basket = restTemplate.getForObject("http://"+basket_host+"/basket/get/"+basketid, Basket.class);
+    public ResponseEntity<Basket> getBasket(int basketid, HttpHeaders headers) {
 
-        log.debug("basket response : "+basket);
+        ResponseEntity<Basket> exchange =
+                this.restTemplate.exchange(
+                        "http://"+basket_host+"/basket/get/"+basketid,
+                        HttpMethod.GET,
+                        new HttpEntity<byte[]>(headers),
+                        new ParameterizedTypeReference<Basket>() {},
+                        basketid);
 
-        if (basket == null)
+        log.debug("basket response : "+(Basket)exchange.getBody());
+
+        if (exchange.getBody() == null)
             throw new RuntimeException();
 
-        return basket;
+        return exchange;
     }
 
-    public Basket emptyBasket(int basketid) {
+    public ResponseEntity<Basket> emptyBasket(int basketid, HttpHeaders headers) {
 
         log.debug(">> emptyBasket basketid : "+basketid);
 
@@ -70,10 +76,10 @@ public class BasketProxy {
                 this.restTemplate.exchange(
                         "http://"+basket_host+"/basket/{basketid}/empty",
                         HttpMethod.DELETE,
-                        null,
+                        new HttpEntity<byte[]>(headers),
                         new ParameterizedTypeReference<Basket>() {},
                         basketid);
 
-        return exchange.getBody();
+        return exchange;
     }
 }

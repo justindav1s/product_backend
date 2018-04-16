@@ -24,7 +24,7 @@ public class InventoryProxy {
 
     private RestTemplate restTemplate = new RestTemplate();;
 
-    public Product getProduct(String id) {
+    public Product getProduct(String id, HttpHeaders headers) {
 
         log.debug("ProductRepositoryProxy get Product id : "+id);
 
@@ -46,7 +46,7 @@ public class InventoryProxy {
         return resp;
     }
 
-    public List<Product> getAllProducts() {
+    public List<Product> getAllProducts(HttpHeaders headers) {
 
         List<Product> products = restTemplate.getForObject("http://"+inventory_host+"/products/all", List.class);
 
@@ -58,7 +58,7 @@ public class InventoryProxy {
         return products;
     }
 
-    public List<Product> getProductsofType(String type) {
+    public List<Product> getProductsofType(String type, HttpHeaders headers) {
         List<Product> products = restTemplate.getForObject("http://"+inventory_host+"/products/type/"+type, List.class);
         ResponseEntity<List> response = restTemplate.getForEntity("http://"+inventory_host+"/products/type/"+type, List.class);
 
@@ -72,7 +72,7 @@ public class InventoryProxy {
         return response.getBody();
     }
 
-    public List<String> getProductTypes() {
+    public List<String> getProductTypes(HttpHeaders headers) {
         List<String> products = restTemplate.getForObject("http://"+inventory_host+"/products/types", List.class);
 
         log.debug("Product types response : "+products);

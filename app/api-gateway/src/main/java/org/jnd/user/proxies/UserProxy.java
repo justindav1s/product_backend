@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.jnd.microservices.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,7 @@ public class UserProxy {
 
     private RestTemplate restTemplate = new RestTemplate();;
 
-    public User login(User user) {
+    public User login(User user, HttpHeaders headers) {
 
         log.debug("UserProxy login : "+user);
 
@@ -44,7 +45,7 @@ public class UserProxy {
     }
 
 
-    public String logout(int id) {
+    public String logout(int id, HttpHeaders headers) {
         log.debug("UserProxy logout user id : "+id);
         restTemplate.delete("http://"+ user_host +"/user/logout/"+id);
         return "LOGGED OUT";

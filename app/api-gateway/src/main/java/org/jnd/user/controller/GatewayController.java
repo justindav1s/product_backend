@@ -46,49 +46,49 @@ public class GatewayController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
     ResponseEntity<?> login(@RequestBody User user, @RequestHeader HttpHeaders headers) {
-        user = userProxy.login(user);
-        return new ResponseEntity<>(user, null, HttpStatus.CREATED);
+        user = userProxy.login(user, headers);
+        return new ResponseEntity<>(user, headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/logout/{id}", method = RequestMethod.DELETE, produces = "application/json")
     ResponseEntity<?> logout(@PathVariable int id, @RequestHeader HttpHeaders headers) {
 
-        String response = userProxy.logout(id);
-        return new ResponseEntity<>(response, null, HttpStatus.OK);
+        String response = userProxy.logout(id, headers);
+        return new ResponseEntity<>(response, headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/basket/get/{basketid}", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<?> getBasket(@PathVariable int basketid, @RequestHeader HttpHeaders headers) {
-        Basket basket = basketProxy.getBasket(basketid);
-        return new ResponseEntity<>(basket, null, HttpStatus.OK);
+        ResponseEntity<Basket> response = basketProxy.getBasket(basketid, headers);
+        return response;
     }
 
     @RequestMapping(value = "/basket/{basketid}/add/{productid}", method = RequestMethod.PUT, produces = "application/json")
     ResponseEntity<?> addToBasket(@PathVariable int basketid, @PathVariable int productid, @RequestHeader HttpHeaders headers) {
 
-        Basket basket = basketProxy.addToBasket(basketid, productid);
-        return new ResponseEntity<>(basket, null, HttpStatus.CREATED);
+        ResponseEntity<Basket> response = basketProxy.addToBasket(basketid, productid, headers);
+        return response;
     }
 
     @RequestMapping(value = "/basket/{basketid}/remove/{itemAtIndex}", method = RequestMethod.DELETE, produces = "application/json")
     ResponseEntity<?> removeFromBasket(@PathVariable int basketid, @PathVariable int itemAtIndex, @RequestHeader HttpHeaders headers) {
 
-        Basket basket = basketProxy.removefromBasket(basketid, itemAtIndex);
-        return new ResponseEntity<>(basket, null, HttpStatus.OK);
+        ResponseEntity<Basket> response = basketProxy.removefromBasket(basketid, itemAtIndex, headers);
+        return response;
     }
 
     @RequestMapping(value = "/basket/{basketid}/empty", method = RequestMethod.DELETE, produces = "application/json")
     ResponseEntity<?> emptyBasket(@PathVariable int basketid, @RequestHeader HttpHeaders headers) {
 
-        Basket basket = basketProxy.emptyBasket(basketid);
-        return new ResponseEntity<>(basket, null, HttpStatus.OK);
+        ResponseEntity<Basket> response = basketProxy.emptyBasket(basketid, headers);
+        return response;
     }
 
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<?> getProduct(@PathVariable int id, @RequestHeader HttpHeaders headers) {
 
-        Product p = inventoryProxy.getProduct(String.valueOf(id));
-        return new ResponseEntity<>(p, null, HttpStatus.OK);
+        Product p = inventoryProxy.getProduct(String.valueOf(id), headers);
+        return new ResponseEntity<>(p, headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/products/types", method = RequestMethod.GET, produces = "application/json")
@@ -97,22 +97,22 @@ public class GatewayController {
         log.debug("BEFORE B3Headers");
         this.getB3Headers(headers);
 
-        List<String> types = inventoryProxy.getProductTypes();
-        return new ResponseEntity<>(types, null, HttpStatus.OK);
+        List<String> types = inventoryProxy.getProductTypes(headers);
+        return new ResponseEntity<>(types, headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/products/all", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<?> getAllProducts(@RequestHeader HttpHeaders headers) {
 
-        List<Product> products = inventoryProxy.getAllProducts();
-        return new ResponseEntity<>(products, null, HttpStatus.OK);
+        List<Product> products = inventoryProxy.getAllProducts(headers);
+        return new ResponseEntity<>(products, headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/products/type/{type}", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<?> getAllProductsOfType(@PathVariable String type, @RequestHeader HttpHeaders headers) {
 
-        List<Product> products = inventoryProxy.getProductsofType(type);
-        return new ResponseEntity<>(products, null, HttpStatus.OK);
+        List<Product> products = inventoryProxy.getProductsofType(type, headers);
+        return new ResponseEntity<>(products, headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/health", method = RequestMethod.GET)
