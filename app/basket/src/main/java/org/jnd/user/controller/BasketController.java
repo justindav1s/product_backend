@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -23,7 +24,7 @@ public class BasketController {
     private static final Logger log = LoggerFactory.getLogger(BasketController.class);
 
     @Autowired
-    private ProductRepositoryProxy productrepository;
+    private ProductRepositoryProxy productRepositoryProxy;
 
     @Autowired
     private BasketRepository basketRepository;
@@ -53,7 +54,7 @@ public class BasketController {
         user.setBasketId(basket.getId());
         basket = calculateTotal(basket);
         log.debug("Returning user with basket data :"+user);
-        return new ResponseEntity<>(user, null, HttpStatus.CREATED);
+        return new ResponseEntity<>(user, headers, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/remove/{basketId}", method = RequestMethod.DELETE)
@@ -61,7 +62,7 @@ public class BasketController {
 
         log.debug("Remove Basket : "+basket);
         basketRepository.remove(basket);
-        return new ResponseEntity<>("DELETED", null, HttpStatus.OK);
+        return new ResponseEntity<>("DELETED", headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/clearall", method = RequestMethod.DELETE)
@@ -69,7 +70,7 @@ public class BasketController {
 
         log.debug("Clearing all Baskets");
         basketRepository.clear();
-        return new ResponseEntity<>("CLEAR", null, HttpStatus.OK);
+        return new ResponseEntity<>("CLEAR", headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{basketId}/add/{productId}", method = RequestMethod.PUT)
@@ -77,8 +78,11 @@ public class BasketController {
 
         log.debug("Basket #"+basketId+" Add Product#"+productId);
 
-        Product product = productrepository.getProduct(productId);
+        ResponseEntity<Product> response = productRepositoryProxy.getProduct(productId,headers);
+        Product product = response.getBody();
+
         Basket basket = basketRepository.get(basketId);
+
         if (basket.getProducts() != null) {
             int basketIndex = basket.getProducts().size();
             product.setBasketIndex(basketIndex);
@@ -91,7 +95,7 @@ public class BasketController {
         }
 
         basket = calculateTotal(basket);
-        return new ResponseEntity<>(basket, null, HttpStatus.OK);
+        return new ResponseEntity<>(basket, response.getHeaders(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{basketId}/remove/{productIndex}", method = RequestMethod.DELETE)
@@ -112,7 +116,7 @@ public class BasketController {
 
         }
         basket = calculateTotal(basket);
-        return new ResponseEntity<>(basket, null, HttpStatus.OK);
+        return new ResponseEntity<>(basket, headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{basketId}/empty", method = RequestMethod.DELETE)
@@ -126,7 +130,7 @@ public class BasketController {
         }
         basket = basketRepository.get(basketId);
         basket = calculateTotal(basket);
-        return new ResponseEntity<>(basket, null, HttpStatus.OK);
+        return new ResponseEntity<>(basket, headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/get/{basketId}", method = RequestMethod.GET)
@@ -136,7 +140,7 @@ public class BasketController {
 
         Basket basket = basketRepository.get(basketId);
         basket = calculateTotal(basket);
-        return new ResponseEntity<>(basket, null, HttpStatus.OK);
+        return new ResponseEntity<>(basket, headers, HttpStatus.OK);
     }
 
 
@@ -147,25 +151,21 @@ public class BasketController {
 
         Object[] baskets = basketRepository.entrySet().toArray();
 
-        return new ResponseEntity<>(baskets, null, HttpStatus.OK);
+        return new ResponseEntity<>(baskets, headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/inventory", method = RequestMethod.GET)
-    ResponseEntity<Object> getInventory() {
+    ResponseEntity<Object> getInventory(HttpHeaders headers) {
 
 
         log.debug("Basket inventory #");
 
-        Object inventory = productrepository.getAllProducts();
-        log.debug("Basket inventory : "+inventory);
+        ResponseEntity<List> response = productRepositoryProxy.getAllProducts(headers);
+        log.debug("Basket inventory : "+response.getBody());
 
-        return new ResponseEntity<>(inventory, null, HttpStatus.OK);
+        return new ResponseEntity<>(response.getBody(), response.getHeaders(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/health", method = RequestMethod.GET)
-    public String ping() {
-        return "OK";
-    }
 
     private Basket calculateTotal(Basket basket)    {
 

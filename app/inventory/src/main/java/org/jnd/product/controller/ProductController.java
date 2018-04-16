@@ -32,7 +32,7 @@ public class ProductController {
 
         Object[] products = repository.getProducts().values().toArray();
 
-        return new ResponseEntity<>(products, HttpStatus.OK);
+        return new ResponseEntity<>(products, headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/types", method = RequestMethod.GET, produces = "application/json")
@@ -44,7 +44,7 @@ public class ProductController {
 
         ArrayList<String> types = (ArrayList)repository.getTypes();
 
-        return new ResponseEntity(types, HttpStatus.OK);
+        return new ResponseEntity(types, headers, HttpStatus.OK);
     }
 
 
@@ -62,7 +62,7 @@ public class ProductController {
             }
         }
 
-        return new ResponseEntity(products, HttpStatus.OK);
+        return new ResponseEntity(products, headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{productId}", method = RequestMethod.GET, produces = "application/json")
@@ -73,7 +73,7 @@ public class ProductController {
 
         Product product = repository.getProducts().get(Integer.toString(productId));
 
-        return new ResponseEntity<>(product, HttpStatus.OK);
+        return new ResponseEntity<>(product, headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/create/{productName}/{productType}/{productPrice}", method = RequestMethod.POST, produces = "application/json")
@@ -106,7 +106,7 @@ public class ProductController {
 
         Object[] products = repository.getProducts().values().toArray();
 
-        return new ResponseEntity<>(products, HttpStatus.CREATED);
+        return new ResponseEntity<>(products, headers, HttpStatus.CREATED);
     }
 
     public HttpHeaders getB3Headers(HttpHeaders headers)   {
