@@ -254,7 +254,7 @@ public class GatewayApplicationIntTest {
 		//Add to Basket
 		result = mvc.perform(put("/api/basket/"+user.getBasketId()+"/add/"+1)
 				.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isCreated())
+				.andExpect(status().isOk())
 				.andExpect(content()
 						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andReturn();
@@ -303,7 +303,7 @@ public class GatewayApplicationIntTest {
 		//Add to Basket
 		result = mvc.perform(put("/api/basket/"+user.getBasketId()+"/add/"+1)
 				.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isCreated())
+				.andExpect(status().isOk())
 				.andExpect(content()
 						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andReturn();
