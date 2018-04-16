@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-HOST=api.amazin.apps.ocp.datr.eu/api
+HOST=api-gateway.amazin.apps.ocp.datr.eu/api
 
 for i in $(seq 1 1000)
 do
