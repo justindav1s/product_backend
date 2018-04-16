@@ -55,7 +55,7 @@ public class BasketController {
         basket = calculateTotal(basket);
         log.debug("Returning user with basket data :"+user);
         this.getB3Headers(headers);
-        return new ResponseEntity<>(user, headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(user, null, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/remove/{basketId}", method = RequestMethod.DELETE)
@@ -63,7 +63,7 @@ public class BasketController {
 
         log.debug("Remove Basket : "+basket);
         basketRepository.remove(basket);
-        return new ResponseEntity<>("DELETED", headers, HttpStatus.OK);
+        return new ResponseEntity<>("DELETED", null, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/clearall", method = RequestMethod.DELETE)
@@ -71,7 +71,7 @@ public class BasketController {
 
         log.debug("Clearing all Baskets");
         basketRepository.clear();
-        return new ResponseEntity<>("CLEAR", headers, HttpStatus.OK);
+        return new ResponseEntity<>("CLEAR", null, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{basketId}/add/{productId}", method = RequestMethod.PUT)
@@ -96,7 +96,7 @@ public class BasketController {
         }
 
         basket = calculateTotal(basket);
-        return new ResponseEntity<>(basket, response.getHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(basket, null, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{basketId}/remove/{productIndex}", method = RequestMethod.DELETE)
@@ -117,7 +117,7 @@ public class BasketController {
 
         }
         basket = calculateTotal(basket);
-        return new ResponseEntity<>(basket, headers, HttpStatus.OK);
+        return new ResponseEntity<>(basket, null, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{basketId}/empty", method = RequestMethod.DELETE)
@@ -131,7 +131,7 @@ public class BasketController {
         }
         basket = basketRepository.get(basketId);
         basket = calculateTotal(basket);
-        return new ResponseEntity<>(basket, headers, HttpStatus.OK);
+        return new ResponseEntity<>(basket, null, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/get/{basketId}", method = RequestMethod.GET)
@@ -141,7 +141,7 @@ public class BasketController {
 
         Basket basket = basketRepository.get(basketId);
         basket = calculateTotal(basket);
-        return new ResponseEntity<>(basket, headers, HttpStatus.OK);
+        return new ResponseEntity<>(basket, null, HttpStatus.OK);
     }
 
 
@@ -152,7 +152,7 @@ public class BasketController {
 
         Object[] baskets = basketRepository.entrySet().toArray();
 
-        return new ResponseEntity<>(baskets, headers, HttpStatus.OK);
+        return new ResponseEntity<>(baskets, null, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/inventory", method = RequestMethod.GET)
@@ -164,7 +164,7 @@ public class BasketController {
         ResponseEntity<List> response = productRepositoryProxy.getAllProducts(headers);
         log.debug("Basket inventory : "+response.getBody());
 
-        return new ResponseEntity<>(response.getBody(), response.getHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(response.getBody(), null, HttpStatus.OK);
     }
 
 
