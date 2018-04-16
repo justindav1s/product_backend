@@ -87,7 +87,7 @@ public class GatewayController {
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<?> getProduct(@PathVariable int id, @RequestHeader HttpHeaders headers) {
 
-        return inventoryProxy.getProduct(String.valueOf(id), headers);;
+        return inventoryProxy.getProduct(String.valueOf(id), headers);
     }
 
     @RequestMapping(value = "/products/types", method = RequestMethod.GET, produces = "application/json")
