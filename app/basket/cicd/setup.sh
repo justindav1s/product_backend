@@ -5,7 +5,7 @@ APP=basket
 
 #setup Jenkins Jobs
 JENKINS_USER=justin-admin
-JENKINS_TOKEN=d790ae2255b3934efc61e33c3a903d14
+JENKINS_TOKEN=f794b24c70344f6445e15518ba8dcd91
 JENKINS=jenkins-cicd.apps.ocp.datr.eu
 
 #turn on "Prevent Cross-site scripting"
