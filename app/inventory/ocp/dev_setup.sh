@@ -17,7 +17,7 @@ oc delete template ${APP}-dev-dc -n ${DEV_PROJECT}
 oc delete configmap ${APP}-config -n ${DEV_PROJECT}
 
 echo Setting up ${APP} for ${DEV_PROJECT}
-oc new-build --binary=true --labels=app=${APP} --name=${APP} "edhat-openjdk18-openshift:1.2" -n ${DEV_PROJECT}
+oc new-build --binary=true --labels=app=${APP} --name=${APP} ${S2I_IMAGE} -n ${DEV_PROJECT}
 oc new-app -f ../ocp/${APP}-dev-dc.yaml --allow-missing-imagestream-tags=true -n ${DEV_PROJECT}
 oc set volume dc/${APP} --add --name=${APP}-config-vol --mount-path=/config --configmap-name=${APP}-config -n ${DEV_PROJECT}
 oc expose dc ${APP} --port 8080 -n ${DEV_PROJECT}
