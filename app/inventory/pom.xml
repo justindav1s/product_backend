@@ -78,10 +78,16 @@
 		</dependency>
 
 		<!--jaeger tracing-->
+		<!--<dependency>-->
+			<!--<groupId>io.opentracing.contrib</groupId>-->
+			<!--<artifactId>opentracing-spring-cloud-starter</artifactId>-->
+			<!--<version>0.1.8</version>-->
+		<!--</dependency>-->
+
 		<dependency>
 			<groupId>io.opentracing.contrib</groupId>
-			<artifactId>opentracing-spring-cloud-starter</artifactId>
-			<version>0.1.8</version>
+			<artifactId>opentracing-spring-web-autoconfigure</artifactId>
+			<version>0.1.0</version>
 		</dependency>
 
 		<dependency>
