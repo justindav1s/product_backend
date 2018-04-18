@@ -68,7 +68,7 @@ public class ProductApplication extends SpringBootServletInitializer {
     public io.opentracing.Tracer zipkinTracer() {
         OkHttpSender okHttpSender = OkHttpSender.builder()
                 .encoding(Encoding.JSON)
-                .endpoint("http://localhost:9411/api/v1/spans")
+                .endpoint("http://zipkin.istio-system.svc:9411/api/v1/spans")
                 .build();
         AsyncReporter<Span> reporter = AsyncReporter.builder(okHttpSender).build();
         Tracing braveTracer = Tracing.newBuilder()
