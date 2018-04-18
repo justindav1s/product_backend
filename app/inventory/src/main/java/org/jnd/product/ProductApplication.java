@@ -3,6 +3,7 @@ package org.jnd.product;
 
 import brave.Tracing;
 import brave.opentracing.BraveTracer;
+import brave.sampler.Sampler;
 import io.jaegertracing.Tracer.Builder;
 import io.jaegertracing.metrics.*;
 import io.jaegertracing.propagation.B3TextMapCodec;
@@ -21,7 +22,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;
 import zipkin.Span;
 import zipkin.reporter.AsyncReporter;
+import zipkin.reporter.Encoding;
 import zipkin.reporter.okhttp3.OkHttpSender;
+
 
 @ComponentScan
 @SpringBootApplication(scanBasePackages={"org.jnd"})
@@ -53,11 +56,27 @@ public class ProductApplication extends SpringBootServletInitializer {
 //
 //    }
 
+//    @Bean
+//    public io.opentracing.Tracer zipkinTracer() {
+//        OkHttpSender okHttpSender = OkHttpSender.create("http://zipkin.istio-system.svc:9411/api/v1/spans");
+//        AsyncReporter<Span> reporter = AsyncReporter.builder(okHttpSender).build();
+//        Tracing braveTracer = Tracing.newBuilder().localServiceName("inventory").reporter(reporter).build();
+//        return BraveTracer.create(braveTracer);
+//    }
+
     @Bean
     public io.opentracing.Tracer zipkinTracer() {
-        OkHttpSender okHttpSender = OkHttpSender.create("http://zipkin.istio-system.svc:9411/api/v1/spans");
+        OkHttpSender okHttpSender = OkHttpSender.builder()
+                .encoding(Encoding.JSON)
+                .endpoint("http://localhost:9411/api/v1/spans")
+                .build();
         AsyncReporter<Span> reporter = AsyncReporter.builder(okHttpSender).build();
-        Tracing braveTracer = Tracing.newBuilder().localServiceName("inventory").reporter(reporter).build();
+        Tracing braveTracer = Tracing.newBuilder()
+                .localServiceName("spring-boot")
+                .reporter(reporter)
+                .traceId128Bit(true)
+                .sampler(Sampler.ALWAYS_SAMPLE)
+                .build();
         return BraveTracer.create(braveTracer);
     }
 }
