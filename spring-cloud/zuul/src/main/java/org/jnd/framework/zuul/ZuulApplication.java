@@ -9,6 +9,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @SpringBootApplication
 @Configuration
@@ -20,6 +22,12 @@ public class ZuulApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(ZuulApplication.class, args);
+    }
+
+
+    @RequestMapping(value = "/health", method = RequestMethod.GET)
+    public String ping() {
+        return "OK";
     }
 
 }
