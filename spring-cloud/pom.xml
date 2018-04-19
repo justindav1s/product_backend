@@ -30,6 +30,19 @@
         <developerConnection>scm:git:git@github.com:justindav1s/microservices-on-openshift.git</developerConnection>
     </scm>
 
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus</id>
+            <name>Nexus</name>
+            <url>https://nexus-cicd.apps.ocp.datr.eu/repository/maven-snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>nexus</id>
+            <name>Nexus</name>
+            <url>https://nexus-cicd.apps.ocp.datr.eu/repository/maven-release</url>
+        </repository>
+    </distributionManagement>
+
     <modules>
 	    <!--<module>config</module>-->
         <module>zuul</module>
