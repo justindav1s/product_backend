@@ -23,18 +23,18 @@ node('maven') {
             sh "mvn -U -B -q -s ../settings.xml clean package -Dspring.profiles.active=dev -DskipTests"
         }
 
-        // Using Maven run the unit tests
-        stage('Unit/Integration Tests') {
-            echo "Running Unit Tests"
-            sh "mvn -U -B -q -s ../settings.xml test -Dspring.profiles.active=dev"
-            archive "target/**/*"
-            junit 'target/surefire-reports/*.xml'
-        }
-
-        stage('Coverage') {
-            echo "Running Coverage"
-            sh "mvn -U -B -q -s ../settings.xml clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Dspring.profiles.active=dev"
-        }
+//        // Using Maven run the unit tests
+//        stage('Unit/Integration Tests') {
+//            echo "Running Unit Tests"
+//            sh "mvn -U -B -q -s ../settings.xml test -Dspring.profiles.active=dev"
+//            archive "target/**/*"
+//            junit 'target/surefire-reports/*.xml'
+//        }
+//
+//        stage('Coverage') {
+//            echo "Running Coverage"
+//            sh "mvn -U -B -q -s ../settings.xml clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Dspring.profiles.active=dev"
+//        }
 
         // Using Maven call SonarQube for Code Analysis
         stage('Code Analysis') {
