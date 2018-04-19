@@ -11,12 +11,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.jnd.microservices</groupId>
-	<artifactId>zuul</artifactId>
+	<artifactId>turbine</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>zuul</name>
-	<description>Zuul</description>
+	<name>turbine</name>
+	<description>turbine</description>
 
 	<properties>
 		<container.listen.port>8080</container.listen.port>
@@ -25,7 +25,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-zuul</artifactId>
+			<artifactId>spring-cloud-starter-turbine</artifactId>
 			<version>RELEASE</version>
 		</dependency>
 	</dependencies>
