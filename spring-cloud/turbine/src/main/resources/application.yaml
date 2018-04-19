@@ -1,0 +1,40 @@
+info:
+  component: Turbine
+
+PREFIX:
+
+server:
+  port: 8989
+management:
+  port: 8990
+
+eureka:
+  client:
+    registryFetchIntervalSeconds: 3
+    serviceUrl:
+      defaultZone: http://eureka:8761/eureka/
+    healthcheck:
+      enabled: true
+  instance:
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 5
+
+spring.cloud.config.discovery.enabled: true
+
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+
+ribbon:
+  eureka:
+    enabled: true
+
+
+
+
+
+

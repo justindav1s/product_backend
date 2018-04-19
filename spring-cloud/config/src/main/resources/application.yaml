@@ -1,0 +1,24 @@
+server:
+  port: 8888
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka:8761/eureka/
+  instance:
+    preferIpAddress: true
+
+logging:
+  levels:
+    org.springframework.boot.env.PropertySourcesLoader: TRACE
+    org.springframework.web: DEBUG
+    org.springframework.cloud: DEBUG
+
+spring:
+    application:
+      name: config
+    cloud:
+        config:
+            server:
+                git:
+                    uri: https://github.com/justindav1s/boot-config
