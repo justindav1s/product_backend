@@ -2,7 +2,7 @@
 
 APP=basket
 
-. ../deploy/env.sh
+. ../env.sh
 
 oc login https://${IP}:8443 -u $USER
 

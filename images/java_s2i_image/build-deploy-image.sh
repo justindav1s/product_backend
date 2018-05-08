@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-. ../../app/env.sh
+. ../../env.sh
 
 set -x
 
