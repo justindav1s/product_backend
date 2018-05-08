@@ -3,7 +3,7 @@
 APP=user
 S2I_IMAGE=redhat-openjdk18-openshift:1.2
 
-. ../../env.sh
+. ../../../env.sh
 
 oc login https://${IP}:8443 -u $USER
 

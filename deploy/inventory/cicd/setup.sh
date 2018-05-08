@@ -2,7 +2,7 @@
 
 APP=inventory
 
-. ../../env.sh
+. ../../../env.sh
 
 #setup Jenkins Jobs
 JENKINS_USER=justin-admin

@@ -3,7 +3,7 @@
 APP=data-model
 S2I_IMAGE=redhat-openjdk18-openshift:1.2
 
-. ../../env.sh
+. ../../../env.sh
 
 #setup Jenkins Jobs
 JENKINS_USER=justin-admin
