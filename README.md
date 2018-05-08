@@ -22,10 +22,10 @@ And a frontend web application written in :
    * Bootstrap 3 : https://getbootstrap.com/docs/3.3/
    * this app can be found in ```app/frontend```
 
-All this can be built and deployed CICD using :
+All this can be built and deployed using Jenkins CICD pipelines using :
    * Openshift : https://www.openshift.com/
    * Jenkins : https://jenkins.io/
-   * Pipelines scripts to do that are included here : ```app/..../cicd``` 
+   * Pipelines scripts to do that are included here : ```deploy/<service-name>/cicd``` 
 
 Further information about setting up CICD tools can be found here : 
    * https://github.com/justindav1s/openshift-app-development
