@@ -74,7 +74,7 @@
             <submoduleCfg class="list"/>
             <extensions/>
         </scm>
-        <scriptPath>app/api-gateway/cicd/pipeline.groovy</scriptPath>
+        <scriptPath>deploy/api-gateway/cicd/pipeline.groovy</scriptPath>
         <lightweight>true</lightweight>
     </definition>
     <triggers/>

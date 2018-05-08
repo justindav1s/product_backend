@@ -69,7 +69,7 @@
             <submoduleCfg class="list"/>
             <extensions/>
         </scm>
-        <scriptPath>app/frontend/cicd/pipeline.groovy</scriptPath>
+        <scriptPath>deploy/frontend/cicd/pipeline.groovy</scriptPath>
         <lightweight>true</lightweight>
     </definition>
     <triggers/>
