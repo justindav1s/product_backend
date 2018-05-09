@@ -94,10 +94,16 @@ public class GatewayController {
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<?> getProduct(@PathVariable int id, @RequestHeader HttpHeaders headers) {
 
+
         headers.setPragma("no-cache");
         headers.setExpires(0);
         headers.setCacheControl(CacheControl.noCache());
-        return inventoryProxy.getProduct(String.valueOf(id), headers);
+        ResponseEntity<?> response = inventoryProxy.getProduct(String.valueOf(id), headers);
+        response.getHeaders().setPragma("no-cache");
+        response.getHeaders().setExpires(0);
+        response.getHeaders().setCacheControl(CacheControl.noCache());
+        return response;
+
     }
 
     @RequestMapping(value = "/products/types", method = RequestMethod.GET, produces = "application/json")
@@ -108,7 +114,11 @@ public class GatewayController {
         headers.setPragma("no-cache");
         headers.setExpires(0);
         headers.setCacheControl(CacheControl.noCache());
-        return inventoryProxy.getProductTypes(headers);
+        ResponseEntity<?> response = inventoryProxy.getProductTypes(headers);
+        response.getHeaders().setPragma("no-cache");
+        response.getHeaders().setExpires(0);
+        response.getHeaders().setCacheControl(CacheControl.noCache());
+        return response;
     }
 
     @RequestMapping(value = "/products/all", method = RequestMethod.GET, produces = "application/json")
@@ -117,7 +127,11 @@ public class GatewayController {
         headers.setPragma("no-cache");
         headers.setExpires(0);
         headers.setCacheControl(CacheControl.noCache());
-        return inventoryProxy.getAllProducts(headers);
+        ResponseEntity<?> response = inventoryProxy.getAllProducts(headers);
+        response.getHeaders().setPragma("no-cache");
+        response.getHeaders().setExpires(0);
+        response.getHeaders().setCacheControl(CacheControl.noCache());
+        return response;
     }
 
     @RequestMapping(value = "/products/type/{type}", method = RequestMethod.GET, produces = "application/json")
@@ -126,7 +140,11 @@ public class GatewayController {
         headers.setPragma("no-cache");
         headers.setExpires(0);
         headers.setCacheControl(CacheControl.noCache());
-        return inventoryProxy.getProductsofType(type, headers);
+        ResponseEntity<?> response = inventoryProxy.getProductsofType(type, headers);
+        response.getHeaders().setPragma("no-cache");
+        response.getHeaders().setExpires(0);
+        response.getHeaders().setCacheControl(CacheControl.noCache());
+        return response;
     }
 
     @RequestMapping(value = "/health", method = RequestMethod.GET)
