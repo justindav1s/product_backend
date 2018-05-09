@@ -6,6 +6,7 @@ import org.jnd.microservices.model.Product;
 import org.jnd.microservices.model.ProductType;
 import org.jnd.product.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class ProductController {
 
         log.debug("Product get types : "+products);
 
-        return new ResponseEntity<>(products, null, HttpStatus.OK);
+        return new ResponseEntity<>(products, getCacheHeaders(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/types", method = RequestMethod.GET, produces = "application/json")
@@ -48,7 +49,7 @@ public class ProductController {
 
         log.debug("Product get types : "+types);
 
-        return new ResponseEntity(types, null, HttpStatus.OK);
+        return new ResponseEntity(types, getCacheHeaders(), HttpStatus.OK);
     }
 
 
@@ -66,7 +67,7 @@ public class ProductController {
             }
         }
 
-        return new ResponseEntity(products, null, HttpStatus.OK);
+        return new ResponseEntity(products, getCacheHeaders(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{productId}", method = RequestMethod.GET, produces = "application/json")
@@ -77,7 +78,7 @@ public class ProductController {
 
         Product product = repository.getProducts().get(Integer.toString(productId));
 
-        return new ResponseEntity<>(product, null, HttpStatus.OK);
+        return new ResponseEntity<>(product, getCacheHeaders(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/create/{productName}/{productType}/{productPrice}", method = RequestMethod.POST, produces = "application/json")
@@ -110,9 +111,16 @@ public class ProductController {
 
         Object[] products = repository.getProducts().values().toArray();
 
-        return new ResponseEntity<>(products, null, HttpStatus.CREATED);
+        return new ResponseEntity<>(products, getCacheHeaders(), HttpStatus.CREATED);
     }
 
+    public HttpHeaders getCacheHeaders()    {
+
+        HttpHeaders cacheHeaders = new HttpHeaders();
+        cacheHeaders.setCacheControl(CacheControl.noCache());
+        return cacheHeaders;
+
+    }
     public HttpHeaders getB3Headers(HttpHeaders headers)   {
         HttpHeaders b3Headers = new HttpHeaders();
 
