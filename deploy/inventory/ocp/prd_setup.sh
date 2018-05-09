@@ -18,6 +18,18 @@ oc delete routes -l app=${APP} --ignore-not-found=true -n ${PROD_PROJECT}
 
 VERSION=v1
 oc delete configmap ${APP}-${VERSION}-config --ignore-not-found=true -n ${PROD_PROJECT}
-
 oc create configmap ${APP}-${VERSION}-config --from-file=config/config.${VERSION}.properties -n ${PROD_PROJECT}
 oc apply -f <(istioctl kube-inject -f ${APP}-istio-prod-${VERSION}.yaml)
+oc set triggers deployment/${APP}-${VERSION} --from-config
+
+VERSION=v2
+oc delete configmap ${APP}-${VERSION}-config --ignore-not-found=true -n ${PROD_PROJECT}
+oc create configmap ${APP}-${VERSION}-config --from-file=config/config.${VERSION}.properties -n ${PROD_PROJECT}
+oc apply -f <(istioctl kube-inject -f ${APP}-istio-prod-${VERSION}.yaml)
+oc set triggers deployment/${APP}-${VERSION} --from-config
+
+VERSION=v3
+oc delete configmap ${APP}-${VERSION}-config --ignore-not-found=true -n ${PROD_PROJECT}
+oc create configmap ${APP}-${VERSION}-config --from-file=config/config.${VERSION}.properties -n ${PROD_PROJECT}
+oc apply -f <(istioctl kube-inject -f ${APP}-istio-prod-${VERSION}.yaml)
+oc set triggers deployment/${APP}-${VERSION} --from-config
