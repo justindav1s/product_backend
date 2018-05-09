@@ -8,7 +8,9 @@ import org.jnd.product.repository.ProductCache;
 import org.jnd.product.repository.RepositoryBase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -18,6 +20,8 @@ import java.util.Map;
 
 @Component("ProductRepository")
 @Profile("v3")
+@Configuration
+@PropertySource(value = "file:/etc/inventory/config.${spring.profiles.active:default}.properties", ignoreResourceNotFound = true)
 public class ProductRepository extends RepositoryBase {
 
     private Log log = LogFactory.getLog(ProductRepository.class);
@@ -25,15 +29,18 @@ public class ProductRepository extends RepositoryBase {
     @Autowired
     private ProductCache cache;
 
-    // inject via application.properties
     @Value("${sleep.time.ms:0}")
     private int sleepTime = 0;
+
+    @Value("${spring.profiles.active:na}")
+    private String profile = null;
 
     @PostConstruct
     public void init()  {
 
         log.debug("Setting up repository");
         log.debug("Sleep time (ms) : "+sleepTime);
+        log.debug("Spring Profile : "+profile);
 
         getTypes().add(ProductType.FOOD.toString());
         getTypes().add(ProductType.CLOTHES.toString());
@@ -49,6 +56,7 @@ public class ProductRepository extends RepositoryBase {
     public Map<String, Product> getProducts() {
 
         log.debug("Sleep time (ms) : "+sleepTime);
+        log.debug("Spring Profile : "+profile);
 
         return super.getProducts();
     }
@@ -56,6 +64,7 @@ public class ProductRepository extends RepositoryBase {
     public List<String> getTypes() {
 
         log.debug("Sleep time (ms) : "+sleepTime);
+        log.debug("Spring Profile : "+profile);
 
         return super.getTypes();
     }

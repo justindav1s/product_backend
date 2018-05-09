@@ -6,7 +6,9 @@ import org.jnd.microservices.model.Product;
 import org.jnd.microservices.model.ProductType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -16,12 +18,17 @@ import java.util.Map;
 
 @Component("ProductRepository")
 @Profile("dev")
+@Configuration
+@PropertySource(value = "file:/etc/inventory/config.${spring.profiles.active:default}.properties", ignoreResourceNotFound = true)
 public class DefaultProductRepository extends RepositoryBase {
 
     private Log log = LogFactory.getLog(DefaultProductRepository.class);
 
     @Value("${sleep.time.ms:0}")
     private int sleepTime = 0;
+
+    @Value("${spring.profiles.active:na}")
+    private String profile = null;
 
     @Autowired
     private ProductCache cache;
@@ -44,6 +51,7 @@ public class DefaultProductRepository extends RepositoryBase {
     public Map<String, Product> getProducts() {
 
         log.debug("Sleep time (ms) : "+sleepTime);
+        log.debug("Spring Profile : "+profile);
 
         return super.getProducts();
     }
@@ -51,6 +59,7 @@ public class DefaultProductRepository extends RepositoryBase {
     public List<String> getTypes() {
 
         log.debug("Sleep time (ms) : "+sleepTime);
+        log.debug("Spring Profile : "+profile);
 
         return super.getTypes();
     }
