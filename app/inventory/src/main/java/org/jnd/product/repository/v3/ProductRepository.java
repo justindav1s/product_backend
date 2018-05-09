@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -21,7 +22,11 @@ import java.util.Map;
 @Component("ProductRepository")
 @Profile("v3")
 @Configuration
-@PropertySource(value = "file:/etc/inventory/config.${spring.profiles.active:default}.properties", ignoreResourceNotFound = true)
+@PropertySources({
+        @PropertySource("config.default.properties"),
+        @PropertySource(value = "file:/etc/inventory/config.${spring.profiles.active:default}.properties", ignoreResourceNotFound = true)
+})
+
 public class ProductRepository extends RepositoryBase {
 
     private Log log = LogFactory.getLog(ProductRepository.class);

@@ -55,10 +55,20 @@ spec:
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
+        volumeMounts:
+          - mountPath: /etc/inventory
+            name: inventory-config-vol
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: inventory-v3-config
+          name: inventory-config-vol
   test: false
+  triggers:
+    - type: ConfigChange
 
