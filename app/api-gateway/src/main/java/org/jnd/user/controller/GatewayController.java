@@ -95,13 +95,13 @@ public class GatewayController {
     ResponseEntity<?> getProduct(@PathVariable int id, @RequestHeader HttpHeaders headers) {
 
 
-        headers.setPragma("no-cache");
-        headers.setExpires(0);
-        headers.setCacheControl(CacheControl.noCache());
+//        headers.setPragma("no-cache");
+//        headers.setExpires(0);
+//        headers.setCacheControl(CacheControl.noCache());
         ResponseEntity<?> response = inventoryProxy.getProduct(String.valueOf(id), headers);
-        response.getHeaders().setPragma("no-cache");
-        response.getHeaders().setExpires(0);
-        response.getHeaders().setCacheControl(CacheControl.noCache());
+//        response.getHeaders().setPragma("no-cache");
+//        response.getHeaders().setExpires(0);
+//        response.getHeaders().setCacheControl(CacheControl.noCache());
         return response;
 
     }
@@ -111,39 +111,39 @@ public class GatewayController {
 
         log.debug("BEFORE B3Headers");
         //this.getB3Headers(headers);
-        headers.setPragma("no-cache");
-        headers.setExpires(0);
-        headers.setCacheControl(CacheControl.noCache());
+//        headers.setPragma("no-cache");
+//        headers.setExpires(0);
+//        headers.setCacheControl(CacheControl.noCache());
         ResponseEntity<?> response = inventoryProxy.getProductTypes(headers);
-        response.getHeaders().setPragma("no-cache");
-        response.getHeaders().setExpires(0);
-        response.getHeaders().setCacheControl(CacheControl.noCache());
+//        response.getHeaders().setPragma("no-cache");
+//        response.getHeaders().setExpires(0);
+//        response.getHeaders().setCacheControl(CacheControl.noCache());
         return response;
     }
 
     @RequestMapping(value = "/products/all", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<?> getAllProducts(@RequestHeader HttpHeaders headers) {
 
-        headers.setPragma("no-cache");
-        headers.setExpires(0);
-        headers.setCacheControl(CacheControl.noCache());
+//        headers.setPragma("no-cache");
+//        headers.setExpires(0);
+//        headers.setCacheControl(CacheControl.noCache());
         ResponseEntity<?> response = inventoryProxy.getAllProducts(headers);
-        response.getHeaders().setPragma("no-cache");
-        response.getHeaders().setExpires(0);
-        response.getHeaders().setCacheControl(CacheControl.noCache());
+//        response.getHeaders().setPragma("no-cache");
+//        response.getHeaders().setExpires(0);
+//        response.getHeaders().setCacheControl(CacheControl.noCache());
         return response;
     }
 
     @RequestMapping(value = "/products/type/{type}", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<?> getAllProductsOfType(@PathVariable String type, @RequestHeader HttpHeaders headers) {
 
-        headers.setPragma("no-cache");
-        headers.setExpires(0);
-        headers.setCacheControl(CacheControl.noCache());
+//        headers.setPragma("no-cache");
+//        headers.setExpires(0);
+//        headers.setCacheControl(CacheControl.noCache());
         ResponseEntity<?> response = inventoryProxy.getProductsofType(type, headers);
-        response.getHeaders().setPragma("no-cache");
-        response.getHeaders().setExpires(0);
-        response.getHeaders().setCacheControl(CacheControl.noCache());
+//        response.getHeaders().setPragma("no-cache");
+//        response.getHeaders().setExpires(0);
+//        response.getHeaders().setCacheControl(CacheControl.noCache());
         return response;
     }
 
