@@ -57,7 +57,7 @@ public class ProductRepository extends RepositoryBase {
 
         log.debug("Sleep time (ms) : "+sleepTime);
         log.debug("Spring Profile : "+profile);
-
+        sleep(sleepTime);
         return super.getProducts();
     }
 
@@ -65,7 +65,7 @@ public class ProductRepository extends RepositoryBase {
 
         log.debug("Sleep time (ms) : "+sleepTime);
         log.debug("Spring Profile : "+profile);
-
+        sleep(sleepTime);
         return super.getTypes();
     }
 

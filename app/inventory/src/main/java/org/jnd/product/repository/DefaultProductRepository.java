@@ -27,7 +27,7 @@ public class DefaultProductRepository extends RepositoryBase {
     @Value("${sleep.time.ms:0}")
     private int sleepTime = 0;
 
-    @Value("${spring.profiles.active:na}")
+    @Value("${spring.profiles.active:default}")
     private String profile = null;
 
     @Autowired
@@ -52,7 +52,7 @@ public class DefaultProductRepository extends RepositoryBase {
 
         log.debug("Sleep time (ms) : "+sleepTime);
         log.debug("Spring Profile : "+profile);
-
+        sleep(sleepTime);
         return super.getProducts();
     }
 
@@ -60,7 +60,7 @@ public class DefaultProductRepository extends RepositoryBase {
 
         log.debug("Sleep time (ms) : "+sleepTime);
         log.debug("Spring Profile : "+profile);
-
+        sleep(sleepTime);
         return super.getTypes();
     }
 
