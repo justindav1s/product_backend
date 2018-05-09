@@ -26,7 +26,7 @@ public class ProductRepository extends RepositoryBase {
     private ProductCache cache;
 
     // inject via application.properties
-    @Value("${sleep.time.ms}")
+    @Value("${sleep.time.ms:0}")
     private int sleepTime = 0;
 
     @PostConstruct
