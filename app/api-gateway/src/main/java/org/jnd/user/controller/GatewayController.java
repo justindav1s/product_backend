@@ -10,11 +10,13 @@ import org.jnd.user.proxies.UserProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -92,6 +94,9 @@ public class GatewayController {
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<?> getProduct(@PathVariable int id, @RequestHeader HttpHeaders headers) {
 
+        headers.setPragma("no-cache");
+        headers.setExpires(0);
+        headers.setCacheControl(CacheControl.noCache());
         return inventoryProxy.getProduct(String.valueOf(id), headers);
     }
 
@@ -100,19 +105,27 @@ public class GatewayController {
 
         log.debug("BEFORE B3Headers");
         //this.getB3Headers(headers);
-
+        headers.setPragma("no-cache");
+        headers.setExpires(0);
+        headers.setCacheControl(CacheControl.noCache());
         return inventoryProxy.getProductTypes(headers);
     }
 
     @RequestMapping(value = "/products/all", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<?> getAllProducts(@RequestHeader HttpHeaders headers) {
 
+        headers.setPragma("no-cache");
+        headers.setExpires(0);
+        headers.setCacheControl(CacheControl.noCache());
         return inventoryProxy.getAllProducts(headers);
     }
 
     @RequestMapping(value = "/products/type/{type}", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<?> getAllProductsOfType(@PathVariable String type, @RequestHeader HttpHeaders headers) {
 
+        headers.setPragma("no-cache");
+        headers.setExpires(0);
+        headers.setCacheControl(CacheControl.noCache());
         return inventoryProxy.getProductsofType(type, headers);
     }
 
@@ -142,4 +155,5 @@ public class GatewayController {
 //
 //        return b3Headers;
 //    }
+
 }
