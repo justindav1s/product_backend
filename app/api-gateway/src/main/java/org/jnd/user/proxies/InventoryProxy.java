@@ -49,7 +49,7 @@ public class InventoryProxy {
 
     public ResponseEntity<List> getAllProducts(HttpHeaders headers) {
 
-        B3HeaderHelper.getB3Headers(headers);
+        //B3HeaderHelper.getB3Headers(headers);
 
         ResponseEntity<List> exchange =
                 this.restTemplate.exchange(
@@ -70,7 +70,7 @@ public class InventoryProxy {
 
     public ResponseEntity<List> getProductsofType(String type, HttpHeaders headers) {
 
-        B3HeaderHelper.getB3Headers(headers);
+        //B3HeaderHelper.getB3Headers(headers);
 
         ResponseEntity<List> exchange =
                 this.restTemplate.exchange(
@@ -92,7 +92,7 @@ public class InventoryProxy {
 
     public ResponseEntity<List> getProductTypes(HttpHeaders headers) {
 
-        B3HeaderHelper.getB3Headers(headers);
+        //B3HeaderHelper.getB3Headers(headers);
 
         ResponseEntity<List> exchange =
                 this.restTemplate.exchange(
