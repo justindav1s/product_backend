@@ -43,7 +43,7 @@ public class ProductController {
 
         log.debug("Product get types");
 
-        this.getB3Headers(headers);
+        //this.getB3Headers(headers);
 
         ArrayList<String> types = (ArrayList)repository.getTypes();
 
@@ -58,7 +58,7 @@ public class ProductController {
 
         log.debug("Product get of type :"+type);
 
-        this.getB3Headers(headers);
+        //this.getB3Headers(headers);
 
         ArrayList products = new ArrayList();
         for (Product p : repository.getProducts().values()){
