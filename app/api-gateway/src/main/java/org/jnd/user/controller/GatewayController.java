@@ -141,8 +141,8 @@ public class GatewayController {
 //        headers.setExpires(0);
 //        headers.setCacheControl(CacheControl.noCache());
         ResponseEntity<?> response = inventoryProxy.getProductsofType(type, headers);
-        response.getHeaders().setPragma("no-cache");
-        response.getHeaders().setExpires(0);
+//        response.getHeaders().setPragma("no-cache");
+//        response.getHeaders().setExpires(0);
         response.getHeaders().setCacheControl(CacheControl.noCache());
         return response;
     }
