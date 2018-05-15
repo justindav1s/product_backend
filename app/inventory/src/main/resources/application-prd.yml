@@ -11,3 +11,7 @@ user:
   host: user:8080
 
 
+opentracing:
+  jaeger:
+    http-sender:
+      url: = http://jaeger-collector.istio-system:14268

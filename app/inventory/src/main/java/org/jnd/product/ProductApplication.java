@@ -4,14 +4,14 @@ package org.jnd.product;
 //import brave.Tracing;
 //import brave.opentracing.BraveTracer;
 //import brave.sampler.Sampler;
-import io.jaegertracing.Tracer.Builder;
-import io.jaegertracing.metrics.*;
-import io.jaegertracing.propagation.B3TextMapCodec;
-import io.jaegertracing.reporters.RemoteReporter;
-import io.jaegertracing.reporters.Reporter;
-import io.jaegertracing.samplers.ConstSampler;
-import io.jaegertracing.senders.HttpSender;
-import io.opentracing.propagation.Format;
+//import io.jaegertracing.Tracer.Builder;
+//import io.jaegertracing.metrics.*;
+//import io.jaegertracing.propagation.B3TextMapCodec;
+//import io.jaegertracing.reporters.RemoteReporter;
+//import io.jaegertracing.reporters.Reporter;
+//import io.jaegertracing.samplers.ConstSampler;
+//import io.jaegertracing.senders.HttpSender;
+//import io.opentracing.propagation.Format;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -37,33 +37,33 @@ public class ProductApplication extends SpringBootServletInitializer {
         SpringApplication.run(ProductApplication.class, args);
     }
 
-    @Bean
-    public io.opentracing.Tracer jaegerTracer() {
-
-
-        Builder builder = new Builder("inventory",
-                new RemoteReporter(new HttpSender("http://jaeger-collector.istio-system:14268/api/traces"), 10,
-                        65000, new Metrics(new StatsFactoryImpl(new NullStatsReporter()))),
-                new ConstSampler(true))
-                .registerInjector(Format.Builtin.HTTP_HEADERS, new B3TextMapCodec())
-                .registerExtractor(Format.Builtin.HTTP_HEADERS, new B3TextMapCodec());
-        return builder.build();
-
-//        Reporter reporter = new RemoteReporter.Builder().withFlushInterval(10)
-//                .withMaxQueueSize(65000)
-//                .withSender(new HttpSender("http://jaeger-collector.istio-system:14268/api/traces"))
-//                .withMetrics(new Metrics(new NoopMetricsFactory()))
-//                .build();
+//    @Bean
+//    public io.opentracing.Tracer jaegerTracer() {
 //
-//        Builder builder = new Builder("inventory")
-//                .withReporter(reporter)
-//                .withSampler(new ConstSampler(true))
+//
+//        Builder builder = new Builder("inventory",
+//                new RemoteReporter(new HttpSender("http://jaeger-collector.istio-system:14268/api/traces"), 10,
+//                        65000, new Metrics(new StatsFactoryImpl(new NullStatsReporter()))),
+//                new ConstSampler(true))
 //                .registerInjector(Format.Builtin.HTTP_HEADERS, new B3TextMapCodec())
 //                .registerExtractor(Format.Builtin.HTTP_HEADERS, new B3TextMapCodec());
-//
 //        return builder.build();
-
-    }
+//
+////        Reporter reporter = new RemoteReporter.Builder().withFlushInterval(10)
+////                .withMaxQueueSize(65000)
+////                .withSender(new HttpSender("http://jaeger-collector.istio-system:14268/api/traces"))
+////                .withMetrics(new Metrics(new NoopMetricsFactory()))
+////                .build();
+////
+////        Builder builder = new Builder("inventory")
+////                .withReporter(reporter)
+////                .withSampler(new ConstSampler(true))
+////                .registerInjector(Format.Builtin.HTTP_HEADERS, new B3TextMapCodec())
+////                .registerExtractor(Format.Builtin.HTTP_HEADERS, new B3TextMapCodec());
+////
+////        return builder.build();
+//
+//    }
 
 //    @Bean
 //    public io.opentracing.Tracer zipkinTracer() {
