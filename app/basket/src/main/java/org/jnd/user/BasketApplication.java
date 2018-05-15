@@ -55,7 +55,7 @@ public class BasketApplication extends SpringBootServletInitializer {
                 .registerInjector(Format.Builtin.HTTP_HEADERS, new B3TextMapCodec())
                 .registerExtractor(Format.Builtin.HTTP_HEADERS, new B3TextMapCodec());
         return builder.build();
-//
+
 //        Reporter reporter = new RemoteReporter.Builder().withFlushInterval(10)
 //                .withMaxQueueSize(65000)
 //                .withSender(new HttpSender("http://jaeger-collector.istio-system:14268/api/traces"))
