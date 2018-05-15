@@ -10,3 +10,7 @@ inventory:
 user:
   host: user-amazin-dev.apps.ocp.datr.eu
 
+opentracing:
+  jaeger:
+    http-sender:
+      url: = http://jaeger-collector.istio-system:14268
