@@ -36,19 +36,27 @@ public class GatewayApplication extends SpringBootServletInitializer  {
     @Bean
     public io.opentracing.Tracer jaegerTracer() {
 
-        Reporter reporter = new RemoteReporter.Builder().withFlushInterval(10)
-                .withMaxQueueSize(65000)
-                .withSender(new HttpSender("http://jaeger-collector.istio-system:14268/api/traces"))
-                .withMetrics(new Metrics(new NoopMetricsFactory()))
-                .build();
-
-        Builder builder = new Builder("api-gateway")
-                .withReporter(reporter)
-                .withSampler(new ConstSampler(true))
+                Builder builder = new Builder("api-gateway",
+                new RemoteReporter(new HttpSender("http://jaeger-collector.istio-system:14268/api/traces"), 10,
+                        65000, new Metrics(new StatsFactoryImpl(new NullStatsReporter()))),
+                new ConstSampler(true))
                 .registerInjector(Format.Builtin.HTTP_HEADERS, new B3TextMapCodec())
                 .registerExtractor(Format.Builtin.HTTP_HEADERS, new B3TextMapCodec());
-
         return builder.build();
+
+//        Reporter reporter = new RemoteReporter.Builder().withFlushInterval(10)
+//                .withMaxQueueSize(65000)
+//                .withSender(new HttpSender("http://jaeger-collector.istio-system:14268/api/traces"))
+//                .withMetrics(new Metrics(new NoopMetricsFactory()))
+//                .build();
+//
+//        Builder builder = new Builder("api-gateway")
+//                .withReporter(reporter)
+//                .withSampler(new ConstSampler(true))
+//                .registerInjector(Format.Builtin.HTTP_HEADERS, new B3TextMapCodec())
+//                .registerExtractor(Format.Builtin.HTTP_HEADERS, new B3TextMapCodec());
+//
+//        return builder.build();
 
     }
 }
