@@ -13,4 +13,4 @@ user:
 opentracing:
   jaeger:
     http-sender:
-      url: = http://jaeger-collector.istio-system:14268
+      url: http://jaeger-collector.istio-system:14268
