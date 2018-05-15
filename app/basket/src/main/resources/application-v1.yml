@@ -10,3 +10,7 @@ inventory:
 user:
   host: istio-ingress.istio-system.svc
 
+opentracing:
+  jaeger:
+    http-sender:
+      url: = http://jaeger-collector.istio-system:14268
