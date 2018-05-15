@@ -27,7 +27,6 @@ public class ProductController {
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<Object[]> getAll(@RequestHeader HttpHeaders headers) {
 
-        this.getB3Headers(headers);
 
         log.debug("Product get All");
 
@@ -35,7 +34,7 @@ public class ProductController {
 
         log.debug("Product get types : "+products);
 
-        return new ResponseEntity<>(products, getCacheHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(products, null, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/types", method = RequestMethod.GET, produces = "application/json")
@@ -49,7 +48,7 @@ public class ProductController {
 
         log.debug("Product get types : "+types);
 
-        return new ResponseEntity(types, getCacheHeaders(), HttpStatus.OK);
+        return new ResponseEntity(types, null, HttpStatus.OK);
     }
 
 
@@ -67,7 +66,7 @@ public class ProductController {
             }
         }
 
-        return new ResponseEntity(products, getCacheHeaders(), HttpStatus.OK);
+        return new ResponseEntity(products, null, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{productId}", method = RequestMethod.GET, produces = "application/json")
@@ -78,7 +77,7 @@ public class ProductController {
 
         Product product = repository.getProducts().get(Integer.toString(productId));
 
-        return new ResponseEntity<>(product, getCacheHeaders(), HttpStatus.OK);
+        return new ResponseEntity<>(product, null, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/create/{productName}/{productType}/{productPrice}", method = RequestMethod.POST, produces = "application/json")
@@ -111,35 +110,6 @@ public class ProductController {
 
         Object[] products = repository.getProducts().values().toArray();
 
-        return new ResponseEntity<>(products, getCacheHeaders(), HttpStatus.CREATED);
-    }
-
-    public HttpHeaders getCacheHeaders()    {
-
-        HttpHeaders cacheHeaders = new HttpHeaders();
-        cacheHeaders.setCacheControl(CacheControl.noCache());
-        return cacheHeaders;
-
-    }
-    public HttpHeaders getB3Headers(HttpHeaders headers)   {
-        HttpHeaders b3Headers = new HttpHeaders();
-
-        log.debug("x-request-id : " + headers.get("x-request-id"));
-        log.debug("x-b3-traceid : " + headers.get("x-b3-traceid"));
-        log.debug("x-b3-spanid : " + headers.get("x-b3-spanid"));
-        log.debug("x-b3-parentspanid : " + headers.get("x-b3-parentspanid"));
-        log.debug("x-b3-sampled : " + headers.get("x-b3-sampled"));
-        log.debug("x-b3-flags : " + headers.get("x-b3-flags"));
-        log.debug("x-ot-span-context : " + headers.get("x-ot-span-context"));
-
-        b3Headers.put("x-request-id", headers.get("x-request-id"));
-        b3Headers.put("x-b3-traceid", headers.get("x-b3-traceid"));
-        b3Headers.put("x-b3-spanid", headers.get("x-b3-spanid"));
-        b3Headers.put("x-b3-parentspanid", headers.get("x-b3-parentspanid"));
-        b3Headers.put("x-b3-sampled", headers.get("x-b3-sampled"));
-        b3Headers.put("x-b3-flags", headers.get("x-b3-flags"));
-        b3Headers.put("x-ot-span-context", headers.get("x-ot-span-context"));
-
-        return b3Headers;
+        return new ResponseEntity<>(products, null, HttpStatus.CREATED);
     }
 }
