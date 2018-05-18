@@ -18,7 +18,7 @@ dist/
 *.zip
 *.tar.gz
 *.rar
-
+**/target/
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /app/inventory/out.log.2018-03-31.0.gz
