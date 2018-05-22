@@ -1,8 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { AppComponent } from './app.component';
-
-import { OAuthModule } from 'angular-oauth2-oidc';
 
 import { FormsModule }    from '@angular/forms';
 import { HttpClientModule }    from '@angular/common/http';
@@ -18,6 +16,10 @@ import { BasketService } from './services/basket.service';
 import { LoginComponent } from './login/login.component';
 import { UserService } from './services/user.service';
 
+import { KeycloakService, KeycloakAngularModule } from 'keycloak-angular';
+import { initializer } from './utils/app-init';
+import { AppAuthGuardComponent } from './app-auth-guard/app-auth-guard.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,15 +28,25 @@ import { UserService } from './services/user.service';
     TitleCasePipe,
     DetailsComponent,
     BasketComponent,
-    LoginComponent
+    LoginComponent,
+    AppAuthGuardComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    OAuthModule.forRoot(),
+    KeycloakAngularModule,
   ],
-  providers: [InventoryService, CategoriesService, BasketService, UserService],
+  providers: [InventoryService,
+              CategoriesService,
+              BasketService,
+              UserService,
+              {
+                provide: APP_INITIALIZER,
+                useFactory: initializer,
+                multi: true,
+                deps: [KeycloakService]
+              }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

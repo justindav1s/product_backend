@@ -1,9 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-import { OAuthService } from 'angular-oauth2-oidc';
-import { JwksValidationHandler } from 'angular-oauth2-oidc';
-import { authConfig } from './auth.config';
-
 import { Product } from './model/product'
 import { Basket } from './model/basket';
 import { User } from './model/user';
@@ -21,15 +17,7 @@ export class AppComponent {
 
   title = 'Amazin - Shopping Reimagined';
 
-  constructor(private oauthService: OAuthService) {
-    this.configureWithNewConfigApi();
-  }
-
-  private configureWithNewConfigApi() {
-    this.oauthService.configure(authConfig);
-    this.oauthService.tokenValidationHandler = new JwksValidationHandler();
-    this.oauthService.loadDiscoveryDocumentAndTryLogin();
-  }
+  constructor() {}
 
   onNewLogin(user : User)  {
     this.user = user;
