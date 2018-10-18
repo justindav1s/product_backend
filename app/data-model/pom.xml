@@ -35,46 +35,6 @@
             <scope>compile</scope>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>commons-logging</groupId>-->
-            <!--<artifactId>commons-logging</artifactId>-->
-            <!--<version>1.2</version>-->
-            <!--<scope>compile</scope>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>ch.qos.logback</groupId>-->
-            <!--<artifactId>logback-classic</artifactId>-->
-            <!--<version>1.2.3</version>-->
-            <!--<scope>compile</scope>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>ch.qos.logback</groupId>-->
-            <!--<artifactId>logback-core</artifactId>-->
-            <!--<version>1.2.3</version>-->
-            <!--<scope>compile</scope>-->
-        <!--</dependency>-->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>RELEASE</version>
-        </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.springframework</groupId>-->
-            <!--<artifactId>spring-web</artifactId>-->
-            <!--<version>RELEASE</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework</groupId>-->
-            <!--<artifactId>spring-web</artifactId>-->
-            <!--<version>RELEASE</version>-->
-        <!--</dependency>-->
     </dependencies>
 
     <build>
