@@ -9,29 +9,29 @@
         </server>
     </servers>
     <profiles>
-        <!--<profile>-->
-            <!--<repositories>-->
-                <!--<repository>-->
-                    <!--<snapshots>-->
-                        <!--<enabled>true</enabled>-->
-                    <!--</snapshots>-->
-                    <!--<id>central</id>-->
-                    <!--<name>nexus</name>-->
-                    <!--<url>https://nexus-cicd.apps.ocp.datr.eu/repository/maven-public</url>-->
-                <!--</repository>-->
-            <!--</repositories>-->
-            <!--<pluginRepositories>-->
-                <!--<pluginRepository>-->
-                    <!--<snapshots>-->
-                        <!--<enabled>false</enabled>-->
-                    <!--</snapshots>-->
-                    <!--<id>central</id>-->
-                    <!--<name>nexus</name>-->
-                    <!--<url>https://nexus-cicd.apps.ocp.datr.eu/repository/maven-public</url>-->
-                <!--</pluginRepository>-->
-            <!--</pluginRepositories>-->
-            <!--<id>nexus</id>-->
-        <!--</profile>-->
+        <profile>
+            <repositories>
+                <repository>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <id>central</id>
+                    <name>nexus</name>
+                    <url>https://nexus-cicd.apps.ocp.datr.eu/repository/maven-public</url>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <id>central</id>
+                    <name>nexus</name>
+                    <url>https://nexus-cicd.apps.ocp.datr.eu/repository/maven-public</url>
+                </pluginRepository>
+            </pluginRepositories>
+            <id>nexus</id>
+        </profile>
     </profiles>
     <activeProfiles>
         <activeProfile>nexus</activeProfile>
