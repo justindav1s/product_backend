@@ -4,12 +4,12 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 
-#export const environment = {
-#  production: false,
-#  inventory_backend : "api-gateway-amazin-dev.apps.ocp.datr.eu",
-#  basket_backend : "api-gateway-amazin-dev.apps.ocp.datr.eu",
-#  user_backend : "api-gateway-amazin-dev.apps.ocp.datr.eu"
-#};
+//export const environment = {
+//  production: false,
+//  inventory_backend : "api-gateway-amazin-dev.apps.ocp.datr.eu",
+//  basket_backend : "api-gateway-amazin-dev.apps.ocp.datr.eu",
+//  user_backend : "api-gateway-amazin-dev.apps.ocp.datr.eu"
+//};
 
 export const environment = {
 production: false,
