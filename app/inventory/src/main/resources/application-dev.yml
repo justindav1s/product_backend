@@ -1,3 +1,7 @@
+spring:
+  application:
+    name: inventory.dev
+
 server:
   port: 8080
 
