@@ -78,6 +78,12 @@
 			<!--<version>4.5.5</version>-->
 		<!--</dependency>-->
 
+		<dependency>
+			<groupId>io.opentracing.contrib</groupId>
+			<artifactId>opentracing-spring-jaeger-web-starter</artifactId>
+			<version>0.2.2</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

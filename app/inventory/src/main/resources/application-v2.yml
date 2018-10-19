@@ -12,5 +12,6 @@ user:
 
 opentracing:
   jaeger:
-    http-sender:
-      url: http://jaeger-collector.istio-system:14268
+    udp-sender:
+      host: jaeger-collector.istio-system.svc
+      port: 14267
