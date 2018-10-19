@@ -2,15 +2,16 @@ server:
   port: 8080
 
 basket:
-  host: basket-amazin-dev.apps.ocp.datr.eu
+  host: basket:8080
 
 inventory:
-  host: inventory-amazin-dev.apps.ocp.datr.eu
+  host: inventory:8080
 
 user:
-  host: user-amazin-dev.apps.ocp.datr.eu
+  host: user:8080
 
 opentracing:
   jaeger:
-    http-sender:
-      url: http://jaeger-collector.istio-system:14268
+    udp-sender:
+      host: jaeger-collector.istio-system.svc
+      port: 14267
