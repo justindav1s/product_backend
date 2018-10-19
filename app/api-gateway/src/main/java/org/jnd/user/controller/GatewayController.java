@@ -3,7 +3,6 @@ package org.jnd.user.controller;
 import org.jnd.microservices.model.Basket;
 import org.jnd.microservices.model.Product;
 import org.jnd.microservices.model.User;
-import org.jnd.microservices.model.utils.B3HeaderHelper;
 import org.jnd.user.proxies.BasketProxy;
 import org.jnd.user.proxies.InventoryProxy;
 import org.jnd.user.proxies.UserProxy;
@@ -50,9 +49,7 @@ public class GatewayController {
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
     ResponseEntity<?> login(@RequestBody User user, @RequestHeader HttpHeaders headers) {
 
-        //B3HeaderHelper.getB3Headers(headers);
         ResponseEntity<User> response = userProxy.login(user, headers);
-        //B3HeaderHelper.getB3Headers(response.getHeaders());
 
         return response;
     }

@@ -3,7 +3,7 @@ package org.jnd.user.proxies;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jnd.microservices.model.Product;
-import org.jnd.microservices.model.utils.B3HeaderHelper;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -60,7 +60,6 @@ public class InventoryProxy {
 
         log.debug("All Products Response : "+exchange.getBody());
 
-        B3HeaderHelper.getB3Headers(exchange.getHeaders());
 
         if (exchange == null)
             throw new RuntimeException();
@@ -70,7 +69,6 @@ public class InventoryProxy {
 
     public ResponseEntity<List> getProductsofType(String type, HttpHeaders headers) {
 
-        //B3HeaderHelper.getB3Headers(headers);
 
         ResponseEntity<List> exchange =
                 this.restTemplate.exchange(
@@ -80,8 +78,6 @@ public class InventoryProxy {
                         new ParameterizedTypeReference<List>() {},
                         type);
 
-        log.debug("AFTER B3Headers");
-        B3HeaderHelper.getB3Headers(exchange.getHeaders());
         log.debug("Product Response : "+exchange.getBody());
 
         if (exchange == null)
@@ -92,7 +88,7 @@ public class InventoryProxy {
 
     public ResponseEntity<List> getProductTypes(HttpHeaders headers) {
 
-        //B3HeaderHelper.getB3Headers(headers);
+
 
         ResponseEntity<List> exchange =
                 this.restTemplate.exchange(
@@ -103,7 +99,7 @@ public class InventoryProxy {
 
         log.debug("Product types response : "+exchange.getBody());
 
-        B3HeaderHelper.getB3Headers(exchange.getHeaders());
+
 
         if (exchange == null)
             throw new RuntimeException();

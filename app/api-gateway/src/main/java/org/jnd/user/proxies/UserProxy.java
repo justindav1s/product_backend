@@ -3,7 +3,7 @@ package org.jnd.user.proxies;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jnd.microservices.model.User;
-import org.jnd.microservices.model.utils.B3HeaderHelper;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -26,7 +26,7 @@ public class UserProxy {
     public ResponseEntity<User> login(User user, HttpHeaders headers) {
 
         log.debug("UserProxy login : "+user);
-        B3HeaderHelper.getB3Headers(headers);
+
 
         HttpEntity<User> request = new HttpEntity<>(user, headers);
 
@@ -40,7 +40,7 @@ public class UserProxy {
         user = exchange.getBody();
         log.debug("UserProxy login Response : "+user);
 
-        B3HeaderHelper.getB3Headers(exchange.getHeaders());
+
 
         if (user == null)
             throw new RuntimeException();
