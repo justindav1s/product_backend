@@ -69,7 +69,7 @@ node('maven') {
                 openshift.withProject("${dev_project}") {
                     openshift.verbose()
 
-                    def build = nb.narrow("bc").related("${app_name}")
+                    def build = openshift.narrow("bc").related("${app_name}")
                     echo "build : ${build}"
 
                     def nb = openshift.startBuild("${app_name}", "--follow", "--from-file=${artifactId}.${packaging}")
