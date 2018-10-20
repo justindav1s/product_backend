@@ -67,7 +67,7 @@ node('maven') {
             // The selector returned from newBuild will select all objects created by the operation
             openshift.withCluster() {
                 openshift.withProject("${dev_project}") {
-                    def nb = openshift.newBuild("--name=${app_name}", "--follow", "--from-file=${artifactId}.${packaging}")
+                    def nb = openshift.startBuild("${app_name}", "--follow", "--from-file=${artifactId}.${packaging}")
 
                     // Print out information about the objects created by newBuild
                     echo "newBuild created: ${nb.count()} objects : ${nb.names()}"
