@@ -69,6 +69,7 @@ node('maven') {
                 openshift.withProject("${dev_project}") {
                     def nb = openshift.startBuild("${app_name}", "--follow", "--from-file=${artifactId}.${packaging}")
 
+                    echo "nb : ${nb}"
 //                    // Print out information about the objects created by newBuild
 //                   echo "newBuild created: ${nb.count()} objects : ${nb.names()}"
 //
