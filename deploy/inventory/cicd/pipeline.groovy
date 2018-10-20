@@ -70,7 +70,7 @@ node('maven') {
                     def nb = openshift.startBuild("${app_name}", "--follow", "--from-file=${artifactId}.${packaging}")
 
 //                    // Print out information about the objects created by newBuild
-                   echo "newBuild created: ${nb.count()} objects : ${nb.names()}"
+//                   echo "newBuild created: ${nb.count()} objects : ${nb.names()}"
 //
 //                    // Filter non-BuildConfig objects and create selector which will find builds related to the BuildConfig
 //                    def builds = nb.narrow("bc").related("${app_name}")
