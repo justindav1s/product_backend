@@ -98,7 +98,7 @@ node('maven') {
 //                    echo "Build logs for ${builds.names()}:"
 //
 //                    // Find the bc again, and ask for its logs
-//                    def result = nb.narrow("bc").logs()
+                    def result = nb.narrow("bc").logs()
 
                     // Each high-level operation exposes stout/stderr/status of oc actions that composed
                     echo "Result of logs operation:"
