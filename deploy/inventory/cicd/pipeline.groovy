@@ -69,36 +69,36 @@ node('maven') {
                 openshift.withProject("${dev_project}") {
                     def nb = openshift.startBuild("${app_name}", "--follow", "--from-file=${artifactId}.${packaging}")
 
-                    // Print out information about the objects created by newBuild
-                    echo "newBuild created: ${nb.count()} objects : ${nb.names()}"
-
-                    // Filter non-BuildConfig objects and create selector which will find builds related to the BuildConfig
-                    def builds = nb.narrow("bc").related("${app_name}")
-
-                    // Raw watch which only terminates when the closure body returns true
-                    builds.watch {
-                        // 'it' is bound to the builds selector.
-                        // Continue to watch until at least one build is detected
-                        if (it.count() == 0) {
-                            return false
-                        }
-                        // Print out the build's name and terminate the watch
-                        echo "Detected new builds created by buildconfig: ${it.names()}"
-                        return true
-                    }
-
-                    echo "Waiting for builds to complete..."
-
-                    // Like a watch, but only terminate when at least one selected object meets condition
-                    builds.untilEach {
-                        return it.object().status.phase == "Complete"
-                    }
-
-                    // Print a list of the builds which have been created
-                    echo "Build logs for ${builds.names()}:"
-
-                    // Find the bc again, and ask for its logs
-                    def result = nb.narrow("bc").logs()
+//                    // Print out information about the objects created by newBuild
+//                    echo "newBuild created: ${nb.count()} objects : ${nb.names()}"
+//
+//                    // Filter non-BuildConfig objects and create selector which will find builds related to the BuildConfig
+//                    def builds = nb.narrow("bc").related("${app_name}")
+//
+//                    // Raw watch which only terminates when the closure body returns true
+//                    builds.watch {
+//                        // 'it' is bound to the builds selector.
+//                        // Continue to watch until at least one build is detected
+//                        if (it.count() == 0) {
+//                            return false
+//                        }
+//                        // Print out the build's name and terminate the watch
+//                        echo "Detected new builds created by buildconfig: ${it.names()}"
+//                        return true
+//                    }
+//
+//                    echo "Waiting for builds to complete..."
+//
+//                    // Like a watch, but only terminate when at least one selected object meets condition
+//                    builds.untilEach {
+//                        return it.object().status.phase == "Complete"
+//                    }
+//
+//                    // Print a list of the builds which have been created
+//                    echo "Build logs for ${builds.names()}:"
+//
+//                    // Find the bc again, and ask for its logs
+//                    def result = nb.narrow("bc").logs()
 
                     // Each high-level operation exposes stout/stderr/status of oc actions that composed
                     echo "Result of logs operation:"
