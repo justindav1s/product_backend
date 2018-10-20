@@ -69,8 +69,6 @@ node('maven') {
                 openshift.withProject("${dev_project}") {
                     openshift.verbose()
 
-                    def build = openshift.narrow("bc").related("${app_name}")
-                    echo "build : ${build}"
 
                     def nb = openshift.startBuild("${app_name}", "--follow", "--from-file=${artifactId}.${packaging}")
 
@@ -134,6 +132,7 @@ node('maven') {
             //openshiftVerifyDeployment
             openshift.withCluster() {
                 openshift.withProject("${dev_project}") {
+                    openshift.verbose()
                     def latestDeploymentVersion = openshift.selector('dc', "${app_name}").object().status.latestVersion
                     def rc = openshift.selector('rc', "${app_name}-${latestDeploymentVersion}")
                     rc.untilEach(1) {
