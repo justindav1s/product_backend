@@ -73,7 +73,7 @@ node('maven') {
                     echo "newBuild created: ${nb.count()} objects : ${nb.names()}"
 
                     // Filter non-BuildConfig objects and create selector which will find builds related to the BuildConfig
-                    def builds = nb.narrow("bc").related("builds")
+                    def builds = nb.narrow("bc").related("${app_name}")
 
                     // Raw watch which only terminates when the closure body returns true
                     builds.watch {
