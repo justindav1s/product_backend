@@ -70,7 +70,7 @@ node('maven') {
                     def nb = openshift.startBuild("${app_name}", "--follow", "--from-file=${artifactId}.${packaging}")
 
 //                    // Print out information about the objects created by newBuild
-//                    echo "newBuild created: ${nb.count()} objects : ${nb.names()}"
+                   echo "newBuild created: ${nb.count()} objects : ${nb.names()}"
 //
 //                    // Filter non-BuildConfig objects and create selector which will find builds related to the BuildConfig
 //                    def builds = nb.narrow("bc").related("${app_name}")
@@ -98,14 +98,14 @@ node('maven') {
 //                    echo "Build logs for ${builds.names()}:"
 //
 //                    // Find the bc again, and ask for its logs
-                    def result = nb.narrow("bc").logs()
-
-                    // Each high-level operation exposes stout/stderr/status of oc actions that composed
-                    echo "Result of logs operation:"
-                    echo "  status: ${result.status}"
-                    echo "  stderr: ${result.err}"
-                    echo "  number of actions to fulfill: ${result.actions.size()}"
-                    echo "  first action executed: ${result.actions[0].cmd}"
+//                    def result = nb.narrow("bc").logs()
+//
+//                    // Each high-level operation exposes stout/stderr/status of oc actions that composed
+//                    echo "Result of logs operation:"
+//                    echo "  status: ${result.status}"
+//                    echo "  stderr: ${result.err}"
+//                    echo "  number of actions to fulfill: ${result.actions.size()}"
+//                    echo "  first action executed: ${result.actions[0].cmd}"
 
                 }
             }
