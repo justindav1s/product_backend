@@ -61,9 +61,55 @@ node('maven') {
             sh "mvn -q -s ../settings.xml dependency:copy -DstripVersion=true -Dartifact=${groupId}:${artifactId}:${version}:${packaging} -DoutputDirectory=."
             sh "cp \$(find . -type f -name \"${artifactId}-*.${packaging}\")  ${artifactId}.${packaging}"
             sh "pwd; ls -ltr"
-            sh "oc start-build ${app_name} --follow --from-file=${artifactId}.${packaging} -n ${dev_project}"
-            openshiftVerifyBuild apiURL: '', authToken: '', bldCfg: app_name, checkForTriggeredDeployments: 'true', namespace: dev_project, verbose: 'false', waitTime: ''
-            openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: devTag, destinationAuthToken: '', destinationNamespace: dev_project, namespace: dev_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
+            //sh "oc start-build ${app_name} --follow --from-file=${artifactId}.${packaging} -n ${dev_project}"
+            //openshiftVerifyBuild apiURL: '', authToken: '', bldCfg: app_name, checkForTriggeredDeployments: 'true', namespace: dev_project, verbose: 'false', waitTime: ''
+            //openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: devTag, destinationAuthToken: '', destinationNamespace: dev_project, namespace: dev_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
+            // The selector returned from newBuild will select all objects created by the operation
+            openshift.withCluster() {
+                openshift.withProject("${dev_project}") {
+                    def nb = openshift.newBuild("--name=${app_name}", "--follow", "--from-file=${artifactId}.${packaging}")
+
+                    // Print out information about the objects created by newBuild
+                    echo "newBuild created: ${nb.count()} objects : ${nb.names()}"
+
+                    // Filter non-BuildConfig objects and create selector which will find builds related to the BuildConfig
+                    def builds = nb.narrow("bc").related("builds")
+
+                    // Raw watch which only terminates when the closure body returns true
+                    builds.watch {
+                        // 'it' is bound to the builds selector.
+                        // Continue to watch until at least one build is detected
+                        if (it.count() == 0) {
+                            return false
+                        }
+                        // Print out the build's name and terminate the watch
+                        echo "Detected new builds created by buildconfig: ${it.names()}"
+                        return true
+                    }
+
+                    echo "Waiting for builds to complete..."
+
+                    // Like a watch, but only terminate when at least one selected object meets condition
+                    builds.untilEach {
+                        return it.object().status.phase == "Complete"
+                    }
+
+                    // Print a list of the builds which have been created
+                    echo "Build logs for ${builds.names()}:"
+
+                    // Find the bc again, and ask for its logs
+                    def result = nb.narrow("bc").logs()
+
+                    // Each high-level operation exposes stout/stderr/status of oc actions that composed
+                    echo "Result of logs operation:"
+                    echo "  status: ${result.status}"
+                    echo "  stderr: ${result.err}"
+                    echo "  number of actions to fulfill: ${result.actions.size()}"
+                    echo "  first action executed: ${result.actions[0].cmd}"
+
+                }
+            }
+
         }
 
         // Deploy the built image to the Development Environment.
