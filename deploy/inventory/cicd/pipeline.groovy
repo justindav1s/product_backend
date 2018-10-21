@@ -122,6 +122,13 @@ node('maven') {
             echo "Project : ${dev_project}"
             echo "App : ${app_name}"
             echo "Dev Tag : ${devTag}"
+
+            openshift.withCluster() {
+                openshift.withProject("${dev_project}") {
+                    openshift.verbose()
+                    openshift.setImage("dc/${app_name}", "${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${devTag}")
+                }
+            }
             //sh "oc set image dc/${app_name} ${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${devTag} -n ${dev_project}"
             //def ret = sh(script: "oc delete configmap ${app_name}-config --ignore-not-found=true -n ${dev_project}", returnStdout: true)
             //ret = sh(script: "oc create configmap ${app_name}-config --from-file=${config_file} -n ${dev_project}", returnStdout: true)
