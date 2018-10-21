@@ -136,6 +136,7 @@ node('maven') {
                     openshift.verbose()
                     //openshiftDeploy apiURL: '', authToken: '', depCfg: app_name, namespace: dev_project, verbose: 'false', waitTime: '180', waitUnit: 'sec'
                     def rm = openshift.selector("dc", [app:app_name]).rollout()
+                    echo "****ROLLOUT waiting ......"
                     timeout(5) {
                         openshift.selector("dc", [app:app_name]).related('pods').untilEach(1) {
                             return (it.object().status.phase == "Running")
