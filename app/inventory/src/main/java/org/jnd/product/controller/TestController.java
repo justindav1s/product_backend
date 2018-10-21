@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 
-/**
- * Created by justin on 13/10/2015.
- */
 
 @RestController
 @RequestMapping("/product/test")
