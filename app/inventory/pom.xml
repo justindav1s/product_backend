@@ -47,48 +47,6 @@
 			<version>${spring.boot.version}</version>
 		</dependency>
 
-		<!--<dependency>-->
-			<!--<groupId>commons-logging</groupId>-->
-			<!--<artifactId>commons-logging</artifactId>-->
-			<!--<version>1.2</version>-->
-		<!--</dependency>-->
-
-		<!--<dependency>-->
-			<!--<groupId>ch.qos.logback</groupId>-->
-			<!--<artifactId>logback-classic</artifactId>-->
-			<!--<version>1.2.3</version>-->
-		<!--</dependency>-->
-		<!---->
-        <!--<dependency>-->
-            <!--<groupId>ch.qos.logback</groupId>-->
-            <!--<artifactId>logback-core</artifactId>-->
-            <!--<version>1.2.3</version>-->
-        <!--</dependency>-->
-
-		<!--<dependency>-->
-			<!--<groupId>org.apache.commons</groupId>-->
-			<!--<artifactId>commons-lang3</artifactId>-->
-			<!--<version>3.0</version>-->
-		<!--</dependency>-->
-
-		<!--<dependency>-->
-			<!--<groupId>junit</groupId>-->
-			<!--<artifactId>junit</artifactId>-->
-			<!--<version>4.12</version>-->
-		<!--</dependency>-->
-
-		<!--<dependency>-->
-			<!--<groupId>io.opentracing.contrib</groupId>-->
-			<!--<artifactId>opentracing-spring-cloud-starter-jaeger</artifactId>-->
-			<!--<version>0.1.10</version>-->
-		<!--</dependency>-->
-
-		<!--<dependency>-->
-			<!--<groupId>org.apache.httpcomponents</groupId>-->
-			<!--<artifactId>httpclient</artifactId>-->
-			<!--<version>4.5.5</version>-->
-		<!--</dependency>-->
-
 		<dependency>
 			<groupId>io.opentracing.contrib</groupId>
 			<artifactId>opentracing-spring-jaeger-web-starter</artifactId>
