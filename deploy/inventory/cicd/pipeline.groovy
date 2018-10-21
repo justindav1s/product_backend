@@ -126,10 +126,11 @@ node('maven') {
             openshift.withCluster() {
                 openshift.withProject("${dev_project}") {
                     openshift.verbose()
+                    //sh "oc set image dc/${app_name} ${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${devTag} -n ${dev_project}"
                     openshift.set("image", "dc/${app_name}", "${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${devTag}")
                 }
             }
-            //sh "oc set image dc/${app_name} ${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${devTag} -n ${dev_project}"
+
             //def ret = sh(script: "oc delete configmap ${app_name}-config --ignore-not-found=true -n ${dev_project}", returnStdout: true)
             //ret = sh(script: "oc create configmap ${app_name}-config --from-file=${config_file} -n ${dev_project}", returnStdout: true)
 
@@ -139,7 +140,7 @@ node('maven') {
             //openshiftVerifyDeployment
             openshift.withCluster() {
                 openshift.withProject("${dev_project}") {
-                    openshift.verbose()
+                    openshift.verbose(false)
                     def latestDeploymentVersion = openshift.selector('dc', "${app_name}").object().status.latestVersion
                     def rc = openshift.selector('rc', "${app_name}-${latestDeploymentVersion}")
                     rc.untilEach(1) {
