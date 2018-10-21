@@ -85,6 +85,10 @@ node('maven') {
                     //update deployment config with new image
                     openshift.set("image", "dc/${app_name}", "${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${devTag}")
 
+                    //update app config
+                    openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
+                    openshift.create("configmap", "${app_name}-config", "--from-file=${config_file}")
+
                     //trigger a rollout of the new image
                     def rm = openshift.selector("dc", [app:app_name]).rollout().latest()
                     //wait for rollout to start
