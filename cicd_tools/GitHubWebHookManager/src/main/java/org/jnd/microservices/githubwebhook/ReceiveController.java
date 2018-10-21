@@ -43,7 +43,6 @@ public class ReceiveController {
         }
 
 
-
         return new ResponseEntity<>("OK", null, HttpStatus.OK);
     }
 }

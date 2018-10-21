@@ -27,6 +27,7 @@ public class ConfigController {
     @Value("${inventory.version:not_found}")
     private String version;
 
+
     @PostConstruct
     public void init()  {
         log.debug("init");
