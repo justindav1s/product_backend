@@ -8,8 +8,7 @@ node('maven') {
 
     dir('cicd_tools/GitHubWebHookManager') {
 
-        def dev_project  = "${org}-dev"
-        def prod_project = "${org}-prod"
+        def dev_project  = "cicd"
         def app_url_dev  = "http://${app_name}.${dev_project}.svc:8080"
         def groupId      = getGroupIdFromPom("pom.xml")
         def artifactId   = getArtifactIdFromPom("pom.xml")
