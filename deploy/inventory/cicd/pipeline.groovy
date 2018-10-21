@@ -132,7 +132,7 @@ node('maven') {
                     echo "****SET IMAGE end"
                     //openshift.verbose(false)
 
-                    echo "****ROLLOUT start"
+                    echo "****ROLLOUT starting"
                     openshift.verbose()
                     //openshiftDeploy apiURL: '', authToken: '', depCfg: app_name, namespace: dev_project, verbose: 'false', waitTime: '180', waitUnit: 'sec'
                     def rm = openshift.selector("dc", [app:app_name]).rollout()
@@ -144,7 +144,17 @@ node('maven') {
                         }
                     }
                     openshift.verbose(false)
-                    echo "****ROLLOUT end"
+                    echo "****ROLLOUT started"
+
+                    echo "****DEPLOY start"
+                    //openshiftVerifyDeployment apiURL: '', authToken: '', depCfg: app_name, namespace: dev_project, replicaCount: '1', verbose: 'false', verifyReplicaCount: 'true', waitTime: '180', waitUnit: 'sec'
+                    def latestDeploymentVersion = openshift.selector('dc',[app:app_name]).object().status.latestVersion
+                    def rc = openshift.selector("rc", "${app_name}-${latestDeploymentVersion}")
+                    rc.untilEach(1) {
+                        def rcMap = it.object()
+                        return (rcMap.status.replicas.equals(rcMap.status.readyReplicas))
+                    }
+                    echo "****DEPLOY END"
                 }
             }
 
@@ -161,12 +171,7 @@ node('maven') {
 //            openshift.withCluster() {
 //                openshift.withProject("${dev_project}") {
 //                    openshift.verbose(false)
-//                    def latestDeploymentVersion = openshift.selector('dc', "${app_name}").object().status.latestVersion
-//                    def rc = openshift.selector('rc', "${app_name}-${latestDeploymentVersion}")
-//                    rc.untilEach(1) {
-//                        def rcMap = it.object()
-//                        return (rcMap.status.replicas.equals(rcMap.status.readyReplicas))
-//                    }
+
 //                }
 //            }
 
