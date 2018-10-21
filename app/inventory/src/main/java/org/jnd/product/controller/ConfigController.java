@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -21,15 +22,24 @@ public class ConfigController {
 
     @Value("${my.property:not_found}")
     private String property1 = null;
+    @Value("${sleep.time.ms}")
+    private String sleepTime = "0";
+    @Value("${inventory.version}")
+    private String version;
 
     @PostConstruct
     public void init()  {
         log.debug("init");
     }
 
-    @RequestMapping(value = "/p1", method = RequestMethod.GET, produces = "application/txt")
-    public ResponseEntity<String> config() {
+    @RequestMapping(value = "/p1", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<HashMap> config() {
 
-        return new ResponseEntity<>("Property 1 : "+property1, null, HttpStatus.OK);
+        HashMap map = new HashMap();
+        map.put("my.property", property1);
+        map.put("sleepTime", sleepTime);
+        map.put("version", version);
+
+        return new ResponseEntity<>(map, null, HttpStatus.OK);
     }
 }
