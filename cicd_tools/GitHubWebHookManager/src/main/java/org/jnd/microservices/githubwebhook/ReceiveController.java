@@ -31,10 +31,14 @@ public class ReceiveController {
             log.info("message : "+mapper.writeValueAsString(githubmessage));
             JSONObject obj = new JSONObject(mapper.writeValueAsString(githubmessage));
             JSONArray commits = obj.getJSONArray("commits");
-            JSONArray modified = obj.getJSONArray("modified");
-            for (int i = 0; i < modified.length(); i++) {
-                log.info("modified : "+modified.getString(i));
+            for (int i = 0; i < commits.length(); i++) {
+                JSONObject commit = commits.getJSONObject(i);
+                JSONArray modified = commit.getJSONArray("modified");
+                for (int j = 0; j < modified.length(); j++) {
+                    log.info("modified : "+modified.getString(j));
+                }
             }
+
 
         } catch (JsonProcessingException e) {
             e.printStackTrace();
