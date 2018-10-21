@@ -134,9 +134,9 @@ node('maven') {
 
                     echo "****ROLLOUT start"
                     //openshiftDeploy apiURL: '', authToken: '', depCfg: app_name, namespace: dev_project, verbose: 'false', waitTime: '180', waitUnit: 'sec'
-                    def rm = openshift.selector("dc", ${app_name}).rollout()
+                    def rm = openshift.selector("dc", "${app_name}").rollout()
                     timeout(5) {
-                        openshift.selector("dc", ${app_name}).related('pods').untilEach(1) {
+                        openshift.selector("dc", "${app_name}").related('pods').untilEach(1) {
                             return (it.object().status.phase == "Running")
                         }
                     }
