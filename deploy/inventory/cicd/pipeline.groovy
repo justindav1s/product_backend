@@ -67,7 +67,7 @@ node('maven') {
             // The selector returned from newBuild will select all objects created by the operation
             openshift.withCluster() {
                 openshift.withProject("${dev_project}") {
-                    openshift.verbose()
+                    //openshift.verbose()
 
 
                     def nb = openshift.startBuild("${app_name}", "--follow", "--from-file=${artifactId}.${packaging}")
@@ -134,7 +134,12 @@ node('maven') {
 
                     echo "****ROLLOUT start"
                     //openshiftDeploy apiURL: '', authToken: '', depCfg: app_name, namespace: dev_project, verbose: 'false', waitTime: '180', waitUnit: 'sec'
-                    openshift.rollout().latest("dc/${app_name}")
+                    def rm = openshift.selector("dc", ${app_name}).rollout()
+                    timeout(5) {
+                        openshift.selector("dc", ${app_name}).related('pods').untilEach(1) {
+                            return (it.object().status.phase == "Running")
+                        }
+                    }
                     echo "****ROLLOUT end"
                 }
             }
