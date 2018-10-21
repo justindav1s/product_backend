@@ -39,7 +39,6 @@ public class ReceiveController {
                 }
             }
 
-
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         } catch (JSONException e) {

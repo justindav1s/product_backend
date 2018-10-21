@@ -18,7 +18,6 @@ public class TestController {
 
     private Log log = LogFactory.getLog(TestController.class);
 
-
     @RequestMapping(value = "/echo/{echoStr}", method = RequestMethod.GET)
     ResponseEntity<Response> echo(@PathVariable String echoStr) {
 
