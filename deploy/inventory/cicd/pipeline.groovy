@@ -124,7 +124,7 @@ node('maven') {
             echo "Dev Tag : ${devTag}"
 
             openshift.withCluster() {
-                openshift.withProject("${dev_project}") {
+                openshift.withProject(dev_project) {
                     echo "****SET IMAGE start"
                     //openshift.verbose()
                     //sh "oc set image dc/${app_name} ${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${devTag} -n ${dev_project}"
@@ -133,13 +133,15 @@ node('maven') {
                     //openshift.verbose(false)
 
                     echo "****ROLLOUT start"
+                    openshift.verbose()
                     //openshiftDeploy apiURL: '', authToken: '', depCfg: app_name, namespace: dev_project, verbose: 'false', waitTime: '180', waitUnit: 'sec'
-                    def rm = openshift.selector("dc", "${app_name}").rollout()
+                    def rm = openshift.selector("dc", app_name).rollout()
                     timeout(5) {
-                        openshift.selector("dc", "${app_name}").related('pods').untilEach(1) {
+                        openshift.selector("dc", app_name).related('pods').untilEach(1) {
                             return (it.object().status.phase == "Running")
                         }
                     }
+                    openshift.verbose(false)
                     echo "****ROLLOUT end"
                 }
             }
