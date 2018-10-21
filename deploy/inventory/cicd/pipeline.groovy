@@ -106,7 +106,7 @@ node('maven') {
                     //deployment finished
                 }
             }
-
+            echo "Deploying container image to Development Project : FINISHED"
             //def ret = sh(script: "oc delete configmap ${app_name}-config --ignore-not-found=true -n ${dev_project}", returnStdout: true)
             //ret = sh(script: "oc create configmap ${app_name}-config --from-file=${config_file} -n ${dev_project}", returnStdout: true)
 
