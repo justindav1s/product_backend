@@ -126,7 +126,7 @@ node('maven') {
             openshift.withCluster() {
                 openshift.withProject("${dev_project}") {
                     openshift.verbose()
-                    openshift.setImage("dc/${app_name}", "${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${devTag}")
+                    openshift.set("image", "dc/${app_name}", "${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${devTag}")
                 }
             }
             //sh "oc set image dc/${app_name} ${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${devTag} -n ${dev_project}"
