@@ -3,30 +3,33 @@ package org.jnd.product.controller;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;
 
-@Controller
+@RestController
+@RequestMapping("/config")
 public class ConfigController {
 
     private Log log = LogFactory.getLog(ProductController.class);
 
-    // inject via application.properties
-    @Value("${config.map.env_name:not_found}")
-    private String message = "not_found";
+    @Value("${my.property:not_found}")
+    private String property1 = null;
 
     @PostConstruct
     public void init()  {
         log.debug("init");
     }
 
-    @RequestMapping("/config")
-    public String config(Map<String, Object> model) {
-        log.debug("request");
-        model.put("config_data", this.message);
-        return "config";
+    @RequestMapping(value = "/p1", method = RequestMethod.GET, produces = "application/txt")
+    public ResponseEntity<String> config() {
+
+        return new ResponseEntity<>("Property 1 : "+property1, null, HttpStatus.OK);
     }
 }
