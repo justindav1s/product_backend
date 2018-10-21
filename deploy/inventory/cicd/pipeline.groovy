@@ -128,6 +128,7 @@ node('maven') {
                     openshift.verbose()
                     //sh "oc set image dc/${app_name} ${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${devTag} -n ${dev_project}"
                     openshift.set("image", "dc/${app_name}", "${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${devTag}")
+                    openshift.verbose(false)
                 }
             }
 
