@@ -72,7 +72,7 @@ node('maven') {
 
                     def nb = openshift.startBuild("${app_name}", "--follow", "--from-file=${artifactId}.${packaging}")
 
-                    echo "nb : ${nb}"
+//                    echo "nb : ${nb}"
 //                    // Print out information about the objects created by newBuild
 //                   echo "newBuild created: ${nb.count()} objects : ${nb.names()}"
 //
@@ -125,9 +125,11 @@ node('maven') {
 
             openshift.withCluster() {
                 openshift.withProject("${dev_project}") {
+                    echo "****SET IMAGE start"
                     openshift.verbose()
                     //sh "oc set image dc/${app_name} ${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${devTag} -n ${dev_project}"
                     openshift.set("image", "dc/${app_name}", "${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${devTag}")
+                    echo "****SET IMAGE end"
                     openshift.verbose(false)
                 }
             }
@@ -142,17 +144,17 @@ node('maven') {
 
 
             //openshiftVerifyDeployment apiURL: '', authToken: '', depCfg: app_name, namespace: dev_project, replicaCount: '1', verbose: 'false', verifyReplicaCount: 'true', waitTime: '180', waitUnit: 'sec'
-            openshift.withCluster() {
-                openshift.withProject("${dev_project}") {
-                    openshift.verbose(false)
-                    def latestDeploymentVersion = openshift.selector('dc', "${app_name}").object().status.latestVersion
-                    def rc = openshift.selector('rc', "${app_name}-${latestDeploymentVersion}")
-                    rc.untilEach(1) {
-                        def rcMap = it.object()
-                        return (rcMap.status.replicas.equals(rcMap.status.readyReplicas))
-                    }
-                }
-            }
+//            openshift.withCluster() {
+//                openshift.withProject("${dev_project}") {
+//                    openshift.verbose(false)
+//                    def latestDeploymentVersion = openshift.selector('dc', "${app_name}").object().status.latestVersion
+//                    def rc = openshift.selector('rc', "${app_name}-${latestDeploymentVersion}")
+//                    rc.untilEach(1) {
+//                        def rcMap = it.object()
+//                        return (rcMap.status.replicas.equals(rcMap.status.readyReplicas))
+//                    }
+//                }
+//            }
 
         }
     }
