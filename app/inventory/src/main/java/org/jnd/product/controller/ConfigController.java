@@ -22,9 +22,9 @@ public class ConfigController {
 
     @Value("${my.property:not_found}")
     private String property1 = null;
-    @Value("${sleep.time.ms}")
+    @Value("${sleep.time.ms:not_found}")
     private String sleepTime = "0";
-    @Value("${inventory.version}")
+    @Value("${inventory.version:not_found}")
     private String version;
 
     @PostConstruct
