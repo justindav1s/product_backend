@@ -126,18 +126,23 @@ node('maven') {
             openshift.withCluster() {
                 openshift.withProject("${dev_project}") {
                     echo "****SET IMAGE start"
-                    openshift.verbose()
+                    //openshift.verbose()
                     //sh "oc set image dc/${app_name} ${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${devTag} -n ${dev_project}"
                     openshift.set("image", "dc/${app_name}", "${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${devTag}")
                     echo "****SET IMAGE end"
-                    openshift.verbose(false)
+                    //openshift.verbose(false)
+
+                    echo "****ROLLOUT start"
+                    //openshiftDeploy apiURL: '', authToken: '', depCfg: app_name, namespace: dev_project, verbose: 'false', waitTime: '180', waitUnit: 'sec'
+                    openshift.rollout("latest", "dc/${app_name}")
+                    echo "****ROLLOUT end"
                 }
             }
 
             //def ret = sh(script: "oc delete configmap ${app_name}-config --ignore-not-found=true -n ${dev_project}", returnStdout: true)
             //ret = sh(script: "oc create configmap ${app_name}-config --from-file=${config_file} -n ${dev_project}", returnStdout: true)
 
-            //openshiftDeploy apiURL: '', authToken: '', depCfg: app_name, namespace: dev_project, verbose: 'false', waitTime: '180', waitUnit: 'sec'
+
 
 
 
