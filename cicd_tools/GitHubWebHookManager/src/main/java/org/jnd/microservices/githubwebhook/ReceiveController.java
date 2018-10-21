@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +29,19 @@ public class ReceiveController {
 
         try {
             log.info("message : "+mapper.writeValueAsString(githubmessage));
+            JSONObject obj = new JSONObject(mapper.writeValueAsString(githubmessage));
+            JSONArray commits = obj.getJSONArray("commits");
+            JSONArray modified = obj.getJSONArray("modified");
+            for (int i = 0; i < modified.length(); i++) {
+                log.info("modified : "+modified.getString(i));
+            }
+
         } catch (JsonProcessingException e) {
             e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+
 
 
         return new ResponseEntity<>("OK", null, HttpStatus.OK);
