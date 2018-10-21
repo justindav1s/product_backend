@@ -64,11 +64,10 @@ node('maven') {
 
             openshift.withCluster() {
                 openshift.withProject("${dev_project}") {
-
+                    echo "Building ...."
                     def nb = openshift.startBuild("${app_name}", "--follow", "--from-file=${artifactId}.${packaging}")
-                    openshift.tag("${app_name}:latest", "${templateName}:${devTag}")
-
-
+                    echo "Tagging ...."
+                    openshift.tag("${app_name}:latest", "${app_name}:${devTag}")
                 }
             }
 
