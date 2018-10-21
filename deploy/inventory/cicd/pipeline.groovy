@@ -61,55 +61,13 @@ node('maven') {
             sh "mvn -q -s ../settings.xml dependency:copy -DstripVersion=true -Dartifact=${groupId}:${artifactId}:${version}:${packaging} -DoutputDirectory=."
             sh "cp \$(find . -type f -name \"${artifactId}-*.${packaging}\")  ${artifactId}.${packaging}"
             sh "pwd; ls -ltr"
-            //sh "oc start-build ${app_name} --follow --from-file=${artifactId}.${packaging} -n ${dev_project}"
-            //openshiftVerifyBuild apiURL: '', authToken: '', bldCfg: app_name, checkForTriggeredDeployments: 'true', namespace: dev_project, verbose: 'false', waitTime: ''
-            //openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: devTag, destinationAuthToken: '', destinationNamespace: dev_project, namespace: dev_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
-            // The selector returned from newBuild will select all objects created by the operation
+
             openshift.withCluster() {
                 openshift.withProject("${dev_project}") {
-                    //openshift.verbose()
-
 
                     def nb = openshift.startBuild("${app_name}", "--follow", "--from-file=${artifactId}.${packaging}")
+                    openshift.tag("${app_name}:latest", "${templateName}:${devTag}")
 
-//                    echo "nb : ${nb}"
-//                    // Print out information about the objects created by newBuild
-//                   echo "newBuild created: ${nb.count()} objects : ${nb.names()}"
-//
-//                    // Filter non-BuildConfig objects and create selector which will find builds related to the BuildConfig
-//                    def builds = nb.narrow("bc").related("${app_name}")
-//
-//                    // Raw watch which only terminates when the closure body returns true
-//                    builds.watch {
-//                        // 'it' is bound to the builds selector.
-//                        // Continue to watch until at least one build is detected
-//                        if (it.count() == 0) {
-//                            return false
-//                        }
-//                        // Print out the build's name and terminate the watch
-//                        echo "Detected new builds created by buildconfig: ${it.names()}"
-//                        return true
-//                    }
-//
-//                    echo "Waiting for builds to complete..."
-//
-//                    // Like a watch, but only terminate when at least one selected object meets condition
-//                    builds.untilEach {
-//                        return it.object().status.phase == "Complete"
-//                    }
-//
-//                    // Print a list of the builds which have been created
-//                    echo "Build logs for ${builds.names()}:"
-//
-//                    // Find the bc again, and ask for its logs
-//                    def result = nb.narrow("bc").logs()
-//
-//                    // Each high-level operation exposes stout/stderr/status of oc actions that composed
-//                    echo "Result of logs operation:"
-//                    echo "  status: ${result.status}"
-//                    echo "  stderr: ${result.err}"
-//                    echo "  number of actions to fulfill: ${result.actions.size()}"
-//                    echo "  first action executed: ${result.actions[0].cmd}"
 
                 }
             }
@@ -125,55 +83,33 @@ node('maven') {
 
             openshift.withCluster() {
                 openshift.withProject(dev_project) {
-                    echo "****SET IMAGE start"
-                    //openshift.verbose()
-                    //sh "oc set image dc/${app_name} ${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${devTag} -n ${dev_project}"
+                    //update deployment config with new image
                     openshift.set("image", "dc/${app_name}", "${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${devTag}")
-                    echo "****SET IMAGE end"
-                    //openshift.verbose(false)
 
-                    echo "****ROLLOUT starting"
-                    openshift.verbose()
-                    //openshiftDeploy apiURL: '', authToken: '', depCfg: app_name, namespace: dev_project, verbose: 'false', waitTime: '180', waitUnit: 'sec'
-                    def rm = openshift.selector("dc", [app:app_name]).rollout()
-                    rm.latest()
-                    echo "****ROLLOUT waiting ......"
+                    //trigger a rollout of the new image
+                    def rm = openshift.selector("dc", [app:app_name]).rollout().latest()
+                    //wait for rollout to start
                     timeout(5) {
                         openshift.selector("dc", [app:app_name]).related('pods').untilEach(1) {
                             return (it.object().status.phase == "Running")
                         }
                     }
-                    openshift.verbose(false)
-                    echo "****ROLLOUT started"
+                    //rollout has started
 
-                    echo "****DEPLOY start"
-                    //openshiftVerifyDeployment apiURL: '', authToken: '', depCfg: app_name, namespace: dev_project, replicaCount: '1', verbose: 'false', verifyReplicaCount: 'true', waitTime: '180', waitUnit: 'sec'
+                    //wait for deployment to finish and for new pods to become active
                     def latestDeploymentVersion = openshift.selector('dc',[app:app_name]).object().status.latestVersion
                     def rc = openshift.selector("rc", "${app_name}-${latestDeploymentVersion}")
                     rc.untilEach(1) {
                         def rcMap = it.object()
                         return (rcMap.status.replicas.equals(rcMap.status.readyReplicas))
                     }
-                    echo "****DEPLOY END"
+                    //deployment finished
                 }
             }
 
             //def ret = sh(script: "oc delete configmap ${app_name}-config --ignore-not-found=true -n ${dev_project}", returnStdout: true)
             //ret = sh(script: "oc create configmap ${app_name}-config --from-file=${config_file} -n ${dev_project}", returnStdout: true)
 
-
-
-
-
-
-
-            //openshiftVerifyDeployment apiURL: '', authToken: '', depCfg: app_name, namespace: dev_project, replicaCount: '1', verbose: 'false', verifyReplicaCount: 'true', waitTime: '180', waitUnit: 'sec'
-//            openshift.withCluster() {
-//                openshift.withProject("${dev_project}") {
-//                    openshift.verbose(false)
-
-//                }
-//            }
 
         }
     }
