@@ -134,7 +134,7 @@ node('maven') {
 
                     echo "****ROLLOUT start"
                     //openshiftDeploy apiURL: '', authToken: '', depCfg: app_name, namespace: dev_project, verbose: 'false', waitTime: '180', waitUnit: 'sec'
-                    openshift.rollout("latest", "dc/${app_name}")
+                    openshift.rollout().latest("dc/${app_name}")
                     echo "****ROLLOUT end"
                 }
             }
