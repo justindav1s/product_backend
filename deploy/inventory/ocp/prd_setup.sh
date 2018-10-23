@@ -18,17 +18,24 @@ oc delete svc -l app=${APP} --ignore-not-found=true -n ${PROD_PROJECT}
 oc delete bc -l app=${APP} --ignore-not-found=true -n ${PROD_PROJECT}
 oc delete routes -l app=${APP} --ignore-not-found=true -n ${PROD_PROJECT}
 
-VERSIONS=('v1' 'v2' 'v3')
+VERSION=v1
+oc delete configmap ${APP}-${VERSION}-config --ignore-not-found=true -n ${PROD_PROJECT}
+oc create configmap ${APP}-${VERSION}-config --from-file=config/config.${VERSION}.properties -n ${PROD_PROJECT}
 
-for VERSION in $VERSIONS
-do
-    oc delete configmap ${APP}-${VERSION}-config --ignore-not-found=true -n ${PROD_PROJECT}
-    oc create configmap ${APP}-${VERSION}-config --from-file=config/config.${VERSION}.properties -n ${PROD_PROJECT}
-done
+VERSION=v2
+oc delete configmap ${APP}-${VERSION}-config --ignore-not-found=true -n ${PROD_PROJECT}
+oc create configmap ${APP}-${VERSION}-config --from-file=config/config.${VERSION}.properties -n ${PROD_PROJECT}
+
+VERSION=v3
+oc delete configmap ${APP}-${VERSION}-config --ignore-not-found=true -n ${PROD_PROJECT}
+oc create configmap ${APP}-${VERSION}-config --from-file=config/config.${VERSION}.properties -n ${PROD_PROJECT}
+
 
 oc apply -f ${APP}-istio-prod.yaml
 
-for VERSION in $VERSIONS
-do
-    oc set triggers dc/${APP}-${VERSION} --from-config
-done
+VERSION=v1
+oc set triggers deployment/${APP}-${VERSION} --from-config
+VERSION=v2
+oc set triggers deployment/${APP}-${VERSION} --from-config
+VERSION=v3
+oc set triggers deployment/${APP}-${VERSION} --from-config

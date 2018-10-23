@@ -4,32 +4,24 @@ kind: VirtualService
 metadata:
   name: inventory
 spec:
-  gateways:
-  - amazin-gateway
   hosts:
-  - inventory
+  - "amazin-prd-istio-system.apps.ocp.datr.eu"
+  gateways:
+  - amazin-gateway-prod
   http:
   - match:
-      uri:
+    - uri:
         prefix: /products
-  - route:
+    route:
     - destination:
-        port:
-          number: 8080
-        name: inventory
+        host: inventory.amazin-prod.svc.cluster.local
         subset: v1
       weight: 0
-  - route:
     - destination:
-        port:
-          number: 8080
-        name: inventory
+        host: inventory.amazin-prod.svc.cluster.local
         subset: v2
       weight: 100
-  - route:
     - destination:
-        port:
-          number: 8080
-        name: inventory
+        host: inventory.amazin-prod.svc.cluster.local
         subset: v3
       weight: 0

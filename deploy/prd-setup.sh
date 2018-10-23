@@ -30,5 +30,3 @@ oc adm policy add-scc-to-user anyuid -z istio-prometheus-service-account -n isti
 
 oc project ${PROD_PROJECT}
 oc adm policy add-scc-to-user anyuid -z default -n ${PROD_PROJECT}
-oc label namespace ${PROD_PROJECT} istio-injection=enabled
-oc label namespace default istio-injection=enabled

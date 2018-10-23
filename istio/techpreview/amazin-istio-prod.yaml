@@ -46,20 +46,14 @@ spec:
     route:
     - destination:
         host: inventory.amazin-prod.svc.cluster.local
-        port:
-          number: 8080
         subset: v1
-      weight: 100
-    - destination:
-        host: inventory.amazin-prod.svc.cluster.local
-        port:
-          number: 8080
-        subset: v2
       weight: 0
     - destination:
         host: inventory.amazin-prod.svc.cluster.local
-        port:
-          number: 8080
+        subset: v2
+      weight: 100
+    - destination:
+        host: inventory.amazin-prod.svc.cluster.local
         subset: v3
       weight: 0
 ---

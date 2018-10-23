@@ -1,0 +1,19 @@
+
+oc delete project bookinfo
+
+oc new-project bookinfo
+
+oc adm policy add-scc-to-user anyuid -z default
+oc adm policy add-scc-to-user privileged -z default
+
+oc apply -f bookinfo.yaml
+oc apply -f bookinfo-gateway.yaml
+oc apply -f destination-rule-all.yaml
+
+echo Go to : http://$(oc get route -n istio-system istio-ingressgateway -o jsonpath='{.spec.host}')/productpage
+
+oc apply -f virtual-service-all-v1.yaml
+
+oc apply -f virtual-service-reviews-v3.yaml
+
+oc apply -f virtual-service-reviews-v2-v3.yaml
