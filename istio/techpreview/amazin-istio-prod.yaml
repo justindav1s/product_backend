@@ -11,7 +11,7 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - "*"
+    - "amazin-prd-istio-system.apps.ocp.datr.eu"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -19,7 +19,7 @@ metadata:
   name: inventory
 spec:
   hosts:
-  - "*"
+  - "amazin-prd-istio-system.apps.ocp.datr.eu"
   gateways:
   - amazin-gateway-prod
   http:
@@ -38,7 +38,7 @@ metadata:
   name: user
 spec:
   hosts:
-  - "*"
+  - "amazin-prd-istio-system.apps.ocp.datr.eu"
   gateways:
   - amazin-gateway-prod
   http:
@@ -57,7 +57,7 @@ metadata:
   name: basket
 spec:
   hosts:
-  - "*"
+  - "amazin-prd-istio-system.apps.ocp.datr.eu"
   gateways:
   - amazin-gateway-prod
   http:
@@ -76,7 +76,7 @@ metadata:
   name: api-gateway
 spec:
   hosts:
-  - "*"
+  - "amazin-prd-istio-system.apps.ocp.datr.eu"
   gateways:
   - amazin-gateway-prod
   http:
