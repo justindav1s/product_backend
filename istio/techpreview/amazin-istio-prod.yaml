@@ -18,7 +18,7 @@ kind: DestinationRule
 metadata:
   name: inventory
 spec:
-  host: inventory
+  host: inventory.amazin-prod.svc.cluster.local
   subsets:
   - name: v1
     labels:
@@ -45,19 +45,19 @@ spec:
         prefix: /products
     route:
     - destination:
-        host: inventory
+        host: inventory.amazin-prod.svc.cluster.local
         port:
           number: 8080
         subset: v1
       weight: 100
     - destination:
-        host: inventory
+        host: inventory.amazin-prod.svc.cluster.local
         port:
           number: 8080
         subset: v2
       weight: 0
     - destination:
-        host: inventory
+        host: inventory.amazin-prod.svc.cluster.local
         port:
           number: 8080
         subset: v3
@@ -78,7 +78,7 @@ spec:
         prefix: /user
     route:
     - destination:
-        host: user
+        host: user.amazin-prod.svc.cluster.local
         port:
           number: 8080
 ---
@@ -97,7 +97,7 @@ spec:
         prefix: /basket
     route:
     - destination:
-        host: basket
+        host: basket.amazin-prod.svc.cluster.local
         port:
           number: 8080
 ---
@@ -116,7 +116,7 @@ spec:
         prefix: /api
     route:
     - destination:
-        host: api-gateway
+        host: api-gateway.amazin-prod.svc.cluster.local
         port:
           number: 8080
 
