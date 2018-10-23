@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: amazin-gateway
+  name: amazin-gateway-dev
 spec:
   selector:
     istio: ingressgateway # use istio default controller
@@ -21,7 +21,7 @@ spec:
   hosts:
   - "*"
   gateways:
-  - amazin-gateway
+  - amazin-gateway-dev
   http:
   - match:
     - uri:
@@ -40,7 +40,7 @@ spec:
   hosts:
   - "*"
   gateways:
-  - amazin-gateway
+  - amazin-gateway-dev
   http:
   - match:
     - uri:
@@ -59,7 +59,7 @@ spec:
   hosts:
   - "*"
   gateways:
-  - amazin-gateway
+  - amazin-gateway-dev
   http:
   - match:
     - uri:
@@ -78,7 +78,7 @@ spec:
   hosts:
   - "*"
   gateways:
-  - amazin-gateway
+  - amazin-gateway-dev
   http:
   - match:
     - uri:

@@ -1,0 +1,91 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: amazin-gateway-prod
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: inventory
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - amazin-gateway-prod
+  http:
+  - match:
+    - uri:
+        prefix: /products
+    route:
+    - destination:
+        host: inventory
+        port:
+          number: 8080
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: user
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - amazin-gateway-prod
+  http:
+  - match:
+    - uri:
+        prefix: /user
+    route:
+    - destination:
+        host: user
+        port:
+          number: 8080
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: basket
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - amazin-gateway-prod
+  http:
+  - match:
+    - uri:
+        prefix: /basket
+    route:
+    - destination:
+        host: basket
+        port:
+          number: 8080
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: api-gateway
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - amazin-gateway-prod
+  http:
+  - match:
+    - uri:
+        prefix: /api
+    route:
+    - destination:
+        host: api-gateway
+        port:
+          number: 8080
+
