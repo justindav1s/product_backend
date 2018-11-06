@@ -31,6 +31,9 @@ oc delete configmap ${APP}-${VERSION}-config --ignore-not-found=true -n ${PROD_P
 oc create configmap ${APP}-${VERSION}-config --from-file=config/config.${VERSION}.properties -n ${PROD_PROJECT}
 
 oc apply -f ${APP}-sa-prod.yaml
+
+oc policy add-role-to-group system:image-puller system:serviceaccounts:inventory-sa -n ${DEV_PROJECT}
+
 oc apply -f ${APP}-istio-prod.yaml
 
 VERSION=v1
