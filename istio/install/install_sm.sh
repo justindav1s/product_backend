@@ -15,6 +15,11 @@ while [ $? \> 0 ]; do
 oc adm new-project $PROJECT --node-selector='capability=infra' 2> /dev/null
 done
 
+./cleanup.sh
+
 oc project $OP_PROJECT
 
+oc delete installations.istio.openshift.com "istio-installation"
+
 oc create -f istio-installation-3.11.yaml
+

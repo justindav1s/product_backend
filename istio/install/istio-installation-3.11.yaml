@@ -21,8 +21,8 @@ spec:
     version: 0.8.1
   launcher:
     openshift:
-      user: user
-      password: password
+      user: justin
+      password: S@far123
     github:
       username: justindav1s
       token: 4faedb2bdb63bd3847802ad077658c5553a9c860
