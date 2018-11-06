@@ -9,7 +9,7 @@ oc login https://${IP}:8443 -u $USER
 oc project ${PROD_PROJECT}
 
 
-
+oc delete inventory-sa
 oc delete deploy -l app=${APP} --ignore-not-found=true -n ${PROD_PROJECT}
 oc delete deploymentconfigs -l app=${APP} --ignore-not-found=true -n ${PROD_PROJECT}
 oc delete po -l app=${APP} --ignore-not-found=true -n ${PROD_PROJECT}
@@ -30,7 +30,7 @@ VERSION=v3
 oc delete configmap ${APP}-${VERSION}-config --ignore-not-found=true -n ${PROD_PROJECT}
 oc create configmap ${APP}-${VERSION}-config --from-file=config/config.${VERSION}.properties -n ${PROD_PROJECT}
 
-
+oc apply -f ${APP}-sa-prod.yaml
 oc apply -f ${APP}-istio-prod.yaml
 
 VERSION=v1

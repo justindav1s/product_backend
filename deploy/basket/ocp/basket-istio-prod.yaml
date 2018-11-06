@@ -28,6 +28,7 @@ spec:
         version: v1
         region: central
     spec:
+      serviceAccountName: basket-sa
       containers:
       - name: basket
         image: docker-registry.default.svc:5000/amazin-dev/basket:0.0.1-SNAPSHOT

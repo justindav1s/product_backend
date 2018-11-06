@@ -28,6 +28,7 @@ spec:
         version: v1
         region: central
     spec:
+      serviceAccountName: inventory-sa
       containers:
       - name: inventory
         image: docker-registry.default.svc:5000/amazin-dev/inventory:0.0.1-SNAPSHOT
@@ -104,6 +105,7 @@ spec:
         version: v2
         region: central
     spec:
+      serviceAccountName: inventory-sa
       containers:
       - name: inventory
         image: docker-registry.default.svc:5000/amazin-dev/inventory:0.0.1-SNAPSHOT
@@ -179,6 +181,7 @@ spec:
         version: v3
         region: central
     spec:
+      serviceAccountName: inventory-sa
       containers:
       - name: inventory
         image: docker-registry.default.svc:5000/amazin-dev/inventory:0.0.1-SNAPSHOT

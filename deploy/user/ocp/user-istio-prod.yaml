@@ -28,6 +28,7 @@ spec:
         version: v1
         region: central
     spec:
+      serviceAccountName: user-sa
       containers:
       - name: user
         image: docker-registry.default.svc:5000/amazin-dev/user:0.0.1-SNAPSHOT

@@ -30,6 +30,7 @@ spec:
         version: v1
         region: central
     spec:
+      serviceAccountName: api-gateway-sa
       containers:
       - name: api-gateway
         image: docker-registry.default.svc:5000/amazin-dev/api-gateway:0.0.1-SNAPSHOT

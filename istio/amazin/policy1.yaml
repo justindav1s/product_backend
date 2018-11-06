@@ -1,0 +1,19 @@
+---
+apiVersion: "rbac.istio.io/v1alpha1"
+kind: RbacConfig
+metadata:
+  name: default
+spec:
+  mode: 'ON_WITH_INCLUSION'
+  inclusion:
+    namespaces: ["amazin-prod"]
+#---
+#apiVersion: "authentication.istio.io/v1alpha1"
+#kind: "Policy"
+#metadata:
+#  name: "inventory"
+#spec:
+#  targets:
+#  - name: inventory
+#  peers:
+#  - mtls: {}
