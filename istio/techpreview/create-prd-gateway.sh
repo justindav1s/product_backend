@@ -14,5 +14,5 @@ oc delete gateway amazin-gateway-prod
 
 oc apply -f amazin-prd-gateway.yaml
 oc apply -f amazin-prd-destrules.yaml
-
+oc apply -f amazin-prd-vs-all-v1.yaml
 

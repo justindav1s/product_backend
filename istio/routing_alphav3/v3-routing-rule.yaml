@@ -1,27 +1,21 @@
----
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: inventory
 spec:
   hosts:
-  - "amazin-prd-istio-system.apps.ocp.datr.eu"
-  gateways:
-  - amazin-gateway-prod
+  - inventory
   http:
-  - match:
-    - uri:
-        prefix: /products
-    route:
+  - route:
     - destination:
-        host: inventory.amazin-prod.svc.cluster.local
+        host: inventory
         subset: v1
       weight: 0
     - destination:
-        host: inventory.amazin-prod.svc.cluster.local
+        host: inventory
         subset: v2
       weight: 0
     - destination:
-        host: inventory.amazin-prod.svc.cluster.local
+        host: inventory
         subset: v3
       weight: 100
