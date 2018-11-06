@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export IP=ocp.datr.eu
+export IP=192.168.0.91
 export USER=justin
 
 export ORG=amazin
