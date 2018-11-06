@@ -15,7 +15,7 @@ const httpOptions = {
 @Injectable()
 export class InventoryService {
   private tracer;
-  private inventoryUrl = `http://${environment.inventory_backend}/api/products`;
+  private inventoryUrl = `${environment.inventory_backend}/api/products`;
 
   constructor(private http: HttpClient) {}
 
