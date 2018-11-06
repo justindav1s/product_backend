@@ -14,8 +14,13 @@ while [ $? \> 0 ]; do
 oc adm new-project $PROJECT --node-selector='capability=infra' 2> /dev/null
 done
 
-oc delete clusterrolebinding default-account-istio-operator-cluster-role-binding
-oc delete customresourcedefinition installations.istio.openshift.com
+oc delete validatingwebhookconfigurations istio-galley
+oc delete mutatingwebhookconfigurations istio-sidecar-injector
+oc delete roles "istio-operator"
+oc delete rolebinding "default-account-istio-operator"
+oc delete clusterrolebinding "default-account-istio-operator-cluster-role-binding"
+oc delete deployment.extensions "istio-operator"
+oc delete customresourcedefinition "installations.istio.openshift.com"
 
 sleep 2
 
