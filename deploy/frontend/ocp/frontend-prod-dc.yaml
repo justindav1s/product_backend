@@ -67,20 +67,3 @@ objects:
         securityContext: {}
         terminationGracePeriodSeconds: 30
     test: false
-
-- kind: Route
-  apiVersion: v1
-  metadata:
-    annotations:
-    labels:
-      app: frontend
-    name: frontend
-  spec:
-    host: amazin.apps.ocp.datr.eu
-    port:
-      targetPort: 8080
-    to:
-      kind: Service
-      name: frontend
-      weight: 100
-    wildcardPolicy: None
