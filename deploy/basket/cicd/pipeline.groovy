@@ -6,7 +6,7 @@ node('maven') {
         git url: "${git_url}"
     }
 
-    dir("app/${app_name}") {
+    dir("src/${app_name}") {
 
         def dev_project  = "${org}-dev"
         def prod_project = "${org}-prod"
