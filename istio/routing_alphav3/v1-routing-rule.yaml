@@ -5,7 +5,7 @@ metadata:
   name: inventory
 spec:
   hosts:
-  - "amazin-prd-istio-system.apps.ocp.datr.eu"
+  - "*"
   gateways:
   - amazin-gateway-prod
   http:
@@ -14,14 +14,14 @@ spec:
         prefix: /products
     route:
     - destination:
-        host: inventory.amazin-prod.svc.cluster.local
+        host: inventory
         subset: v1
       weight: 100
     - destination:
-        host: inventory.amazin-prod.svc.cluster.local
+        host: inventory
         subset: v2
       weight: 0
     - destination:
-        host: inventory.amazin-prod.svc.cluster.local
+        host: inventory
         subset: v3
       weight: 0

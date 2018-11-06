@@ -12,7 +12,7 @@ oc delete destinationrule basket
 oc delete destinationrule api-gateway
 oc delete gateway amazin-gateway-prod
 
-oc apply -f amazin-prd-gateway.yaml
-oc apply -f amazin-prd-destrules.yaml
+oc apply -f amazin-gateway-prod.yaml
+
 
 

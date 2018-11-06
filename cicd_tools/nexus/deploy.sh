@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-. ../env.sh
+. ../../env.sh
 
 oc login -u justin
 

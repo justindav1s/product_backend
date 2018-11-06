@@ -4,6 +4,8 @@ kind: Deployment
 metadata:
   labels:
     app: api-gateway
+    version: v1
+    region: central
   name: api-gateway
 spec:
   replicas: 1
