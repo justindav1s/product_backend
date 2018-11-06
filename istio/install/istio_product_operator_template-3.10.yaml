@@ -10,7 +10,7 @@ parameters:
 - displayName: OpenShift Release
   description: The version of the OpenShift release.
   name: OPENSHIFT_RELEASE
-  value: v3.10.0
+  value: v3.11.0
   required: true
 - displayName: Istio Operator Namespace
   description: The namespace for the Istio operator
