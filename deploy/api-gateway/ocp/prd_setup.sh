@@ -8,8 +8,10 @@ oc login https://${IP}:8443 -u $USER
 
 oc project ${PROD_PROJECT}
 
-oc delete sa api-gateway-sa
-oc delete deploy -l app=${APP} -n ${PROD_PROJECT}
+APP_SA=api-gateway-sa
+
+oc delete ${APP_SA}
+oc delete deployments -l app=${APP} -n ${PROD_PROJECT}
 oc delete deploymentconfigs -l app=${APP} -n ${PROD_PROJECT}
 oc delete po -l app=${APP} -n ${PROD_PROJECT}
 oc delete builds -l app=${APP} -n ${PROD_PROJECT}
@@ -18,4 +20,7 @@ oc delete bc -l app=${APP} -n ${PROD_PROJECT}
 oc delete routes -l app=${APP} -n ${PROD_PROJECT}
 
 oc apply -f ${APP}-sa-prod.yaml
+
+oc adm policy add-scc-to-user privileged -z ${APP_SA}
+
 oc apply -f ${APP}-istio-prod.yaml

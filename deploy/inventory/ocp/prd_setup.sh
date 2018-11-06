@@ -8,8 +8,9 @@ oc login https://${IP}:8443 -u $USER
 
 oc project ${PROD_PROJECT}
 
+APP_SA=inventory-sa
 
-oc delete inventory-sa
+oc delete ${APP_SA}
 oc delete deploy -l app=${APP} --ignore-not-found=true -n ${PROD_PROJECT}
 oc delete deploymentconfigs -l app=${APP} --ignore-not-found=true -n ${PROD_PROJECT}
 oc delete po -l app=${APP} --ignore-not-found=true -n ${PROD_PROJECT}
@@ -32,7 +33,7 @@ oc create configmap ${APP}-${VERSION}-config --from-file=config/config.${VERSION
 
 oc apply -f ${APP}-sa-prod.yaml
 
-oc policy add-role-to-group system:image-puller system:serviceaccounts:inventory-sa -n ${DEV_PROJECT}
+oc adm policy add-scc-to-user privileged -z ${APP_SA}
 
 oc apply -f ${APP}-istio-prod.yaml
 
