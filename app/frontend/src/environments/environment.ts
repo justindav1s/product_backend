@@ -13,7 +13,7 @@
 
 export const environment = {
 production: false,
-inventory_backend : "istio-ingressgateway-istio-system.apps.ocp.datr.eu",
-basket_backend : "istio-ingressgateway-istio-system.apps.ocp.datr.eu",
-user_backend : "istio-ingressgateway-istio-system.apps.ocp.datr.eu"
+inventory_backend : "api-gateway-amazin-dev.apps.ocp.datr.eu",
+basket_backend : "api-gateway-amazin-dev.apps.ocp.datr.eu",
+user_backend : "api-gateway-amazin-dev.apps.ocp.datr.eu"
 };
