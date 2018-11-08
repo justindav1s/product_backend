@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-APP=frontend
+APP=web
 S2I_IMAGE=openshift/nginx:1.10
 
 . ../../../env.sh
