@@ -20,7 +20,7 @@ node('maven') {
 
         stage('Build jar') {
             echo "Building version : ${version}"
-            sh "mvn -U -B -q -s ../settings.xml clean package -Dmaven.wagon.http.ssl.insecure=true -Dspring.profiles.active=dev -DskipTests"
+            sh "mvn -U -B -q -s ../settings.xml clean package -Dmaven.wagon.http.ssl.allowall=true -Dspring.profiles.active=dev -DskipTests"
         }
 
         // Using Maven run the unit tests
