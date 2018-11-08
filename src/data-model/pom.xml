@@ -25,7 +25,6 @@
         </repository>
     </distributionManagement>
 
-
     <dependencies>
 
         <dependency>
