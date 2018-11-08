@@ -83,7 +83,7 @@ spec:
           livenessProbe:
             failureThreshold: 3
             httpGet:
-              path: /health
+              path: /
               port: 8080
               scheme: HTTP
             initialDelaySeconds: 10
@@ -94,7 +94,7 @@ spec:
           readinessProbe:
             failureThreshold: 3
             httpGet:
-              path: /health
+              path: /
               port: 8080
               scheme: HTTP
             initialDelaySeconds: 10
@@ -104,19 +104,11 @@ spec:
           resources: {}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
-          volumeMounts:
-            - mountPath: /config
-              name: web-config-vol
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
-      volumes:
-        - configMap:
-            defaultMode: 420
-            name: web-config
-          name: web-config-vol
   test: false
   triggers:
     - type: ConfigChange
