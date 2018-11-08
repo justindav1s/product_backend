@@ -25,4 +25,4 @@ export CICD_PROJECT=cicd
 export DOMAIN=$CICD_PROJECT
 export DATABASE_USER="sonar"
 export DATABASE_PASSWORD="sonar"
-export DATABASE_URL="jdbc:postgresql://postgresql-sonar/sonar"
+export DATABASE_URL="jdbc:postgresql://postgresql/sonar"

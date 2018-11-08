@@ -27,3 +27,7 @@ oc new-app -f sonarqube-persistent-template.yml \
     -p SONARQUBE_JDBC_USERNAME=${DATABASE_USER} \
     -p SONARQUBE_JDBC_PASSWORD=${DATABASE_PASSWORD} \
     -p SONARQUBE_JDBC_URL=${DATABASE_URL}
+
+
+
+#then download qulaity profile from market place https://sonarqube-cicd.apps.ocp.192.168.33.11.xip.io/admin/marketplace
