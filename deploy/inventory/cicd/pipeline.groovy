@@ -21,7 +21,7 @@ node('maven') {
 
         stage('Build jar') {
             echo "Building version : ${version}"
-            sh "${mvn} clean package -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dspring.profiles.active=dev -DskipTests"
+            sh "${mvn} clean package -Dspring.profiles.active=dev -DskipTests"
         }
 
         // Using Maven run the unit tests
@@ -34,19 +34,19 @@ node('maven') {
 
         stage('Coverage') {
             echo "Running Coverage"
-            sh "${mvn} clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.wagon.http.ssl.insecure=true -Dspring.profiles.active=dev"
+            sh "${mvn} clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Dspring.profiles.active=dev"
         }
 
         // Using Maven call SonarQube for Code Analysis
         stage('Code Analysis') {
             echo "Running Code Analysis"
-            sh "${mvn} sonar:sonar -Dmaven.wagon.http.ssl.insecure=true -Dspring.profiles.active=dev -Dsonar.host.url=${sonar_url}"
+            sh "${mvn} sonar:sonar -Dspring.profiles.active=dev -Dsonar.host.url=${sonar_url}"
         }
 
         // Publish the built war file to Nexus
         stage('Publish to Nexus') {
             echo "Publish to Nexus"
-            sh "${mvn} deploy -DskipTests -Dmaven.wagon.http.ssl.insecure=true"
+            sh "${mvn} deploy -DskipTests"
         }
 
         //Build the OpenShift Image in OpenShift and tag it.
