@@ -21,4 +21,9 @@ public class ProductApplication extends SpringBootServletInitializer {
         SpringApplication.run(ProductApplication.class, args);
     }
 
+    @RequestMapping(value = "/health", method = RequestMethod.GET)
+    public String ping() {
+        return "OK";
+    }
+
 }
