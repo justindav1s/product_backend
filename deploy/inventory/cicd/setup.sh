@@ -14,7 +14,7 @@ echo CRUMB=$CRUMB
 ${CURL} -H "Content-Type: text/xml" \
   --user ${JENKINS_USER}:${JENKINS_TOKEN} \
   -H Jenkins-Crumb:${CRUMB} \
-  -X POST https://${JENKINS}/job/amazin-inventory/doDelete
+  -X POST https://${JENKINS}/job/amazin-${APP}/doDelete
 
 sleep 5
 
@@ -22,5 +22,5 @@ ${CURL} -H "Content-Type: text/xml" \
   --user ${JENKINS_USER}:${JENKINS_TOKEN} \
   -H Jenkins-Crumb:${CRUMB} \
   --data-binary @config.xml \
-  -X POST https://${JENKINS}/createItem?name=amazin-inventory
+  -X POST https://${JENKINS}/createItem?name=amazin-${APP}
 
