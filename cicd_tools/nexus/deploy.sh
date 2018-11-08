@@ -2,7 +2,7 @@
 
 . ../../env.sh
 
-oc login -u justin
+oc login https://${IP}:8443 -u justin
 
 oc project $CICD_PROJECT
 
