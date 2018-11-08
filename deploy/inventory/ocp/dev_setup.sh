@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-set -x
+
 APP=inventory
-#S2I_IMAGE=redhat-openjdk18-openshift:1.2
+
 S2I_IMAGE=redhat-openjdk18-openshift:1.4
 
 . ../../../env.sh
