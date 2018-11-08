@@ -1,24 +1,8 @@
 #!/usr/bin/env bash
 
-#Database Service Name
-#postgresql-sonar
-#The name of the OpenShift Service exposed for the database.
-#
-#PostgreSQL Connection Username
-#sonar
-#Username for PostgreSQL user that will be used for accessing the database.
-#
-#PostgreSQL Connection Password
-#sonar
-#Password for the PostgreSQL connection user.
-#
-#PostgreSQL Database Name
-#sonar
-
-
-
-
 . ../env.sh
+
+oc login https://${IP}:8443 -u justin
 
 APP=sonarqube
 
@@ -33,9 +17,6 @@ oc delete serviceaccounts ${APP}
 oc delete service ${APP}
 oc delete route ${APP}
 
-DATABASE_USER="sonar"
-DATABASE_PASSWORD="sonar"
-DATABASE_URL="jdbc:postgresql://postgresql-sonar/sonar"
 
 oc new-app -f sonarqube-persistent-template.yml \
     -p DOMAIN=${DOMAIN} \
