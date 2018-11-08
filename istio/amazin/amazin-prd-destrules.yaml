@@ -5,6 +5,9 @@ metadata:
   name: api-gateway
 spec:
   host: api-gateway
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
   subsets:
   - name: v1
     labels:
@@ -16,6 +19,9 @@ metadata:
   name: inventory
 spec:
   host: inventory
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
   subsets:
   - name: v1
     labels:
@@ -33,6 +39,9 @@ metadata:
   name: user
 spec:
   host: user
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
   subsets:
   - name: v1
     labels:
@@ -44,6 +53,9 @@ metadata:
   name: basket
 spec:
   host: basket
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
   subsets:
   - name: v1
     labels:
