@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/basket")
+@RequestMapping("/user")
 public class UserController {
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
