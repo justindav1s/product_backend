@@ -1,4 +1,4 @@
-package org.jnd.microservices.user.repositories;
+package org.jnd.microservices.basket.repositories;
 
 import org.jnd.microservices.model.Basket;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package org.jnd.microservices.user.controller;
+package org.jnd.microservices.basket.controller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

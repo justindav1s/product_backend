@@ -1,4 +1,4 @@
-package org.jnd.microservices.user;
+package org.jnd.microservices.basket;
 
 
 import org.springframework.boot.SpringApplication;

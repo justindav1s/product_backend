@@ -1,10 +1,10 @@
-package org.jnd.microservices.user.controller;
+package org.jnd.microservices.basket.controller;
 
+import org.jnd.microservices.basket.repositories.BasketRepository;
 import org.jnd.microservices.model.Basket;
 import org.jnd.microservices.model.Product;
 import org.jnd.microservices.model.User;
-import org.jnd.microservices.user.proxies.ProductRepositoryProxy;
-import org.jnd.microservices.user.repositories.BasketRepository;
+import org.jnd.microservices.basket.proxies.ProductRepositoryProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
