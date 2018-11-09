@@ -1,4 +1,4 @@
-package org.jnd.user.proxies;
+package org.jnd.basket.proxies;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

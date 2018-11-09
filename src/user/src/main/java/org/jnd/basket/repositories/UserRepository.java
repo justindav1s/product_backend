@@ -1,4 +1,4 @@
-package org.jnd.user.repositories;
+package org.jnd.basket.repositories;
 
 import org.jnd.microservices.model.User;
 import org.springframework.stereotype.Component;

@@ -1,8 +1,8 @@
-package org.jnd.user.controller;
+package org.jnd.basket.controller;
 
 import org.jnd.microservices.model.User;
-import org.jnd.user.proxies.BasketRepositoryProxy;
-import org.jnd.user.repositories.UserRepository;
+import org.jnd.basket.proxies.BasketRepositoryProxy;
+import org.jnd.basket.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/basket")
 public class UserController {
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
@@ -31,21 +31,21 @@ public class UserController {
 
         log.debug("User login");
 
-        //check to see whether user exists
+        //check to see whether basket exists
         if (userRepository.containsKey(user.getUsername())) {
-            //this user exists : retreive
+            //this basket exists : retreive
             user = userRepository.get(user.getUsername());
             log.debug("User exists : " +user);
         }
         else    {
-            //this user does not exist : create
+            //this basket does not exist : create
             nextId = nextId + 1;
             user.setId(nextId);
             log.debug("User Create : " +user);
             userRepository.put(user.getUsername(), user);
         }
 
-        //get user's basket data
+        //get basket's basket data
         ResponseEntity<User> responseEntity = basketRepositoryProxy.getBasket(user, headers);
 
 

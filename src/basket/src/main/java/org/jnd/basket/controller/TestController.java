@@ -1,8 +1,7 @@
-package org.jnd.user.controller;
+package org.jnd.basket.controller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +14,7 @@ import java.util.Date;
  */
 
 @RestController
-@RequestMapping("/user/test")
+@RequestMapping("/basket/test")
 public class TestController {
 
     private Log log = LogFactory.getLog(TestController.class);

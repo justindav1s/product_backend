@@ -1,8 +1,7 @@
-package org.jnd.user.proxies;
+package org.jnd.basket.proxies;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jnd.microservices.model.Basket;
 import org.jnd.microservices.model.User;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +25,7 @@ public class BasketRepositoryProxy {
 
     public ResponseEntity<User> getBasket(User user, HttpHeaders headers) {
 
-        log.debug("BasketRepositoryProxy getBasket for user : "+user);
+        log.debug("BasketRepositoryProxy getBasket for basket : "+user);
         log.debug("BasketRepositoryProxy getBasket for URL : "+"http://"+basket_host+"/basket/create");
 
 

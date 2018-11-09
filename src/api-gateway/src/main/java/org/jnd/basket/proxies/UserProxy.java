@@ -1,4 +1,4 @@
-package org.jnd.user.proxies;
+package org.jnd.basket.proxies;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -18,7 +18,7 @@ public class UserProxy {
 
     private Log log = LogFactory.getLog(UserProxy.class);
 
-    @Value( "${user.host}" )
+    @Value( "${basket.host}" )
     String user_host;
 
     private RestTemplate restTemplate = new RestTemplate();;
@@ -32,7 +32,7 @@ public class UserProxy {
 
         ResponseEntity<User> exchange =
                 this.restTemplate.exchange(
-                        "http://"+ user_host +"/user/login",
+                        "http://"+ user_host +"/basket/login",
                         HttpMethod.POST,
                         request,
                         User.class);
@@ -50,8 +50,8 @@ public class UserProxy {
 
 
     public String logout(int id, HttpHeaders headers) {
-        log.debug("UserProxy logout user id : "+id);
-        restTemplate.delete("http://"+ user_host +"/user/logout/"+id);
+        log.debug("UserProxy logout basket id : "+id);
+        restTemplate.delete("http://"+ user_host +"/basket/logout/"+id);
         return "LOGGED OUT";
     }
 }

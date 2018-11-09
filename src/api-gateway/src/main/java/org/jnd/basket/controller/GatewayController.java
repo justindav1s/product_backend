@@ -1,15 +1,13 @@
-package org.jnd.user.controller;
+package org.jnd.basket.controller;
 
 import org.jnd.microservices.model.Basket;
-import org.jnd.microservices.model.Product;
 import org.jnd.microservices.model.User;
-import org.jnd.user.proxies.BasketProxy;
-import org.jnd.user.proxies.InventoryProxy;
-import org.jnd.user.proxies.UserProxy;
+import org.jnd.basket.proxies.BasketProxy;
+import org.jnd.basket.proxies.InventoryProxy;
+import org.jnd.basket.proxies.UserProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +18,8 @@ import java.util.List;
 
 
 /**
- * ${environment.user_backend}/user/login POST
- * ${environment.user_backend}/user/logout DELETE
+ * ${environment.user_backend}/basket/login POST
+ * ${environment.user_backend}/basket/logout DELETE
  * ${environment.basket_backend}/basket/get/${basket.id} GET
  * ${environment.basket_backend}/basket/add/${product.id} PUT
  * ${environment.basket_backend}/basket/remove/${itemAtIndex} DELETE

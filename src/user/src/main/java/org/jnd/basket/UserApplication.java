@@ -1,4 +1,4 @@
-package org.jnd.user;
+package org.jnd.basket;
 
 //import com.uber.jaeger.Tracer;
 //import com.uber.jaeger.metrics.Metrics;
@@ -24,7 +24,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,7 +47,7 @@ public class UserApplication extends SpringBootServletInitializer {
 //    @Bean
 //    public io.opentracing.Tracer jaegerTracer() {
 //
-//        Builder builder = new Builder("user",
+//        Builder builder = new Builder("basket",
 //                new RemoteReporter(new HttpSender("http://jaeger-collector.istio-system:14268/api/traces"), 10,
 //                        65000, new Metrics(new StatsFactoryImpl(new NullStatsReporter()))),
 //                new ConstSampler(true))
@@ -62,7 +61,7 @@ public class UserApplication extends SpringBootServletInitializer {
 ////                .withMetrics(new Metrics(new NoopMetricsFactory()))
 ////                .build();
 ////
-////        Builder builder = new Builder("user")
+////        Builder builder = new Builder("basket")
 ////                .withReporter(reporter)
 ////                .withSampler(new ConstSampler(true))
 ////                .registerInjector(Format.Builtin.HTTP_HEADERS, new B3TextMapCodec())

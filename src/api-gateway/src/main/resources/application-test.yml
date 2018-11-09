@@ -12,7 +12,7 @@ inventory:
   host: inventory-amazin-dev.apps.ocp.datr.eu
 
 user:
-  host: user-amazin-dev.apps.ocp.datr.eu
+  host: basket-amazin-dev.apps.ocp.datr.eu
 
 opentracing:
   jaeger:

@@ -1,7 +1,6 @@
-package org.jnd.user.repositories;
+package org.jnd.basket.repositories;
 
 import org.jnd.microservices.model.Basket;
-import org.jnd.user.controller.BasketController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

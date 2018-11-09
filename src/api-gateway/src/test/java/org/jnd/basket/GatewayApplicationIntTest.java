@@ -1,4 +1,4 @@
-package org.jnd.user;
+package org.jnd.basket;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

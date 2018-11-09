@@ -3,8 +3,8 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    app: user
-  name: user
+    app: basket
+  name: basket
 spec:
   replicas: 1
   revisionHistoryLimit: 10
@@ -23,15 +23,15 @@ spec:
       annotations:
         sidecar.istio.io/inject: 'true'
       labels:
-        app: user
-        deploymentconfig: user
+        app: basket
+        deploymentconfig: basket
         version: v1
         region: central
     spec:
-      serviceAccountName: user-sa
+      serviceAccountName: basket-sa
       containers:
-      - name: user
-        image: docker-registry.default.svc:5000/amazin-dev/user:0.0.1-SNAPSHOT
+      - name: basket
+        image: docker-registry.default.svc:5000/amazin-dev/basket:0.0.1-SNAPSHOT
         imagePullPolicy: Always
         env:
           - name: SPRING_PROFILES_ACTIVE
@@ -70,12 +70,12 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: user
+  name: basket
   labels:
-    app: user
+    app: basket
 spec:
   ports:
   - name: http
     port: 8080
   selector:
-    app: user
+    app: basket

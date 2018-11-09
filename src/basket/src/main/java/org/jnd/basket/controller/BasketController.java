@@ -1,10 +1,10 @@
-package org.jnd.user.controller;
+package org.jnd.basket.controller;
 
 import org.jnd.microservices.model.Basket;
 import org.jnd.microservices.model.Product;
 import org.jnd.microservices.model.User;
-import org.jnd.user.proxies.ProductRepositoryProxy;
-import org.jnd.user.repositories.BasketRepository;
+import org.jnd.basket.proxies.ProductRepositoryProxy;
+import org.jnd.basket.repositories.BasketRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class BasketController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     ResponseEntity<?> create(@RequestBody User user, @RequestHeader HttpHeaders headers) {
 
-        log.debug("Basket Create for user : "+user);
+        log.debug("Basket Create for basket : "+user);
         Basket basket = null;
 
         basket = basketRepository.get(user.getUsername());
@@ -43,7 +43,7 @@ public class BasketController {
             int basketId = basketRepository.size() + 1;
             basket = new Basket(basketId);
             basket.setUserId(user.getUsername());
-            log.debug("Basket Create for user : "+user.getUsername());
+            log.debug("Basket Create for basket : "+user.getUsername());
             log.debug("Basket Create #"+basketId);
             log.debug("Basket Create :"+basket);
             basketRepository.add(basket);
@@ -52,7 +52,7 @@ public class BasketController {
 
         user.setBasketId(basket.getId());
         basket = calculateTotal(basket);
-        log.debug("Returning user with basket data :"+user);
+        log.debug("Returning basket with basket data :"+user);
         return new ResponseEntity<>(user, null, HttpStatus.CREATED);
     }
 
