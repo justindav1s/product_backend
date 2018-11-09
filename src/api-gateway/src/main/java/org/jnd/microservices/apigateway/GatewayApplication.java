@@ -1,4 +1,4 @@
-package org.jnd.basket;
+package org.jnd.microservices.apigateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

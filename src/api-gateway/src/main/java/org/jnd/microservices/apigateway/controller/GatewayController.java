@@ -1,10 +1,10 @@
-package org.jnd.basket.controller;
+package org.jnd.microservices.apigateway.controller;
 
 import org.jnd.microservices.model.Basket;
 import org.jnd.microservices.model.User;
-import org.jnd.basket.proxies.BasketProxy;
-import org.jnd.basket.proxies.InventoryProxy;
-import org.jnd.basket.proxies.UserProxy;
+import org.jnd.microservices.apigateway.proxies.BasketProxy;
+import org.jnd.microservices.apigateway.proxies.InventoryProxy;
+import org.jnd.microservices.apigateway.proxies.UserProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +12,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
