@@ -12,7 +12,7 @@ inventory:
   host: inventory-amazin-dev.apps.ocp.192.168.33.11.xip.io
 
 user:
-  host: basket-amazin-dev.apps.ocp.192.168.33.11.xip.io
+  host: user-amazin-dev.apps.ocp.192.168.33.11.xip.io
 
 opentracing:
   jaeger:

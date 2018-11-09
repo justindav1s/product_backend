@@ -18,7 +18,7 @@ public class UserProxy {
 
     private Log log = LogFactory.getLog(UserProxy.class);
 
-    @Value( "${basket.host}" )
+    @Value( "${user.host}" )
     String user_host;
 
     private RestTemplate restTemplate = new RestTemplate();;
@@ -26,13 +26,13 @@ public class UserProxy {
     public ResponseEntity<User> login(User user, HttpHeaders headers) {
 
         log.debug("UserProxy login : "+user);
-
+        log.debug("http://"+ user_host +"/user/login");
 
         HttpEntity<User> request = new HttpEntity<>(user, headers);
 
         ResponseEntity<User> exchange =
                 this.restTemplate.exchange(
-                        "http://"+ user_host +"/basket/login",
+                        "http://"+ user_host +"/user/login",
                         HttpMethod.POST,
                         request,
                         User.class);
@@ -51,7 +51,7 @@ public class UserProxy {
 
     public String logout(int id, HttpHeaders headers) {
         log.debug("UserProxy logout basket id : "+id);
-        restTemplate.delete("http://"+ user_host +"/basket/logout/"+id);
+        restTemplate.delete("http://"+ user_host +"/user/logout/"+id);
         return "LOGGED OUT";
     }
 }
