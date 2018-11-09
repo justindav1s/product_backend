@@ -1,4 +1,4 @@
-package org.jnd.basket;
+package org.jnd.microservices.user;
 
 //import com.uber.jaeger.Tracer;
 //import com.uber.jaeger.metrics.Metrics;

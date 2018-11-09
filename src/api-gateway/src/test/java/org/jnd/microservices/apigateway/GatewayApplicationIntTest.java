@@ -1,4 +1,4 @@
-package org.jnd.basket;
+package org.jnd.microservices.apigateway;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

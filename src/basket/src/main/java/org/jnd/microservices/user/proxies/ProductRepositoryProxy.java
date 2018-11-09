@@ -1,4 +1,4 @@
-package org.jnd.basket.proxies;
+package org.jnd.microservices.user.proxies;
 
 import org.jnd.microservices.model.Product;
 
