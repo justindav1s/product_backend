@@ -25,4 +25,8 @@ public class GatewayApplication extends SpringBootServletInitializer  {
         return "OK";
     }
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String ping() {
+        return "OK";
+    }
 }
