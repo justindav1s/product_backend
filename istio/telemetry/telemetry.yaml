@@ -51,7 +51,7 @@ spec:
   timestamp: request.time
   variables:
     source: source.labels["app"] | source.service | "unknown"
-    user: source.user | "unknown"
+    user: source.basket | "unknown"
     destination: destination.labels["app"] | destination.service | "unknown"
     responseCode: response.code | 0
     responseSize: response.size | 0

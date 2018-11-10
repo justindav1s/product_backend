@@ -7,7 +7,7 @@ metadata:
     description: The SonarQube OpenShift template
     tags: instant-app, ${APPLICATION_NAME}
   name: ${APPLICATION_NAME}
-message: "Login to SonarQube with the default admin user: admin/admin"
+message: "Login to SonarQube with the default admin basket: admin/admin"
 objects:
 
 - apiVersion: v1

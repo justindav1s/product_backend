@@ -36,9 +36,9 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: user
+  name: basket
 spec:
-  host: user
+  host: basket
   trafficPolicy:
     tls:
       mode: ISTIO_MUTUAL

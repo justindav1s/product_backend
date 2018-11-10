@@ -3,11 +3,12 @@
 node('maven') {
 
     stage('Checkout Source') {
-        git url: "${git_url}"
+        git url: "${git_url}", branch: 'xip.io'
     }
 
     dir('src/data-model') {
 
+        def mvn          = "mvn -U -B -q -s ../settings.xml -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"
         def dev_project  = "${org}-dev"
         def prod_project = "${org}-prod"
         def groupId      = getGroupIdFromPom("pom.xml")
@@ -18,25 +19,25 @@ node('maven') {
 
         stage('Build jar') {
             echo "Building version : ${version}"
-            sh "mvn -U -B -q -s ../settings.xml clean package -DskipTests"
+            sh "${mvn} clean package -DskipTests"
         }
 
         // Using Maven run the unit tests
         stage('Unit Tests') {
             echo "Running Unit Tests"
-            sh "mvn -U -B -q -s ../settings.xml test"
+            sh "${mvn} test"
         }
 
         // Using Maven call SonarQube for Code Analysis
         stage('Code Analysis') {
             echo "Running Code Analysis"
-            sh "mvn -U -B -q -s ../settings.xml sonar:sonar -Dsonar.host.url=${sonar_url}"
+            sh "${mvn} sonar:sonar -Dsonar.host.url=${sonar_url}"
         }
 
         // Publish the built war file to Nexus
         stage('Publish to Nexus') {
             echo "Publish to Nexus"
-            sh "mvn -U -B -q -s ../settings.xml deploy -DskipTests"
+            sh "${mvn} deploy -DskipTests"
         }
 
     }

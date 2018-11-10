@@ -3,11 +3,12 @@
 node('maven') {
 
     stage('Checkout Source') {
-        git url: "${git_url}"
+        git url: "${git_url}", branch: 'xip.io'
     }
 
     dir('src/inventory') {
 
+        def mvn          = "mvn -U -B -q -s ../settings.xml -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"
         def dev_project  = "${org}-dev"
         def prod_project = "${org}-prod"
         def app_url_dev  = "http://${app_name}.${dev_project}.svc:8080"
@@ -20,32 +21,32 @@ node('maven') {
 
         stage('Build jar') {
             echo "Building version : ${version}"
-            sh "mvn -U -B -q -s ../settings.xml clean package -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dspring.profiles.active=dev -DskipTests"
+            sh "${mvn} clean package -Dspring.profiles.active=dev -DskipTests"
         }
 
         // Using Maven run the unit tests
         stage('Unit/Integration Tests') {
             echo "Running Unit Tests"
-            sh "mvn -U -B -q -s ../settings.xml test -Dmaven.wagon.http.ssl.insecure=true -Dspring.profiles.active=dev"
+            sh "${mvn} test -Dmaven.wagon.http.ssl.insecure=true -Dspring.profiles.active=dev"
             archive "target/**/*"
             junit 'target/surefire-reports/*.xml'
         }
 
         stage('Coverage') {
             echo "Running Coverage"
-            sh "mvn -U -B -q -s ../settings.xml clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.wagon.http.ssl.insecure=true -Dspring.profiles.active=dev"
+            sh "${mvn} clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Dspring.profiles.active=dev"
         }
 
         // Using Maven call SonarQube for Code Analysis
         stage('Code Analysis') {
             echo "Running Code Analysis"
-            sh "mvn -U -B -q -s ../settings.xml sonar:sonar -Dmaven.wagon.http.ssl.insecure=true -Dspring.profiles.active=dev -Dsonar.host.url=${sonar_url}"
+            sh "${mvn} sonar:sonar -Dspring.profiles.active=dev -Dsonar.host.url=${sonar_url}"
         }
 
         // Publish the built war file to Nexus
         stage('Publish to Nexus') {
             echo "Publish to Nexus"
-            sh "mvn -U -B -q -s ../settings.xml deploy -DskipTests -Dmaven.wagon.http.ssl.insecure=true"
+            sh "${mvn} deploy -DskipTests"
         }
 
         //Build the OpenShift Image in OpenShift and tag it.
@@ -57,8 +58,8 @@ node('maven') {
             echo "Artifact ID : ${artifactId}"
             echo "Version : ${version}"
             echo "Packaging : ${packaging}"
-            sh "mvn -U -B -q -s ../settings.xml clean"
-            sh "mvn -q -s ../settings.xml dependency:copy -DstripVersion=true -Dartifact=${groupId}:${artifactId}:${version}:${packaging} -DoutputDirectory=."
+            sh "${mvn} clean"
+            sh "${mvn} dependency:copy -DstripVersion=true -Dartifact=${groupId}:${artifactId}:${version}:${packaging} -DoutputDirectory=."
             sh "cp \$(find . -type f -name \"${artifactId}-*.${packaging}\")  ${artifactId}.${packaging}"
             sh "pwd; ls -ltr"
 
