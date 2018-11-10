@@ -4,7 +4,7 @@ kind: DestinationRule
 metadata:
   name: api-gateway
 spec:
-  host: api-gateway.prd
+  host: api-gateway-prd
   trafficPolicy:
     tls:
       mode: ISTIO_MUTUAL
@@ -18,7 +18,7 @@ kind: DestinationRule
 metadata:
   name: inventory
 spec:
-  host: inventory.prd
+  host: inventory-prd
   trafficPolicy:
     tls:
       mode: ISTIO_MUTUAL
@@ -38,7 +38,7 @@ kind: DestinationRule
 metadata:
   name: basket
 spec:
-  host: basket.prd
+  host: basket-prd
   trafficPolicy:
     tls:
       mode: ISTIO_MUTUAL
@@ -52,7 +52,7 @@ kind: DestinationRule
 metadata:
   name: user
 spec:
-  host: user.prd
+  host: user-prd
   trafficPolicy:
     tls:
       mode: ISTIO_MUTUAL

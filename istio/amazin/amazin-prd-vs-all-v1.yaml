@@ -1,14 +1,14 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: inventory.prd
+  name: inventory-prd
 spec:
   hosts:
-  - inventory.prd
+  - inventory-prd
   http:
   - route:
     - destination:
-        host: inventory.prd
+        host: inventory-prd
         subset: v1
 ---
 apiVersion: networking.istio.io/v1alpha3
@@ -17,11 +17,11 @@ metadata:
   name: user
 spec:
   hosts:
-  - user.prd
+  - user-prd
   http:
   - route:
     - destination:
-        host: user.prd
+        host: user-prd
         subset: v1
 ---
 apiVersion: networking.istio.io/v1alpha3
@@ -30,10 +30,10 @@ metadata:
   name: basket
 spec:
   hosts:
-  - basket.prd
+  - basket-prd
   http:
   - route:
     - destination:
-        host: basket.prd
+        host: basket-prd
         subset: v1
 ---

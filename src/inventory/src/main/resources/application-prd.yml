@@ -1,18 +1,18 @@
 spring:
   application:
-    name: inventory.prd
+    name: inventory-prd
 
 server:
   port: 8080
 
 basket:
-  host: basket:8080
+  host: basket-prd:8080
 
 inventory:
-  host: inventory:8080
+  host: inventory-prd:8080
 
 user:
-  host: basket:8080
+  host: user-prd:8080
 
 
 opentracing:
