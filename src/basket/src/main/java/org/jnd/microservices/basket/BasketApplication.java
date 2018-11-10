@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Configuration
 @PropertySources({
-        @PropertySource("config.default.properties"),
+        @PropertySource(value = "classpath:config.${spring.profiles.active:default}.properties",  ignoreResourceNotFound = true),
         @PropertySource(value = "file:/config/config.${spring.profiles.active:default}.properties", ignoreResourceNotFound = true)
 })
 @EnableAutoConfiguration
