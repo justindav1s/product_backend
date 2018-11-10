@@ -18,7 +18,7 @@ objects:
     annotations:
     labels:
       app: ${APPLICATION_NAME}
-    name: ${APPLICATION_NAME}
+    name: ${APPLICATION_NAME}-${VERSION_LABEL}
   spec:
     progressDeadlineSeconds: 600
     replicas: 1
@@ -89,24 +89,6 @@ objects:
             name: ${APPLICATION_NAME}-config-vol
     triggers:
       - type: ConfigChange
-
-- apiVersion: v1
-  kind: Service
-  metadata:
-    annotations:
-    labels:
-      app: ${APPLICATION_NAME}
-    name: ${APPLICATION_NAME}
-  spec:
-    ports:
-      - name: http
-        port: 8080
-        protocol: TCP
-        targetPort: 8080
-    selector:
-      app: ${APPLICATION_NAME}
-    sessionAffinity: None
-    type: ClusterIP
       
 parameters:
   - description: The name for the application.

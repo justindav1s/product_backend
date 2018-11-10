@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-APP=api-gateway
+APP=inventory
 IMAGE_NAME=${APP}
 IMAGE_TAG=0.0.1-SNAPSHOT
 SAP=v1
