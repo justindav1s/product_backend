@@ -15,12 +15,14 @@ oc project ${PROD_PROJECT}
 oc delete configmap ${APP}-${SAP}-config --ignore-not-found=true -n ${PROD_PROJECT}
 oc create configmap ${APP}-${SAP}-config --from-file=config/config.${SAP}.properties -n ${PROD_PROJECT}
 
-oc new-app -f ../../spring-boot-prd-template.yaml \
+oc new-app -f ../../spring-boot-prd-deploy-template.yaml \
     -p APPLICATION_NAME=${APP} \
     -p IMAGE_NAME=${IMAGE_NAME} \
     -p IMAGE_TAG=${IMAGE_TAG} \
     -p SPRING_PROFILES_ACTIVE=${SAP} \
     -p VERSION_LABEL=${SAP}
+
+oc set triggers deployment/${APP}-${SAP} --from-config
 
 sleep 2
 
