@@ -33,8 +33,7 @@ oc new-app -f ../../spring-boot-prd-deploy-template.yaml \
     -p VERSION_LABEL=v1
 
 oc new-app -f ../../service-template.yaml \
-    -p SERVICE_NAME=${APP} \
-    -p PORT=8080
+    -p SERVICE_NAME=${APP}
 
 sleep 2
 

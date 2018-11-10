@@ -27,9 +27,5 @@ parameters:
     name: SERVICE_NAME
     required: true
     value: "basket"
-  - description: The listen port of the service.
-    name: PORT
-    required: true
-    value: 8080
 
 
