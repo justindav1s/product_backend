@@ -2,20 +2,20 @@ apiVersion: v1
 kind: Template
 metadata:
   creationTimestamp: null
-  name: frontend-prod-dc
+  name: web-prod-dc
 objects:
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
     labels:
-      app: frontend
-    name: frontend
+      app: web
+    name: web
   spec:
     replicas: 1
     revisionHistoryLimit: 10
     selector:
-      app: frontend
-      deploymentconfig: frontend
+      app: web
+      deploymentconfig: web
     strategy:
       activeDeadlineSeconds: 21600
       resources: {}
@@ -29,12 +29,12 @@ objects:
     template:
       metadata:
         labels:
-          app: frontend
-          deploymentconfig: frontend
+          app: web
+          deploymentconfig: web
           region: central
       spec:
         containers:
-        - name: frontend
+        - name: web
           image: " "
           imagePullPolicy: Always
           env:

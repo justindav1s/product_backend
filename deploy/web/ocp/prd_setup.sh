@@ -2,7 +2,7 @@
 
 #set -x
 
-APP=frontend
+APP=web
 S2I_IMAGE=nginx:1.10
 
 . ../../../env.sh
