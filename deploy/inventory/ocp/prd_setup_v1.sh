@@ -23,7 +23,7 @@ oc new-app -f ../../spring-boot-prd-deploy-template.yaml \
     -p VERSION_LABEL=${SAP}
 
 oc new-app -f ../../service-template.yaml \
-    -p SERVICE_NAME=${APP}
+    -p SERVICE_NAME=${APP}.prd
 
 oc set triggers deployment/${APP}-${SAP} --from-config
 
