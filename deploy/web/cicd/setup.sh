@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-APP=frontend
+APP=web
 
 . ../../../env.sh
 
