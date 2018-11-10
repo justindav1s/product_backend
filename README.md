@@ -120,24 +120,3 @@ This provides a high configurable network layer in which the microservices resid
    * Monitoring
    * Tools to deal with application instability like Circuit Breaking
    
-
-## Install
-
-Do the Ansible install :
-- https://istio.io/docs/setup/kubernetes/ansible-install.html
-
-Playbooks are  here : 
-- https://github.com/istio/istio
-
-In the ```install/ansible``` folder, then run :
-
-```
-ansible-playbook main.yml -e '{"istio": {"release_tag_name": "0.7.1", "delete_resources": true, "addon": ["grafana", "prometheus", "jaeger"]}}'
-
-ansible-playbook -i /root/bin/inventory/hosts main.yml -e '{"istio": {"release_tag_name": "0.7.1", "delete_resources": true, "addon": ["grafana", "prometheus", "jaeger", "servicegraph"]}}'
-```
-
-
-## Servicegraph
-
-http://<HOST>/force/forcegraph.html

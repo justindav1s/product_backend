@@ -25,5 +25,7 @@ oc new-app -f ../../spring-boot-prd-template.yaml \
     -p APPLICATION_VERSION=0.0.1-SNAPSHOT \
     -p VERSION_LABEL=v1
 
+sleep 2
+
 oc policy add-role-to-group system:image-puller system:serviceaccounts:${APP_SA} -n ${DEV_PROJECT}
 oc adm policy add-scc-to-user privileged -z ${APP_SA}
