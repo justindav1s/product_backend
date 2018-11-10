@@ -30,4 +30,4 @@ oc new-app -f sonarqube-persistent-template.yml \
 
 
 
-#then download quality profile from market place https://sonarqube-cicd.apps.ocp.192.168.33.11.xip.io/admin/marketplace
+#then download quality profile from market place https://sonarqube-cicd.apps.ocp.datr.eu/admin/marketplace

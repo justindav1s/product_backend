@@ -3,7 +3,7 @@
 node('maven') {
 
     stage('Checkout Source') {
-        git url: "${git_url}", branch: 'xip.io'
+        git url: "${git_url}", branch: 'master'
     }
 
     dir("src/${app_name}") {
