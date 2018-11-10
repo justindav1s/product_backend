@@ -26,4 +26,8 @@ public class ProductApplication extends SpringBootServletInitializer {
         return "OK";
     }
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String home() {
+        return "OK";
+    }
 }
