@@ -4,6 +4,6 @@ kind: RbacConfig
 metadata:
   name: default
 spec:
-  mode: 'ON_WITH_INCLUSION'
+  mode: 'OFF'
   inclusion:
     namespaces: ["amazin-prod"]

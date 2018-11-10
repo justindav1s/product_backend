@@ -4,7 +4,8 @@ APP=user
 ENV=prd
 IMAGE_NAME=${APP}
 IMAGE_TAG=0.0.1-SNAPSHOT
-SAP=prd
+SPRING_PROFILES_ACTIVE=prd
+VERSION_LABEL=v1
 SERVICEACCOUNT_NAME=${APP}-${ENV}-sa
 SERVICE_NAME=${APP}-${ENV}
 
@@ -19,14 +20,14 @@ oc delete svc ${SERVICE_NAME} -n ${PROD_PROJECT}
 oc delete sa ${SERVICEACCOUNT_NAME} -n ${PROD_PROJECT}
 
 oc delete configmap ${APP}-${SAP}-config --ignore-not-found=true -n ${PROD_PROJECT}
-oc create configmap ${APP}-${SAP}-config --from-file=config/config.${SAP}.properties -n ${PROD_PROJECT}
+oc create configmap ${APP}-${SAP}-config --from-file=config/config.${SPRING_PROFILES_ACTIVE}.properties -n ${PROD_PROJECT}
 
 oc new-app -f ../../spring-boot-prd-deploy-template.yaml \
     -p APPLICATION_NAME=${APP} \
     -p IMAGE_NAME=${IMAGE_NAME} \
     -p IMAGE_TAG=${IMAGE_TAG} \
-    -p SPRING_PROFILES_ACTIVE=${SAP} \
-    -p VERSION_LABEL=${SAP} \
+    -p SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE} \
+    -p VERSION_LABEL=${VERSION_LABEL} \
     -p SERVICEACCOUNT_NAME=${SERVICEACCOUNT_NAME}
 
 oc new-app -f ../../service-template.yaml \
@@ -34,7 +35,7 @@ oc new-app -f ../../service-template.yaml \
     -p SERVICEACCOUNT_NAME=${SERVICEACCOUNT_NAME} \
     -p SERVICE_NAME=${SERVICE_NAME}
 
-oc set triggers deployment/${APP}-${SAP} --from-config
+oc set triggers deployment/${APP}-${VERSION_LABEL} --from-config
 
 sleep 2
 
