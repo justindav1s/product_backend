@@ -5,12 +5,20 @@ metadata:
 objects:
 
 - apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    annotations:
+    labels:
+      app: ${APPLICATION_NAME}
+    name: ${APPLICATION_NAME}-$[SPRING_PROFILES_ACTIVE}-sa
+
+- apiVersion: v1
   kind: Service
   metadata:
     annotations:
     labels:
-      app: ${SERVICE_NAME}
-    name: ${SERVICE_NAME}
+      app: ${APPLICATION_NAME}
+    name: ${SERVICE_NAME}-${SPRING_PROFILES_ACTIVE}
   spec:
     ports:
       - name: http
@@ -18,14 +26,19 @@ objects:
         protocol: TCP
         targetPort: 8080
     selector:
-      app: ${SERVICE_NAME}
+      app: ${APPLICATION_NAME}
     sessionAffinity: None
     type: ClusterIP
       
 parameters:
-  - description: The name for the service.
-    name: SERVICE_NAME
+  - description: The name for the application.
+    name: APPLICATION_NAME
     required: true
     value: "basket"
+  - description: The Spring Active Profile.
+    name: SPRING_PROFILES_ACTIVE
+    required: true
+    value: "prd"
+
 
 

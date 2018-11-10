@@ -12,6 +12,9 @@ oc login https://${IP}:8443 -u $USER
 
 oc project ${PROD_PROJECT}
 
+oc delete deployments ${APP}-${SAP} -n ${PROD_PROJECT}
+oc delete svc ${APP}-prd -n ${PROD_PROJECT}
+
 oc delete configmap ${APP}-${SAP}-config --ignore-not-found=true -n ${PROD_PROJECT}
 oc create configmap ${APP}-${SAP}-config --from-file=config/config.${SAP}.properties -n ${PROD_PROJECT}
 
@@ -23,7 +26,8 @@ oc new-app -f ../../spring-boot-prd-deploy-template.yaml \
     -p VERSION_LABEL=${SAP}
 
 oc new-app -f ../../service-template.yaml \
-    -p SERVICE_NAME=${APP}-${SAP}
+    -p APPLICATION_NAME=${APP} \
+    -p SPRING_PROFILES_ACTIVE=${SAP}
 
 oc set triggers deployment/${APP}-${SAP} --from-config
 
