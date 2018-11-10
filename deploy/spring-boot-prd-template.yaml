@@ -12,83 +12,83 @@ objects:
       app: ${APPLICATION_NAME}
     name: ${APPLICATION_NAME}-sa
 
-  - apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      annotations:
-      labels:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+    labels:
+      app: ${APPLICATION_NAME}
+    name: ${APPLICATION_NAME}
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
         app: ${APPLICATION_NAME}
-      name: ${APPLICATION_NAME}
-    spec:
-      progressDeadlineSeconds: 600
-      replicas: 1
-      revisionHistoryLimit: 10
-      selector:
-        matchLabels:
+        deploymentconfig: ${APPLICATION_NAME}
+        version: ${VERSION_LABEL}
+    strategy:
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          sidecar.istio.io/inject: "true"
+        labels:
           app: ${APPLICATION_NAME}
           deploymentconfig: ${APPLICATION_NAME}
           version: ${VERSION_LABEL}
-      strategy:
-        rollingUpdate:
-          maxSurge: 1
-          maxUnavailable: 1
-        type: RollingUpdate
-      template:
-        metadata:
-          annotations:
-            sidecar.istio.io/inject: "true"
-          labels:
-            app: ${APPLICATION_NAME}
-            deploymentconfig: ${APPLICATION_NAME}
-            version: ${VERSION_LABEL}
-        spec:
-          containers:
-            - env:
-                - name: SPRING_PROFILES_ACTIVE
-                  value: "${SPRING_PROFILES_ACTIVE}"
-              image: "docker-registry.default.svc:5000/amazin-dev/${APPLICATION_NAME}:${APPLICATION_VERSION}"
-              imagePullPolicy: Always
-              livenessProbe:
-                failureThreshold: 3
-                httpGet:
-                  path: /health
-                  port: 8080
-                  scheme: HTTP
-                initialDelaySeconds: 10
-                periodSeconds: 10
-                successThreshold: 1
-                timeoutSeconds: 1
-              name: ${APPLICATION_NAME}
-              readinessProbe:
-                failureThreshold: 3
-                httpGet:
-                  path: /health
-                  port: 8080
-                  scheme: HTTP
-                initialDelaySeconds: 10
-                periodSeconds: 10
-                successThreshold: 1
-                timeoutSeconds: 1
-              resources: {}
-              terminationMessagePath: /dev/termination-log
-              terminationMessagePolicy: File
-              volumeMounts:
-                - mountPath: /config
-                  name: ${APPLICATION_NAME}-config-vol
-          dnsPolicy: ClusterFirst
-          restartPolicy: Always
-          schedulerName: default-scheduler
-          securityContext: {}
-          serviceAccount: ${APPLICATION_NAME}-sa
-          serviceAccountName: ${APPLICATION_NAME}-sa
-          terminationGracePeriodSeconds: 30
-          volumes:
-            - configMap:
-                defaultMode: 420
-                name: ${APPLICATION_NAME}-config
-              name: ${APPLICATION_NAME}-config-vol
-      triggers:
-        - type: ConfigChange
+      spec:
+        containers:
+          - env:
+              - name: SPRING_PROFILES_ACTIVE
+                value: "${SPRING_PROFILES_ACTIVE}"
+            image: "docker-registry.default.svc:5000/amazin-dev/${IMAGE_NAME}:${IMAGE_TAG}"
+            imagePullPolicy: Always
+            livenessProbe:
+              failureThreshold: 3
+              httpGet:
+                path: /health
+                port: 8080
+                scheme: HTTP
+              initialDelaySeconds: 10
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            name: ${APPLICATION_NAME}
+            readinessProbe:
+              failureThreshold: 3
+              httpGet:
+                path: /health
+                port: 8080
+                scheme: HTTP
+              initialDelaySeconds: 10
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            resources: {}
+            terminationMessagePath: /dev/termination-log
+            terminationMessagePolicy: File
+            volumeMounts:
+              - mountPath: /config
+                name: ${APPLICATION_NAME}-config-vol
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: ${APPLICATION_NAME}-sa
+        serviceAccountName: ${APPLICATION_NAME}-sa
+        terminationGracePeriodSeconds: 30
+        volumes:
+          - configMap:
+              defaultMode: 420
+              name: ${APPLICATION_NAME}-config
+            name: ${APPLICATION_NAME}-config-vol
+    triggers:
+      - type: ConfigChange
 
 - apiVersion: v1
   kind: Service
@@ -113,8 +113,12 @@ parameters:
     name: APPLICATION_NAME
     required: true
     value: "basket"
-  - description: The version for the application.
-    name: APPLICATION_VERSION
+  - description: The name for the application image.
+    name: IMAGE_NAME
+    required: true
+    value: "basket"
+  - description: The tag for the application image.
+    name: IMAGE_TAG
     required: true
     value: "0.0.1-SNAPSHOT"
   - description: The Spring Active Profile.

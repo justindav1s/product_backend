@@ -19,14 +19,6 @@ import java.util.Map;
 
 @Component("ProductRepository")
 @Profile("dev")
-
-@Configuration
-@PropertySources({
-        @PropertySource("config.default.properties"),
-        @PropertySource(value = "file:/etc/inventory/config.${spring.profiles.active:default}.properties", ignoreResourceNotFound = true)
-})
-
-
 public class DefaultProductRepository extends RepositoryBase {
 
     private Log log = LogFactory.getLog(DefaultProductRepository.class);
