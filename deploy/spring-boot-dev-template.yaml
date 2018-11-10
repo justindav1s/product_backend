@@ -121,7 +121,6 @@ objects:
                 defaultMode: 420
                 name: ${APPLICATION_NAME}-config
               name: ${APPLICATION_NAME}-config-vol
-      test: false
       triggers:
         - type: ConfigChange
 

@@ -3,6 +3,15 @@ kind: Template
 metadata:
   name: spring-boot-prd-template
 objects:
+
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    annotations:
+    labels:
+      app: ${APPLICATION_NAME}
+    name: ${APPLICATION_NAME}-sa
+
   - apiVersion: apps/v1
     kind: Deployment
     metadata:
@@ -36,7 +45,7 @@ objects:
           containers:
             - env:
                 - name: SPRING_PROFILES_ACTIVE
-                  value: prd
+                  value: "${SPRING_PROFILES_ACTIVE}"
               image: "docker-registry.default.svc:5000/amazin-dev/${APPLICATION_NAME}:${APPLICATION_VERSION}"
               imagePullPolicy: Always
               livenessProbe:
@@ -63,6 +72,9 @@ objects:
               resources: {}
               terminationMessagePath: /dev/termination-log
               terminationMessagePolicy: File
+              volumeMounts:
+                - mountPath: /config
+                  name: ${APPLICATION_NAME}-config-vol
           dnsPolicy: ClusterFirst
           restartPolicy: Always
           schedulerName: default-scheduler
@@ -70,42 +82,47 @@ objects:
           serviceAccount: ${APPLICATION_NAME}-sa
           serviceAccountName: ${APPLICATION_NAME}-sa
           terminationGracePeriodSeconds: 30
+          volumes:
+            - configMap:
+                defaultMode: 420
+                name: ${APPLICATION_NAME}-config
+              name: ${APPLICATION_NAME}-config-vol
+      triggers:
+        - type: ConfigChange
 
-  - apiVersion: v1
-    kind: Service
-    metadata:
-      annotations:
-      labels:
-        app: ${APPLICATION_NAME}
-      name: ${APPLICATION_NAME}
-    spec:
-      ports:
-        - name: http
-          port: 8080
-          protocol: TCP
-          targetPort: 8080
-      selector:
-        app: ${APPLICATION_NAME}
-      sessionAffinity: None
-      type: ClusterIP
-
-  - apiVersion: v1
-    kind: ServiceAccount
-    metadata:
-      annotations:
-      labels:
-        app: ${APPLICATION_NAME}
-      name: ${APPLICATION_NAME}-sa
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+    labels:
+      app: ${APPLICATION_NAME}
+    name: ${APPLICATION_NAME}
+  spec:
+    ports:
+      - name: http
+        port: 8080
+        protocol: TCP
+        targetPort: 8080
+    selector:
+      app: ${APPLICATION_NAME}
+    sessionAffinity: None
+    type: ClusterIP
       
 parameters:
   - description: The name for the application.
     name: APPLICATION_NAME
     required: true
-    value: basket
+    value: "basket"
   - description: The version for the application.
     name: APPLICATION_VERSION
     required: true
     value: "0.0.1-SNAPSHOT"
+  - description: The Spring Active Profile.
+    name: SPRING_PROFILES_ACTIVE
+    required: true
+    value: "prd"
   - description: The version label for the application.
     name: VERSION_LABEL
     value: "v1"
+
+
