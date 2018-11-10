@@ -22,8 +22,8 @@ oc delete svc -l app=${APP} -n ${PROD_PROJECT}
 oc delete bc -l app=${APP} -n ${PROD_PROJECT}
 oc delete routes -l app=${APP} -n ${PROD_PROJECT}
 
-oc delete configmap ${APP}-config --ignore-not-found=true -n ${PROD_PROJECT}
-oc create configmap ${APP}-config --from-file=config/config.${SAP}.properties -n ${PROD_PROJECT}
+oc delete configmap ${APP}-${SAP}-config --ignore-not-found=true -n ${PROD_PROJECT}
+oc create configmap ${APP}-${SAP}-config --from-file=config/config.${SAP}.properties -n ${PROD_PROJECT}
 
 oc new-app -f ../../spring-boot-prd-template.yaml \
     -p APPLICATION_NAME=${APP} \
