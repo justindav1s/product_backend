@@ -19,7 +19,6 @@ import javax.annotation.PostConstruct;
 
 @Configuration
 @PropertySources({
-        @PropertySource("config.default.properties"),
         @PropertySource(value = "file:/config/config.${spring.profiles.active:default}.properties", ignoreResourceNotFound = true)
 })
 @EnableAutoConfiguration
