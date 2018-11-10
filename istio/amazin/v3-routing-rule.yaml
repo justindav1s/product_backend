@@ -4,18 +4,18 @@ metadata:
   name: inventory
 spec:
   hosts:
-  - inventory
+  - inventory.prd
   http:
   - route:
     - destination:
-        host: inventory
+        host: inventory.prd
         subset: v1
       weight: 0
     - destination:
-        host: inventory
+        host: inventory.prd
         subset: v2
       weight: 0
     - destination:
-        host: inventory
+        host: inventory.prd
         subset: v3
       weight: 100

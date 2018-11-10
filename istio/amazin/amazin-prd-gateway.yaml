@@ -28,7 +28,7 @@ spec:
         prefix: /api
     route:
     - destination:
-        host: api-gateway
+        host: api-gateway.prd
         port:
           number: 8080
 
