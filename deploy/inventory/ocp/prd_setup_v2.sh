@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
 APP=inventory
+ENV=prd
 IMAGE_NAME=${APP}
 IMAGE_TAG=0.0.1-SNAPSHOT
 SAP=v2
-APP_SA=${APP}-sa
+SERVICEACCOUNT_NAME=${APP}-${ENV}-sa
+SERVICE_NAME=${APP}-${ENV}
 
 . ../../../env.sh
 
@@ -22,12 +24,14 @@ oc new-app -f ../../spring-boot-prd-deploy-template.yaml \
     -p IMAGE_NAME=${IMAGE_NAME} \
     -p IMAGE_TAG=${IMAGE_TAG} \
     -p SPRING_PROFILES_ACTIVE=${SAP} \
-    -p VERSION_LABEL=${SAP}
+    -p VERSION_LABEL=${SAP} \
+    -p SERVICEACCOUNT_NAME=${SERVICEACCOUNT_NAME}
+
 
 oc set triggers deployment/${APP}-${SAP} --from-config
 
 sleep 2
 
 oc policy add-role-to-group system:image-puller system:serviceaccounts:${PROD_PROJECT} -n ${DEV_PROJECT}
-oc policy add-role-to-group system:image-puller system:serviceaccounts:${APP_SA} -n ${DEV_PROJECT}
-oc adm policy add-scc-to-user privileged -z ${APP_SA}
+oc policy add-role-to-group system:image-puller system:serviceaccounts:${SERVICEACCOUNT_NAME} -n ${DEV_PROJECT}
+oc adm policy add-scc-to-user privileged -z ${SERVICEACCOUNT_NAME}

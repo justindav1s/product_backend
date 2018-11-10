@@ -10,7 +10,7 @@ objects:
     annotations:
     labels:
       app: ${APPLICATION_NAME}
-    name: ${APPLICATION_NAME}-$[SPRING_PROFILES_ACTIVE}-sa
+    name: ${SERVICEACCOUNT_NAME}
 
 - apiVersion: v1
   kind: Service
@@ -18,7 +18,7 @@ objects:
     annotations:
     labels:
       app: ${APPLICATION_NAME}
-    name: ${SERVICE_NAME}-${SPRING_PROFILES_ACTIVE}
+    name: ${SERVICE_NAME}
   spec:
     ports:
       - name: http
@@ -35,10 +35,14 @@ parameters:
     name: APPLICATION_NAME
     required: true
     value: "basket"
-  - description: The Spring Active Profile.
-    name: SPRING_PROFILES_ACTIVE
+  - description: The name for the application.
+    name: SERVICE_NAME
     required: true
-    value: "prd"
+    value: "basket-prd"
+  - description: The ServiceAccount name.
+    name: SERVICEACCOUNT_NAME
+    required: true
+    value: "basket-prd-sa"
 
 
 
