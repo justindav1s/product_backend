@@ -3,12 +3,17 @@ oc delete project bookinfo
 
 oc new-project bookinfo
 
+oc label namespace bookinfo istio-injection=enabled
+
 oc adm policy add-scc-to-user anyuid -z default
 oc adm policy add-scc-to-user privileged -z default
 
 oc apply -f bookinfo.yaml
+
 oc apply -f bookinfo-gateway.yaml
-oc apply -f destination-rule-all-mlts.yaml
+
+oc apply -f destination-rule-all-mtls.yaml
+
 
 echo Go to : http://$(oc get route -n istio-system istio-ingressgateway -o jsonpath='{.spec.host}')/productpage
 
