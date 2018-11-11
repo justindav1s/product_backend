@@ -6,3 +6,5 @@ oc delete rbacconfig default
 
 oc apply -f rbac_on.yaml
 
+oc describe rbacconfig -n istio-system
+
