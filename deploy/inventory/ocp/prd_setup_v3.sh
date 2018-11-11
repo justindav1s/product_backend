@@ -4,7 +4,8 @@ APP=inventory
 ENV=prd
 IMAGE_NAME=${APP}
 IMAGE_TAG=0.0.1-SNAPSHOT
-SAP=v3
+SPRING_PROFILES_ACTIVE=v2
+VERSION_LABEL=v2
 SERVICEACCOUNT_NAME=${APP}-${ENV}-sa
 SERVICE_NAME=${APP}-${ENV}
 
@@ -14,23 +15,17 @@ oc login https://${IP}:8443 -u $USER
 
 oc project ${PROD_PROJECT}
 
-oc delete deployments ${APP}-${SAP} -n ${PROD_PROJECT}
+oc delete deployments ${APP}-${VERSION_LABEL} -n ${PROD_PROJECT}
 
-oc delete configmap ${APP}-${SAP}-config --ignore-not-found=true -n ${PROD_PROJECT}
-oc create configmap ${APP}-${SAP}-config --from-file=config/config.${SAP}.properties -n ${PROD_PROJECT}
+oc delete configmap ${APP}-${SPRING_PROFILES_ACTIVE}-config --ignore-not-found=true -n ${PROD_PROJECT}
+oc create configmap ${APP}-${SPRING_PROFILES_ACTIVE}-config --from-file=config/config.${SPRING_PROFILES_ACTIVE}.properties -n ${PROD_PROJECT}
 
 oc new-app -f ../../spring-boot-prd-deploy-template.yaml \
     -p APPLICATION_NAME=${APP} \
     -p IMAGE_NAME=${IMAGE_NAME} \
     -p IMAGE_TAG=${IMAGE_TAG} \
-    -p SPRING_PROFILES_ACTIVE=${SAP} \
-    -p VERSION_LABEL=${SAP} \
+    -p SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE} \
+    -p VERSION_LABEL=${VERSION_LABEL} \
     -p SERVICEACCOUNT_NAME=${SERVICEACCOUNT_NAME}
 
-oc set triggers deployment/${APP}-${SAP} --from-config
-
-sleep 2
-
-oc policy add-role-to-group system:image-puller system:serviceaccounts:${PROD_PROJECT} -n ${DEV_PROJECT}
-oc policy add-role-to-group system:image-puller system:serviceaccounts:${SERVICEACCOUNT_NAME} -n ${DEV_PROJECT}
-oc adm policy add-scc-to-user privileged -z ${SERVICEACCOUNT_NAME}
+oc set triggers deployment/${APP}-${VERSION_LABEL} --from-config

@@ -15,12 +15,25 @@ oc login https://${IP}:8443 -u $USER
 
 oc project ${PROD_PROJECT}
 
-oc delete deployments ${APP}-${SAP} -n ${PROD_PROJECT}
+oc delete deployments ${APP}-${VERSION_LABEL} -n ${PROD_PROJECT}
 oc delete svc ${SERVICE_NAME} -n ${PROD_PROJECT}
 oc delete sa ${SERVICEACCOUNT_NAME} -n ${PROD_PROJECT}
 
-oc delete configmap ${APP}-${SAP}-config --ignore-not-found=true -n ${PROD_PROJECT}
-oc create configmap ${APP}-${SAP}-config --from-file=config/config.${SPRING_PROFILES_ACTIVE}.properties -n ${PROD_PROJECT}
+oc delete configmap ${APP}-${SPRING_PROFILES_ACTIVE}-config --ignore-not-found=true -n ${PROD_PROJECT}
+oc create configmap ${APP}-${SPRING_PROFILES_ACTIVE}-config --from-file=config/config.${SPRING_PROFILES_ACTIVE}.properties -n ${PROD_PROJECT}
+
+oc new-app -f ../../service-template.yaml \
+    -p APPLICATION_NAME=${APP} \
+    -p SERVICEACCOUNT_NAME=${SERVICEACCOUNT_NAME} \
+    -p SERVICE_NAME=${SERVICE_NAME}
+
+sleep 2
+
+oc policy add-role-to-group system:image-puller system:serviceaccounts:${PROD_PROJECT} -n ${DEV_PROJECT}
+oc policy add-role-to-group system:image-puller system:serviceaccounts:${SERVICEACCOUNT_NAME} -n ${DEV_PROJECT}
+oc adm policy add-scc-to-user privileged -z ${SERVICEACCOUNT_NAME}
+
+sleep 2
 
 oc new-app -f ../../spring-boot-prd-deploy-template.yaml \
     -p APPLICATION_NAME=${APP} \
@@ -30,15 +43,4 @@ oc new-app -f ../../spring-boot-prd-deploy-template.yaml \
     -p VERSION_LABEL=${VERSION_LABEL} \
     -p SERVICEACCOUNT_NAME=${SERVICEACCOUNT_NAME}
 
-oc new-app -f ../../service-template.yaml \
-    -p APPLICATION_NAME=${APP} \
-    -p SERVICEACCOUNT_NAME=${SERVICEACCOUNT_NAME} \
-    -p SERVICE_NAME=${SERVICE_NAME}
-
-oc set triggers deployment/${APP}-${VERSION_LABEL} --from-config
-
-sleep 2
-
-oc policy add-role-to-group system:image-puller system:serviceaccounts:${PROD_PROJECT} -n ${DEV_PROJECT}
-oc policy add-role-to-group system:image-puller system:serviceaccounts:${SERVICEACCOUNT_NAME} -n ${DEV_PROJECT}
-oc adm policy add-scc-to-user privileged -z ${SERVICEACCOUNT_NAME}
+}oc set triggers deployment/${APP}-${VERSION_LABEL} --from-config
