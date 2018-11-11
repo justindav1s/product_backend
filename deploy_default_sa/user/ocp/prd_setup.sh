@@ -36,5 +36,3 @@ oc new-app -f ../../spring-boot-prd-deploy-template.yaml \
     -p VERSION_LABEL=${VERSION_LABEL}
 
 oc set triggers deployment/${APP}-${VERSION_LABEL} --from-config
-
-
