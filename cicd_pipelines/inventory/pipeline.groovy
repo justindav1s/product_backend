@@ -154,6 +154,7 @@ node('maven') {
                     def rm = openshift.selector("deployment", [app:app_name, version:prodTag]).rollout().latest()
                     //wait for rollout to start
                     timeout(5) {
+                        openshift.selector("deployment", [app:app_name, version:prodTag]).related('pods').describe()
                         openshift.selector("deployment", [app:app_name, version:prodTag]).related('pods').untilEach(1) {
                             return (it.object().status.phase == "Running")
                         }
