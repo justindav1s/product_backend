@@ -135,7 +135,9 @@ node('maven') {
                     openshift.tag("${app_name}:${devTag}", "${app_name}:${prodTag}")
                 }
 
-//                openshift.withProject(prod_project) {
+                openshift.withProject(prod_project) {
+
+                    echo "Deploy .... Image to Production"
 //
 //                    //update deployment config with new image
 //                    openshift.set("image", "deployment/${app_name}-${prodTag}", "${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${prodTag}")
@@ -162,7 +164,7 @@ node('maven') {
 //                        return (rcMap.status.replicas.equals(rcMap.status.readyReplicas))
 //                    }
 //                    //deployment finished
-//                }
+                }
 
             }
             echo "Deploying container image to Production Project : FINISHED"
