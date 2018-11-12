@@ -146,14 +146,15 @@ node('maven') {
 //                    openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
 //                    openshift.create("configmap", "${app_name}-config", "--from-file=../../src/${app_name}/src/main/resources/config.${prodTag}.properties")
 //
-//                    //trigger a rollout of the new image
-//                    def rm = openshift.selector("deployment", [app:${app_name}-${prodTag}]).rollout().latest()
-//                    //wait for rollout to start
-//                    timeout(5) {
-//                        openshift.selector("deployment", [app:${app_name}-${prodTag}]).related('pods').untilEach(1) {
-//                            return (it.object().status.phase == "Running")
-//                        }
-//                    }
+                    echo "Begin Rollout .... Image to Production"
+                    //trigger a rollout of the new image
+                    def rm = openshift.selector("deployment", [app:${app_name}-${prodTag}]).rollout().latest()
+                    //wait for rollout to start
+                    timeout(5) {
+                        openshift.selector("deployment", [app:${app_name}-${prodTag}]).related('pods').untilEach(1) {
+                            return (it.object().status.phase == "Running")
+                        }
+                    }
 //                    //rollout has started
 //
 //                    //wait for deployment to finish and for new pods to become active
