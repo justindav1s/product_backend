@@ -113,6 +113,14 @@ node('maven') {
             echo "Deploying container image to Development Project : FINISHED"
 
         }
+
+        stage('Wait for approval for ${app_name} to be staged into production') {
+            if (approval_required) {
+                timeout(time: 2, unit: 'DAYS') {
+                    input message: 'Approve this ${app_name} build to be staged in production ?'
+                }
+            }
+        }
     }
 }
 
