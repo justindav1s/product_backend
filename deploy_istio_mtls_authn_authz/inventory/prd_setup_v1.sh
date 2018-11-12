@@ -22,7 +22,7 @@ oc delete sa ${SERVICEACCOUNT_NAME} -n ${PROD_PROJECT}
 oc delete configmap ${APP}-${SPRING_PROFILES_ACTIVE}-config --ignore-not-found=true -n ${PROD_PROJECT}
 oc create configmap ${APP}-${SPRING_PROFILES_ACTIVE}-config --from-file=../../src/inventory/src/main/resources/config.${SPRING_PROFILES_ACTIVE}.properties -n ${PROD_PROJECT}
 
-oc new-app -f ../../service-template.yaml \
+oc new-app -f ../service-template.yaml \
     -p APPLICATION_NAME=${APP} \
     -p SERVICEACCOUNT_NAME=${SERVICEACCOUNT_NAME} \
     -p SERVICE_NAME=${SERVICE_NAME}
@@ -35,7 +35,7 @@ oc adm policy add-scc-to-user privileged -z ${SERVICEACCOUNT_NAME}
 
 sleep 2
 
-oc new-app -f ../../spring-boot-prd-deploy-template.yaml \
+oc new-app -f ../spring-boot-prd-deploy-template.yaml \
     -p APPLICATION_NAME=${APP} \
     -p IMAGE_NAME=${IMAGE_NAME} \
     -p IMAGE_TAG=${IMAGE_TAG} \
