@@ -138,9 +138,9 @@ node('maven') {
                 openshift.withProject(prod_project) {
 
                     echo "Deploy .... Image to Production"
-//
-//                    //update deployment config with new image
-//                    openshift.set("image", "deployment/${app_name}-${prodTag}", "${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${prodTag}")
+
+                    //update deployment config with new image
+                    openshift.set("image", "deployment/${app_name}-${prodTag}", "${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${prodTag}")
 //
 //                    //update app config
 //                    openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
