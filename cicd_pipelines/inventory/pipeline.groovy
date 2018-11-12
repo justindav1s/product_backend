@@ -146,7 +146,7 @@ node('maven') {
 //                    //update app config
                     openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
                     openshift.create("configmap", "${app_name}-config", "--from-file=../../src/${app_name}/src/main/resources/config.${prodTag}.properties")
-                    sh "oc patch deployment/inventory-v3 -p \"{\\\"spec\\\":{\\\"template\\\":{\\\"metadata\\\":{\\\"annotations\\\":{\\\"date\\\":\\\"`date +'%s'`\\\"}}}}}\""
+                    sh "oc patch deployment/inventory-v3 -p \"{\\\"spec\\\":{\\\"template\\\":{\\\"metadata\\\":{\\\"annotations\\\":{\\\"date\\\":\\\"`date +'%s'`\\\"}}}}}\" -n ${prod_project}"
 //
 //                    echo "Begin Rollout .... Image to Production"
 //                    //trigger a rollout of the new image
