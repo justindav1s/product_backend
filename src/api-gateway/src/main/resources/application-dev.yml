@@ -1,18 +1,18 @@
 spring:
   application:
-    name: api-gateway.dev
+    name: api-gateway.build.test
 
 server:
   port: 8080
 
 basket:
-  host: basket:8080
+  host: basket-amazin-dev.apps.ocp.datr.eu
 
 inventory:
-  host: inventory:8080
+  host: inventory-amazin-dev.apps.ocp.datr.eu
 
 user:
-  host: user:8080
+  host: user-amazin-dev.apps.ocp.datr.eu
 
 opentracing:
   jaeger:
@@ -20,3 +20,4 @@ opentracing:
     opentracing.jaeger.expand-exception-logs: true
     http-sender:
       url: http://jaeger-collector.istio-system.svc:14268/api/traces
+

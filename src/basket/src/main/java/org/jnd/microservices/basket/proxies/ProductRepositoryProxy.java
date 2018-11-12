@@ -26,42 +26,6 @@ public class ProductRepositoryProxy {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-//    public Product getProduct(String id, HttpHeaders headers) {
-//
-//        log.debug("ProductRepositoryProxy get Product id : "+id);
-//
-//
-//        ResponseEntity<Product> exchange =
-//                this.restTemplate.exchange(
-//                        "http://"+inventory_host+"/products/{id}",
-//                        HttpMethod.GET,
-//                        null,
-//                        new ParameterizedTypeReference<Product>() {},
-//                        id);
-//
-//        Product resp = exchange.getBody();
-//        log.debug("Product Response : "+resp);
-//
-//        if (resp == null)
-//            throw new RuntimeException();
-//
-//        return resp;
-//    }
-
-//    public Object getAllProducts(HttpHeaders headers) {
-//
-//        Object resp = restTemplate.getForObject("http://inventory:8080/products/all", Object.class);
-//
-//        log.debug("Product Response : "+resp);
-//
-//        if (resp == null)
-//            throw new RuntimeException();
-//
-//        return resp;
-//    }
-
-
-
     public ResponseEntity<Product> getProduct(String id, HttpHeaders headers) {
 
         log.debug("ProductRepositoryProxy get Product id : "+id);

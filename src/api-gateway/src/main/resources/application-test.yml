@@ -20,7 +20,4 @@ opentracing:
     opentracing.jaeger.expand-exception-logs: true
     http-sender:
       url: http://jaeger-collector.istio-system.svc:14268/api/traces
-#    udp-sender:
-#      host: jaeger-collector.istio-system.svc
-#      port: 14267
 
