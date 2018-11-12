@@ -30,20 +30,21 @@ public class UserProxy {
 
         HttpEntity<User> request = new HttpEntity<>(user, headers);
 
-        ResponseEntity<User> exchange =
-                this.restTemplate.exchange(
-                        "http://"+ user_host +"/user/login",
-                        HttpMethod.POST,
-                        request,
-                        User.class);
+        ResponseEntity<User> exchange = null;
+        try {
+            exchange =
+                    this.restTemplate.exchange(
+                            "http://" + user_host + "/user/login",
+                            HttpMethod.POST,
+                            request,
+                            User.class);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
         user = exchange.getBody();
         log.debug("UserProxy login Response : "+user);
-
-
-
-        if (user == null)
-            throw new RuntimeException();
 
         return exchange;
     }
