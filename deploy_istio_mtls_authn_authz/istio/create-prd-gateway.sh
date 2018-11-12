@@ -2,7 +2,7 @@
 
 oc project amazin-prod
 
-oc delete rbaconfig --all -n isio-system
+oc delete rbacconfig --all -n istio-system
 oc delete servicerole --all
 oc delete servicerolebinding --all
 oc delete policy --all

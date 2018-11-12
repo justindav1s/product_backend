@@ -12,7 +12,7 @@ spec:
 apiVersion: "rbac.istio.io/v1alpha1"
 kind: ServiceRoleBinding
 metadata:
-  name: bind-api-gateway-prd-all-role
+  name: bind-user-prd-all-role
 spec:
   subjects:
   - user: "cluster.local/ns/amazin-prod/sa/api-gateway-prd-sa"
