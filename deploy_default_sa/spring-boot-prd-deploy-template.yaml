@@ -43,6 +43,28 @@ objects:
             ports:
             - containerPort: 8080
             name: ${APPLICATION_NAME}
+            livenessProbe:
+              failureThreshold: 3
+              exec:
+                command:
+                - curl
+                - -f
+                - http://localhost:8080/health
+              initialDelaySeconds: 10
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+            readinessProbe:
+              failureThreshold: 3
+              exec:
+                command:
+                - curl
+                - -f
+                - http://localhost:8080/health
+              initialDelaySeconds: 10
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
             resources: {}
             terminationMessagePath: /dev/termination-log
             terminationMessagePolicy: File
