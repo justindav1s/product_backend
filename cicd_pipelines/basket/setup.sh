@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-APP=data-model
-S2I_IMAGE=redhat-openjdk18-openshift:1.2
-
-. ../../../env.sh
+APP=basket
+. ../../env.sh
 
 #turn on "Prevent Cross-site scripting"
 CRUMB_JSON=$(${CURL} "https://${JENKINS_USER}:${JENKINS_TOKEN}@${JENKINS}/crumbIssuer/api/json")
@@ -19,7 +17,7 @@ ${CURL} -H "Content-Type: text/xml" \
 
 sleep 5
 
-${CURL} -k -v -H "Content-Type: text/xml" \
+${CURL} -H "Content-Type: text/xml" \
   --user ${JENKINS_USER}:${JENKINS_TOKEN} \
   -H Jenkins-Crumb:${CRUMB} \
   --data-binary @config.xml \

@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-APP=basket
-. ../../../env.sh
+APP=inventory
+
+. ../../env.sh
 
 #turn on "Prevent Cross-site scripting"
 CRUMB_JSON=$(${CURL} "https://${JENKINS_USER}:${JENKINS_TOKEN}@${JENKINS}/crumbIssuer/api/json")

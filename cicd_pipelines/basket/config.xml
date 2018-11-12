@@ -3,7 +3,7 @@
     <actions>
         <io.jenkins.blueocean.service.embedded.BlueOceanUrlAction plugin="blueocean-rest-impl@1.1.4">
             <blueOceanUrlObject class="io.jenkins.blueocean.service.embedded.BlueOceanUrlObjectImpl">
-                <mappedUrl>blue/organizations/jenkins/amazin-inventory</mappedUrl>
+                <mappedUrl>blue/organizations/jenkins/amazin-basket</mappedUrl>
             </blueOceanUrlObject>
         </io.jenkins.blueocean.service.embedded.BlueOceanUrlAction>
     </actions>
@@ -29,7 +29,7 @@
                 <hudson.model.StringParameterDefinition>
                     <name>app_name</name>
                     <description>the product name</description>
-                    <defaultValue>inventory</defaultValue>
+                    <defaultValue>basket</defaultValue>
                 </hudson.model.StringParameterDefinition>
                 <hudson.model.StringParameterDefinition>
                     <name>git_url</name>
@@ -74,7 +74,7 @@
             <submoduleCfg class="list"/>
             <extensions/>
         </scm>
-        <scriptPath>cicd_pipelines/inventory/cicd/pipeline.groovy</scriptPath>
+        <scriptPath>cicd_pipelines/basket/pipeline.groovy</scriptPath>
         <lightweight>true</lightweight>
     </definition>
     <triggers/>

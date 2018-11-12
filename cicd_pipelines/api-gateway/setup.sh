@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
-APP=user
-. ../../../env.sh
+APP=api-gateway
+. ../../env.sh
+
 
 #turn on "Prevent Cross-site scripting"
 
-CRUMB_JSON=$(${CURL} "https://${JENKINS_USER}:${JENKINS_TOKEN}@${JENKINS}/crumbIssuer/api/json")
+CRUMB_JSON=$(${CURL} -s "https://${JENKINS_USER}:${JENKINS_TOKEN}@${JENKINS}/crumbIssuer/api/json")
 
 echo CRUMB_JSON=$CRUMB_JSON
 CRUMB=$(echo $CRUMB_JSON | jq -r .crumb)

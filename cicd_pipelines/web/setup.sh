@@ -2,7 +2,7 @@
 
 APP=web
 
-. ../../../env.sh
+. ../../env.sh
 
 
 #turn on "Prevent Cross-site scripting"
