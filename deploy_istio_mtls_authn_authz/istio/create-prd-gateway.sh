@@ -19,8 +19,10 @@ oc apply -f rbac-on.yaml -n istio-system
 oc apply -f authn-policy.yaml -n amazin-prod
 
 #Authz config
-oc apply -f authz-roles.yaml -n amazin-prod
-oc apply -f authz-bindings.yaml -n amazin-prod
+oc apply -f authz-api-gateway.yaml -n amazin-prod
+oc apply -f authz-user.yaml -n amazin-prod
+oc apply -f authz-basket.yaml -n amazin-prod
+oc apply -f authz-inventory.yaml -n amazin-prod
 
 oc apply -f amazin-prd-gateway.yaml -n amazin-prod
 oc apply -f amazin-prd-destrules-mtls.yaml -n amazin-prod
