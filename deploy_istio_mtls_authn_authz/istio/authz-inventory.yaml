@@ -13,7 +13,8 @@ metadata:
   name: bind-inventory-prd-all-role
 spec:
   subjects:
-  - user: "*"
+  - user: "cluster.local/ns/amazin-prod/sa/basket-prd-sa"
+  - user: "cluster.local/ns/amazin-prod/sa/api-gateway-prd-sa"
   roleRef:
     kind: ServiceRole
     name: "inventory-prd-all-role"

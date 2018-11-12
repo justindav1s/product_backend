@@ -13,7 +13,8 @@ metadata:
   name: bind-basket-prd-all-role
 spec:
   subjects:
-  - user: "*"
+  - user: "cluster.local/ns/amazin-prod/sa/user-prd-sa"
+  - user: "cluster.local/ns/amazin-prod/sa/api-gateway-prd-sa"
   roleRef:
     kind: ServiceRole
     name: "basket-prd-all-role"
