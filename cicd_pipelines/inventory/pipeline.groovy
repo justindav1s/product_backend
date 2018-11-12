@@ -134,25 +134,25 @@ node('maven') {
                     openshift.tag("${app_name}:${devTag}", "${app_name}:${prodTag}")
 
                     //update deployment config with new image
-                    openshift.set("image", "deployment/${app_name}", "${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${prodTag}")
+                    openshift.set("image", "deployment/${app_name}-${prodTag}", "${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${prodTag}")
 
                     //update app config
                     openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
-                    openshift.create("configmap", "${app_name}-config", "--from-file=../../src/${app_name}/src/main/resources/config.prd.properties")
+                    openshift.create("configmap", "${app_name}-config", "--from-file=../../src/${app_name}/src/main/resources/config.${prodTag}.properties")
 
                     //trigger a rollout of the new image
-                    def rm = openshift.selector("deployment", [app:app_name]).rollout().latest()
+                    def rm = openshift.selector("deployment", [app:${app_name}-${prodTag}]).rollout().latest()
                     //wait for rollout to start
                     timeout(5) {
-                        openshift.selector("deployment", [app:app_name]).related('pods').untilEach(1) {
+                        openshift.selector("deployment", [app:${app_name}-${prodTag}]).related('pods').untilEach(1) {
                             return (it.object().status.phase == "Running")
                         }
                     }
                     //rollout has started
 
                     //wait for deployment to finish and for new pods to become active
-                    def latestDeploymentVersion = openshift.selector('deployment',[app:app_name]).object().status.latestVersion
-                    def rc = openshift.selector("replicaset", "${app_name}-${latestDeploymentVersion}")
+                    def latestDeploymentVersion = openshift.selector('deployment',[app:${app_name}-${prodTag}]).object().status.latestVersion
+                    def rc = openshift.selector("replicaset", "${app_name}-${prodTag}-${latestDeploymentVersion}")
                     rc.untilEach(1) {
                         def rcMap = it.object()
                         return (rcMap.status.replicas.equals(rcMap.status.readyReplicas))
