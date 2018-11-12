@@ -67,14 +67,14 @@
             </userRemoteConfigs>
             <branches>
                 <hudson.plugins.git.BranchSpec>
-                    <name>*/xip.io</name>
+                    <name>*/master</name>
                 </hudson.plugins.git.BranchSpec>
             </branches>
             <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
             <submoduleCfg class="list"/>
             <extensions/>
         </scm>
-        <scriptPath>deploy/basket/cicd/pipeline.groovy</scriptPath>
+        <scriptPath>cicd_pipelines/basket/cicd/pipeline.groovy</scriptPath>
         <lightweight>true</lightweight>
     </definition>
     <triggers/>
