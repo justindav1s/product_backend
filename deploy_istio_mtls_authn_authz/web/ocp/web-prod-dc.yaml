@@ -29,6 +29,8 @@ objects:
         updatePeriodSeconds: 1
       type: RollingUpdate
     template:
+      annotations:
+        sidecar.istio.io/inject: "false"
       metadata:
         labels:
           app: web
@@ -81,6 +83,7 @@ objects:
   spec:
     ports:
     - port: 8080
+      name: http
       protocol: TCP
       targetPort: 8080
     selector:
