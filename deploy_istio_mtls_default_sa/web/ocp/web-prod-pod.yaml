@@ -5,12 +5,13 @@ metadata:
   name: web-prod-dc
 objects:
 
+#don't want istio injection for web gui, this is simply an nginx that provides an angular app to the browser
+#annotation sidecar.istio.io/inject: 'false' seems to be ignored when added to Deployment, need to add it to pod instead
 - apiVersion: v1
   kind: Pod
   metadata:
     annotations:
       sidecar.istio.io/inject: 'false'
-      openshift.io/scc: anyuid
     labels:
       app: web
       version: v1
@@ -20,12 +21,21 @@ objects:
     - image: docker-registry.default.svc:5000/amazin-prod/web:0.0.1
       imagePullPolicy: Always
       livenessProbe:
-        exec:
-          command:
-          - curl
-          - -f
-          - http://localhost:8080/
         failureThreshold: 3
+        httpGet:
+          path: /
+          port: 8080
+          scheme: HTTP
+        initialDelaySeconds: 10
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 1
+      readinessProbe:
+        failureThreshold: 3
+        httpGet:
+          path: /
+          port: 8080
+          scheme: HTTP
         initialDelaySeconds: 10
         periodSeconds: 10
         successThreshold: 1
@@ -34,17 +44,6 @@ objects:
       ports:
       - containerPort: 8080
         protocol: TCP
-      readinessProbe:
-        exec:
-          command:
-          - curl
-          - -f
-          - http://localhost:8080/
-        failureThreshold: 3
-        initialDelaySeconds: 10
-        periodSeconds: 10
-        successThreshold: 1
-        timeoutSeconds: 1
       resources: {}
       terminationMessagePath: /dev/termination-log
       terminationMessagePolicy: File
@@ -65,3 +64,18 @@ objects:
       app: web
     sessionAffinity: None
     type: ClusterIP
+
+- apiVersion: v1
+  kind: Route
+  metadata:
+    labels:
+      app: web
+    name: web
+  spec:
+    port:
+      targetPort: http
+    to:
+      kind: Service
+      name: web
+      weight: 100
+    wildcardPolicy: None
