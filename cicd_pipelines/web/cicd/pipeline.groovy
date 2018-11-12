@@ -70,8 +70,6 @@ node('nodejs') {
 
         sh "oc set image deployment/${app_name} ${app_name}=docker-registry.default.svc:5000/${prod_project}/${app_name}:${prodTag} -n ${prod_project}"
 
-        openshiftDeploy apiURL: '', authToken: '', depCfg: app_name, namespace: prod_project, verbose: 'false', waitTime: '180', waitUnit: 'sec'
-        openshiftVerifyDeployment apiURL: '', authToken: '', depCfg: app_name, namespace: prod_project, replicaCount: '1', verbose: 'false', verifyReplicaCount: 'true', waitTime: '180', waitUnit: 'sec'
       }
     }
 }

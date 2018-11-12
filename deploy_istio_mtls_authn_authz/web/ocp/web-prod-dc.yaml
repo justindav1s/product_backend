@@ -4,6 +4,7 @@ metadata:
   creationTimestamp: null
   name: web-prod-dc
 objects:
+
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
@@ -70,3 +71,19 @@ objects:
         securityContext: {}
         terminationGracePeriodSeconds: 30
     test: false
+
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app: web
+    name: web
+  spec:
+    ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: web
+    sessionAffinity: None
+    type: ClusterIP
