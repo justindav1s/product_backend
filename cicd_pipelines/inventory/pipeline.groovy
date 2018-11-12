@@ -141,7 +141,7 @@ node('maven') {
                     echo "Deploy .... Image to Production : ${deployment}"
 
                     //update deployment config with new image
-                    openshift.set("image", "deployment/${app_name}-${prodTag}", "${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${prodTag}")
+                    openshift.set("image", "deployment/${deployment}", "${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${prodTag}")
 //
 //                    //update app config
 //                    openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
@@ -149,13 +149,13 @@ node('maven') {
 //
                     echo "Begin Rollout .... Image to Production"
                     //trigger a rollout of the new image
-                    def desc = openshift.selector("deployment", [app:app_name, version:prodTag]).describe();
+                    def desc = openshift.selector("deployment/${deployment}").describe();
                     echo desc
-                    def rm = openshift.selector("deployment", [app:app_name, version:prodTag]).rollout().latest()
+                    def rm = openshift.selector("deployment/${deployment}").rollout().latest()
                     //wait for rollout to start
                     timeout(5) {
-                        openshift.selector("deployment", [app:app_name, version:prodTag]).related('pods').describe()
-                        openshift.selector("deployment", [app:app_name, version:prodTag]).related('pods').untilEach(1) {
+                        openshift.selector("deployment/${deployment}").related('pods').describe()
+                        openshift.selector("deployment/${deployment}").related('pods').untilEach(1) {
                             return (it.object().status.phase == "Running")
                         }
                     }

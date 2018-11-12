@@ -10,6 +10,7 @@ objects:
     annotations:
     labels:
       app: ${APPLICATION_NAME}
+      version: ${VERSION_LABEL}
     name: ${APPLICATION_NAME}-${VERSION_LABEL}
   spec:
     progressDeadlineSeconds: 600
