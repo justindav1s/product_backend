@@ -149,6 +149,8 @@ node('maven') {
 //
                     echo "Begin Rollout .... Image to Production"
                     //trigger a rollout of the new image
+                    openshift.selector("deployment", [app:app_name, version:prodTag]).describe();
+
                     def rm = openshift.selector("deployment", [app:app_name, version:prodTag]).rollout().latest()
                     //wait for rollout to start
                     timeout(5) {
