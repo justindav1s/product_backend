@@ -128,10 +128,13 @@ node('maven') {
             echo "Prod Tag : ${prodTag}"
 
             openshift.withCluster() {
-                openshift.withProject(prod_project) {
+                openshift.withProject(dev_project) {
 
                     echo "Tagging .... Image for Production"
                     openshift.tag("${app_name}:${devTag}", "${app_name}:${prodTag}")
+                }
+
+                openshift.withProject(prod_project) {
 
                     //update deployment config with new image
                     openshift.set("image", "deployment/${app_name}-${prodTag}", "${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${prodTag}")
