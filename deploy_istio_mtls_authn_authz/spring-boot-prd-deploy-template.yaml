@@ -40,23 +40,27 @@ objects:
                 value: "${SPRING_PROFILES_ACTIVE}"
             image: "docker-registry.default.svc:5000/amazin-dev/${IMAGE_NAME}:${IMAGE_TAG}"
             imagePullPolicy: Always
+            ports:
+            - containerPort: 8080
+            name: ${APPLICATION_NAME}
             livenessProbe:
               failureThreshold: 3
-              httpGet:
-                path: /health
-                port: 8080
-                scheme: HTTP
+              exec:
+                command:
+                - curl
+                - -f
+                - http://localhost:8080/health
               initialDelaySeconds: 10
               periodSeconds: 10
               successThreshold: 1
               timeoutSeconds: 1
-            name: ${APPLICATION_NAME}
             readinessProbe:
               failureThreshold: 3
-              httpGet:
-                path: /health
-                port: 8080
-                scheme: HTTP
+              exec:
+                command:
+                - curl
+                - -f
+                - http://localhost:8080/health
               initialDelaySeconds: 10
               periodSeconds: 10
               successThreshold: 1
