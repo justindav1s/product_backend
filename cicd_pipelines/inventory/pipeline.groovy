@@ -149,12 +149,9 @@ node('maven') {
 //
                     echo "Begin Rollout .... Image to Production"
                     //trigger a rollout of the new image
-                    def desc = openshift.selector("deployment/${deployment}").describe();
-                    echo desc
                     def rm = openshift.selector("deployment/${deployment}").rollout().latest()
                     //wait for rollout to start
                     timeout(5) {
-                        openshift.selector("deployment/${deployment}").related('pods').describe()
                         openshift.selector("deployment/${deployment}").related('pods').untilEach(1) {
                             return (it.object().status.phase == "Running")
                         }
