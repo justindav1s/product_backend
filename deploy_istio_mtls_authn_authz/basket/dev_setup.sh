@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-APP=user
+APP=basket
 S2I_IMAGE=redhat-openjdk18-openshift:1.4
 
-. ../../../env.sh
+. ../../env.sh
 
 oc login https://${IP}:8443 -u $USER
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-APP=basket
+APP=user
 ENV=prd
 IMAGE_NAME=${APP}
 IMAGE_TAG=0.0.1-SNAPSHOT
@@ -9,7 +9,7 @@ VERSION_LABEL=v1
 SERVICEACCOUNT_NAME=${APP}-${ENV}-sa
 SERVICE_NAME=${APP}-${ENV}
 
-. ../../../env.sh
+. ../../env.sh
 
 oc login https://${IP}:8443 -u $USER
 
@@ -20,7 +20,7 @@ oc delete svc ${SERVICE_NAME} -n ${PROD_PROJECT}
 oc delete sa ${SERVICEACCOUNT_NAME} -n ${PROD_PROJECT}
 
 oc delete configmap ${APP}-${SPRING_PROFILES_ACTIVE}-config --ignore-not-found=true -n ${PROD_PROJECT}
-oc create configmap ${APP}-${SPRING_PROFILES_ACTIVE}-config --from-file=config/config.${SPRING_PROFILES_ACTIVE}.properties -n ${PROD_PROJECT}
+oc create configmap ${APP}-${SPRING_PROFILES_ACTIVE}-config --from-file=../../src/user/src/main/resources/config.${SPRING_PROFILES_ACTIVE}.properties -n ${PROD_PROJECT}
 
 oc new-app -f ../../service-template.yaml \
     -p APPLICATION_NAME=${APP} \
@@ -32,8 +32,6 @@ sleep 2
 oc policy add-role-to-group system:image-puller system:serviceaccounts:${PROD_PROJECT} -n ${DEV_PROJECT}
 oc policy add-role-to-group system:image-puller system:serviceaccounts:${SERVICEACCOUNT_NAME} -n ${DEV_PROJECT}
 oc adm policy add-scc-to-user privileged -z ${SERVICEACCOUNT_NAME}
-
-sleep 2
 
 oc new-app -f ../../spring-boot-prd-deploy-template.yaml \
     -p APPLICATION_NAME=${APP} \

@@ -9,7 +9,7 @@ VERSION_LABEL=v1
 SERVICEACCOUNT_NAME=${APP}-${ENV}-sa
 SERVICE_NAME=${APP}-${ENV}
 
-. ../../../env.sh
+. ../../env.sh
 
 oc login https://${IP}:8443 -u $USER
 
@@ -20,7 +20,7 @@ oc delete svc ${SERVICE_NAME} -n ${PROD_PROJECT}
 oc delete sa ${SERVICEACCOUNT_NAME} -n ${PROD_PROJECT}
 
 oc delete configmap ${APP}-${SPRING_PROFILES_ACTIVE}-config --ignore-not-found=true -n ${PROD_PROJECT}
-oc create configmap ${APP}-${SPRING_PROFILES_ACTIVE}-config --from-file=config/config.${SPRING_PROFILES_ACTIVE}.properties -n ${PROD_PROJECT}
+oc create configmap ${APP}-${SPRING_PROFILES_ACTIVE}-config --from-file=../../src/inventory/src/main/resources/config.${SPRING_PROFILES_ACTIVE}.properties -n ${PROD_PROJECT}
 
 oc new-app -f ../../service-template.yaml \
     -p APPLICATION_NAME=${APP} \

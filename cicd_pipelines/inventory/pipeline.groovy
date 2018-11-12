@@ -119,6 +119,50 @@ node('maven') {
                     input message: 'Approve this ${app_name} build to be staged in production ?'
                 }
         }
+
+        // Deploy the built image to the Development Environment.
+        stage('Deploy to Production') {
+            echo "Deploying container image to Production Project"
+            echo "Project : ${pro_project}"
+            echo "App : ${app_name}"
+            echo "Prod Tag : ${prodTag}"
+
+            openshift.withCluster() {
+                openshift.withProject(dev_project) {
+
+                    echo "Tagging .... Image for Production"
+                    openshift.tag("${app_name}:${devTag}", "${app_name}:${prodTag}")
+
+                    //update deployment config with new image
+                    openshift.set("image", "deployment/${app_name}", "${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${prodTag}")
+
+                    //update app config
+                    openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
+                    openshift.create("configmap", "${app_name}-config", "--from-file=${config_file}")
+
+                    //trigger a rollout of the new image
+                    def rm = openshift.selector("dc", [app:app_name]).rollout().latest()
+                    //wait for rollout to start
+                    timeout(5) {
+                        openshift.selector("dc", [app:app_name]).related('pods').untilEach(1) {
+                            return (it.object().status.phase == "Running")
+                        }
+                    }
+                    //rollout has started
+
+                    //wait for deployment to finish and for new pods to become active
+                    def latestDeploymentVersion = openshift.selector('dc',[app:app_name]).object().status.latestVersion
+                    def rc = openshift.selector("rc", "${app_name}-${latestDeploymentVersion}")
+                    rc.untilEach(1) {
+                        def rcMap = it.object()
+                        return (rcMap.status.replicas.equals(rcMap.status.readyReplicas))
+                    }
+                    //deployment finished
+                }
+            }
+            echo "Deploying container image to Production Project : FINISHED"
+
+        }
     }
 }
 

@@ -5,7 +5,7 @@
 APP=web
 S2I_IMAGE=nginx:1.10
 
-. ../../../env.sh
+. ../../env.sh
 
 oc login https://${IP}:8443 -u $USER
 
@@ -18,6 +18,5 @@ oc delete template ${APP}-prod-dc -n ${PROD_PROJECT}
 oc delete configmap ${APP}-config -n ${PROD_PROJECT}
 
 echo Setting up ${APP} for ${PROD_PROJECT}
-#oc new-build --binary=true --strategy=source --labels=app=${APP} --name=${APP} --image-stream=${S2I_IMAGE} -n ${PROD_PROJECT}
 oc new-app -f ./${APP}-prod-pod.yaml --allow-missing-imagestream-tags=true -n ${PROD_PROJECT}
 

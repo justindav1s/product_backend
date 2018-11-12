@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-APP=api-gateway
+APP=user
+S2I_IMAGE=redhat-openjdk18-openshift:1.4
 
-. ../../../env.sh
+. ../../env.sh
 
 oc login https://${IP}:8443 -u $USER
 
@@ -11,8 +12,7 @@ oc project ${DEV_PROJECT}
 oc delete all -l app=${APP} -n ${DEV_PROJECT}
 oc delete pvc -l app=${APP} -n ${DEV_PROJECT}
 oc delete is,bc,dc,svc,route,sa ${APP} -n ${DEV_PROJECT}
-oc delete sa ${APP}-sa -n ${DEV_PROJECT}
-oc delete template ${APP}-dev-dc ${APP}-dev-template spring-boot-dev-template -n ${DEV_PROJECT}
+oc delete template ${APP}-dev-dc ${APP}-dev-template -n ${DEV_PROJECT}
 oc delete configmap ${APP}-config -n ${DEV_PROJECT}
 
 echo Setting up ${APP} for ${DEV_PROJECT}
