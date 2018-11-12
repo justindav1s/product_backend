@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 set -x
-./prd-setup.sh
+
+./prd-project-setup.sh
 
 oc label namespace amazin-prod istio-injection=enabled
 
