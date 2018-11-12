@@ -46,6 +46,6 @@ public class ProductApplication extends SpringBootServletInitializer {
 
     @PostConstruct
     public void debug() {
-        log.info("******** : v1");
+        log.info("******** : v2");
     }
 }
