@@ -15,7 +15,7 @@ metadata:
   name: bind-user-prd-all-role
 spec:
   subjects:
-  - user: "cluster.local/ns/amazin-prod/sa/api-gateway-prd-sa"
+  - user: "*"
   roleRef:
     kind: ServiceRole
     name: "user-prd-all-role"

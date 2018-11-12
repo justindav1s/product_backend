@@ -5,10 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.jnd.microservices.model.User;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -41,6 +38,7 @@ public class UserProxy {
         }
         catch (Exception e) {
             e.printStackTrace();
+            return new ResponseEntity<>(null, null, HttpStatus.SERVICE_UNAVAILABLE);
         }
 
         user = exchange.getBody();
