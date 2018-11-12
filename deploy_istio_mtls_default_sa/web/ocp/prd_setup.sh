@@ -14,6 +14,7 @@ oc project ${PROD_PROJECT}
 oc delete all -l app=${APP} -n ${PROD_PROJECT}
 oc delete pvc -l app=${APP} -n ${PROD_PROJECT}
 oc delete is,bc,dc,svc,route ${APP} -n ${PROD_PROJECT}
+oc delete deployment ${APP} -n ${PROD_PROJECT}
 oc delete template ${APP}-dev-dc -n ${PROD_PROJECT}
 oc delete configmap ${APP}-config -n ${PROD_PROJECT}
 
