@@ -5,7 +5,7 @@
 APP=web
 S2I_IMAGE=nginx:1.10
 
-. ../../../env.sh
+. ../../env.sh
 
 oc login https://${IP}:8443 -u $USER
 

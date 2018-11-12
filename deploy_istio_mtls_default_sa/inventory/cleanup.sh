@@ -6,7 +6,7 @@ IMAGE_TAG=0.0.1-SNAPSHOT
 SAP=v1
 APP_SA=${APP}-sa
 
-. ../../../env.sh
+. ../../env.sh
 
 oc login https://${IP}:8443 -u $USER
 
