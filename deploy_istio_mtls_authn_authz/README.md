@@ -8,7 +8,7 @@ A selection of resources to set up :
 ##Making a template from what's there :
 
 oc export all -l app=inventory --as-template="invenory-prd-template" > invenory-prd-template.yml  
-oc export all -l app=web --as-template="web-prd-template" > web-prd-template.yml  
+oc export pod -l app=web --as-template="web-pod-template" > web-pod-template.yml  
 
 ##Istio : Useful commands
 

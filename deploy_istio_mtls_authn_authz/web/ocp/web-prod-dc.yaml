@@ -17,6 +17,7 @@ objects:
     selector:
       matchLabels:
         app: web
+        istio: "false"
         version: v1
     strategy:
       activeDeadlineSeconds: 21600
@@ -30,15 +31,16 @@ objects:
       type: RollingUpdate
     template:
       annotations:
-        sidecar.istio.io/inject: "false"
+        sidecar.istio.io/inject: 'false'
       metadata:
         labels:
           app: web
+          istio: "false"
           version: v1
       spec:
         containers:
         - name: web
-          image: " "
+          image: "docker-registry.default.svc:5000/amazin-prod/web:0.0.1"
           ports:
           - containerPort: 8080
           imagePullPolicy: Always
