@@ -58,7 +58,7 @@ node('nodejs') {
 
         sh "oc start-build ${app_name} --follow --from-dir=dist -n ${dev_project}"
         openshiftVerifyBuild apiURL: '', authToken: '', bldCfg: app_name, checkForTriggeredDeployments: 'false', namespace: dev_project, verbose: 'false', waitTime: ''
-        openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: prodTag, destinationAuthToken: '', destinationNamespace: prod_project, namespace: prod_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
+        openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: prodTag, destinationAuthToken: '', destinationNamespace: prod_project, namespace: dev_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
       }
 
       // Deploy the built image to the Development Environment.
