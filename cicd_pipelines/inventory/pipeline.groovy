@@ -137,7 +137,8 @@ node('maven') {
 
                 openshift.withProject(prod_project) {
 
-                    echo "Deploy .... Image to Production"
+                    def deployment  = "${app_name}-${prodTag}"
+                    echo "Deploy .... Image to Production : ${deployment}"
 
                     //update deployment config with new image
                     openshift.set("image", "deployment/${app_name}-${prodTag}", "${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${prodTag}")
@@ -148,10 +149,10 @@ node('maven') {
 //
                     echo "Begin Rollout .... Image to Production"
                     //trigger a rollout of the new image
-                    def rm = openshift.selector("deployment", [app:app_name-prodTag]).rollout().latest()
+                    def rm = openshift.selector("deployment", [app:app_name, version:prodTag]).rollout().latest()
                     //wait for rollout to start
                     timeout(5) {
-                        openshift.selector("deployment", [app:app_name-prodTag]).related('pods').untilEach(1) {
+                        openshift.selector("deployment", [app:app_name, version:prodTag]).related('pods').untilEach(1) {
                             return (it.object().status.phase == "Running")
                         }
                     }
