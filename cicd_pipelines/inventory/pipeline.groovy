@@ -128,7 +128,7 @@ node('maven') {
             echo "Prod Tag : ${prodTag}"
 
             openshift.withCluster() {
-                openshift.withProject(dev_project) {
+                openshift.withProject(prod_project) {
 
                     echo "Tagging .... Image for Production"
                     openshift.tag("${app_name}:${devTag}", "${app_name}:${prodTag}")
