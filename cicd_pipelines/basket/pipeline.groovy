@@ -76,6 +76,48 @@ node('maven') {
             openshiftDeploy apiURL: '', authToken: '', depCfg: app_name, namespace: dev_project, verbose: 'false', waitTime: '180', waitUnit: 'sec'
             openshiftVerifyDeployment apiURL: '', authToken: '', depCfg: app_name, namespace: dev_project, replicaCount: '1', verbose: 'false', verifyReplicaCount: 'true', waitTime: '180', waitUnit: 'sec'
         }
+
+        stage('Wait for approval for ${app_name} to be staged into production') {
+            timeout(time: 2, unit: 'DAYS') {
+                input message: 'Approve this ${app_name} build to be staged in production ?'
+            }
+        }
+
+        // Deploy the built image to the Development Environment.
+        stage('Deploy to Production') {
+            echo "Deploying container image to Production Project"
+            echo "Project : ${prod_project}"
+            echo "App : ${app_name}"
+            echo "Prod Tag : ${prodTag}"
+
+            openshift.withCluster() {
+
+                openshift.withProject(dev_project) {
+                    echo "Tagging .... Image for Production"
+                    openshift.tag("${app_name}:${devTag}", "${app_name}:${prodTag}")
+                }
+
+                openshift.withProject(prod_project) {
+
+                    def deployment = "${app_name}-${prodTag}"
+                    echo "Deploy .... Image to Production : ${deployment}"
+
+                    //update deployment config with new image
+                    openshift.set("image", "deployment/${deployment}", "${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${prodTag}")
+
+                    //update app config
+                    openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
+                    openshift.create("configmap", "${app_name}-config", "--from-file=../../src/${app_name}/src/main/resources/config.${prodTag}.properties")
+
+                    //trigger deployment
+                    sh "oc patch deployment/${app_name}-${prodTag} -p \"{\\\"spec\\\":{\\\"template\\\":{\\\"metadata\\\":{\\\"annotations\\\":{\\\"date\\\":\\\"`date +'%s'`\\\"}}}}}\" -n ${prod_project}"
+
+                }
+
+            }
+            echo "Deploying container image to Production Project : FINISHED"
+        }
+
     }
 }
 
