@@ -68,7 +68,7 @@ node('nodejs') {
         echo "App : ${app_name}"
         echo "Prod Tag : ${prodTag}"
 
-        sh "oc set image deployment/${app_name} ${app_name}=docker-registry.default.svc:5000/${prod_project}/${app_name}:${prodTag} -n ${prod_project}"
+        sh "oc set image pod/${app_name} ${app_name}=docker-registry.default.svc:5000/${prod_project}/${app_name}:${prodTag} -n ${prod_project}"
 
       }
     }
