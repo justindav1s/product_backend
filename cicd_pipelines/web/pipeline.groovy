@@ -61,6 +61,12 @@ node('nodejs') {
         openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: prodTag, destinationAuthToken: '', destinationNamespace: prod_project, namespace: dev_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
       }
 
+      stage('Wait for approval for ${app_name} to be staged into production') {
+        timeout(time: 2, unit: 'DAYS') {
+          input message: 'Approve this ${app_name} build to be staged in production ?'
+        }
+      }
+
       // Deploy the built image to the Development Environment.
       stage('Prod :  Deploy') {
         echo "Deploying container image to Development Project"

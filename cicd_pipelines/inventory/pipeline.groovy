@@ -147,7 +147,7 @@ node('maven') {
                     openshift.create("configmap", "${app_name}-config", "--from-file=../../src/${app_name}/src/main/resources/config.${prodTag}.properties")
 
                     //trigger deployment
-                    sh "oc patch deployment/inventory-v3 -p \"{\\\"spec\\\":{\\\"template\\\":{\\\"metadata\\\":{\\\"annotations\\\":{\\\"date\\\":\\\"`date +'%s'`\\\"}}}}}\" -n ${prod_project}"
+                    sh "oc patch deployment/${app_name}-${prodTag} -p \"{\\\"spec\\\":{\\\"template\\\":{\\\"metadata\\\":{\\\"annotations\\\":{\\\"date\\\":\\\"`date +'%s'`\\\"}}}}}\" -n ${prod_project}"
 
                 }
 
