@@ -12,7 +12,7 @@ inventory:
   host: inventory-prd:8080
 
 user:
-  host: basket-prd:8080
+  host: user-prd:8080
 
 opentracing:
   jaeger:
