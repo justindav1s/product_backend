@@ -80,9 +80,9 @@ node('maven') {
             openshiftVerifyDeployment apiURL: '', authToken: '', depCfg: app_name, namespace: dev_project, replicaCount: '1', verbose: 'false', verifyReplicaCount: 'true', waitTime: '180', waitUnit: 'sec'
         }
 
-        stage('Wait for approval for ${app_name} to be staged into production') {
+        stage('Wait for approval for app to be staged into production') {
             timeout(time: 2, unit: 'DAYS') {
-                input message: 'Approve this ${app_name} build to be staged in production ?'
+                input message: 'Approve this app build to be staged in production ?'
             }
         }
 
