@@ -74,8 +74,8 @@ objects:
   spec:
     port:
       targetPort: http
-  tls:
-    termination: edge
+    tls:
+      termination: edge
     to:
       kind: Service
       name: web
