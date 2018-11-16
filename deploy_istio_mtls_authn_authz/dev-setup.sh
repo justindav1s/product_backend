@@ -32,3 +32,10 @@ oc policy add-role-to-user view --serviceaccount=default -n ${PROD_PROJECT}
 
 #Allow all the downstream projects to pull the dev image
 oc policy add-role-to-group system:image-puller system:serviceaccount:${PROD_PROJECT} -n ${DEV_PROJECT}
+
+
+cd user && ./dev_setup.sh && cd -
+cd basket && ./dev_setup.sh && cd -
+cd api-gateway && ./dev_setup.sh && cd -
+cd inventory && ./dev_setup.sh  && cd -
+cd web && ./dev_setup.sh  && cd -
