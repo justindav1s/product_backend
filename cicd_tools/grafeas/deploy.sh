@@ -22,5 +22,5 @@ oc new-app -f grafeas-persistent-template.yml \
     -p APPLICATION_NAME=${APP} \
     -p SOURCE_REPOSITORY_URL=https://github.com/justindav1s/microservices-on-openshift.git \
     -p SOURCE_REPOSITORY_URL=master \
-    -p DOCKERFILE_PATH="grafeas" \
+    -p DOCKERFILE_PATH="cicd_tools/grafeas" \
 
