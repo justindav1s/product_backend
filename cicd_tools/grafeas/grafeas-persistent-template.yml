@@ -22,9 +22,9 @@ objects:
         tags: ${APPLICATION_NAME}
       from:
         kind: DockerImage
-        name: ${APPLICATION_NAME}:${GRAFEAS_VERSION}
+        name: ${APPLICATION_NAME}:latest
       importPolicy: {}
-      name: ${GRAFEAS_VERSION}
+      name: latest
 
 - kind: BuildConfig
   apiVersion: v1
@@ -47,8 +47,6 @@ objects:
       dockerStrategy:
         dockerfilePath: ${DOCKERFILE_NAME}
         env:
-          - name: "SONARQUBE_VERSION"
-            value: "${SONARQUBE_VERSION}"
           - name: "DOCKERFILE_PATH"
             value: "${DOCKERFILE_PATH}"
     output:
