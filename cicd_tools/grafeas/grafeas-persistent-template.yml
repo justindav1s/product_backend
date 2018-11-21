@@ -107,7 +107,7 @@ objects:
             periodSeconds: 20
             successThreshold: 1
             httpGet:
-              port: 9000
+              port: 8080
               path: /
             timeoutSeconds: 5
           resources:
