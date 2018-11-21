@@ -94,21 +94,19 @@ objects:
             protocol: TCP
           livenessProbe:
             failureThreshold: 3
-            initialDelaySeconds: 60
+            initialDelaySeconds: 5
             periodSeconds: 20
             successThreshold: 1
-            httpGet:
+            tcpSocket:
               port: 8080
-              path: /
             timeoutSeconds: 5
           readinessProbe:
             failureThreshold: 3
-            initialDelaySeconds: 60
+            initialDelaySeconds: 5
             periodSeconds: 20
             successThreshold: 1
-            httpGet:
+            tcpSocket:
               port: 8080
-              path: /
             timeoutSeconds: 5
           resources:
             requests:
