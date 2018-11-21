@@ -18,7 +18,7 @@ oc delete service ${APP}
 oc delete route ${APP}
 
 
-oc new-app -f grafeas-persistent-template.yml \
+oc new-app -f grafeas-template.yml \
     -p APPLICATION_NAME=${APP} \
     -p SOURCE_REPOSITORY_URL=https://github.com/justindav1s/microservices-on-openshift.git \
     -p SOURCE_REPOSITORY_URL=master \
