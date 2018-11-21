@@ -24,6 +24,3 @@ oc new-app -f grafeas-persistent-template.yml \
     -p SOURCE_REPOSITORY_URL=master \
     -p DOCKERFILE_PATH="grafeas" \
 
-
-
-#then download quality profile from market place https://sonarqube-cicd.apps.ocp.datr.eu/admin/marketplace
