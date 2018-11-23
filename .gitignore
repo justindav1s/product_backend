@@ -23,4 +23,4 @@ dist/
 hs_err_pid*
 /src/inventory/out.log.2018-03-31.0.gz
 
-/cicd_tools/ecr/refresh_job/credentials
+/**/credentials
