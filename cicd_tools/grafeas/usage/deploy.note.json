@@ -2,8 +2,8 @@
   "name" : "projects/provider_example/notes/test2",
   "shortDescription": "A brief description of the note",
   "longDescription": "A longer description of the note",
-  "kind": "VULNERABILITY",
-  "vulnerabilityTypesss": {
+  "kind": "DEPLOYMENT",
+  "deployable": {
     "details": [
       {
         "package": "libexempi3",
