@@ -15,7 +15,7 @@ spec:
           terminationGracePeriodSeconds: 0
           restartPolicy: Never
           containers:
-          - name: kubectl
+          - name: ecr-creds-job
             imagePullPolicy: IfNotPresent
             securityContext:
               runAsUser: 1001
@@ -38,5 +38,4 @@ spec:
               --docker-username=$DOCKER_USER \
               --docker-password=$DOCKER_PASSWORD \
               --docker-email=no@email.local
-
               oc patch serviceaccount default -p '{"imagePullSecrets":[{"name":"aws-registry"}]}'

@@ -2,4 +2,4 @@
 
 export IP=192.168.0.91
 export USER=justin
-export PROJECT=test2
+export PROJECT=test3
