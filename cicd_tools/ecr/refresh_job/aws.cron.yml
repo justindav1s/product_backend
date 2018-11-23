@@ -31,7 +31,6 @@ spec:
               DOCKER_PASSWORD=`aws ecr get-login --region ${AWS_REGION} --registry-ids ${AWS_ACCOUNT} | cut -d' ' -f6`
               TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
               oc login --insecure-skip-tls-verify https://172.30.0.1:443 --token=$TOKEN
-              oc project ecr-admin
               oc project
               oc delete secret aws-registry || true
               oc create secret docker-registry aws-registry \
