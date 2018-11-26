@@ -15,7 +15,11 @@ RUN wget https://github.com/openshift/origin/releases/download/v3.11.0/openshift
     cp oc /usr/bin && \
     chmod 777 /usr/bin/oc
 
+RUN mkdir -p /home/aws
+
 RUN groupadd -r aws && useradd -r -u 1001 -g aws -d /home/aws aws
+
+WORKDIR /home/aws
 
 RUN mkdir -p .aws
 #COPY ./$DOCKERFILE_PATH/config /home/aws/.aws/
