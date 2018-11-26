@@ -18,8 +18,8 @@ RUN wget https://github.com/openshift/origin/releases/download/v3.11.0/openshift
 RUN groupadd -r aws && useradd -r -u 1001 -g aws -d /home/aws aws
 
 RUN mkdir -p .aws
-COPY ./$DOCKERFILE_PATH/config /home/aws/.aws/
-COPY ./$DOCKERFILE_PATH/credentials /home/aws/.aws/
+#COPY ./$DOCKERFILE_PATH/config /home/aws/.aws/
+#COPY ./$DOCKERFILE_PATH/credentials /home/aws/.aws/
 
 RUN chown -R aws:aws /home/aws
 
