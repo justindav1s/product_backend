@@ -30,12 +30,12 @@ spec:
               DOCKER_USER=AWS
               DOCKER_PASSWORD=`aws ecr get-login --region ${AWS_REGION} --registry-ids ${AWS_ACCOUNT} | cut -d' ' -f6`
               TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
-              oc login --insecure-skip-tls-verify https://172.30.0.1:443 --token=$TOKEN
+              oc login --insecure-skip-tls-verify https://${KUBERNETES_SERVICE_HOST}:443 --token=$TOKEN
               oc project
               oc delete secret aws-registry || true
-              oc create secret docker-registry aws-registry \
-              --docker-server=$DOCKER_REGISTRY_SERVER \
-              --docker-username=$DOCKER_USER \
-              --docker-password=$DOCKER_PASSWORD \
-              --docker-email=no@email.local
-              oc patch serviceaccount default -p '{"imagePullSecrets":[{"name":"aws-registry"}]}'
+#              oc create secret docker-registry aws-registry \
+#              --docker-server=$DOCKER_REGISTRY_SERVER \
+#              --docker-username=$DOCKER_USER \
+#              --docker-password=$DOCKER_PASSWORD \
+#              --docker-email=no@email.local
+              #oc patch serviceaccount default -p '{"imagePullSecrets":[{"name":"aws-registry"}]}'
