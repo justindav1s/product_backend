@@ -33,9 +33,9 @@ spec:
               oc login --insecure-skip-tls-verify https://${KUBERNETES_SERVICE_HOST}:443 --token=$TOKEN
               oc project
               oc delete secret aws-registry || true
-#              oc create secret docker-registry aws-registry \
-#              --docker-server=$DOCKER_REGISTRY_SERVER \
-#              --docker-username=$DOCKER_USER \
-#              --docker-password=$DOCKER_PASSWORD \
-#              --docker-email=no@email.local
-              #oc patch serviceaccount default -p '{"imagePullSecrets":[{"name":"aws-registry"}]}'
+              oc create secret docker-registry aws-registry \
+              --docker-server=$DOCKER_REGISTRY_SERVER \
+              --docker-username=$DOCKER_USER \
+              --docker-password=$DOCKER_PASSWORD \
+              --docker-email=no@email.local
+              oc patch serviceaccount default -p '{"imagePullSecrets":[{"name":"aws-registry"}]}'
