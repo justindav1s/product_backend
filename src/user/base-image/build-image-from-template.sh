@@ -26,4 +26,5 @@ oc delete dc ${ARTEFACT}
 oc new-app -f jdk-base-build.yaml \
     -p NAME=${ARTEFACT} \
     -p VERSION=${VERSION} \
-    -p SOURCE_REPOSITORY_URL=https://github.com/justindav1s/microservices-on-openshift.git
+    -p SOURCE_REPOSITORY_URL=https://github.com/justindav1s/microservices-on-openshift.git \
+    -p DOCKERFILE_PATH="src/user/base-image"
