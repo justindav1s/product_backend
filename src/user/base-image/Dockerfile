@@ -2,4 +2,4 @@ FROM registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:1.5-14.153
 
 MAINTAINER Justin Davis
 
-ADD base.image.conf /etc
+ADD ./$DOCKERFILE_PATH/base.image.conf /etc

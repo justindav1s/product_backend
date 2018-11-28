@@ -16,6 +16,8 @@ while [ $? \> 0 ]; do
 oc adm new-project $PROJECT --node-selector='capability=apps' 2> /dev/null
 done
 
+oc project $PROJECT
+
 oc delete configmap ${ARTEFACT}
 oc delete is ${ARTEFACT}
 oc delete bc ${ARTEFACT}
