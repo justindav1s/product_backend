@@ -14,10 +14,7 @@ objects:
         binary: {}
       strategy:
         type: Docker
-        dockerStrategy:
-          forcePull: true
-          pullSecret:
-            name: default-dockercfg-bfqbc
+        dockerStrategy: {}
       output:
         to:
           kind: DockerImage

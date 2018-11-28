@@ -4,7 +4,7 @@
 
 IMAGE=ocp-awscli
 VERSION=1
-REGISTRY_HOST=nexus-dev-devops.nonprod.theosmo.com:5001
+REGISTRY_HOST=docker-registry-default.apps.ocp.datr.eu:443
 
 docker build -t $IMAGE .
 

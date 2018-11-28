@@ -1,4 +1,4 @@
-FROM docker-registry.default.svc:5000/openshift/mo-openjdk18-openshift:1.5-14.1539812388
+FROM docker-registry.default.svc:5000/openshift/jd-openjdk18-openshift:1.5-14.1539812388
 
 MAINTAINER Justin Davis
 
