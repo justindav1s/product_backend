@@ -33,6 +33,9 @@ objects:
     strategy:
       dockerStrategy:
         dockerfilePath: src/user/base-image/Dockerfile
+        env:
+        - name: "DOCKERFILE_PATH"
+          value: "${DOCKERFILE_PATH}"
       type: Docker
     triggers:
     - type: ConfigChange
