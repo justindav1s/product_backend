@@ -32,7 +32,7 @@ objects:
       type: Git
     strategy:
       dockerStrategy:
-        dockerfilePath: src/user/base-image/Dockerfile
+        dockerfilePath: ${DOCKERFILE_PATH}/Dockerfile
         env:
         - name: "DOCKERFILE_PATH"
           value: "${DOCKERFILE_PATH}"
@@ -55,3 +55,8 @@ parameters:
   name: SOURCE_REPOSITORY_URL
   required: true
   value: https://github.com/justindav1s/microservices-on-openshift.git
+- name: DOCKERFILE_PATH
+  displayName: Dockerfile path
+  description: Path within Git Repo wehere Dockerfile can be found.
+  value: ""
+  required: true
