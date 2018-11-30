@@ -32,4 +32,4 @@ oc new-app -f ocp/build-config.yaml \
     -p IMAGE_VERSION=v1 \
     -p NAMESPACE=cd-improvements
 
-oc start-build user --from-dir=. --follow -n cd-improvements
+oc start-build user --from-dir=. --follow -n $PROJECT
