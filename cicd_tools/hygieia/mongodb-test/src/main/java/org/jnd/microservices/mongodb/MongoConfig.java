@@ -17,15 +17,15 @@ import java.util.List;
 @PropertySource("classpath:mongo.properties")
 public class MongoConfig extends AbstractMongoConfiguration {
 
-    @Value("${my.property:not_found}")
+    @Value("${mongo.host:not_found}")
     private String host = null;
-    @Value("${my.property:not_found}")
+    @Value("${mongo.port:not_found}")
     private String port = null;
-    @Value("${my.property:not_found}")
+    @Value("${mongo.dbusername:not_found}")
     private String username = null;
-    @Value("${my.property:not_found}")
+    @Value("${mongo.dbpassword:not_found}")
     private String password = null;
-    @Value("${my.property:not_found}")
+    @Value("${mongo.dbname:not_found}")
     private String dbname = null;
 
     @Autowired
