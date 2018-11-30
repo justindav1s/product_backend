@@ -3,13 +3,12 @@
 export PROJECT=hygieia
 export APP=mongo-app
 
+oc login https://192.168.0.91:8443 -u justin
+
 oc project $PROJECT
 
-oc delete all -l app=${PROJECT}-${APP}
-oc delete configmap ${APP}
-oc delete is ${APP}
-oc delete bc ${APP}
-oc delete dc ${APP}
+oc delete all -l app=${APP}
+oc delete is,bc ${APP}
 
 mvn clean package -DskipTests
 
