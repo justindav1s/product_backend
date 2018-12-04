@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-export PROJECT=hygieia
 export APP=mongo-app
 
-oc login https://192.168.0.91:8443 -u justin
+oc login https://ocp.datr.eu:8443 -u justin
 
 oc project $PROJECT
 

@@ -1,11 +1,9 @@
-username : admin
+#Assets here set up a replicating mongoDB cluster using a Kubernetes StatefulSet
 
-admin password : mongodb
+See scripts for usage guide for this template.
 
-db name : parks
 
-db password : mongodb
-
+###MongoDB Config
 ```
 use admin
 db.auth('admin','mongodb');

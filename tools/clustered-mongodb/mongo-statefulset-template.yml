@@ -73,6 +73,14 @@ objects:
             mountPath: /var/lib/mongodb/data
           name: mongodb
           args: ["run-mongod-replication" ]
+          resources:
+            limits:
+              memory: ${MEMORY_LIMIT}
+          readinessProbe:
+            exec:
+              command:
+              - stat
+              - /tmp/initialized
           env:
           - name: MONGODB_USER
             valueFrom:
@@ -95,9 +103,9 @@ objects:
                 key: database-name
                 name: mongodb
           - name: MONGODB_REPLICA_NAME
-            value: "rs0"
+            value: ${MONGODB_REPLICA_NAME}
           - name: MONGODB_KEYFILE_VALUE
-            value: "12345678901234567890"
+            value: ${MONGODB_KEYFILE_VALUE}
           - name: MONGODB_SERVICE_NAME
             value: "mongodb-internal"
     volumeClaimTemplates:
@@ -107,15 +115,15 @@ objects:
         accessModes: [ "ReadWriteOnce" ]
         resources:
           requests:
-            storage: 1Gi
+            storage: ${VOLUME_CAPACITY}
 
 - apiVersion: v1
   kind: Secret
-  data:
-    database-admin-password: bW9uZ29kYg==
-    database-name: cGFya3M=
-    database-password: bW9uZ29kYg==
-    database-user: bW9uZ29kYg==
+  stringData:
+    database-admin-password: ${MONGODB_ADMIN_PASSWORD}
+    database-name: ${MONGODB_DATABASE}
+    database-password: ${MONGODB_PASSWORD}
+    database-user: ${MONGODB_USER}
   metadata:
     labels:
       app: mongodb
@@ -127,3 +135,46 @@ parameters:
   name: REPLICAS
   required: true
   value: "1"
+- name: VOLUME_CAPACITY
+  displayName: "Volume Capacity"
+  description: "Volume space available for data, e.g. 512Mi, 2Gi."
+  value: "1Gi"
+  required: true
+- name: MEMORY_LIMIT
+  displayName: "Memory Limit"
+  description: "Maximum amount of memory the container can use."
+  value: "512Mi"
+- name: MONGODB_USER
+  displayName: "MongoDB Connection Username"
+  description: "Username for MongoDB user that will be used for accessing the database."
+  generate: expression
+  from: "[a-zA-Z0-9]{3}"
+  required: true
+- name: MONGODB_PASSWORD
+  displayName: "MongoDB Connection Password"
+  description: "Password for the MongoDB connection user."
+  generate: expression
+  from: "[a-zA-Z0-9]{16}"
+  required: true
+- name: MONGODB_DATABASE
+  displayName: "MongoDB Database Name"
+  description: "Name of the MongoDB database accessed."
+  value: sampledb
+  required: true
+- name: MONGODB_ADMIN_PASSWORD
+  displayName: "MongoDB Admin Password"
+  description: "Password for the database admin user."
+  generate: expression
+  from: "[a-zA-Z0-9]{16}"
+  required: true
+- name: MONGODB_REPLICA_NAME
+  displayName: "Replica Set Name"
+  description: "The name of the replica set."
+  value: rs0
+  required: true
+- name: MONGODB_KEYFILE_VALUE
+  displayName: "Keyfile Content"
+  description: "The value of the MongoDB keyfile (https://docs.mongodb.com/manual/core/security-internal-authentication/#internal-auth-keyfile)."
+  generate: expression
+  from: "[a-zA-Z0-9]{255}"
+  required: true

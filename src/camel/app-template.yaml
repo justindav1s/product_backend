@@ -24,8 +24,6 @@ objects:
     strategy:
       type: Docker
       dockerStrategy:
-        pullSecret:
-          name: ${DOCKER_SECRET}
     output:
       to:
         kind: ImageStreamTag
@@ -90,12 +88,20 @@ objects:
             successThreshold: 1
             timeoutSeconds: 1
           resources: {}
+          volumeMounts:
+          - name: sftp-creds
+            mountPath: "/deployments/keys"
+            readOnly: true
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         schedulerName: default-scheduler
         securityContext: {}
+        volumes:
+        - name: sftp-creds
+          secret:
+            secretName: stibo-pricing-dev
         terminationGracePeriodSeconds: 30
     triggers:
     - type: ConfigChange
@@ -120,10 +126,6 @@ parameters:
   - name: DOCKER_REGISTRY
     displayName: External Docker Registry
     description: Prefix with External Docker Registry to use when tagging image, before push.
-    required: true
-  - name: DOCKER_SECRET
-    displayName: Docker Secret
-    description: Secret to pull base image.
     required: true
   - name: IMAGE_VERSION
     displayName: Image Version
