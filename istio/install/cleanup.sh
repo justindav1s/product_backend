@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-
+oc delete customresourcedefinitions.apiextensions.k8s.io cloudwatches.config.istio.io
+oc delete customresourcedefinitions.apiextensions.k8s.io dogstatsds.config.istio.io
 oc delete customresourcedefinitions.apiextensions.k8s.io virtualservices.networking.istio.io  
 oc delete customresourcedefinitions.apiextensions.k8s.io destinationrules.networking.istio.io  
 oc delete customresourcedefinitions.apiextensions.k8s.io serviceentries.networking.istio.io  
@@ -55,6 +56,6 @@ oc delete customresourcedefinitions.apiextensions.k8s.io handlers.config.istio.i
 oc delete clusterroles.rbac.authorization.k8s.io istio-authenticated
 oc delete clusterrolebindings.rbac.authorization.k8s.io istio-authenticated
 
-oc delete validatingwebhookconfigurations istio-galley
+oc delete validatingwebhookconfigurations.admissionregistration.k8s.io istio-galley
 oc delete mutatingwebhookconfigurations istio-sidecar-injector
 
