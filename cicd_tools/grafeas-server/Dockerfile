@@ -2,8 +2,8 @@ FROM golang:1.10.3
 
 USER root
 
-RUN mkdir -p /go/src/github.com/grafeas/ && \
-    cd /go/src/github.com/grafeas/ && \
+RUN mkdir -p /go/src/github.com/grafeas/
+RUN cd /go/src/github.com/grafeas/ && \
     git clone https://github.com/grafeas/grafeas.git
 
 WORKDIR /go/src/github.com/grafeas/grafeas/samples/server/go-server/api/server/main
