@@ -22,6 +22,6 @@ mvn clean package
 oc new-app -f app-template.yml \
     -p APPLICATION_NAME=${APP} \
     -p SOURCE_REPOSITORY_URL=https://github.com/justindav1s/microservices-on-openshift.git \
-    -p SOURCE_REPOSITORY_URL=master \
+    -p SOURCE_REPOSITORY_REF=master \
     -p DOCKERFILE_PATH="cicd_tools/grafeas-service" \
 
