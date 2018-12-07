@@ -131,15 +131,6 @@ objects:
           name: ${APPLICATION_NAME}:latest
       type: ImageChange
 
-
-- kind: ServiceAccount
-  apiVersion: v1
-  metadata:
-    creationTimestamp: null
-    labels:
-      app: ${APPLICATION_NAME}
-    name: ${APPLICATION_NAME}
-
 - apiVersion: v1
   kind: Service
   metadata:

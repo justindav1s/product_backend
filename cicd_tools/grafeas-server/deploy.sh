@@ -15,6 +15,9 @@ oc delete serviceaccounts ${APP}
 oc delete service ${APP}
 oc delete route ${APP}
 
+oc create sa ${APP} -n ${CICD_PROJECT}
+oc adm policy add-scc-to-user privileged -z builder -n ${CICD_PROJECT}
+oc adm policy add-scc-to-user anyuid -z builder -n ${CICD_PROJECT}
 
 oc new-app -f grafeas-template.yml \
     -p APPLICATION_NAME=${APP} \
