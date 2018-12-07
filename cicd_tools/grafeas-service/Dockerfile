@@ -1,13 +1,12 @@
-FROM nexus-mo-base-devops.nonprod.theosmo.com:443/mo-base/mo-openjdk18-openshift:1.5-14.1539812388
-#FROM docker-registry.default.svc:5000/devops/mo-openjdk18-openshift:1.5-14.1539812388
+FROM registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift
 
 MAINTAINER Justin Davis
 
 EXPOSE 8080
 
 ENV TZ Europe/London
-ENV SERVICE_ARTIFACT_ID=user
-ENV SERVICE_VERSION=0.0.1-SNAPSHOT
+ENV SERVICE_ARTIFACT_ID=grafeas
+ENV SERVICE_VERSION=1.0
 ENV SERVICE_JAR_FILE=$SERVICE_ARTIFACT_ID-$SERVICE_VERSION.jar
 
 COPY target/$SERVICE_JAR_FILE .
