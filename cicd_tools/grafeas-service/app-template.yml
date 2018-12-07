@@ -38,13 +38,16 @@ objects:
       imageChange: {}
     - type: ConfigChange
     source:
-      type: Git
-      git:
-        uri: "${SOURCE_REPOSITORY_URL}"
-        ref: "${SOURCE_REPOSITORY_REF}"
-      contextDir: ${DOCKERFILE_PATH}
+      type: Binary
+      binary: {}
+#      type: Git
+#      git:
+#        uri: "${SOURCE_REPOSITORY_URL}"
+#        ref: "${SOURCE_REPOSITORY_REF}"
+#      contextDir: ${DOCKERFILE_PATH}
     strategy:
       dockerStrategy:
+        dockerfilePath: ${DOCKERFILE_NAME}
         env:
           - name: "DOCKERFILE_PATH"
             value: "${DOCKERFILE_PATH}"

@@ -23,3 +23,6 @@ oc new-app -f app-template.yml \
     -p SOURCE_REPOSITORY_REF=master \
     -p DOCKERFILE_PATH="cicd_tools/grafeas-service" \
 
+#oc logs -f bc/grafeas-service-docker-build
+
+oc start-build ${APP}  --from-dir=. --follow
