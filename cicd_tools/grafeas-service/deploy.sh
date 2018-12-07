@@ -25,4 +25,4 @@ oc new-app -f app-template.yml \
 
 #oc logs -f bc/grafeas-service-docker-build
 
-oc start-build ${APP}  --from-dir=. --follow
+oc start-build ${APP}-docker-build  --from-dir=. --follow
