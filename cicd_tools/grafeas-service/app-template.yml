@@ -6,7 +6,7 @@ metadata:
   annotations:
     description: The Grafeas Service OpenShift template
     tags: instant-app, ${APPLICATION_NAME}
-  name: ${APPLICATION_NAME}
+  name: spring-boot-docker-build-deploy-template
 objects:
 
 - apiVersion: v1
@@ -45,7 +45,6 @@ objects:
       contextDir: ${DOCKERFILE_PATH}
     strategy:
       dockerStrategy:
-        dockerfilePath: ${DOCKERFILE_NAME}
         env:
           - name: "DOCKERFILE_PATH"
             value: "${DOCKERFILE_PATH}"
