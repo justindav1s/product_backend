@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export IP=openshift.nonprod.theosmo.com
+export IP=ocp.datr.eu
 export PROJECT=cd-improvement
 export ARTEFACT=user
 
