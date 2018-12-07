@@ -45,6 +45,6 @@ public class GrafeasApplication {
 			System.err.println("Exception when calling GrafeasApi#createNote");
 			e.printStackTrace();
 		}
-
+		return body.getLongDescription();
 	}
 }
