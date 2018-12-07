@@ -11,8 +11,6 @@ oc project $CICD_PROJECT
 oc delete imagestream ${APP}
 oc delete buildconfig ${APP}-docker-build
 oc delete deploymentconfig ${APP}
-oc delete persistentvolumeclaim ${APP}-data
-oc delete persistentvolumeclaim ${APP}-extensions
 oc delete serviceaccounts ${APP}
 oc delete service ${APP}
 oc delete route ${APP}
