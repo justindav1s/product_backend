@@ -1,5 +1,7 @@
 FROM golang:1.10.3
 
+USER root
+
 RUN mkdir -p /go/src/github.com/grafeas/ && \
     cd /go/src/github.com/grafeas/ && \
     git clone https://github.com/grafeas/grafeas.git
