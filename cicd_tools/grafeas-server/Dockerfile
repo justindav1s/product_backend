@@ -4,6 +4,7 @@ RUN mkdir -p /go/src/github.com/grafeas/
 RUN cd /go/src/github.com/grafeas/ && \
     git clone https://github.com/grafeas/grafeas.git
 
+WORKDIR /go/src/github.com/grafeas/grafeas
 RUN git checkout 12017f5996bfd58ce362748150d49f4fa7d99ac8
 
 WORKDIR /go/src/github.com/grafeas/grafeas/samples/server/go-server/api/server/main
