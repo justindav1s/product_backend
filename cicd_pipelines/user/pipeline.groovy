@@ -83,7 +83,7 @@ node('maven') {
             openshift.withCluster() {
                 openshift.withProject(dev_project) {
 
-                    openshift.selector('pods', [app: app_name]).describe()
+                    //openshift.selector('pods', [app: app_name]).describe()
 
                     def pod = openshift.selector('pods', [app: app_name]).object()
                     pod.metadata.labels['commit']=shortCommit // Adjust the model
