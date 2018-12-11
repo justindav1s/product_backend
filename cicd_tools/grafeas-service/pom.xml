@@ -30,9 +30,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.jnd.microserices</groupId>
-			<artifactId>grafeas-client</artifactId>
-			<version>1.0.0</version>
+			<groupId>com.google.grafeas</groupId>
+			<artifactId>grafeas</artifactId>
+			<version>v1alpha1</version>
 		</dependency>
 
 		<dependency>

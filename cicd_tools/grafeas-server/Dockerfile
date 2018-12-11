@@ -5,6 +5,7 @@ RUN cd /go/src/github.com/grafeas/ && \
     git clone https://github.com/grafeas/grafeas.git
 
 WORKDIR /go/src/github.com/grafeas/grafeas
+#Check out this commit if v1apha1 api required, work from HEAD if v1beta1 (11/18 v v buggy) required
 RUN git checkout 12017f5996bfd58ce362748150d49f4fa7d99ac8
 
 WORKDIR /go/src/github.com/grafeas/grafeas/samples/server/go-server/api/server/main
