@@ -85,6 +85,13 @@ node('maven') {
 
                     openshift.selector('pods', [app: app_name]).describe()
 
+                    def pod = openshift.selector('pods', [app: app_name]).object()
+                    pod.metadata.labels['commit']=shortCommit // Adjust the model
+                    openshift.apply(pod) // Patch the object on the server
+
+                    def dc = openshift.selector('dc', [app: app_name]).object()
+                    dc.metadata.labels['commit']=shortCommit // Adjust the model
+                    openshift.apply(dc) // Patch the object on the server
                 }
             }
         }
