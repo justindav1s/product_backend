@@ -68,9 +68,10 @@ node('maven') {
             openshift.withCluster() {
                 openshift.withProject(dev_project) {
 
-                    openshift.selector( 'pods', [ app: ${app_name} ] ).describe()
+                    openshift.selector('pods', [app: $ { app_name }]).describe()
 
                 }
+            }
 
         }
 
