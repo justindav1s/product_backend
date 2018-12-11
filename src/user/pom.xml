@@ -125,9 +125,12 @@
 						</goals>
 					</execution>
 				</executions>
+				<!--<configuration>-->
+					<!--<doCheck>true</doCheck>-->
+					<!--<doUpdate>true</doUpdate>-->
+				<!--</configuration>-->
 				<configuration>
-					<doCheck>true</doCheck>
-					<doUpdate>true</doUpdate>
+					<shortRevisionLength>5</shortRevisionLength>
 				</configuration>
 			</plugin>
 		</plugins>
