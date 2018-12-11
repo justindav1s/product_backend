@@ -11,6 +11,12 @@
 
 	<name>user</name>
 
+	<scm>
+		<connection>scm:git:https://github.com/justindav1s/microservices-on-openshift.git</connection>
+		<developerConnection>scm:git:https://github.com/justindav1s/microservices-on-openshift.git</developerConnection>
+		<url>https://github.com/justindav1s/microservices-on-openshift</url>
+	</scm>
+
 	<distributionManagement>
 		<snapshotRepository>
 			<id>nexus</id>
@@ -75,6 +81,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>${project.artifactId}-v${buildNumber}</finalName>
 		<plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
