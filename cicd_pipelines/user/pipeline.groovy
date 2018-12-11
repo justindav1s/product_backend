@@ -64,6 +64,14 @@ node('maven') {
             openshiftVerifyBuild apiURL: '', authToken: '', bldCfg: app_name, checkForTriggeredDeployments: 'false', namespace: dev_project, verbose: 'false', waitTime: ''
             openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: devTag, destinationAuthToken: '', destinationNamespace: dev_project, namespace: dev_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
             openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: shortCommit, destinationAuthToken: '', destinationNamespace: dev_project, namespace: dev_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
+
+            openshift.withCluster() {
+                openshift.withProject(dev_project) {
+
+                    openshift.selector( 'pods', [ app: ${app_name} ] ).describe()
+
+                }
+
         }
 
         // Deploy the built image to the Development Environment.
