@@ -18,6 +18,7 @@ node('maven') {
         def packaging    = getPackagingFromPom("pom.xml")
         def sonar_url    = "http://sonarqube.cicd.svc:9000"
         def nexus_url    = "http://nexus.cicd.svc:8081/repository/maven-snapshots"
+        def shortCommit  = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
 
         stage('Build jar') {
             echo "Building version : ${version}"
@@ -51,6 +52,7 @@ node('maven') {
             echo "Artifact ID : ${artifactId}"
             echo "Version : ${version}"
             echo "Packaging : ${packaging}"
+            echo "Git Commit Id : ${shortCommit}"
 
             sh "${mvn} clean"
             sh "${mvn} dependency:copy -DstripVersion=true -Dartifact=${groupId}:${artifactId}:${version}:${packaging} -DoutputDirectory=."
@@ -61,6 +63,7 @@ node('maven') {
             sh "oc start-build ${app_name} --follow --from-file=${artifactId}.${packaging} -n ${dev_project}"
             openshiftVerifyBuild apiURL: '', authToken: '', bldCfg: app_name, checkForTriggeredDeployments: 'false', namespace: dev_project, verbose: 'false', waitTime: ''
             openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: devTag, destinationAuthToken: '', destinationNamespace: dev_project, namespace: dev_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
+            openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: shortCommit, destinationAuthToken: '', destinationNamespace: dev_project, namespace: dev_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
         }
 
         // Deploy the built image to the Development Environment.
@@ -69,7 +72,7 @@ node('maven') {
             echo "Project : ${dev_project}"
             echo "App : ${app_name}"
             echo "Dev Tag : ${devTag}"
-            sh "oc set image dc/${app_name} ${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${devTag} -n ${dev_project}"
+            sh "oc set image dc/${app_name} ${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${shortCommit} -n ${dev_project}"
             def ret = sh(script: "oc delete configmap ${app_name}-config --ignore-not-found=true -n ${dev_project}", returnStdout: true)
             ret = sh(script: "oc create configmap ${app_name}-config --from-file=${config_file} -n ${dev_project}", returnStdout: true)
 
