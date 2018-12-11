@@ -65,14 +65,6 @@ node('maven') {
             openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: devTag, destinationAuthToken: '', destinationNamespace: dev_project, namespace: dev_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
             openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: shortCommit, destinationAuthToken: '', destinationNamespace: dev_project, namespace: dev_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
 
-            openshift.withCluster() {
-                openshift.withProject(dev_project) {
-
-                    openshift.selector('pods', [app: app_name]).describe()
-
-                }
-            }
-
         }
 
         // Deploy the built image to the Development Environment.
@@ -87,6 +79,14 @@ node('maven') {
 
             openshiftDeploy apiURL: '', authToken: '', depCfg: app_name, namespace: dev_project, verbose: 'false', waitTime: '180', waitUnit: 'sec'
             openshiftVerifyDeployment apiURL: '', authToken: '', depCfg: app_name, namespace: dev_project, replicaCount: '1', verbose: 'false', verifyReplicaCount: 'true', waitTime: '180', waitUnit: 'sec'
+
+            openshift.withCluster() {
+                openshift.withProject(dev_project) {
+
+                    openshift.selector('pods', [app: app_name]).describe()
+
+                }
+            }
         }
     }
 }
