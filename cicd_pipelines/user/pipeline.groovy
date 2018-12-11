@@ -56,7 +56,7 @@ node('maven') {
 
             sh "${mvn} clean"
             sh "${mvn} dependency:copy -DstripVersion=true -Dartifact=${groupId}:${artifactId}:${version}:${packaging} -DoutputDirectory=."
-            sh "cp \$(find . -type f -name \"${artifactId}-*.${packaging}\")  ${artifactId}.${packaging}"
+            sh "cp \$(find . -type f -name \"${artifactId}-*.${packaging}\")  ${artifactId}-${shortCommit}.${packaging}"
             sh "pwd; ls -ltr"
             //sh "ls -ltr target"
             //sh "oc start-build ${app_name} --follow --from-file=target/${artifactId}-${version}.${packaging} -n ${dev_project}"
