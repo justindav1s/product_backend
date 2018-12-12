@@ -2,6 +2,8 @@
 
 node('maven') {
 
+    def shortCommit;
+
     dir ("build")   {
 
 
@@ -21,7 +23,7 @@ node('maven') {
             def packaging = getPackagingFromPom("pom.xml")
             def sonar_url = "http://sonarqube.cicd.svc:9000"
             def nexus_url = "http://nexus.cicd.svc:8081/repository/maven-snapshots"
-            def shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+            shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
 
             stage('Build jar') {
                 echo "Building version : ${version}"
