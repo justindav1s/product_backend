@@ -23,7 +23,7 @@ oc delete all -l app=${APP}
 oc delete serviceaccount ${APP}-user
 
 oc create serviceaccount ${APP}-user
-oc adm policy add-scc-to-user nonroot -z ${APP}-user
+oc adm policy add-scc-to-user anyuid -z ${APP}-user
 
 oc new-app -f gitlab-template.yaml \
     -p APPLICATION_NAME=${APP} \

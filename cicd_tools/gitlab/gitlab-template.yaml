@@ -196,8 +196,8 @@ objects:
             failureThreshold: 3
           terminationMessagePath: "/dev/termination-log"
           imagePullPolicy: IfNotPresent
-          securityContext:
-            runAsUser: 992
+#          securityContext:
+#            runAsUser: 991
         restartPolicy: Always
         terminationGracePeriodSeconds: 30
         dnsPolicy: ClusterFirst
