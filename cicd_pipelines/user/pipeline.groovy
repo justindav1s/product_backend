@@ -50,25 +50,25 @@ node('maven') {
 
             //Build the OpenShift Image in OpenShift and tag it.
             stage('Build and Tag OpenShift Image') {
-                echo "Building OpenShift container image ${app_name}:${devTag}for commit ${shortCommit}"
+                echo "Building OpenShift container image ${app_name}:${devTag}for commit ${commitId}"
                 echo "Project : ${dev_project}"
                 echo "App : ${app_name}"
                 echo "Group ID : ${groupId}"
                 echo "Artifact ID : ${artifactId}"
                 echo "Version : ${version}"
                 echo "Packaging : ${packaging}"
-                echo "Git Commit Id : ${shortCommit}"
+                echo "Git Commit Id : ${commitId}"
 
                 sh "${mvn} clean"
                 sh "${mvn} dependency:copy -DstripVersion=true -Dartifact=${groupId}:${artifactId}:${version}:${packaging} -DoutputDirectory=."
-                sh "cp \$(find . -type f -name \"${artifactId}-*.${packaging}\")  ${artifactId}-${shortCommit}.${packaging}"
+                sh "cp \$(find . -type f -name \"${artifactId}-*.${packaging}\")  ${artifactId}-${commitId}.${packaging}"
                 sh "pwd; ls -ltr"
                 //sh "ls -ltr target"
                 //sh "oc start-build ${app_name} --follow --from-file=target/${artifactId}-${version}.${packaging} -n ${dev_project}"
-                sh "oc start-build ${app_name} --follow --from-file=${artifactId}-${shortCommit}.${packaging} -n ${dev_project}"
+                sh "oc start-build ${app_name} --follow --from-file=${artifactId}-${commitId}.${packaging} -n ${dev_project}"
                 openshiftVerifyBuild apiURL: '', authToken: '', bldCfg: app_name, checkForTriggeredDeployments: 'false', namespace: dev_project, verbose: 'false', waitTime: ''
                 openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: devTag, destinationAuthToken: '', destinationNamespace: dev_project, namespace: dev_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
-                openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: shortCommit, destinationAuthToken: '', destinationNamespace: dev_project, namespace: dev_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
+                openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: commitId, destinationAuthToken: '', destinationNamespace: dev_project, namespace: dev_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
 
             }
 
@@ -78,7 +78,7 @@ node('maven') {
                 echo "Project : ${dev_project}"
                 echo "App : ${app_name}"
                 echo "Dev Tag : ${devTag}"
-                sh "oc set image dc/${app_name} ${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${shortCommit} -n ${dev_project}"
+                sh "oc set image dc/${app_name} ${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${commitId} -n ${dev_project}"
                 def ret = sh(script: "oc delete configmap ${app_name}-config --ignore-not-found=true -n ${dev_project}", returnStdout: true)
                 ret = sh(script: "oc create configmap ${app_name}-config --from-file=${config_file} -n ${dev_project}", returnStdout: true)
 
@@ -91,11 +91,11 @@ node('maven') {
 //                        //openshift.selector('pods', [app: app_name]).describe()
 //
 //                        def pod = openshift.selector('pods', [app: app_name]).object()
-//                        pod.metadata.labels['commit'] = shortCommit // Adjust the model
+//                        pod.metadata.labels['commit'] = commitId // Adjust the model
 //                        openshift.apply(pod) // Patch the object on the server
 //
 //                        def dc = openshift.selector('dc', [app: app_name]).object()
-//                        dc.metadata.labels['commit'] = shortCommit // Adjust the model
+//                        dc.metadata.labels['commit'] = commitId // Adjust the model
 //                        openshift.apply(dc) // Patch the object on the server
 //                    }
 //                }
