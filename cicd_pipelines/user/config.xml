@@ -51,6 +51,11 @@
                     <description>the version tag for a production version</description>
                     <defaultValue>v1</defaultValue>
                 </hudson.model.StringParameterDefinition>
+                <hudson.model.StringParameterDefinition>
+                    <name>build_tracking_git_url</name>
+                    <description>git repo where build tracking data is stored</description>
+                    <defaultValue>git@github.com:justindav1s/manifest-test.git</defaultValue>
+                </hudson.model.StringParameterDefinition>
             </parameterDefinitions>
         </hudson.model.ParametersDefinitionProperty>
         <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
