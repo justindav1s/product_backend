@@ -3,7 +3,7 @@
 IP=ocp.datr.eu
 PROJECT=cicd
 APP=jenkins-build-tools
-BASE_IMAGE_VERSION_TAG=v3.11
+BASE_IMAGE_VERSION_TAG=v3.11.69-3
 
 oc  project $PROJECT
 

@@ -24,6 +24,7 @@ objects:
     strategy:
       type: Docker
       dockerStrategy:
+        dockerfilePath:
     output:
       to:
         kind: ImageStreamTag

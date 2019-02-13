@@ -243,8 +243,8 @@ objects:
         terminationGracePeriodSeconds: 30
         volumes:
         - name: jenkins-data
-          emptyDir:
-            medium: ""
+          persistentVolumeClaim:
+            claimName: jenkins
     test: false
     triggers:
     - type: ConfigChange
@@ -256,6 +256,21 @@ objects:
           kind: ImageStreamTag
           name: custom-jenkins2-${PROJECT}:latest
       type: ImageChange
+
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-build-tools
+    name: jenkins
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: ${VOLUME_CAPACITY}
 
 - apiVersion: v1
   kind: ServiceAccount
