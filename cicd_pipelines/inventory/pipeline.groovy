@@ -78,6 +78,7 @@ node('maven') {
             twistlockScan ca: '',
                     cert: '',
                     compliancePolicy: 'critical',
+                    dockerAddress: 'unix:///var/run/docker.sock',
                     gracePeriodDays: 0,
                     ignoreImageBuildTime: true,
                     image: "${dev_project}/${app_name}:latest",
