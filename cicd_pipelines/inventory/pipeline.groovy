@@ -113,6 +113,20 @@ node('maven') {
             echo "Deploying container image to Development Project : FINISHED"
 
         }
+        stage('Scan') {
+            twistlockScan ca: '',
+                    cert: '',
+                    compliancePolicy: 'critical',
+                    skipdocker: 'true',
+                    gracePeriodDays: 0,
+                    ignoreImageBuildTime: true,
+                    image: "${dev_project}/${app_name}:latest",
+                    key: '',
+                    logLevel: 'true',
+                    policy: 'warn',
+                    requirePackageUpdate: false,
+                    timeout: 10
+        }
 
         stage('Wait for approval for ${app_name} to be staged into production') {
                 timeout(time: 2, unit: 'DAYS') {
