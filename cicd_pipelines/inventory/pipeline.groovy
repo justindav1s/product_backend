@@ -72,18 +72,6 @@ node('maven') {
                 }
             }
 
-            sh "curl -k -ssl -u jenkins:jenkins \
-                https://twistlock-console.twistlock.svc:8083/api/v1/util/twistcli -o twistcli && \
-                chmod +x ./twistcli && \
-                ./twistcli hosts scan \
-                --user jenkins \
-                --password jenkins \
-                --address https://twistlock-console.twistlock.svc:8083 \
-                --skip-docker \
-                --include-3rd-party \
-                --vulnerability-threshold high \
-                --details"
-
         }
 
         stage('Scan') {
