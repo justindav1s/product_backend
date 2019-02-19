@@ -117,7 +117,7 @@ node('maven') {
 //            twistlockScan ca: '',
 //                    cert: '',
 //                    compliancePolicy: 'critical',
-//                    skipdocker: 'true',
+//                    dockerAddress: 'unix:///var/run/docker.sock',
 //                    gracePeriodDays: 0,
 //                    ignoreImageBuildTime: true,
 //                    image: "${dev_project}/${app_name}:latest",
@@ -127,7 +127,7 @@ node('maven') {
 //                    requirePackageUpdate: false,
 //                    timeout: 10
 //        }
-
+//
 //        stage('Wait for approval for ${app_name} to be staged into production') {
 //                timeout(time: 2, unit: 'DAYS') {
 //                    input message: 'Approve this ${app_name} build to be staged in production ?'
