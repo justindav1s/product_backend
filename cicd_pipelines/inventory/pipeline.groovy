@@ -74,21 +74,6 @@ node('maven') {
 
         }
 
-        stage('Scan') {
-            twistlockScan ca: '',
-                    cert: '',
-                    compliancePolicy: 'critical',
-                    dockerAddress: 'unix:///var/run/docker.sock',
-                    gracePeriodDays: 0,
-                    ignoreImageBuildTime: true,
-                    image: "${dev_project}/${app_name}:latest",
-                    key: '',
-                    logLevel: 'true',
-                    policy: 'warn',
-                    requirePackageUpdate: false,
-                    timeout: 10
-        }
-
         // Deploy the built image to the Development Environment.
         stage('Deploy to Dev') {
             echo "Deploying container image to Development Project"
