@@ -195,8 +195,8 @@ yT4pGyjcE6f/YCDexhinttfXj3jytkfcz1jVj7iMhG51Xe+otagk3LAZSNxxfT61
       <addMasterProxyEnvVars>true</addMasterProxyEnvVars>
       <capOnlyOnAlivePods>false</capOnlyOnAlivePods>
       <namespace>cicd</namespace>
-      <jenkinsUrl>http://172.30.28.193:80</jenkinsUrl>
-      <jenkinsTunnel>172.30.241.1:50000</jenkinsTunnel>
+      <jenkinsUrl>http://jenkins.${OPENSHIFT_BUILD_NAMESPACE}.svc:80</jenkinsUrl>
+      <jenkinsTunnel>jenkins-jnlp.${OPENSHIFT_BUILD_NAMESPACE}.svc:50000</jenkinsTunnel>
       <credentialsId>1a12dfa4-7fc5-47a7-aa17-cc56572a41c7</credentialsId>
       <containerCap>100</containerCap>
       <retentionTimeout>5</retentionTimeout>
