@@ -17,6 +17,8 @@ oc delete is,bc,dc,svc,route,sa ${APP} -n ${DEV_PROJECT}
 oc delete template ${APP}-dev-dc ${APP}-dev-template -n ${DEV_PROJECT}
 oc delete configmap ${APP}-config -n ${DEV_PROJECT}
 
+cat ../spring-boot-dev-template.yaml
+
 echo Setting up ${APP} for ${DEV_PROJECT}
 oc new-app -f ../spring-boot-dev-template.yaml \
     -p APPLICATION_NAME=${APP} \
