@@ -10,11 +10,11 @@ USER=justin
 oc login ${OCP} -u $USER
 
 oc delete project $PROJECT
-oc adm new-project $PROJECT --node-selector='capability=infra' 2> /dev/null
+oc adm new-project $PROJECT --node-selector='' 2> /dev/null
 while [ $? \> 0 ]; do
     sleep 1
     printf "."
-oc adm new-project $PROJECT --node-selector='capability=infra' 2> /dev/null
+oc adm new-project $PROJECT --node-selector='' 2> /dev/null
 done
 
 ./cleanup.sh
@@ -23,5 +23,5 @@ oc project $OP_PROJECT
 
 oc delete installations.istio.openshift.com "istio-installation"
 
-oc create -f istio-installation-3.11.yaml
+oc create -f istio-installation-3.11_0.9.yaml
 

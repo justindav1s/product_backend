@@ -9,11 +9,11 @@ USER=justin
 oc login ${OCP} -u $USER
 
 oc delete project $PROJECT
-oc adm new-project $PROJECT --node-selector='capability=infra' 2> /dev/null
+oc adm new-project $PROJECT --node-selector='' 2> /dev/null
 while [ $? \> 0 ]; do
     sleep 1
     printf "."
-oc adm new-project $PROJECT --node-selector='capability=infra' 2> /dev/null
+oc adm new-project $PROJECT --node-selector='' 2> /dev/null
 done
 
 oc delete validatingwebhookconfigurations istio-galley
@@ -26,5 +26,5 @@ oc delete customresourcedefinition "installations.istio.openshift.com"
 
 sleep 2
 
-oc new-app -f istio_product_operator_template-3.11.yaml \
+oc new-app -f istio_product_operator_template-3.11_0.9.yaml \
             --param=OPENSHIFT_ISTIO_MASTER_PUBLIC_URL=$OCP
