@@ -233,7 +233,7 @@ parameters:
   required: true
 - description: Git source URI for application
   name: SOURCE_REPOSITORY_URL
-  value: "https://github.com/justindav1s/ocp-appdev.git"
+  value: "https://github.com/justindav1s/microservices-on-openshift.git"
   required: true
 - description: Git branch/tag reference
   name: SOURCE_REPOSITORY_REF
@@ -250,7 +250,7 @@ parameters:
   value: "Dockerfile"
   required: true
 - displayName: SonarQube version
-  value: "7.3"
+  value: "7.7"
   name: SONARQUBE_VERSION
   required: true
 - description: Username for SonarQube Server PostgreSQL backend
