@@ -10,6 +10,7 @@ oc  project $PROJECT
 oc delete is,sa,svc,route,bc,dc -l app=${APP}
 oc delete secret gitsecret
 oc delete rolebinding jenkins_edit
+oc delete pvc jenkins
 
 oc create secret generic gitsecret \
     --from-file=ssh-privatekey=$HOME/.ssh/id_rsa \
