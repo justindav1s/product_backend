@@ -93,6 +93,8 @@ node('maven') {
             echo "App : ${app_name}"
             echo "Prod Tag : ${prodTag}"
 
+            sh "oc set triggers dc/${app_name} --remove-all -n ${prod_project}"
+
             openshift.withCluster() {
 
                 openshift.withProject(dev_project) {

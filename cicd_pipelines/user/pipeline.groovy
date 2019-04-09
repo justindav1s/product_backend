@@ -105,14 +105,14 @@ node('maven') {
             }
         }
     }
-
-    dir("build-metadata") {
-
-        stage('manage version data') {
-            manageVersionData(app_name, commitId, build_tracking_git_url)
-        }
-
-    }
+//
+//    dir("build-metadata") {
+//
+//        stage('manage version data') {
+//            manageVersionData(app_name, commitId, build_tracking_git_url)
+//        }
+//
+//    }
 
 }
 
