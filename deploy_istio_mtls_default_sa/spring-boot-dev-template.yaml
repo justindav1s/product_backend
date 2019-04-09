@@ -121,8 +121,6 @@ objects:
                 defaultMode: 420
                 name: ${APPLICATION_NAME}-config
               name: ${APPLICATION_NAME}-config-vol
-      triggers:
-        - type: ConfigChange
 
   - apiVersion: route.openshift.io/v1
     kind: Route
