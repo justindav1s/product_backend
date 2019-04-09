@@ -23,7 +23,7 @@ oc new-app -f sonarqube-persistent-template.yml \
     -p APPLICATION_NAME=${APP} \
     -p SOURCE_REPOSITORY_URL=https://github.com/justindav1s/microservices-on-openshift.git \
     -p SOURCE_REPOSITORY_URL=master \
-    -p DOCKERFILE_PATH="sonarqube" \
+    -p DOCKERFILE_PATH="cicd-tools/sonarqube" \
     -p SONARQUBE_JDBC_USERNAME=${DATABASE_USER} \
     -p SONARQUBE_JDBC_PASSWORD=${DATABASE_PASSWORD} \
     -p SONARQUBE_JDBC_URL=${DATABASE_URL}
