@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 APP=user
-S2I_IMAGE=redhat-openjdk18-openshift:1.4
+S2I_IMAGE=java:8
 
 . ../../env.sh
 
@@ -19,6 +19,6 @@ echo Setting up ${APP} for ${DEV_PROJECT}
 oc new-app -f ../spring-boot-dev-template.yaml \
     -p APPLICATION_NAME=${APP} \
     -p BASE_IMAGE_NAMESPACE="openshift" \
-    -p BASE_IMAGE="redhat-openjdk18-openshift:1.4" \
+    -p BASE_IMAGE=${S2I_IMAGE} \
     -n ${DEV_PROJECT}
 

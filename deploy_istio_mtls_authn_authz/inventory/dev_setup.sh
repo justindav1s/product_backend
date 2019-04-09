@@ -2,7 +2,7 @@
 
 APP=inventory
 VERSION=dev
-S2I_IMAGE=redhat-openjdk18-openshift:1.4
+S2I_IMAGE=java:8
 
 . ../../env.sh
 
