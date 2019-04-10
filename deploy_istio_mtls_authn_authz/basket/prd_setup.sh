@@ -35,7 +35,7 @@ oc adm policy add-scc-to-user privileged -z ${SERVICEACCOUNT_NAME}
 
 sleep 2
 
-oc new-app -f ../spring-boot-prd-deploy-template.yaml \
+oc new-app -f ../spring-boot-prd-deploy-dc-template.yaml \
     -p APPLICATION_NAME=${APP} \
     -p IMAGE_NAME=${IMAGE_NAME} \
     -p IMAGE_TAG=${IMAGE_TAG} \

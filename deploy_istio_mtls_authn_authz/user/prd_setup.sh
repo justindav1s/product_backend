@@ -33,7 +33,7 @@ oc policy add-role-to-group system:image-puller system:serviceaccounts:${PROD_PR
 oc policy add-role-to-group system:image-puller system:serviceaccounts:${SERVICEACCOUNT_NAME} -n ${DEV_PROJECT}
 oc adm policy add-scc-to-user privileged -z ${SERVICEACCOUNT_NAME}
 
-oc new-app -f ../spring-boot-prd-deploy-template.yaml \
+oc new-app -f ../spring-boot-prd-deploy-dc-template.yaml \
     -p APPLICATION_NAME=${APP} \
     -p IMAGE_NAME=${IMAGE_NAME} \
     -p IMAGE_TAG=${IMAGE_TAG} \
