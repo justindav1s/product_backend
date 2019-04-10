@@ -67,11 +67,28 @@ node('maven') {
                 openshift.withProject("${dev_project}") {
                     echo "Building ...."
                     def nb = openshift.startBuild("${app_name}", "--follow", "--from-file=${artifactId}.${packaging}")
+                    nb.logs('-f')
+
+                    def builds = openshift.selector("bc", ${app_name}).related('builds')
+                    timeout(5) {
+                        builds.untilEach(1) {
+                            return (it.object().status.phase == "Complete")
+                        }
+                    }
                     echo "Tagging ...."
                     openshift.tag("${app_name}:latest", "${app_name}:${devTag}")
                 }
             }
 
+            steps {
+                script {
+                    openshift.withCluster() {
+                        openshift.withProject() {
+
+                        }
+                    }
+                }
+            }
         }
 
         // Deploy the built image to the Development Environment.
