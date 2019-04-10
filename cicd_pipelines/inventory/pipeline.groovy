@@ -65,16 +65,19 @@ node('maven') {
 
             openshift.withCluster() {
                 openshift.withProject("${dev_project}") {
-                    echo "Building ...."
-                    def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}.${packaging}")
-                    nb.logs('-f')
 
                     def builds = openshift.selector("bc", "${app_name}").related('builds')
                     timeout(5) {
                         builds.untilEach(1) {
                             return (it.object().status.phase == "Complete")
+                            echo "Build Finished"
                         }
                     }
+
+                    echo "Building ...."
+                    def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}.${packaging}")
+                    nb.logs('-f')
+
                     echo "Tagging ...."
                     openshift.tag("${app_name}:latest", "${app_name}:${devTag}")
                 }
