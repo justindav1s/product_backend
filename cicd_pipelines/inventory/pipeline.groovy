@@ -164,7 +164,7 @@ node('maven') {
                     openshift.create("configmap", "${app_name}-config", "--from-file=../../src/${app_name}/src/main/resources/config.${prodTag}.properties")
 
                     //trigger a rollout of the new image
-                    def rm = openshift.selector("dc/${deployment}", [app:app_name]).rollout().latest()
+                    def rm = openshift.selector("dc/${deployment}").rollout().latest()
                     //wait for rollout to start
                     timeout(5) {
                         openshift.selector("dc/${deployment}").related('pods').untilEach(1) {
