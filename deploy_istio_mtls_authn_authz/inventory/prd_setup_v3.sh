@@ -28,5 +28,4 @@ oc new-app -f ../spring-boot-prd-deploy-dc-template.yaml \
     -p VERSION_LABEL=${VERSION_LABEL} \
     -p SERVICEACCOUNT_NAME=${SERVICEACCOUNT_NAME}
 
-oc rollout pause dc/${APP}-${VERSION_LABEL}
 oc set triggers dc/${APP}-${VERSION_LABEL} --remove-all

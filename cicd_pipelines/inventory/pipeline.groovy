@@ -6,7 +6,7 @@ node('maven') {
         git url: "${git_url}", branch: 'master'
     }
 
-    dir('src/inventory') {
+    dir("src/${app_name}") {
 
         def mvn          = "mvn -U -B -q -s ../settings.xml -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"
         def dev_project  = "${org}-dev"
