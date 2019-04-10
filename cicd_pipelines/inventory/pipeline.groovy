@@ -69,7 +69,7 @@ node('maven') {
                     def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}.${packaging}")
                     nb.logs('-f')
 
-                    def builds = openshift.selector("bc", ${app_name}).related('builds')
+                    def builds = openshift.selector("bc", "${app_name}").related('builds')
                     timeout(5) {
                         builds.untilEach(1) {
                             return (it.object().status.phase == "Complete")
@@ -80,15 +80,6 @@ node('maven') {
                 }
             }
 
-            steps {
-                script {
-                    openshift.withCluster() {
-                        openshift.withProject() {
-
-                        }
-                    }
-                }
-            }
         }
 
         // Deploy the built image to the Development Environment.
