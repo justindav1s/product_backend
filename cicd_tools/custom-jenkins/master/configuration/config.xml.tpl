@@ -68,21 +68,7 @@
     <permission>org.jenkins.plugins.lockableresources.LockableResourcesManager.Reserve:admin</permission>
     <permission>org.jenkins.plugins.lockableresources.LockableResourcesManager.Unlock:admin</permission>
   </authorizationStrategy>
-  <!--<securityRealm class="org.openshift.jenkins.plugins.openshiftlogin.OpenShiftOAuth2SecurityRealm" plugin="openshift-login@1.0.11">-->
-    <!--<defaultedServiceAccountDirectory>/run/secrets/kubernetes.io/serviceaccount</defaultedServiceAccountDirectory>-->
-    <!--<defaultedServiceAccountName>jenkins</defaultedServiceAccountName>-->
-    <!--<defaultedServerPrefix>https://openshift.default.svc</defaultedServerPrefix>-->
-    <!--<defaultedRedirectURL>https://ocp.datr.eu:8443</defaultedRedirectURL>-->
-    <!--<defaultedClientId>system:serviceaccount:cicd:jenkins</defaultedClientId>-->
-    <!--<defaultedClientSecret>eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJjaWNkIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImplbmtpbnMtdG9rZW4tYmR0NmwiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiamVua2lucyIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6ImM2NGM4NGNjLWY5NWQtMTFlOC04YWNhLWZhMTYzZTJjNzc0MCIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpjaWNkOmplbmtpbnMifQ.DxPsHmSfknRVPu-OtZoeFOvaX8dA_NGecTT4ROdwXTR0Dre9YnxlyVHKDdgsaUvsE00SvVGFz4gr_sXeQxWpRuSkIeTINemN3DweAGlYCWTFOkikXfIHFn_vgQpTwb6QD7zr7gfp7V4HtAu-U6DB4MMFno_OpCQA5h3QC3w7hJr5moddT2W1vTXySCEgTeuAEkTM4wlvX6Qrmqt5kxktl7z9rdBmFPZgF1IzY65NPemi4g9BCijK-6u8BmbJqiFTIOGB5H4qBEdWzfgD4olaUuJgpK86GjCnV4Ia6w_T6M4ah846FnBdo8sNN6NZRM-2W04v3h5LhvE5-jfBzURKIQ</defaultedClientSecret>-->
-    <!--<namespace>cicd</namespace>-->
-    <!--<provider>-->
-      <!--<issuer>https://ocp.datr.eu:8443</issuer>-->
-      <!--<authorization__endpoint>https://ocp.datr.eu:8443/oauth/authorize</authorization__endpoint>-->
-      <!--<token__endpoint>https://ocp.datr.eu:8443/oauth/token</token__endpoint>-->
-    <!--</provider>-->
-    <!--<filter/>-->
-  <!--</securityRealm>-->
+  <!--<securityRealm class="org.openshift.jenkins.plugins.openshiftlogin.OpenShiftOAuth2SecurityRealm" plugin="openshift-login@1.0.11"/>-->
   <disableRememberMe>false</disableRememberMe>
   <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
   <workspaceDir>${ITEM_ROOTDIR}/workspace</workspaceDir>
