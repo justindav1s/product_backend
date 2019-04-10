@@ -70,7 +70,6 @@ node('maven') {
                     timeout(5) {
                         builds.untilEach(1) {
                             return (it.object().status.phase == "Complete")
-                            echo "Build Finished"
                         }
                     }
 
@@ -94,7 +93,9 @@ node('maven') {
 
             openshift.withCluster() {
                 openshift.withProject(dev_project) {
-                    sh "oc set triggers dc/${app_name} --remove-all -n ${dev_project}"
+                    //remove any triggers
+                    openshift.set("triggers", "dc/${app_name}", "--remove-all");
+
                     //update deployment config with new image
                     openshift.set("image", "dc/${app_name}", "${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${devTag}")
 
@@ -125,24 +126,10 @@ node('maven') {
             echo "Deploying container image to Development Project : FINISHED"
 
         }
-//        stage('Scan') {
-//            twistlockScan ca: '',
-//                    cert: '',
-//                    compliancePolicy: 'critical',
-//                    dockerAddress: 'unix:///var/run/docker.sock',
-//                    gracePeriodDays: 0,
-//                    ignoreImageBuildTime: true,
-//                    image: "${dev_project}/${app_name}:latest",
-//                    key: '',
-//                    logLevel: 'true',
-//                    policy: 'warn',
-//                    requirePackageUpdate: false,
-//                    timeout: 10
-//        }
-//
-        stage('Wait for approval for ${app_name} to be staged into production') {
+
+        stage("Wait for approval for ${app_name} to be staged into production") {
                 timeout(time: 2, unit: 'DAYS') {
-                    input message: 'Approve this ${app_name} build to be staged in production ?'
+                    input message: "Approve this ${app_name} build to be staged in production ?"
                 }
         }
 
