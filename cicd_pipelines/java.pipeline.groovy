@@ -51,7 +51,7 @@ node('maven') {
 
         //Build the OpenShift Image in OpenShift and tag it.
         stage('Build and Tag OpenShift Image') {
-            echo "Building OpenShift container image tasks:${devTag}"
+            echo "Building OpenShift container image ${app_name}:${devTag}"
             echo "Project : ${dev_project}"
             echo "App : ${app_name}"
             echo "Group ID : ${groupId}"
@@ -66,12 +66,12 @@ node('maven') {
             openshift.withCluster() {
                 openshift.withProject("${dev_project}") {
 
-                    def builds = openshift.selector("bc", "${app_name}").related('builds')
-                    timeout(5) {
-                        builds.untilEach(1) {
-                            return (it.object().status.phase == "Complete")
-                        }
-                    }
+//                    def builds = openshift.selector("bc", "${app_name}").related('builds')
+//                    timeout(5) {
+//                        builds.untilEach(1) {
+//                            return (it.object().status.phase == "Complete")
+//                        }
+//                    }
 
                     echo "Building ...."
                     def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}.${packaging}")
