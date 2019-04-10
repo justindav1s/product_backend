@@ -16,9 +16,9 @@ objects:
     progressDeadlineSeconds: 600
     replicas: 1
     revisionHistoryLimit: 10
-      selector:
-        app: ${APPLICATION_NAME}
-        deploymentconfig: ${APPLICATION_NAME}
+    selector:
+      app: ${APPLICATION_NAME}
+      deploymentconfig: ${APPLICATION_NAME}
     strategy:
       activeDeadlineSeconds: 21600
       resources: {}
@@ -87,7 +87,8 @@ objects:
               defaultMode: 420
               name: ${APPLICATION_NAME}-${SPRING_PROFILES_ACTIVE}-config
             name: ${APPLICATION_NAME}-config-vol
-      
+    triggers: {}
+
 parameters:
   - description: The name for the application.
     name: APPLICATION_NAME

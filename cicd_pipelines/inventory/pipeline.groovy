@@ -142,7 +142,6 @@ node('maven') {
 
             openshift.withCluster() {
 
-                sh "oc set triggers dc/${app_name} --remove-all -n ${prod_project}"
 
                 openshift.withProject(dev_project) {
                     echo "Tagging .... Image for Production"
@@ -152,6 +151,9 @@ node('maven') {
                 openshift.withProject(prod_project) {
 
                     def deployment  = "${app_name}-${prodTag}"
+
+                    openshift.set("triggers", "dc/${deployment}", "--remove-all");
+
                     echo "Deploy .... Image to Production : ${deployment}"
 
                     //update deployment config with new image
@@ -161,9 +163,15 @@ node('maven') {
                     openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
                     openshift.create("configmap", "${app_name}-config", "--from-file=../../src/${app_name}/src/main/resources/config.${prodTag}.properties")
 
-                    //trigger deployment
-                    sh "oc patch deployment/${app_name}-${prodTag} -p \"{\\\"spec\\\":{\\\"template\\\":{\\\"metadata\\\":{\\\"annotations\\\":{\\\"date\\\":\\\"`date +'%s'`\\\"}}}}}\" -n ${prod_project}"
-
+                    //trigger a rollout of the new image
+                    def rm = openshift.selector("dc", [app:app_name]).rollout().latest()
+                    //wait for rollout to start
+                    timeout(5) {
+                        openshift.selector("dc/${deployment}").related('pods').untilEach(1) {
+                            return (it.object().status.phase == "Running")
+                        }
+                    }
+                    //rollout has started
                 }
 
             }
