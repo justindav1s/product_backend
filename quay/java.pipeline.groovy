@@ -68,7 +68,10 @@ node('maven') {
                 openshift.withProject("${dev_project}") {
 
                     echo "Patching ...."
-                    openshift.patch("bc/${app_name}", '{\"spec\":{\"output\":{\"to\":{\"name\": \"${registry}/${dev_project}/${app_name}:${version}\"}}}}')
+                    def bc = openshift.selector( "bc/${app_name}" ).object()
+                    bc.spec.output.to.name="${registry}/${dev_project}/${app_name}:${version}"
+                    openshift.apply(bc)
+                    //openshift.patch("bc/${app_name}", '{\"spec\":{\"output\":{\"to\":{\"name\": \"${registry}/${dev_project}/${app_name}:${version}\"}}}}')
 
                     echo "Building ...."
                     def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}.${packaging}", "--build-arg BUILD_TAG=${version}")
