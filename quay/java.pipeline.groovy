@@ -73,11 +73,11 @@ node('maven') {
                     openshift.apply(bc)
 
                     echo "Building ...."
-                    def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}.${packaging}", "--build-arg BUILD_TAG=${version}")
+                    def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}.${packaging}")
                     nb.logs('-f')
 
                     echo "Tagging ...."
-                    openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:${devTag}", "${dev_project}/${app_name}:${devTag}", "--reference-policy=local")
+                    openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:${version}", "${dev_project}/${app_name}:${version}", "--reference-policy=local")
                     openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:${devTag}", "${dev_project}/${app_name}:latest", "--reference-policy=local")
                 }
             }
@@ -97,7 +97,7 @@ node('maven') {
                     openshift.set("triggers", "dc/${app_name}", "--remove-all");
 
                     //update deployment config with new image
-                    openshift.set("image", "dc/${app_name}", "${app_name}=${registry}/${dev_project}/${app_name}:${devTag}")
+                    openshift.set("image", "dc/${app_name}", "${app_name}=${registry}/${dev_project}/${app_name}:${version}")
 
                     //update app config
                     openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
