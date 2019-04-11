@@ -183,6 +183,10 @@ parameters:
     name: PROJECT
     required: true
     value: inventory
+  - description: The name for the application.
+    name: BUILD_TAG
+    required: true
+    value: build_tag_default
   - description: Base Docker image namespace.
     name: BASE_IMAGE_NAMESPACE
     required: true
