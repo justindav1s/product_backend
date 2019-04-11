@@ -49,7 +49,7 @@ objects:
           name: quay-dev-quay-secret
         to:
           kind: DockerImage
-          name: quay-enterprise-quay-enterprise.apps.ocp.datr.eu/${PROJECT}/${APPLICATION_NAME}:latest
+          name: quay-enterprise-quay-enterprise.apps.ocp.datr.eu/${PROJECT}/${APPLICATION_NAME}:${BUILD_TAG}
       postCommit: {}
       resources: {}
       runPolicy: Serial
