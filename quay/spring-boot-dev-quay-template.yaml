@@ -12,6 +12,14 @@ objects:
     type: kubernetes.io/dockerconfigjson
 
   - apiVersion: v1
+    kind: Secret
+    metadata:
+      name: quay-dev-quay-secret
+    data:
+      .dockerconfigjson: ewogICJhdXRocyI6IHsKICAgICJxdWF5LWVudGVycHJpc2UtcXVheS1lbnRlcnByaXNlLmFwcHMub2NwLmRhdHIuZXUiOiB7CiAgICAgICJhdXRoIjogImNYVmhlUzFrWlhZcmFtVnVhMmx1Y3pvNU9VWldTRmROT1VKQlZFWllSamszUnpOSlZWQXpXa0pNVTB0QlN6aFBWalJhVERVeldqSk9PRlE1UVRsWVNFNDVWekpaUXpGQlQwb3hNakpLVWtVMyIsCiAgICAgICJlbWFpbCI6ICIiCiAgICB9CiAgfQp9
+    type: kubernetes.io/dockerconfigjson
+
+  - apiVersion: v1
     kind: ServiceAccount
     metadata:
       annotations:
@@ -27,13 +35,6 @@ objects:
         openshift.io/display-name: ${APPLICATION_NAME}
     spec:
       dockerImageRepository: quay-enterprise-quay-enterprise.apps.ocp.datr.eu/${PROJECT}/${APPLICATION_NAME}
-      tags:
-      - name: 'latest'
-        from:
-          kind: DockerImage
-          name: quay-enterprise-quay-enterprise.apps.ocp.datr.eu/${PROJECT}/${APPLICATION_NAME}
-      lookupPolicy:
-        local: false
 
   - apiVersion: build.openshift.io/v1
     kind: BuildConfig
@@ -45,7 +46,7 @@ objects:
     spec:
       output:
         pushSecret:
-          name: amazin-dev-quay-secret
+          name: quay-dev-quay-secret
         to:
           kind: ImageStreamTag
           name: ${APPLICATION_NAME}:latest
