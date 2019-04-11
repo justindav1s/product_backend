@@ -72,7 +72,7 @@ node('maven') {
                     nb.logs('-f')
 
                     echo "Tagging ...."
-                    openshift.tag("--source=docker", "enterprise-quay-enterprise.apps.ocp.datr.eu/${dev_project}/${app_name}:latest", "enterprise-quay-enterprise.apps.ocp.datr.eu/${dev_project}/${app_name}:${devTag}")
+                    openshift.tag("--source=docker", "${dev_project}/${app_name}:latest", "${dev_project}/${app_name}:${devTag}")
                 }
             }
 
