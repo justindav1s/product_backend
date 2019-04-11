@@ -72,7 +72,7 @@ node('maven') {
                     nb.logs('-f')
 
                     echo "Tagging ...."
-                    openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:latest", "${dev_project}/${app_name}:${devTag}", "--reference-policy=local")
+                    openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:${devTag}", "${dev_project}/${app_name}:latest", "--reference-policy=local")
                 }
             }
 
