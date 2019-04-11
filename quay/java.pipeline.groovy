@@ -72,7 +72,7 @@ node('maven') {
                     nb.logs('-f')
 
                     echo "Tagging ...."
-                    openshift.tag("/${app_name}:latest", "${app_name}:${devTag}")
+                    openshift.tag("${app_name}:latest", "${app_name}:${devTag}")
                 }
             }
 
