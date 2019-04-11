@@ -18,7 +18,7 @@ node('maven') {
         def packaging    = getPackagingFromPom("pom.xml")
         def sonar_url    = "http://sonarqube.cicd.svc:9000"
         def nexus_url    = "http://nexus.cicd.svc:8081/repository/maven-snapshots"
-        def registry     = "docker-registry.default.svc:5000"
+        def registry     = "quay-enterprise-quay-enterprise.apps.ocp.datr.eu"
 
         stage('Build jar') {
             echo "Building version : ${version}"
@@ -72,7 +72,7 @@ node('maven') {
                     nb.logs('-f')
 
                     echo "Tagging ...."
-                    openshift.tag("${app_name}:latest", "${app_name}:${devTag}")
+                    openshift.tag("/${app_name}:latest", "${app_name}:${devTag}")
                 }
             }
 
