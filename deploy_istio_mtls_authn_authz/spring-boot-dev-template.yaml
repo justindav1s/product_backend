@@ -32,8 +32,10 @@ objects:
     spec:
       output:
         to:
-          kind: ImageStreamTag
-          name: ${APPLICATION_NAME}:latest
+          kind: DockerImage
+          name: quay-enterprise-quay-enterprise.apps.ocp.datr.eu/amazin-dev/${APPLICATION_NAME}
+#          kind: ImageStreamTag
+#          name: ${APPLICATION_NAME}:latest
       postCommit: {}
       resources: {}
       runPolicy: Serial
