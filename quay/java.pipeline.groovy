@@ -71,13 +71,13 @@ node('maven') {
                     def bc = openshift.selector( "bc/${app_name}" ).object()
                     bc.spec.output.to.name="${registry}/${dev_project}/${app_name}:${version}"
                     openshift.apply(bc)
-                    //openshift.patch("bc/${app_name}", '{\"spec\":{\"output\":{\"to\":{\"name\": \"${registry}/${dev_project}/${app_name}:${version}\"}}}}')
 
                     echo "Building ...."
                     def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}.${packaging}", "--build-arg BUILD_TAG=${version}")
                     nb.logs('-f')
 
                     echo "Tagging ...."
+                    openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:${devTag}", "${dev_project}/${app_name}:${devTag}", "--reference-policy=local")
                     openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:${devTag}", "${dev_project}/${app_name}:latest", "--reference-policy=local")
                 }
             }
