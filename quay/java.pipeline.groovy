@@ -67,7 +67,7 @@ node('maven') {
             openshift.withCluster() {
                 openshift.withProject("${dev_project}") {
 
-                    echo "Patching ...."
+                    echo "Patching to update build out put tag...."
                     def bc = openshift.selector( "bc/${app_name}" ).object()
                     bc.spec.output.to.name="${registry}/${dev_project}/${app_name}:${version}"
                     openshift.apply(bc)
@@ -78,7 +78,8 @@ node('maven') {
 
                     echo "Tagging ...."
                     openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:${version}", "${dev_project}/${app_name}:${version}", "--reference-policy=local")
-                    openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:${devTag}", "${dev_project}/${app_name}:latest", "--reference-policy=local")
+                    openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:${version}", "${dev_project}/${app_name}:latest", "--reference-policy=local")
+                    openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:${version}", "${dev_project}/${app_name}:${env.BUILD_NUMBER}", "--reference-policy=local")
                 }
             }
 
