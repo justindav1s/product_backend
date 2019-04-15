@@ -82,8 +82,8 @@ node('maven') {
                     openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:${version}", "${dev_project}/${app_name}:latest", "--reference-policy=local")
                     openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:${version}", "${dev_project}/${app_name}:${env.BUILD_NUMBER}", "--reference-policy=local")
 
-                    sh("oc image mirror ${local_reg}/${dev_project}/${app_name}:${version} ${registry}/${dev_project}/${app_name}:latest")
-                    sh("oc image mirror ${local_reg}/${dev_project}/${app_name}:${version} ${registry}/${dev_project}/${app_name}:${env.BUILD_NUMBER}")
+                    sh("oc image mirror ${local_reg}/${dev_project}/${app_name}:${version} ${registry}/${dev_project}/${app_name}:latest --insecure=true")
+                    sh("oc image mirror ${local_reg}/${dev_project}/${app_name}:${version} ${registry}/${dev_project}/${app_name}:${env.BUILD_NUMBER} --insecure=true")
                 }
             }
 
