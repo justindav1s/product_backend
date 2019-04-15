@@ -78,6 +78,7 @@ node('maven') {
                     nb.logs('-f')
 
                     echo "Patching to update build out put tag...."
+                    bc = openshift.selector( "bc/${app_name}" ).object()
                     bc.spec.output.to.name="${registry}/${dev_project}/${app_name}:${env.BUILD_NUMBER}"
                     openshift.apply(bc)
 
@@ -86,6 +87,7 @@ node('maven') {
                     nb.logs('-f')
 
                     echo "Patching to update build out put tag...."
+                    bc = openshift.selector( "bc/${app_name}" ).object()
                     bc.spec.output.to.name="${registry}/${dev_project}/${app_name}:latest"
                     openshift.apply(bc)
 
