@@ -19,6 +19,7 @@ node('maven') {
         def sonar_url    = "http://sonarqube.cicd.svc:9000"
         def nexus_url    = "http://nexus.cicd.svc:8081/repository/maven-snapshots"
         def registry     = "quay-enterprise-quay-enterprise.apps.ocp.datr.eu"
+        def local_reg    = "docker-registry.default.svc:5000"
 
 //        stage('Build jar') {
 //            echo "Building version : ${version}"
@@ -81,8 +82,8 @@ node('maven') {
                     openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:${version}", "${dev_project}/${app_name}:latest", "--reference-policy=local")
                     openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:${version}", "${dev_project}/${app_name}:${env.BUILD_NUMBER}", "--reference-policy=local")
 
-                    sh("oc image mirror ${dev_project}/${app_name}:${version} ${registry}/${dev_project}/${app_name}:latest")
-                    sh("oc image mirror ${dev_project}/${app_name}:${version} ${registry}/${dev_project}/${app_name}:${env.BUILD_NUMBER}")
+                    sh("oc image mirror ${local_reg}/${dev_project}/${app_name}:${version} ${registry}/${dev_project}/${app_name}:latest")
+                    sh("oc image mirror ${local_reg}/${dev_project}/${app_name}:${version} ${registry}/${dev_project}/${app_name}:${env.BUILD_NUMBER}")
                 }
             }
 
