@@ -81,8 +81,8 @@ node('maven') {
                     openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:${version}", "${dev_project}/${app_name}:latest", "--reference-policy=local")
                     openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:${version}", "${dev_project}/${app_name}:${env.BUILD_NUMBER}", "--reference-policy=local")
 
-                    sh("docker tag ${dev_project}/${app_name}:${version} ${registry}/${dev_project}/${app_name}:${env.BUILD_NUMBER}")
-                    sh("docker push ${registry}/${dev_project}/${app_name}:${env.BUILD_NUMBER}")
+                    openshift.image("mirror", "${dev_project}/${app_name}:${version}", "${registry}/${dev_project}/${app_name}:latest")
+                    openshift.image("mirror", "${dev_project}/${app_name}:${version}", "${registry}/${dev_project}/${app_name}:${env.BUILD_NUMBER}")
                 }
             }
 
