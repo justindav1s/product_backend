@@ -77,13 +77,28 @@ node('maven') {
                     def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}.${packaging}")
                     nb.logs('-f')
 
-                    echo "Tagging ...."
-                    openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:${version}", "${dev_project}/${app_name}:${version}", "--reference-policy=local")
-                    openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:${version}", "${dev_project}/${app_name}:latest", "--reference-policy=local")
-                    openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:${version}", "${dev_project}/${app_name}:${env.BUILD_NUMBER}", "--reference-policy=local")
+                    echo "Patching to update build out put tag...."
+                    bc.spec.output.to.name="${registry}/${dev_project}/${app_name}:${env.BUILD_NUMBER}"
+                    openshift.apply(bc)
 
-                    sh("oc image mirror ${local_reg}/${dev_project}/${app_name}:${version} ${registry}/${dev_project}/${app_name}:latest --insecure=true")
-                    sh("oc image mirror ${local_reg}/${dev_project}/${app_name}:${version} ${registry}/${dev_project}/${app_name}:${env.BUILD_NUMBER} --insecure=true")
+                    echo "Building ...."
+                    nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}.${packaging}")
+                    nb.logs('-f')
+
+                    echo "Patching to update build out put tag...."
+                    bc.spec.output.to.name="${registry}/${dev_project}/${app_name}:latest"
+                    openshift.apply(bc)
+
+                    echo "Building ...."
+                    nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}.${packaging}")
+                    nb.logs('-f')
+
+//                    echo "Tagging ...."
+//                    openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:${version}", "${dev_project}/${app_name}:${version}", "--reference-policy=local")
+//                    openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:${version}", "${dev_project}/${app_name}:latest", "--reference-policy=local")
+//                    openshift.tag("--source=docker", "${registry}/${dev_project}/${app_name}:${version}", "${dev_project}/${app_name}:${env.BUILD_NUMBER}", "--reference-policy=local")
+
+
                 }
             }
 
