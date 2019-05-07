@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-#IP=ocp.datr.eu
-IP=192.168.33.10
+IP=ocp.datr.eu
+#IP=192.168.33.10
 
 PROJECT=cicd
 APP=jenkins-build-tools
