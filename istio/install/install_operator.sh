@@ -16,15 +16,14 @@ while [ $? \> 0 ]; do
 oc adm new-project $PROJECT --node-selector='' 2> /dev/null
 done
 
-oc delete validatingwebhookconfigurations istio-galley
-oc delete mutatingwebhookconfigurations istio-sidecar-injector
-oc delete roles "istio-operator"
-oc delete rolebinding "default-account-istio-operator"
-oc delete clusterrolebinding "default-account-istio-operator-cluster-role-binding"
-oc delete deployment.extensions "istio-operator"
-oc delete customresourcedefinition "installations.istio.openshift.com"
+PROJECT=istio-system
 
-sleep 2
+oc delete project $PROJECT
+oc adm new-project $PROJECT --node-selector='' 2> /dev/null
+while [ $? \> 0 ]; do
+    sleep 1
+    printf "."
+oc adm new-project $PROJECT --node-selector='' 2> /dev/null
+done
 
-oc new-app -f istio_product_operator_template-3.11_0.9.yaml \
-            --param=OPENSHIFT_ISTIO_MASTER_PUBLIC_URL=$OCP
+oc apply -n istio-operator -f https://raw.githubusercontent.com/Maistra/istio-operator/maistra-0.10/deploy/servicemesh-operator.yaml

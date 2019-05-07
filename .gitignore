@@ -26,3 +26,4 @@ hs_err_pid*
 /**/credentials
 /cicd_tools/hygieia/api/api.jar
 /twistlock/lic.sh
+/istio/install/gihub.key
