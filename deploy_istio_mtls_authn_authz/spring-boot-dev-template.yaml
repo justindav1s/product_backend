@@ -32,10 +32,8 @@ objects:
     spec:
       output:
         to:
-          kind: DockerImage
-          name: quay-enterprise-quay-enterprise.apps.ocp.datr.eu/amazin-dev/${APPLICATION_NAME}
-#          kind: ImageStreamTag
-#          name: ${APPLICATION_NAME}:latest
+          kind: ImageStreamTag
+          name: ${APPLICATION_NAME}:latest
       postCommit: {}
       resources: {}
       runPolicy: Serial
@@ -123,6 +121,7 @@ objects:
                 defaultMode: 420
                 name: ${APPLICATION_NAME}-config
               name: ${APPLICATION_NAME}-config-vol
+      triggers:
 
   - apiVersion: route.openshift.io/v1
     kind: Route
