@@ -19,16 +19,16 @@ do
     echo
     echo  GET ${HOST}/products/8
     curl -s -X GET ${HOST}/products/8
-    echo
-    echo GET ${HOST}/prod/6
-    curl -s -X GET ${HOST}/prod/6
+#    echo
+#    echo GET ${HOST}/prod/6
+#    curl -s -X GET ${HOST}/prod/6
     echo
     echo GET ${HOST}/products/5
     curl -s -X GET ${HOST}/products/5
     echo
-    echo POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"password"}' ${HOST}/user/login
-    curl -s -X POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"password"}' ${HOST}/user/login
-    echo
+#    echo POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"password"}' ${HOST}/user/login
+#    curl -s -X POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"password"}' ${HOST}/user/login
+#    echo
     echo PUT ${HOST}/basket/${BASKET}/add/1
     curl -s -X PUT ${HOST}/basket/${BASKET}/add/1
     echo
@@ -37,9 +37,9 @@ do
     echo
     echo PUT ${HOST}/basket/${BASKET}/add/1
     curl -s -X PUT ${HOST}/basket/${BASKET}/add/1
-    echo
-    echo PUT ${HOST}/basket/${BASKET}/add/9
-    curl -s -X PUT ${HOST}/basket/${BASKET}/add/9
+#    echo
+#    echo PUT ${HOST}/basket/${BASKET}/add/9
+#    curl -s -X PUT ${HOST}/basket/${BASKET}/add/9
     echo
     echo PUT ${HOST}/basket/${BASKET}/add/2
     curl -s -X PUT ${HOST}/basket/${BASKET}/add/2
