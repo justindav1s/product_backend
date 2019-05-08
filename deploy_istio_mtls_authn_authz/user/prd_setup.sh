@@ -15,6 +15,7 @@ oc login https://${IP}:8443 -u $USER
 
 oc project ${PROD_PROJECT}
 
+oc delete dc ${APP}-${VERSION_LABEL} -n ${PROD_PROJECT}
 oc delete deployments ${APP}-${VERSION_LABEL} -n ${PROD_PROJECT}
 oc delete svc ${SERVICE_NAME} -n ${PROD_PROJECT}
 oc delete sa ${SERVICEACCOUNT_NAME} -n ${PROD_PROJECT}
@@ -29,11 +30,12 @@ oc new-app -f ../service-template.yaml \
 
 sleep 2
 
-oc policy add-role-to-group system:image-puller system:serviceaccounts:${PROD_PROJECT} -n ${DEV_PROJECT}
 oc policy add-role-to-group system:image-puller system:serviceaccounts:${SERVICEACCOUNT_NAME} -n ${DEV_PROJECT}
+oc adm policy add-scc-to-user anyuid -z ${SERVICEACCOUNT_NAME}
 oc adm policy add-scc-to-user privileged -z ${SERVICEACCOUNT_NAME}
 
-oc new-app -f ../spring-boot-prd-deploy-dc-template.yaml \
+#oc new-app -f ../spring-boot-prd-deploy-dc-template.yaml \
+oc new-app -f ../spring-boot-prd-deploy-template.yaml \
     -p APPLICATION_NAME=${APP} \
     -p IMAGE_NAME=${IMAGE_NAME} \
     -p IMAGE_TAG=${IMAGE_TAG} \
@@ -41,4 +43,4 @@ oc new-app -f ../spring-boot-prd-deploy-dc-template.yaml \
     -p VERSION_LABEL=${VERSION_LABEL} \
     -p SERVICEACCOUNT_NAME=${SERVICEACCOUNT_NAME}
 
-oc set triggers dc/${APP}-${VERSION_LABEL} --remove-all
+#oc set triggers dc/${APP}-${VERSION_LABEL} --remove-all

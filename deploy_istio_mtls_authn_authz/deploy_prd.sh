@@ -1,10 +1,11 @@
-cd #!/usr/bin/env bash
+#!/usr/bin/env bash
 
 set -x
 
 ./prd-project-setup.sh
 
-oc label namespace amazin-prod istio-injection=enabled
+oc label namespace amazin-prod istio-injection=enabled --overwrite=true
+
 
 cd user && ./prd_setup.sh && cd -
 cd basket && ./prd_setup.sh && cd -

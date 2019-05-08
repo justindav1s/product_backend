@@ -15,6 +15,7 @@ oc login https://${IP}:8443 -u $USER
 
 oc project ${PROD_PROJECT}
 
+oc delete dc ${APP}-${VERSION_LABEL} -n ${PROD_PROJECT}
 oc delete deployments ${APP}-${VERSION_LABEL} -n ${PROD_PROJECT}
 
 oc delete configmap ${APP}-${SPRING_PROFILES_ACTIVE}-config --ignore-not-found=true -n ${PROD_PROJECT}

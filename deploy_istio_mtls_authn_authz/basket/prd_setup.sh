@@ -15,6 +15,7 @@ oc login https://${IP}:8443 -u $USER
 
 oc project ${PROD_PROJECT}
 
+oc delete dc ${APP}-${VERSION_LABEL} -n ${PROD_PROJECT}
 oc delete deployments ${APP}-${VERSION_LABEL} -n ${PROD_PROJECT}
 oc delete svc ${SERVICE_NAME} -n ${PROD_PROJECT}
 oc delete sa ${SERVICEACCOUNT_NAME} -n ${PROD_PROJECT}
@@ -31,6 +32,7 @@ sleep 2
 
 oc policy add-role-to-group system:image-puller system:serviceaccounts:${PROD_PROJECT} -n ${DEV_PROJECT}
 oc policy add-role-to-group system:image-puller system:serviceaccounts:${SERVICEACCOUNT_NAME} -n ${DEV_PROJECT}
+oc adm policy add-scc-to-user anyuid -z ${SERVICEACCOUNT_NAME}
 oc adm policy add-scc-to-user privileged -z ${SERVICEACCOUNT_NAME}
 
 sleep 2
