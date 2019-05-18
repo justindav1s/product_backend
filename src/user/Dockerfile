@@ -1,5 +1,4 @@
-FROM devops.nonprod.theosmo.com:443/base/mo-openjdk18-openshift:1.5-14.1539812388
-#FROM docker-registry.default.svc:5000/devops/mo-openjdk18-openshift:1.5-14.1539812388
+FROM docker-registry.default.svc:5000/openshift/java:latest
 
 MAINTAINER Justin Davis
 

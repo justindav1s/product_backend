@@ -4,13 +4,13 @@
 
 oc login https://${IP}:8443 -u $USER
 
-oc delete project $PROD_PROJECT
-oc adm new-project $PROD_PROJECT --node-selector='' 2> /dev/null
-while [ $? \> 0 ]; do
-    sleep 1
-    printf "."
-    oc adm new-project $PROD_PROJECT --node-selector='' 2> /dev/null
-done
+#oc delete project $PROD_PROJECT
+#oc adm new-project $PROD_PROJECT --node-selector='' 2> /dev/null
+#while [ $? \> 0 ]; do
+#    sleep 1
+#    printf "."
+#    oc adm new-project $PROD_PROJECT --node-selector='' 2> /dev/null
+#done
 
 
 oc policy add-role-to-user edit system:serviceaccount:${CICD_PROJECT}:jenkins -n ${PROD_PROJECT}
