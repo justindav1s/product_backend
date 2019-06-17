@@ -146,19 +146,30 @@ def manageVersionData(commitId, artifactId) {
         def trackingrepo = "https://github.com/${GIT_USERNAME}/${github_repo}.git"
         git url: "${trackingrepo}", branch: 'master', credentialsId: 'github'
         def workspace = pwd()
+
         def versionFileName = "version"
         versionFileName = workspace+"/"+artifactId+"."+versionFileName
-        sh("touch ${versionFileName}")
-        def versiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
-        println "Existing version data : "+versiondata
-        def versionnumber = versiondata.tokenize(':')[0]
-        def gitcommitid = versiondata.tokenize(':')[1]
-        int newVersion = versionnumber.toInteger()
-        newVersion = newVersion + 1
-        def newVersionString = newVersion+":"+commitId
-        println "New version data :  : "+newVersionString
-        sh(returnStdout: true, script: "echo ${newVersionString} > ${versionFileName}")
-        def newversiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
+        def file = new File(versionFileName)
+
+        if (file.exists())  {
+            def versiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
+            println "Existing version data : "+versiondata
+            def versionnumber = versiondata.tokenize(':')[0]
+            def gitcommitid = versiondata.tokenize(':')[1]
+            int newVersion = versionnumber.toInteger()
+            newVersion = newVersion + 1
+            def newVersionString = newVersion+":"+commitId
+            println "New version data :  : "+newVersionString
+            sh(returnStdout: true, script: "echo ${newVersionString} > ${versionFileName}")
+            def newversiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
+        }
+        else {
+            sh("touch ${versionFileName}")
+            def newVersionString = "1:"+commitId
+            sh(returnStdout: true, script: "echo ${newVersionString} > ${versionFileName}")
+            def newversiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
+        }
+
 
         sh ("git config user.email \"jenkins@${GIT_USERNAME}.dev\"")
         sh ("git config user.name \"${GIT_USERNAME}\"")
