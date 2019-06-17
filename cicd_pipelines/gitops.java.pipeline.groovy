@@ -20,7 +20,7 @@ node('maven') {
         def nexus_url    = "http://nexus.cicd.svc:8081/repository/maven-snapshots"
         def registry     = "docker-registry.default.svc:5000"
         def commitId  = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
-        def trackingrepo = "https://github.com/justindav1s/manifest-test.git"
+
 
         stage('Build jar') {
             echo "Building version : ${version}"
@@ -137,6 +137,7 @@ def getPackagingFromPom(pom) {
 }
 
 def manageVersionData(commitId, git_url) {
+    def trackingrepo = "https://github.com/justindav1s/manifest-test.git"
     git url: "${trackingrepo}", branch: 'master', credentialsId: '1c0e3c0a-f7bd-444e-918f-69799380d061'
     def workspace = pwd()
     def versionFileName = "version"
