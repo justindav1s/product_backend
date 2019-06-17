@@ -137,7 +137,10 @@ def getPackagingFromPom(pom) {
 }
 
 def manageVersionData(commitId, git_url) {
-    def trackingrepo = "https://github.com/justindav1s/manifest-test.git"
+    def github = "github.com"
+    def github_user = "justindav1s"
+    def github_repo = "manifest-test"
+    def trackingrepo = "https://${github}/${github_user}/${github_repo}.git"
     git url: "${trackingrepo}", branch: 'master', credentialsId: 'cab006f5-c6cf-43bc-8c1e-50a4430d44c6'
     def workspace = pwd()
     def versionFileName = "version"
@@ -157,7 +160,7 @@ def manageVersionData(commitId, git_url) {
         sh ("git config --global user.name \"Justin Davis\"")
         sh ("git add version")
         sh ("git commit -m \"updating version data to ${newVersionString}\"")
-        sh ('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${trackingrepo}')
+        sh ('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${github}/${github_user}/${github_repo}.git master')
         //sh ("git push origin master")
     }
 }
