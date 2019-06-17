@@ -15,10 +15,12 @@ while [ $? \> 0 ]; do
 oc new-project $PROJECT 2> /dev/null
 done
 
-oc apply -f git_resource.yaml
+#oc apply -f git_resource.yaml
+#
+#oc apply -f image_resource.yaml
+#
+#oc apply -f build_task.yaml
+#
+#oc apply -f build_taskrun.yaml
 
-oc apply -f image_resource.yaml
-
-oc apply -f build_task.yaml
-
-oc apply -f build_taskrun.yaml
+oc apply -f pipelinerun.yaml
