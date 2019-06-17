@@ -157,7 +157,7 @@ def manageVersionData(commitId, groupId, artifactId) {
         def newVersionString = null;
 
 
-        @Field def timeStamp = Calendar.getInstance().getTime().format('ddmmYYYY-hhmmss',TimeZone.getTimeZone('GMT'))
+        @Field def timeStamp = Calendar.getInstance().getTime().format('ddMMyy hh:mm:ss',TimeZone.getTimeZone('GMT'))
 
         def exists = fileExists versionFileName
         if (exists)  {
@@ -168,7 +168,7 @@ def manageVersionData(commitId, groupId, artifactId) {
             def gitcommitid = versiondata.tokenize(':')[1]
             int newVersion = versionnumber.toInteger()
             newVersion = newVersion + 1
-            newVersionString = newVersion+":"+env.BUILD_NUMBER+":"+timeStamp+":"+commitId
+            newVersionString = newVersion+"|"+env.BUILD_NUMBER+"|"+timeStamp+"|"+commitId
             println "New version data :  : "+newVersionString
             sh(returnStdout: true, script: "echo ${newVersionString} > ${versionFileName}")
             def newversiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
