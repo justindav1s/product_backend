@@ -151,7 +151,7 @@ def manageVersionData(commitId, groupId, artifactId) {
         def versionFileName = "version"
         versionFileName = workspace+"/"+groupId+"."+artifactId+"."+versionFileName
         def file = new File(versionFileName)
-
+        sh("find .")
         def newVersionString = null;
         if (file.exists())  {
             echo "${versionFileName} Exists."
