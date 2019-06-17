@@ -49,7 +49,7 @@ node('maven') {
             echo "Packaging : ${packaging}"
             sh "${mvn} clean"
             sh "${mvn} dependency:copy -DstripVersion=true -Dartifact=${groupId}:${artifactId}:${version}:${packaging} -DoutputDirectory=."
-            sh "cp \$(find . -type f -name \"${artifactId}-*.${packaging}\")  ${artifactId}.${packaging}"
+            sh "cp \$(find . -type f -name \"${artifactId}-*.${packaging}\")  ${artifactId}-${commitId}.${packaging}"
             sh "pwd; ls -ltr"
 
             openshift.withCluster() {
@@ -61,6 +61,7 @@ node('maven') {
 
                     echo "Tagging ...."
                     openshift.tag("${app_name}:latest", "${app_name}:${devTag}")
+                    openshift.tag("${app_name}:latest", "${app_name}:${commitId}")
                 }
             }
 
@@ -79,7 +80,7 @@ node('maven') {
                     openshift.set("triggers", "dc/${app_name}", "--remove-all");
 
                     //update deployment config with new image
-                    openshift.set("image", "dc/${app_name}", "${app_name}=${registry}/${dev_project}/${app_name}:${devTag}")
+                    openshift.set("image", "dc/${app_name}", "${app_name}=${registry}/${dev_project}/${app_name}:${commitId}")
 
                     //update app config
                     openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
