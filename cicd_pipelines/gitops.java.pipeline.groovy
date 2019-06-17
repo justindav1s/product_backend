@@ -168,7 +168,7 @@ def manageVersionData(commitId, groupId, artifactId) {
             def gitcommitid = versiondata.tokenize(':')[1]
             int newVersion = versionnumber.toInteger()
             newVersion = newVersion + 1
-            newVersionString = newVersion+"\\|"+env.BUILD_NUMBER+"\\|"+timeStamp+"\\|"+commitId
+            newVersionString = "{ \"build\": \"${env.BUILD_NUMBER}\", \"timestamp\": \"${timeStamp}\", \"commitId\": \"${commitId}\"}}"
             println "New version data :  : "+newVersionString
             sh(returnStdout: true, script: "echo ${newVersionString} > ${versionFileName}")
             def newversiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
@@ -176,7 +176,7 @@ def manageVersionData(commitId, groupId, artifactId) {
         else {
             echo "${versionFileName} does not Exist."
             sh("touch ${versionFileName}")
-            newVersionString = newVersion+"\\|"+env.BUILD_NUMBER+"\\|"+timeStamp+"\\|"+commitId
+            newVersionString = "{ \"build\": \"${env.BUILD_NUMBER}\", \"timestamp\": \"${timeStamp}\", \"commitId\": \"${commitId}\"}}"
             sh(returnStdout: true, script: "echo ${newVersionString} > ${versionFileName}")
             def newversiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
         }
