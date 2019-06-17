@@ -154,6 +154,7 @@ def manageVersionData(commitId, groupId, artifactId) {
 
         def newVersionString = null;
         if (file.exists())  {
+            println versionFileName+" Exists."
             def versiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
             println "Existing version data : "+versiondata
             def versionnumber = versiondata.tokenize(':')[0]
@@ -166,6 +167,7 @@ def manageVersionData(commitId, groupId, artifactId) {
             def newversiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
         }
         else {
+            println versionFileName+" does not Exist."
             sh("touch ${versionFileName}")
             newVersionString = "1:"+commitId
             sh(returnStdout: true, script: "echo ${newVersionString} > ${versionFileName}")
