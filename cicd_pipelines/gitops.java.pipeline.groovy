@@ -137,30 +137,29 @@ def getPackagingFromPom(pom) {
 }
 
 def manageVersionData(commitId, git_url) {
-    def github = "github.com"
-    def github_user = "justindav1s"
-    def github_repo = "manifest-test"
-    def trackingrepo = "https://${github}/${github_user}/${github_repo}.git"
-    git url: "${trackingrepo}", branch: 'master', credentialsId: 'cab006f5-c6cf-43bc-8c1e-50a4430d44c6'
-    def workspace = pwd()
-    def versionFileName = "version"
-    versionFileName = workspace+"/"+versionFileName
-    def versiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
-    println "Existing version data : "+versiondata
-    def versionnumber = versiondata.tokenize(':')[0]
-    def gitcommitid = versiondata.tokenize(':')[1]
-    int newVersion = versionnumber.toInteger()
-    newVersion = newVersion + 1
-    def newVersionString = newVersion+":"+commitId
-    println "New version data :  : "+newVersionString
-    sh(returnStdout: true, script: "echo ${newVersionString} > ${versionFileName}")
-    def newversiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
-    withCredentials([usernamePassword(credentialsId: 'cab006f5-c6cf-43bc-8c1e-50a4430d44c6', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-        sh ("git config user.email \"jenkins@dev.com\"")
+
+    withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+        def github_repo = "manifest-test"
+        def trackingrepo = "https://github.com/${GIT_USERNAME}/${github_repo}.git"
+        git url: "${trackingrepo}", branch: 'master', credentialsId: 'github'
+        def workspace = pwd()
+        def versionFileName = "version"
+        versionFileName = workspace+"/"+versionFileName
+        def versiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
+        println "Existing version data : "+versiondata
+        def versionnumber = versiondata.tokenize(':')[0]
+        def gitcommitid = versiondata.tokenize(':')[1]
+        int newVersion = versionnumber.toInteger()
+        newVersion = newVersion + 1
+        def newVersionString = newVersion+":"+commitId
+        println "New version data :  : "+newVersionString
+        sh(returnStdout: true, script: "echo ${newVersionString} > ${versionFileName}")
+        def newversiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
+
+        sh ("git config user.email \"jenkins@${GIT_USERNAME}.dev\"")
         sh ("git config user.name \"${GIT_USERNAME}\"")
         sh ("git add version")
         sh ("git commit -m \"updating version data to ${newVersionString}\"")
-        sh ("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${github}/${github_user}/${github_repo}.git master")
-        //sh ("git push origin master")
+        sh ("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${github}/${GIT_USERNAME}/${github_repo}.git master")
     }
 }
