@@ -160,7 +160,7 @@ def manageVersionData(commitId, git_url) {
         sh ("git config --global user.name \"Justin Davis\"")
         sh ("git add version")
         sh ("git commit -m \"updating version data to ${newVersionString}\"")
-        sh ('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${github}/${github_user}/${github_repo}.git master')
+        sh ("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@${github}/${github_user}/${github_repo}.git master")
         //sh ("git push origin master")
     }
 }
