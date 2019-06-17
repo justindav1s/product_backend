@@ -151,6 +151,7 @@ def manageVersionData(commitId, artifactId) {
         versionFileName = workspace+"/"+artifactId+"."+versionFileName
         def file = new File(versionFileName)
 
+        def newVersionString = null;
         if (file.exists())  {
             def versiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
             println "Existing version data : "+versiondata
@@ -158,14 +159,14 @@ def manageVersionData(commitId, artifactId) {
             def gitcommitid = versiondata.tokenize(':')[1]
             int newVersion = versionnumber.toInteger()
             newVersion = newVersion + 1
-            def newVersionString = newVersion+":"+commitId
+            newVersionString = newVersion+":"+commitId
             println "New version data :  : "+newVersionString
             sh(returnStdout: true, script: "echo ${newVersionString} > ${versionFileName}")
             def newversiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
         }
         else {
             sh("touch ${versionFileName}")
-            def newVersionString = "1:"+commitId
+            newVersionString = "1:"+commitId
             sh(returnStdout: true, script: "echo ${newVersionString} > ${versionFileName}")
             def newversiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
         }
@@ -174,7 +175,7 @@ def manageVersionData(commitId, artifactId) {
         sh ("git config user.email \"jenkins@${GIT_USERNAME}.dev\"")
         sh ("git config user.name \"${GIT_USERNAME}\"")
         sh ("git add ${versionFileName}")
-        sh ("git commit -m \"updating version data to ${newVersionString}\"")
+        sh ("git commit -m \"version data update for ${artifactId} to ${newVersionString}\"")
         sh ("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/${github_repo}.git master")
     }
 }
