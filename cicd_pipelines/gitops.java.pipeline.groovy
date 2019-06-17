@@ -112,7 +112,7 @@ node('maven') {
         dir("build-metadata") {
 
             stage('manage version data') {
-                manageVersionData(commitId, artifactId)
+                manageVersionData(commitId, groupId, artifactId)
             }
 
         }
@@ -139,7 +139,7 @@ def getPackagingFromPom(pom) {
     matcher ? matcher[0][1] : null
 }
 
-def manageVersionData(commitId, artifactId) {
+def manageVersionData(commitId, groupId, artifactId) {
 
     withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
         def github_repo = "manifest-test"
@@ -148,7 +148,7 @@ def manageVersionData(commitId, artifactId) {
         def workspace = pwd()
 
         def versionFileName = "version"
-        versionFileName = workspace+"/"+artifactId+"."+versionFileName
+        versionFileName = workspace+"/"+groupId+"."artifactId+"."+versionFileName
         def file = new File(versionFileName)
 
         def newVersionString = null;
@@ -171,9 +171,7 @@ def manageVersionData(commitId, artifactId) {
             def newversiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
         }
 
-
-        sh ("git config user.email \"jenkins@${GIT_USERNAME}.dev\"")
-        sh ("git config user.name \"${GIT_USERNAME}\"")
+        sh ("git config user.email \"jenkins@${GIT_USERNAME}.dev\"; git config user.name \"${GIT_USERNAME}\"")
         sh ("git add ${versionFileName}")
         sh ("git commit -m \"version data update for ${artifactId} to ${newVersionString}\"")
         sh ("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/${github_repo}.git master")
