@@ -116,7 +116,7 @@ node('maven') {
         dir("build-metadata") {
 
             stage('manage version data') {
-                manageVersionData(commitId, groupId, artifactId)
+                manageVersionData(commitId, commitmsg, groupId, artifactId)
             }
 
         }
