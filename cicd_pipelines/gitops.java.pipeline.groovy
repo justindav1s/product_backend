@@ -1,5 +1,7 @@
 #!groovy
 
+import groovy.transform.Field
+
 node('maven') {
 
     def mvn          = "mvn -U -B -q -s ../settings.xml -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"
@@ -153,6 +155,10 @@ def manageVersionData(commitId, groupId, artifactId) {
         def file = new File(versionFileName)
         sh("find .")
         def newVersionString = null;
+
+
+        @Field def timeStamp = Calendar.getInstance().getTime().format('ddmmYYYY-hhmmss',TimeZone.getTimeZone('GMT'))
+
         def exists = fileExists versionFileName
         if (exists)  {
             echo "${versionFileName} Exists."
