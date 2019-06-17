@@ -56,7 +56,7 @@ node('maven') {
                 openshift.withProject("${dev_project}") {
 
                     echo "Building ...."
-                    def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}.${packaging}")
+                    def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}-${commitId}.${packaging}")
                     nb.logs('-f')
 
                     echo "Tagging ...."
