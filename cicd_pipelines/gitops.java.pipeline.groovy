@@ -153,7 +153,6 @@ def manageVersionData(commitId, git_url) {
     sh(returnStdout: true, script: "echo ${newVersionString} > ${versionFileName}")
     def newversiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
     withCredentials([usernamePassword(credentialsId: 'cab006f5-c6cf-43bc-8c1e-50a4430d44c6')]) {
-    //sshagent(['cab006f5-c6cf-43bc-8c1e-50a4430d44c6']) {
         sh ("git config --global user.email \"justinndavis@gmail.com\"")
         sh ("git config --global user.name \"Justin Davis\"")
         sh ("git add version")
