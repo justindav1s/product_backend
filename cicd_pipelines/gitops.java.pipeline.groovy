@@ -9,18 +9,20 @@ node('maven') {
     def sonar_url    = "http://sonarqube.cicd.svc:9000"
     def nexus_url    = "http://nexus.cicd.svc:8081/repository/maven-snapshots"
     def registry     = "docker-registry.default.svc:5000"
+    def groupId, artifactId, version, packaging = null
 
     stage('Checkout Source') {
         git url: "${git_url}", branch: 'master'
     }
 
     def commitId  = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
-    def groupId      = getGroupIdFromPom("pom.xml")
-    def artifactId   = getArtifactIdFromPom("pom.xml")
-    def version      = getVersionFromPom("pom.xml")
-    def packaging    = getPackagingFromPom("pom.xml")
 
     dir("src/${app_name}") {
+
+        groupId      = getGroupIdFromPom("pom.xml")
+        artifactId   = getArtifactIdFromPom("pom.xml")
+        version      = getVersionFromPom("pom.xml")
+        packaging    = getPackagingFromPom("pom.xml")
 
         stage('Build jar') {
             echo "Building version : ${version}"
