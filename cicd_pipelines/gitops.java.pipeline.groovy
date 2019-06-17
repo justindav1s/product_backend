@@ -144,7 +144,8 @@ def manageVersionData(commitId, git_url) {
         git url: "${trackingrepo}", branch: 'master', credentialsId: 'github'
         def workspace = pwd()
         def versionFileName = "version"
-        versionFileName = workspace+"/"+versionFileName
+        versionFileName = workspace+"/"+artifactId+"."versionFileName
+        sh("touch ${versionFileName}")
         def versiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
         println "Existing version data : "+versiondata
         def versionnumber = versiondata.tokenize(':')[0]
@@ -158,7 +159,7 @@ def manageVersionData(commitId, git_url) {
 
         sh ("git config user.email \"jenkins@${GIT_USERNAME}.dev\"")
         sh ("git config user.name \"${GIT_USERNAME}\"")
-        sh ("git add version")
+        sh ("git add ${versionFileName}")
         sh ("git commit -m \"updating version data to ${newVersionString}\"")
         sh ("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/${github_repo}.git master")
     }
