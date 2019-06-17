@@ -19,6 +19,7 @@ node('maven') {
     }
 
     def commitId  = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+    def commitmsg  = sh(returnStdout: true, script: "git log --format=%B -n 1 ${commitId}").trim()
 
     dir("src/${app_name}") {
 
@@ -142,7 +143,7 @@ def getPackagingFromPom(pom) {
     matcher ? matcher[0][1] : null
 }
 
-def manageVersionData(commitId, groupId, artifactId) {
+def manageVersionData(commitId, commitmsg, groupId, artifactId) {
 
     withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
         def github_repo = "manifest-test"
@@ -168,7 +169,7 @@ def manageVersionData(commitId, groupId, artifactId) {
 //            def gitcommitid = versiondata.tokenize(':')[1]
 //            int newVersion = versionnumber.toInteger()
 //            newVersion = newVersion + 1
-            newVersionString = "{ \"build\": \"${env.BUILD_NUMBER}\", \"timestamp\": \"${timeStamp}\", \"commitId\": \"${commitId}\"}}"
+            newVersionString = "{ \"build\": \"${env.BUILD_NUMBER}\", \"timestamp\": \"${timeStamp}\", \"commitId\": \"${commitId}\", \"commitMsg\": \"${commitmsg}\"}"
             println "New version data :  : "+newVersionString
             sh(returnStdout: true, script: "echo ${newVersionString} > ${versionFileName}")
             def newversiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
@@ -176,7 +177,7 @@ def manageVersionData(commitId, groupId, artifactId) {
         else {
             echo "${versionFileName} does not Exist."
             sh("touch ${versionFileName}")
-            newVersionString = "{ \"build\": \"${env.BUILD_NUMBER}\", \"timestamp\": \"${timeStamp}\", \"commitId\": \"${commitId}\"}}"
+            newVersionString = "{ \"build\": \"${env.BUILD_NUMBER}\", \"timestamp\": \"${timeStamp}\", \"commitId\": \"${commitId}\", \"commitMsg\": \"${commitmsg}\"}"
             sh(returnStdout: true, script: "echo ${newVersionString} > ${versionFileName}")
             def newversiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
         }
