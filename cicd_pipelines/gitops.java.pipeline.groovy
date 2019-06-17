@@ -30,13 +30,13 @@ node('maven') {
             sh "${mvn} clean package -Dspring.profiles.active=dev -DskipTests"
         }
 
-        // Using Maven run the unit tests
-        stage('Unit/Integration Tests') {
-            echo "Running Unit Tests"
-            sh "${mvn} test -Dmaven.wagon.http.ssl.insecure=true -Dspring.profiles.active=dev"
-            archive "target/**/*"
-            junit 'target/surefire-reports/*.xml'
-        }
+//        // Using Maven run the unit tests
+//        stage('Unit/Integration Tests') {
+//            echo "Running Unit Tests"
+//            sh "${mvn} test -Dmaven.wagon.http.ssl.insecure=true -Dspring.profiles.active=dev"
+//            archive "target/**/*"
+//            junit 'target/surefire-reports/*.xml'
+//        }
 
         //Build the OpenShift Image in OpenShift and tag it.
         stage('Build and Tag OpenShift Image') {
