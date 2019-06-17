@@ -2,25 +2,25 @@
 
 node('maven') {
 
+    def mvn          = "mvn -U -B -q -s ../settings.xml -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"
+    def dev_project  = "${org}-dev"
+    def prod_project = "${org}-prod"
+    def app_url_dev  = "http://${app_name}.${dev_project}.svc:8080"
+    def groupId      = getGroupIdFromPom("pom.xml")
+    def artifactId   = getArtifactIdFromPom("pom.xml")
+    def version      = getVersionFromPom("pom.xml")
+    def packaging    = getPackagingFromPom("pom.xml")
+    def sonar_url    = "http://sonarqube.cicd.svc:9000"
+    def nexus_url    = "http://nexus.cicd.svc:8081/repository/maven-snapshots"
+    def registry     = "docker-registry.default.svc:5000"
+
     stage('Checkout Source') {
         git url: "${git_url}", branch: 'master'
     }
 
+    def commitId  = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+
     dir("src/${app_name}") {
-
-        def mvn          = "mvn -U -B -q -s ../settings.xml -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"
-        def dev_project  = "${org}-dev"
-        def prod_project = "${org}-prod"
-        def app_url_dev  = "http://${app_name}.${dev_project}.svc:8080"
-        def groupId      = getGroupIdFromPom("pom.xml")
-        def artifactId   = getArtifactIdFromPom("pom.xml")
-        def version      = getVersionFromPom("pom.xml")
-        def packaging    = getPackagingFromPom("pom.xml")
-        def sonar_url    = "http://sonarqube.cicd.svc:9000"
-        def nexus_url    = "http://nexus.cicd.svc:8081/repository/maven-snapshots"
-        def registry     = "docker-registry.default.svc:5000"
-        def commitId  = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
-
 
         stage('Build jar') {
             echo "Building version : ${version}"
@@ -109,7 +109,7 @@ node('maven') {
         dir("build-metadata") {
 
             stage('manage version data') {
-                manageVersionData(commitId, git_url)
+                manageVersionData(commitId)
             }
 
         }
@@ -136,7 +136,7 @@ def getPackagingFromPom(pom) {
     matcher ? matcher[0][1] : null
 }
 
-def manageVersionData(commitId, git_url) {
+def manageVersionData(commitId) {
 
     withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
         def github_repo = "manifest-test"
