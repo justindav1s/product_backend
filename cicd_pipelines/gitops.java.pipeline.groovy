@@ -162,7 +162,7 @@ def manageVersionData(commitId, groupId, artifactId) {
             def gitcommitid = versiondata.tokenize(':')[1]
             int newVersion = versionnumber.toInteger()
             newVersion = newVersion + 1
-            newVersionString = newVersion+":"+${env.BUILD_NUMBER}+":"+${timeStamp}+":"+commitId
+            newVersionString = newVersion+":"+env.BUILD_NUMBER+":"+timeStamp+":"+commitId
             println "New version data :  : "+newVersionString
             sh(returnStdout: true, script: "echo ${newVersionString} > ${versionFileName}")
             def newversiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
