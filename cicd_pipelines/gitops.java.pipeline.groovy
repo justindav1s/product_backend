@@ -138,7 +138,7 @@ def getPackagingFromPom(pom) {
 
 def manageVersionData(commitId, git_url) {
     def trackingrepo = "https://github.com/justindav1s/manifest-test.git"
-    git url: "${trackingrepo}", branch: 'master', credentialsId: '1c0e3c0a-f7bd-444e-918f-69799380d061'
+    git url: "${trackingrepo}", branch: 'master', credentialsId: 'cab006f5-c6cf-43bc-8c1e-50a4430d44c6'
     def workspace = pwd()
     def versionFileName = "version"
     versionFileName = workspace+"/"+versionFileName
@@ -152,7 +152,8 @@ def manageVersionData(commitId, git_url) {
     println "New version data :  : "+newVersionString
     sh(returnStdout: true, script: "echo ${newVersionString} > ${versionFileName}")
     def newversiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
-    sshagent(['1c0e3c0a-f7bd-444e-918f-69799380d061']) {
+    withCredentials([usernamePassword(credentialsId: 'cab006f5-c6cf-43bc-8c1e-50a4430d44c6')]) {
+    //sshagent(['cab006f5-c6cf-43bc-8c1e-50a4430d44c6']) {
         sh ("git config --global user.email \"justinndavis@gmail.com\"")
         sh ("git config --global user.name \"Justin Davis\"")
         sh ("git add version")
