@@ -9,7 +9,8 @@ node('maven') {
     def sonar_url    = "http://sonarqube.cicd.svc:9000"
     def nexus_url    = "http://nexus.cicd.svc:8081/repository/maven-snapshots"
     def registry     = "docker-registry.default.svc:5000"
-    def groupId, artifactId, version, packaging = null
+    def groupId, version, packaging = null
+    def artifactId = null
 
     stage('Checkout Source') {
         git url: "${git_url}", branch: 'master'
@@ -111,7 +112,7 @@ node('maven') {
         dir("build-metadata") {
 
             stage('manage version data') {
-                manageVersionData(commitId)
+                manageVersionData(commitId, artifactId)
             }
 
         }
@@ -138,7 +139,7 @@ def getPackagingFromPom(pom) {
     matcher ? matcher[0][1] : null
 }
 
-def manageVersionData(commitId) {
+def manageVersionData(commitId, artifactId) {
 
     withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
         def github_repo = "manifest-test"
@@ -146,7 +147,7 @@ def manageVersionData(commitId) {
         git url: "${trackingrepo}", branch: 'master', credentialsId: 'github'
         def workspace = pwd()
         def versionFileName = "version"
-        versionFileName = workspace+"/"+${artifactId}+"."+versionFileName
+        versionFileName = workspace+"/"+artifactId+"."+versionFileName
         sh("touch ${versionFileName}")
         def versiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
         println "Existing version data : "+versiondata
