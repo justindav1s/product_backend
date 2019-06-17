@@ -164,10 +164,10 @@ def manageVersionData(commitId, groupId, artifactId) {
             echo "${versionFileName} Exists."
             def versiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
             println "Existing version data : "+versiondata
-            def versionnumber = versiondata.tokenize(':')[0]
-            def gitcommitid = versiondata.tokenize(':')[1]
-            int newVersion = versionnumber.toInteger()
-            newVersion = newVersion + 1
+//            def versionnumber = versiondata.tokenize(':')[0]
+//            def gitcommitid = versiondata.tokenize(':')[1]
+//            int newVersion = versionnumber.toInteger()
+//            newVersion = newVersion + 1
             newVersionString = "{ \"build\": \"${env.BUILD_NUMBER}\", \"timestamp\": \"${timeStamp}\", \"commitId\": \"${commitId}\"}}"
             println "New version data :  : "+newVersionString
             sh(returnStdout: true, script: "echo ${newVersionString} > ${versionFileName}")
