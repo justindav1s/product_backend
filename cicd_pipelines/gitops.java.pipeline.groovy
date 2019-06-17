@@ -148,7 +148,7 @@ def manageVersionData(commitId, groupId, artifactId) {
         def workspace = pwd()
 
         def versionFileName = "version"
-        versionFileName = workspace+"/"+groupId+"."artifactId+"."+versionFileName
+        versionFileName = workspace+"/"+groupId+"."+artifactId+"."+versionFileName
         def file = new File(versionFileName)
 
         def newVersionString = null;
