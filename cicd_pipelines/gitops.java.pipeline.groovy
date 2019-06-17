@@ -170,7 +170,7 @@ def manageVersionData(commitId, groupId, artifactId) {
         else {
             echo "${versionFileName} does not Exist."
             sh("touch ${versionFileName}")
-            newVersionString = "1:"+commitId
+            newVersionString = newVersion+":"+${env.BUILD_NUMBER}+":"+${timeStamp}+":"+commitId
             sh(returnStdout: true, script: "echo ${newVersionString} > ${versionFileName}")
             def newversiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
         }
