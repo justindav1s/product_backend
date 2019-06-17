@@ -144,7 +144,7 @@ def manageVersionData(commitId, git_url) {
         git url: "${trackingrepo}", branch: 'master', credentialsId: 'github'
         def workspace = pwd()
         def versionFileName = "version"
-        versionFileName = workspace+"/"+artifactId+"."versionFileName
+        versionFileName = workspace+"/"+artifactId+"."+versionFileName
         sh("touch ${versionFileName}")
         def versiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
         println "Existing version data : "+versiondata
