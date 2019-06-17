@@ -153,7 +153,8 @@ def manageVersionData(commitId, groupId, artifactId) {
         def file = new File(versionFileName)
         sh("find .")
         def newVersionString = null;
-        if (file.exists())  {
+        def exists = fileExists versionFileName
+        if (exists)  {
             echo "${versionFileName} Exists."
             def versiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
             println "Existing version data : "+versiondata
