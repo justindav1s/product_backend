@@ -1,31 +1,24 @@
 #!groovy
-import groovy.transform.Field
 
 node('maven') {
-
-    def mvn          = "mvn -U -B -q -s ../settings.xml -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"
-    def dev_project  = "${org}-dev"
-    def prod_project = "${org}-prod"
-    def app_url_dev  = "http://${app_name}.${dev_project}.svc:8080"
-    def sonar_url    = "http://sonarqube.cicd.svc:9000"
-    def nexus_url    = "http://nexus.cicd.svc:8081/repository/maven-snapshots"
-    def registry     = "docker-registry.default.svc:5000"
-    def groupId, version, packaging = null
-    def artifactId = null
 
     stage('Checkout Source') {
         git url: "${git_url}", branch: 'master'
     }
 
-    def commitId  = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
-    def commitmsg  = sh(returnStdout: true, script: "git log --format=%B -n 1 ${commitId}").trim()
-
     dir("src/${app_name}") {
 
-        groupId      = getGroupIdFromPom("pom.xml")
-        artifactId   = getArtifactIdFromPom("pom.xml")
-        version      = getVersionFromPom("pom.xml")
-        packaging    = getPackagingFromPom("pom.xml")
+        def mvn          = "mvn -U -B -q -s ../settings.xml -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"
+        def dev_project  = "${org}-dev"
+        def prod_project = "${org}-prod"
+        def app_url_dev  = "http://${app_name}.${dev_project}.svc:8080"
+        def groupId      = getGroupIdFromPom("pom.xml")
+        def artifactId   = getArtifactIdFromPom("pom.xml")
+        def version      = getVersionFromPom("pom.xml")
+        def packaging    = getPackagingFromPom("pom.xml")
+        def sonar_url    = "http://sonarqube.cicd.svc:9000"
+        def nexus_url    = "http://nexus.cicd.svc:8081/repository/maven-snapshots"
+        def registry     = "docker-registry.default.svc:5000"
 
         stage('Build jar') {
             echo "Building version : ${version}"
@@ -68,19 +61,18 @@ node('maven') {
             echo "Packaging : ${packaging}"
             sh "${mvn} clean"
             sh "${mvn} dependency:copy -DstripVersion=true -Dartifact=${groupId}:${artifactId}:${version}:${packaging} -DoutputDirectory=."
-            sh "cp \$(find . -type f -name \"${artifactId}-*.${packaging}\")  ${artifactId}-${commitId}.${packaging}"
+            sh "cp \$(find . -type f -name \"${artifactId}-*.${packaging}\")  ${artifactId}.${packaging}"
             sh "pwd; ls -ltr"
 
             openshift.withCluster() {
                 openshift.withProject("${dev_project}") {
 
                     echo "Building ...."
-                    def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}-${commitId}.${packaging}")
+                    def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}.${packaging}")
                     nb.logs('-f')
 
                     echo "Tagging ...."
                     openshift.tag("${app_name}:latest", "${app_name}:${devTag}")
-                    openshift.tag("${app_name}:latest", "${app_name}:${commitId}")
                 }
             }
 
@@ -99,7 +91,7 @@ node('maven') {
                     openshift.set("triggers", "dc/${app_name}", "--remove-all");
 
                     //update deployment config with new image
-                    openshift.set("image", "dc/${app_name}", "${app_name}=${registry}/${dev_project}/${app_name}:${commitId}")
+                    openshift.set("image", "dc/${app_name}", "${app_name}=${registry}/${dev_project}/${app_name}:${devTag}")
 
                     //update app config
                     openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
@@ -126,15 +118,6 @@ node('maven') {
                 }
             }
             echo "Deploying container image to Development Project : FINISHED"
-
-        }
-
-        dir("build-metadata") {
-
-            stage('manage version data') {
-                echo "Project : ${dev_project}"
-                manageVersionData(commitId, commitmsg, groupId, artifactId, dev_project)
-            }
 
         }
 
@@ -189,15 +172,6 @@ node('maven') {
             echo "Deploying container image to Production Project : FINISHED"
 
         }
-
-        dir("build-metadata") {
-
-            stage('manage version data') {
-                echo "Project : ${dev_project}"
-                manageVersionData(commitId, commitmsg, groupId, artifactId, prod_project)
-            }
-
-        }
     }
 }
 
@@ -219,27 +193,4 @@ def getArtifactIdFromPom(pom) {
 def getPackagingFromPom(pom) {
     def matcher = readFile(pom) =~ '<packaging>(.+)</packaging>'
     matcher ? matcher[0][1] : null
-}
-
-def manageVersionData(commitId, commitmsg, groupId, artifactId, project) {
-
-    withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-        def github_repo = "manifest-test"
-        def trackingrepo = "https://github.com/${GIT_USERNAME}/${github_repo}.git"
-        echo "1"
-        git url: "${trackingrepo}", branch: 'master', credentialsId: 'github'
-        echo "2"
-        def versionFileName = "version"
-        versionFileName = groupId+"."+artifactId+"."+project+"."+versionFileName
-        echo "3"
-        @Field def timeStamp = Calendar.getInstance().getTime().format('ddMMyy-HH:mm:ss',TimeZone.getTimeZone('GMT'))
-        echo "4"
-        def newVersionString = "{ \\\"build\\\": \\\"${env.BUILD_NUMBER}\\\", \\\"timestamp\\\": \\\"${timeStamp}\\\", \\\"commitId\\\": \\\"${commitId}\\\", \\\"commitMsg\\\": \\\"${commitmsg}\\\"}"
-        sh(returnStdout: true, script: "echo ${newVersionString} >> ${versionFileName}")
-        echo "5"
-        sh (returnStdout: true, script: "git config user.email \"jenkins@${GIT_USERNAME}.dev\"; git config user.name \"${GIT_USERNAME}\"")
-        sh (returnStdout: true, script: "git add ${versionFileName}")
-        sh (returnStdout: true, script: "git commit -m \"version data update for ${artifactId} to ${env.BUILD_NUMBER}:${commitId}\" || true")
-        sh (returnStdout: true, script: "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/${github_repo}.git master || true")
-    }
 }
