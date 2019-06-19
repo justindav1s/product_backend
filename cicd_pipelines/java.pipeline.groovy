@@ -241,7 +241,7 @@ def manageVersionData(commitId, commitmsg, groupId, artifactId, project) {
         sh (returnStdout: true, script: "git add ${versionFileName}")
         sh (returnStdout: true, script: "git commit -m \"version data update for ${artifactId} to ${env.BUILD_NUMBER}:${commitId}\" || true")
         sh (returnStdout: true, script: "git pull origin master || true");
-        sh (returnStdout: true, script: "git merge master; || true")
+        sh (returnStdout: true, script: "git merge master || true")
         sh (returnStdout: true, script: "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/${github_repo}.git master || true")
     }
 }
