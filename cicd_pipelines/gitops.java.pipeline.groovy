@@ -159,7 +159,7 @@ def manageVersionData(commitId, commitmsg, groupId, artifactId) {
 
         @Field def timeStamp = Calendar.getInstance().getTime().format('ddMMyy-HH:mm:ss',TimeZone.getTimeZone('GMT'))
 
-        newVersionString = "{ \"build\": \"${env.BUILD_NUMBER}\", \"timestamp\": \"${timeStamp}\", \"commitId\": \"${commitId}\", \"commitMsg\": \"${commitmsg}\"}"
+        newVersionString = "{ \\\"build\\\": \"${env.BUILD_NUMBER}\", \"timestamp\": \"${timeStamp}\", \"commitId\": \"${commitId}\", \"commitMsg\": \"${commitmsg}\"}"
         sh(returnStdout: true, script: "echo ${newVersionString} >> ${versionFileName}")
 
         sh (returnStdout: true, script: "git config user.email \"jenkins@${GIT_USERNAME}.dev\"; git config user.name \"${GIT_USERNAME}\"")
