@@ -154,7 +154,7 @@ def manageVersionData(commitId, commitmsg, groupId, artifactId, project) {
         def versionFileName = "version"
         versionFileName = groupId+"."+artifactId+"."+project+"."+versionFileName
 
-        def timeStamp = Calendar.getInstance().getTime().format('ddMMyy-HH:mm:ss',TimeZone.getTimeZone('GMT'))
+        @Field def timeStamp = Calendar.getInstance().getTime().format('ddMMyy-HH:mm:ss',TimeZone.getTimeZone('GMT'))
 
         def newVersionString = "{ \\\"build\\\": \\\"${env.BUILD_NUMBER}\\\", \\\"timestamp\": \\\"${timeStamp}\\\", \\\"commitId\\\": \\\"${commitId}\\\", \\\"commitMsg\\\": \\\"${commitmsg}\\\"}"
         sh(returnStdout: true, script: "echo ${newVersionString} >> ${versionFileName}")
