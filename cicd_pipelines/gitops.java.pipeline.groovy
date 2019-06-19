@@ -157,26 +157,10 @@ def manageVersionData(commitId, commitmsg, groupId, artifactId) {
         sh("find .")
         def newVersionString = null;
 
+        @Field def timeStamp = Calendar.getInstance().getTime().format('ddMMyy-HH:mm:ss',TimeZone.getTimeZone('GMT'))
 
-        @Field def timeStamp = Calendar.getInstance().getTime().format('ddMMyy HH:mm:ss',TimeZone.getTimeZone('GMT'))
-
-        def exists = fileExists versionFileName
-        if (exists)  {
-            echo "${versionFileName} Exists."
-            def versiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
-            println "Existing version data : "+versiondata
-            newVersionString = "{ \"build\": \"${env.BUILD_NUMBER}\", \"timestamp\": \"${timeStamp}\", \"commitId\": \"${commitId}\", \"commitMsg\": \"${commitmsg}\"}"
-            println "New version data :  : "+newVersionString
-            sh(returnStdout: true, script: "echo ${newVersionString} > ${versionFileName}")
-            def newversiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
-        }
-        else {
-            echo "${versionFileName} does not Exist."
-            sh("touch ${versionFileName}")
-            newVersionString = '{ \\"build\\": \\"${env.BUILD_NUMBER}\\", \\"timestamp\\": \\"${timeStamp}\\", \\"commitId\\": \\"${commitId}\\", \\"commitMsg\\": \\"${commitmsg}\\"}'
-            sh(returnStdout: true, script: "echo ${newVersionString} > ${versionFileName}")
-            def newversiondata = sh(returnStdout: true, script: "cat ${versionFileName} | head -1")
-        }
+        newVersionString = "{ \"build\": \"${env.BUILD_NUMBER}\", \"timestamp\": \"${timeStamp}\", \"commitId\": \"${commitId}\", \"commitMsg\": \"${commitmsg}\"}"
+        sh(returnStdout: true, script: "echo ${newVersionString} >> ${versionFileName}")
 
         sh (returnStdout: true, script: "git config user.email \"jenkins@${GIT_USERNAME}.dev\"; git config user.name \"${GIT_USERNAME}\"")
         sh (returnStdout: true, script: "git add ${versionFileName}")
