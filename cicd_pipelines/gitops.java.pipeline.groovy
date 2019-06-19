@@ -116,6 +116,7 @@ node('maven') {
         dir("build-metadata") {
 
             stage('manage version data') {
+                echo "Project : ${dev_project}"
                 manageVersionData(commitId, commitmsg, groupId, artifactId, dev_project)
             }
 
@@ -149,7 +150,6 @@ def manageVersionData(commitId, commitmsg, groupId, artifactId, project) {
         def github_repo = "manifest-test"
         def trackingrepo = "https://github.com/${GIT_USERNAME}/${github_repo}.git"
         git url: "${trackingrepo}", branch: 'master', credentialsId: 'github'
-        def workspace = pwd()
 
         def versionFileName = "version"
         versionFileName = groupId+"."+artifactId+"."+project+"."+versionFileName
