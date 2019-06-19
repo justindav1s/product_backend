@@ -116,7 +116,7 @@ node('maven') {
         dir("build-metadata") {
 
             stage('manage version data') {
-                manageVersionData(commitId, commitmsg, groupId, artifactId)
+                manageVersionData(commitId, commitmsg, groupId, artifactId, dev_project)
             }
 
         }
@@ -143,7 +143,7 @@ def getPackagingFromPom(pom) {
     matcher ? matcher[0][1] : null
 }
 
-def manageVersionData(commitId, commitmsg, groupId, artifactId) {
+def manageVersionData(commitId, commitmsg, groupId, artifactId, project) {
 
     withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
         def github_repo = "manifest-test"
@@ -152,14 +152,11 @@ def manageVersionData(commitId, commitmsg, groupId, artifactId) {
         def workspace = pwd()
 
         def versionFileName = "version"
-        versionFileName = groupId+"."+artifactId+"."+versionFileName
-        def file = new File(versionFileName)
-        sh("find .")
-        def newVersionString = null;
+        versionFileName = groupId+"."+artifactId+"."+project+"."+versionFileName
 
-        @Field def timeStamp = Calendar.getInstance().getTime().format('ddMMyy-HH:mm:ss',TimeZone.getTimeZone('GMT'))
+        def timeStamp = Calendar.getInstance().getTime().format('ddMMyy-HH:mm:ss',TimeZone.getTimeZone('GMT'))
 
-        newVersionString = "{ \\\"build\\\": \"${env.BUILD_NUMBER}\", \"timestamp\": \"${timeStamp}\", \"commitId\": \"${commitId}\", \"commitMsg\": \"${commitmsg}\"}"
+        def newVersionString = "{ \\\"build\\\": \\\"${env.BUILD_NUMBER}\\\", \\\"timestamp\": \\\"${timeStamp}\\\", \\\"commitId\\\": \\\"${commitId}\\\", \\\"commitMsg\\\": \\\"${commitmsg}\\\"}"
         sh(returnStdout: true, script: "echo ${newVersionString} >> ${versionFileName}")
 
         sh (returnStdout: true, script: "git config user.email \"jenkins@${GIT_USERNAME}.dev\"; git config user.name \"${GIT_USERNAME}\"")
