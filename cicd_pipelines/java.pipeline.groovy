@@ -239,7 +239,8 @@ def manageVersionData(commitId, commitmsg, groupId, artifactId, project) {
         echo "5"
         sh (returnStdout: true, script: "git config user.email \"jenkins@${GIT_USERNAME}.dev\"; git config user.name \"${GIT_USERNAME}\"")
         sh (returnStdout: true, script: "git add ${versionFileName}")
-        sh (returnStdout: true, script: "git commit -m \"version data update for ${artifactId} to ${env.BUILD_NUMBER}:${commitId}\" || true")
+        sh (returnStdout: true, script: "git pull");
+        sh (returnStdout: true, script: "git merge --commit -m \"version data update for ${artifactId} to ${env.BUILD_NUMBER}:${commitId}\" || true")
         sh (returnStdout: true, script: "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/${github_repo}.git master || true")
     }
 }
