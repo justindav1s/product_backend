@@ -18,7 +18,7 @@ objects:
     name: web
   spec:
     containers:
-    - image: docker-registry.default.svc:5000/amazin-prod/web:0.0.1
+    - image: docker-registry.default.svc:5000/amazin-prod/web:v1
       imagePullPolicy: Always
       livenessProbe:
         failureThreshold: 3

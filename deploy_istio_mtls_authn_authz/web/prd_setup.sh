@@ -18,5 +18,5 @@ oc delete template ${APP}-prod-dc -n ${PROD_PROJECT}
 oc delete configmap ${APP}-config -n ${PROD_PROJECT}
 
 echo Setting up ${APP} for ${PROD_PROJECT}
-oc new-app -f ./${APP}-prod-pod.yaml --allow-missing-imagestream-tags=true -n ${PROD_PROJECT}
+oc new-app -f ./${APP}-prd-template.yaml --allow-missing-imagestream-tags=true -n ${PROD_PROJECT}
 
