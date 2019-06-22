@@ -13,7 +13,7 @@
 
 export const environment = {
 production: false,
-inventory_backend : "http://api-gateway-amazin-dev.apps.ocp.datr.eu",
-basket_backend : "http://api-gateway-amazin-dev.apps.ocp.datr.eu",
-user_backend : "http://api-gateway-amazin-dev.apps.ocp.datr.eu"
+inventory_backend : "http://api-gateway-amazin-dev.apps.aws.datr.eu",
+basket_backend : "http://api-gateway-amazin-dev.apps.aws.datr.eu",
+user_backend : "http://api-gateway-amazin-dev.apps.aws.datr.eu"
 };
