@@ -67,7 +67,9 @@ oc delete customresourcedefinition controlplanes.istio.openshift.com installatio
 oc delete crd monitoringdashboards.monitoring.kiali.io
 
 oc delete installations.istio.openshift.com "basic-install"
+oc delete servicemeshcontrolplane.maistra.io "basic-install"
 
 oc delete crd installations.istio.openshift.com
+
 
 oc delete project istio-system

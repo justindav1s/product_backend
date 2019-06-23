@@ -42,3 +42,13 @@ and restart
 this is interesting
 
 https://istio.io/help/faq/security/
+
+ElasticSearch Resources
+
+          resources:
+            limits:
+              cpu: 400m
+              memory: 3Gi
+            requests:
+              cpu: 200m
+              memory: 3Gi

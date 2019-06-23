@@ -30,4 +30,6 @@ oc exec $(oc get pod -l app=api-gateway -o jsonpath={.items..metadata.name}) -c 
     -- cat /etc/certs/cert-chain.pem | openssl x509 -text -noout  | grep Validity -A 2
     
     
-oc exec $(oc get pod -l app=api-gateway -o jsonpath={.items..metadata.name}) -c istio-proxy -- cat /etc/certs/cert-chain.pem | openssl x509 -text -noout    
+oc exec $(oc get pod -l app=api-gateway -o jsonpath={.items..metadata.name}) -c istio-proxy -- cat /etc/certs/cert-chain.pem | openssl x509 -text -noout
+
+istioctl authn tls-check api-gateway-v1-2-7jtlf inventory-prd.amazin-prod.svc.cluster.local

@@ -13,5 +13,5 @@ oc login ${OCP} -u $USER
 
 oc project $OP_PROJECT
 
-oc create -n istio-system -f istio-installation-3.11_0.11.yaml
+oc create -n istio-system -f istio-installation-3.11_0.10.yaml
 

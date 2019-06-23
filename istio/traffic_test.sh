@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-HOST=https://istio-ingressgateway-istio-system.apps.ocp.datr.eu/api
+HOST=https://istio-ingressgateway-istio-system.apps.aws.datr.eu/api
 
 for i in $(seq 1 1000)
 do
