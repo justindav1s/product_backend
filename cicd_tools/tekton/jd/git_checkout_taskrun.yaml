@@ -22,7 +22,7 @@ spec:
           type: git
     steps:
       - name: echo-readme
-        image: registry.access.redhat.com/openshift3/jenkins-agent-maven-35-rhel7
+        image: docker-registry.default.svc:5000/tekton-test2/java-builder
         command: ["/bin/bash"]
         args: ["-c", "mkdir -p /workspace/gitssh/target/classes; mvn -f /workspace/gitssh/pom.xml -U -s /workspace/gitssh/settings.xml -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true package -Dspring.profiles.active=dev -DskipTests"]
 #        args: ["-c", "cat /workspace/gitssh/README.md"]

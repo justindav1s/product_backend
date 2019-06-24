@@ -23,3 +23,5 @@ done
 oc process -f ../java_builder_image/build.yml | oc apply -f -
 
 oc start-build "java-builder" --follow
+
+oc apply -f git_checkout_taskrun.yaml

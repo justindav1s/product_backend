@@ -21,7 +21,7 @@ LABEL io.k8s.description="Image for building java micro-service apps" \
 
 
 RUN rpm -ivh http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-11.noarch.rpm && \
- yum -y install wget curl java-$JAVA_VERSON-openjdk-devel git ansible pyOpenSSL libxml2 libxslt && \
+ yum -y install wget curl java-$JAVA_VERSON-openjdk-devel git libxml2 libxslt && \
  yum clean all -y && \
  rm -rf /var/cache/yum && \
  mkdir -p /workspace
@@ -43,4 +43,4 @@ RUN chown -R builder:builder /workspace && \
 
 USER 1001
 
-CMD ["/usr/libexec/s2i/usage"]
+CMD ["mvn"]
