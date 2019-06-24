@@ -14,8 +14,8 @@ while [ $? \> 0 ]; do
 oc new-project $PROJECT 2> /dev/null
 done
 
-oc adm policy add-scc-to-user anyuid -z default -n $PROJECT
-oc adm policy add-scc-to-user privileged -z default -n $PROJECT
+#oc adm policy add-scc-to-user anyuid -z default -n $PROJECT
+#oc adm policy add-scc-to-user privileged -z default -n $PROJECT
 
 #oc apply -f git_checkout_taskrun.yaml
 #oc apply -f vol_test.yaml

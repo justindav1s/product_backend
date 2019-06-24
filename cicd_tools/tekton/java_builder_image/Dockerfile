@@ -39,7 +39,7 @@ ENV HOME /workspace
 RUN groupadd -r builder && useradd -d $HOME -u 1001 -g builder builder
 
 RUN chown -R builder:builder /workspace && \
-    chmod -R 755 /workspace
+    chmod -R 777 /workspace
 
 USER 1001
 
