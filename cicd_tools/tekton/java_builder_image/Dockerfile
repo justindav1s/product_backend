@@ -24,7 +24,7 @@ RUN rpm -ivh http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-relea
  yum -y install wget curl java-$JAVA_VERSON-openjdk-devel git ansible pyOpenSSL libxml2 libxslt && \
  yum clean all -y && \
  rm -rf /var/cache/yum && \
- mkdir -p /workspace &&
+ mkdir -p /workspace
 
 WORKDIR /app
 
