@@ -30,14 +30,14 @@ spec:
         image: docker-registry.default.svc:5000/tekton-test2/java-builder
         workingDir: '/workspace/checkout/src/inventory'
         command: ["/bin/bash"]
-        args: ["-c", "mvn -U -s settings.xml -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dspring.profiles.active=dev -DskipTests package "]
+        args: ["-c", "mvn -U -s ../settings.xml -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dspring.profiles.active=dev -DskipTests package "]
       - name: mvn-test
         image: docker-registry.default.svc:5000/tekton-test2/java-builder
         workingDir: '/workspace/checkout/src/inventory'
         command: ["/bin/bash"]
-        args: ["-c", "mvn -U -s settings.xml -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dspring.profiles.active=dev test "]
+        args: ["-c", "mvn -U -s ../settings.xml -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dspring.profiles.active=dev test "]
       - name: mvn-deploy
         image: docker-registry.default.svc:5000/tekton-test2/java-builder
         workingDir: '/workspace/checkout/src/inventory'
         command: ["/bin/bash"]
-        args: ["-c", "mvn -U -s settings.xml -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dspring.profiles.active=dev deploy"]
+        args: ["-c", "mvn -U -s ../settings.xml -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dspring.profiles.active=dev deploy"]
