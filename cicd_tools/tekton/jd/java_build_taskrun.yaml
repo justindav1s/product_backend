@@ -14,7 +14,7 @@ spec:
             - name: revision
               value: master
             - name: url
-              value: https://github.com/justindav1s/data-model.git
+              value: https://github.com/justindav1s/microservices-on-openshift.git
   taskSpec:
     inputs:
       resources:
@@ -23,21 +23,21 @@ spec:
     steps:
       - name: check-dir
         image: docker-registry.default.svc:5000/tekton-test2/java-builder
-        workingDir: '/workspace/checkout'
+        workingDir: '/workspace/checkout/src/inventory'
         command: ["/bin/bash"]
         args: ["-c", "ls -ltr"]
       - name: mvn-package
         image: docker-registry.default.svc:5000/tekton-test2/java-builder
-        workingDir: '/workspace/checkout'
+        workingDir: '/workspace/checkout/src/inventory'
         command: ["/bin/bash"]
         args: ["-c", "mvn -U -s settings.xml -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dspring.profiles.active=dev -DskipTests package "]
       - name: mvn-test
         image: docker-registry.default.svc:5000/tekton-test2/java-builder
-        workingDir: '/workspace/checkout'
+        workingDir: '/workspace/checkout/src/inventory'
         command: ["/bin/bash"]
         args: ["-c", "mvn -U -s settings.xml -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dspring.profiles.active=dev test "]
       - name: mvn-deploy
         image: docker-registry.default.svc:5000/tekton-test2/java-builder
-        workingDir: '/workspace/checkout'
+        workingDir: '/workspace/checkout/src/inventory'
         command: ["/bin/bash"]
         args: ["-c", "mvn -U -s settings.xml -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -Dspring.profiles.active=dev deploy"]
