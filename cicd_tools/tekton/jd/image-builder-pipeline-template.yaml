@@ -1,7 +1,7 @@
 apiVersion: template.openshift.io/v1
 kind: Template
 metadata:
-  name: java-builder-pipeline-template
+  name: image-builder-pipeline-template
 objects:
 
 - apiVersion: tekton.dev/v1alpha1
@@ -31,53 +31,6 @@ objects:
     kind: ClusterRole
     name: cluster-admin
     apiGroup: rbac.authorization.k8s.io
-
-- apiVersion: tekton.dev/v1alpha1
-  kind: Task
-  metadata:
-    name: check-checkout
-  spec:
-    inputs:
-      resources:
-        - name: checkout-dir
-          type: git
-    steps:
-    - name : check-checkout-dir
-      image: '${JAVA_BUILDER_IMAGE}'
-      command: ['/bin/bash']
-      workingDir: '/workspace/checkout-dir'
-      args: ['-c', 'ls -ltr']
-    - name : checkout-dir-contents
-      image: '${JAVA_BUILDER_IMAGE}'
-      command: ['/bin/bash']
-      workingDir: '/workspace/checkout-dir'
-      args: ['-c', 'find .']
-
-- apiVersion: tekton.dev/v1alpha1
-  kind: Task
-  metadata:
-    name: java-build
-  spec:
-    inputs:
-      resources:
-        - name: checkout-dir
-          type: git
-    steps:
-    - name: mvn-package
-      image: '${JAVA_BUILDER_IMAGE}'
-      workingDir: '/workspace/checkout-dir/${GIT_REPO_CONTEXT}'
-      command: ['/bin/bash']
-      args: ['-c', '${MVN_COMMAND_STUB} -DskipTests package']
-    - name: mvn-test
-      image: '${JAVA_BUILDER_IMAGE}'
-      workingDir: '/workspace/checkout-dir/${GIT_REPO_CONTEXT}'
-      command: ['/bin/bash']
-      args: ['-c', '${MVN_COMMAND_STUB} -Dspring.profiles.active=dev test']
-    - name: mvn-deploy
-      image: '${JAVA_BUILDER_IMAGE}'
-      workingDir: '/workspace/checkout-dir/${GIT_REPO_CONTEXT}'
-      command: ['/bin/bash']
-      args: ['-c', '${MVN_COMMAND_STUB} -DskipTests deploy']
 
 - apiVersion: tekton.dev/v1alpha1
   kind: Task
@@ -113,33 +66,15 @@ objects:
 - apiVersion: tekton.dev/v1alpha1
   kind: Pipeline
   metadata:
-    name: java-builder-pipeline
+    name: image-builder-pipeline
   spec:
     resources:
     - name: source-repo
       type: git
     tasks:
-      - name: check-checkout
-        taskRef:
-          name: check-checkout
-        resources:
-          inputs:
-          - name: checkout-dir
-            resource: source-repo
-      - name: java-build
-        taskRef:
-          name: java-build
-        runAfter:
-        - check-checkout
-        resources:
-          inputs:
-          - name: checkout-dir
-            resource: source-repo
       - name: image-build
         taskRef:
           name: image-build
-        runAfter:
-        - java-build
         resources:
           inputs:
             - name: checkout-dir
@@ -148,10 +83,10 @@ objects:
 - apiVersion: tekton.dev/v1alpha1
   kind: PipelineRun
   metadata:
-    name: java-builder-pipeline-run
+    name: image-builder-pipeline-run
   spec:
     pipelineRef:
-      name: java-builder-pipeline
+      name: image-builder-pipeline
     serviceAccount: 'default'
     resources:
       - name: source-repo
