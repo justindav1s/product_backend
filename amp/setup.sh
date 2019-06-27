@@ -1,19 +1,18 @@
 #!/usr/bin/env bash
 
-#export IP=192.168.0.91
-export IP=ocp.datr.eu
-export IP=master.aws.datr.eu
-#export IP=local.datr.eu
-export USER=justin
+. ./env.sh
 
-export ORG=amazin
-export DEV_PROJECT=${ORG}-dev
-export PROD_PROJECT=${ORG}-prod
-export CICD_PROJECT=cicd
+oc login https://${IP}:8443 -u $USER
 
-export CURL="curl -k -v"
-export JENKINS_USER=justin-admin
-export JENKINS_TOKEN=689cf35e08184521639067df1b432098
-export JENKINS=jenkins-cicd.apps.ocp.datr.eu
-#export JENKINS=jenkins-cicd.apps.${IP}
+oc delete project $PROJECT
+oc new-project $PROJECT 2> /dev/null
+while [ $? \> 0 ]; do
+    sleep 1
+    printf "."
+oc new-project $PROJECT 2> /dev/null
+done
 
+
+oc new-app -f https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/2.5-stable/amp/amp.yml \
+    -p WILDCARD_DOMAIN=amp.apps.ocp.datr.eu \
+    -p WILDCARD_POLICY=Subdomain
