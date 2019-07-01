@@ -30,3 +30,5 @@ hs_err_pid*
 /istio/install/gihub.key
 /cicd_tools/kaniko/Dockerfile
 /src/web/node_modules/
+/src/web_sso/node_modules/
+/src/web_sso/dist/
