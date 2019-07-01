@@ -56,14 +56,14 @@ node('nodejs') {
         echo "Project : ${prod_project}"
         echo "App : ${app_name}"
 
-        sh "oc start-build ${app_name} --follow --from-dir=dist -n ${dev_project}"
+        sh "oc start-build ${app_name} --follow --from-dir=dist/Angular7 -n ${dev_project}"
         openshiftVerifyBuild apiURL: '', authToken: '', bldCfg: app_name, checkForTriggeredDeployments: 'false', namespace: dev_project, verbose: 'false', waitTime: ''
         openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: prodTag, destinationAuthToken: '', destinationNamespace: prod_project, namespace: dev_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
       }
 
-      stage('Wait for approval for ${app_name} to be staged into production') {
+      stage("Wait for approval for ${app_name} to be staged into production") {
         timeout(time: 2, unit: 'DAYS') {
-          input message: 'Approve this ${app_name} build to be staged in production ?'
+          input message: "Approve this ${app_name} build to be staged in production ?"
         }
       }
 
