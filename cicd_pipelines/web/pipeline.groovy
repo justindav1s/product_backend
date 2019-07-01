@@ -27,7 +27,7 @@ node('nodejs') {
         echo "Project : ${dev_project}"
         echo "App : ${app_name}"
 
-        sh "oc start-build ${app_name} --follow --from-dir=dist -n ${dev_project}"
+        sh "oc start-build ${app_name} --follow --from-dir=dist/Angular7 -n ${dev_project}"
         openshiftVerifyBuild apiURL: '', authToken: '', bldCfg: app_name, checkForTriggeredDeployments: 'false', namespace: dev_project, verbose: 'false', waitTime: ''
         openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: devTag, destinationAuthToken: '', destinationNamespace: dev_project, namespace: dev_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
       }
