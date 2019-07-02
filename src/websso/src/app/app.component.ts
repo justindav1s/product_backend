@@ -28,10 +28,10 @@ export class AppComponent implements OnInit{
 
   async ngOnInit() {
     console.log("AppComponent : ngOnInit")
-    if (await this.keycloakService.isLoggedIn()) {
-      console.log("AppComponent : isLoggedIn")
-      this.userDetails = await this.keycloakService.loadUserProfile();
-    }
+    // if (await this.keycloakService.isLoggedIn()) {
+    //   console.log("AppComponent : isLoggedIn")
+    //   this.userDetails = await this.keycloakService.loadUserProfile();
+    // }
   }
 
   async doLogout() {
