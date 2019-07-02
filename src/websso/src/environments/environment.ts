@@ -21,7 +21,6 @@ let keycloakConfig: KeycloakConfig = {
   "credentials": {
     "secret": "4067e61d-377b-4995-bdc9-d08381567cf5"
   }
-
 };
 
 export const environment = {
