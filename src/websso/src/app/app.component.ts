@@ -4,8 +4,8 @@ import { Product } from './model/product'
 import { Basket } from './model/basket';
 import { User } from './model/user';
 
-import { KeycloakProfile } from 'keycloak-js';
-import { KeycloakService } from 'keycloak-angular';
+// import { KeycloakProfile } from 'keycloak-js';
+// import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-root',
@@ -17,14 +17,14 @@ export class AppComponent implements OnInit{
   products: Product[];
   product: Product;
   basket: Basket;
-  userDetails: KeycloakProfile;
+  // userDetails: KeycloakProfile;
 
   title = 'Amazin - Shopping Reimagined - sso';
 
-  // constructor() {}
-  constructor(private keycloakService: KeycloakService) {
-    console.log("AppComponent : with added Keycloak")
-  }
+  constructor() {}
+  // constructor(private keycloakService: KeycloakService) {
+  //   console.log("AppComponent : with added Keycloak")
+  // }
 
   async ngOnInit() {
     console.log("AppComponent : ngOnInit")
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit{
   }
 
   async doLogout() {
-    await this.keycloakService.logout();
+     // await this.keycloakService.logout();
   }
 
   onNewLogin(user : User)  {
