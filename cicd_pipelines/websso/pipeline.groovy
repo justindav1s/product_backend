@@ -61,23 +61,23 @@ node('nodejs') {
         openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: prodTag, destinationAuthToken: '', destinationNamespace: prod_project, namespace: dev_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
       }
 
-      stage("Wait for approval for ${app_name} to be staged into production") {
-        timeout(time: 2, unit: 'DAYS') {
-          input message: "Approve this ${app_name} build to be staged in production ?"
-        }
-      }
-
-      // Deploy the built image to the Development Environment.
-      stage('Prod :  Deploy') {
-        echo "Deploying container image to Development Project"
-        echo "Project : ${prod_project}"
-        echo "App : ${app_name}"
-        echo "Prod Tag : ${prodTag}"
-
-        sh "oc set image dc/${app_name} ${app_name}=docker-registry.default.svc:5000/${prod_project}/${app_name}:${prodTag} -n ${prod_project}"
-
-        openshiftDeploy apiURL: '', authToken: '', depCfg: app_name, namespace: prod_project, verbose: 'false', waitTime: '180', waitUnit: 'sec'
-        openshiftVerifyDeployment apiURL: '', authToken: '', depCfg: app_name, namespace: prod_project, replicaCount: '1', verbose: 'false', verifyReplicaCount: 'true', waitTime: '180', waitUnit: 'sec'
-      }
+//      stage("Wait for approval for ${app_name} to be staged into production") {
+//        timeout(time: 2, unit: 'DAYS') {
+//          input message: "Approve this ${app_name} build to be staged in production ?"
+//        }
+//      }
+//
+//      // Deploy the built image to the Development Environment.
+//      stage('Prod :  Deploy') {
+//        echo "Deploying container image to Development Project"
+//        echo "Project : ${prod_project}"
+//        echo "App : ${app_name}"
+//        echo "Prod Tag : ${prodTag}"
+//
+//        sh "oc set image dc/${app_name} ${app_name}=docker-registry.default.svc:5000/${prod_project}/${app_name}:${prodTag} -n ${prod_project}"
+//
+//        openshiftDeploy apiURL: '', authToken: '', depCfg: app_name, namespace: prod_project, verbose: 'false', waitTime: '180', waitUnit: 'sec'
+//        openshiftVerifyDeployment apiURL: '', authToken: '', depCfg: app_name, namespace: prod_project, replicaCount: '1', verbose: 'false', verifyReplicaCount: 'true', waitTime: '180', waitUnit: 'sec'
+//      }
     }
 }
