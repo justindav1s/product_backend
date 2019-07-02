@@ -19,13 +19,17 @@ export class AppComponent implements OnInit{
   basket: Basket;
   userDetails: KeycloakProfile;
 
-  title = 'Amazin - Shopping Reimagined';
+  title = 'Amazin - Shopping Reimagined - sso';
 
   // constructor() {}
-  constructor(private keycloakService: KeycloakService) {}
+  constructor(private keycloakService: KeycloakService) {
+    console.log("AppComponent : with added Keycloak")
+  }
 
   async ngOnInit() {
+    console.log("AppComponent : ngOnInit")
     if (await this.keycloakService.isLoggedIn()) {
+      console.log("AppComponent : isLoggedIn")
       this.userDetails = await this.keycloakService.loadUserProfile();
     }
   }
