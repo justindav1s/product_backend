@@ -46,20 +46,20 @@ node('nodejs') {
       }
 
 
-      stage('Prod : Angular build') {
-        sh 'node_modules/.bin/ng build --prod'
-      }
-
-      //Build the OpenShift Image in OpenShift and tag it.
-      stage('Prod : Build and Tag OpenShift Image') {
-        echo "Building OpenShift container image ${app_name}:${prodTag}"
-        echo "Project : ${prod_project}"
-        echo "App : ${app_name}"
-
-        sh "oc start-build ${app_name} --follow --from-dir=dist/Angular7 -n ${dev_project}"
-        openshiftVerifyBuild apiURL: '', authToken: '', bldCfg: app_name, checkForTriggeredDeployments: 'false', namespace: dev_project, verbose: 'false', waitTime: ''
-        openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: prodTag, destinationAuthToken: '', destinationNamespace: prod_project, namespace: dev_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
-      }
+      // stage('Prod : Angular build') {
+      //   sh 'node_modules/.bin/ng build --prod'
+      // }
+      //
+      // //Build the OpenShift Image in OpenShift and tag it.
+      // stage('Prod : Build and Tag OpenShift Image') {
+      //   echo "Building OpenShift container image ${app_name}:${prodTag}"
+      //   echo "Project : ${prod_project}"
+      //   echo "App : ${app_name}"
+      //
+      //   sh "oc start-build ${app_name} --follow --from-dir=dist/Angular7 -n ${dev_project}"
+      //   openshiftVerifyBuild apiURL: '', authToken: '', bldCfg: app_name, checkForTriggeredDeployments: 'false', namespace: dev_project, verbose: 'false', waitTime: ''
+      //   openshiftTag alias: 'false', apiURL: '', authToken: '', destStream: app_name, destTag: prodTag, destinationAuthToken: '', destinationNamespace: prod_project, namespace: dev_project, srcStream: app_name, srcTag: 'latest', verbose: 'false'
+      // }
 
 //      stage("Wait for approval for ${app_name} to be staged into production") {
 //        timeout(time: 2, unit: 'DAYS') {
