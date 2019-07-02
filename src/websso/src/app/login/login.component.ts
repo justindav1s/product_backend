@@ -17,13 +17,15 @@ export class LoginComponent implements OnInit {
   loggedIn : boolean = false;
   userDetails: KeycloakProfile;
 
-  constructor(private userService: UserService) { }
+  // constructor(private userService: UserService) { }
+
+  constructor(private keycloakService: KeycloakService) { }
 
   ngOnInit() {
     console.log("LoginComponent ngOnInit");
   }
 
-  onSubmit(): void{
+  async onSubmit()  {
     console.log("login");
     console.log("user.username : " + this.user.username);
     console.log("user.password : " + this.user.password);
