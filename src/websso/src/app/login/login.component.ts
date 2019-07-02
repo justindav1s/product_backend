@@ -26,10 +26,13 @@ export class LoginComponent implements OnInit {
     if (await this.keycloakService.isLoggedIn()) {
       console.log("AppComponent : isLoggedIn")
       this.userDetails = await this.keycloakService.loadUserProfile();
+      console.log("LoginComponent keycloakService : JSON : " + JSON.stringify(this.keycloakService.getUserRoles(true)));
+
       this.user.username = this.userDetails.username;
       this.user.firstName = this.userDetails.firstName;
       this.user.lastName = this.userDetails.lastName;
       this.user.email = this.userDetails.email;
+      this.user.roles = this.keycloakService.getUserRoles(true);
       // this.loggedIn = true;
       // this.loggedInUser.emit(this.user);
       this.userService.login(this.user).subscribe( (user: User) => {
@@ -45,23 +48,6 @@ export class LoginComponent implements OnInit {
     console.log("LoginComponent user : JSON : " + JSON.stringify(this.user));
   }
 
-  async onSubmit()  {
-    console.log("login");
-    console.log("user.username : " + this.user.username);
-    console.log("user.password : " + this.user.password);
-    // if (await this.keycloakService.isLoggedIn()) {
-    //   console.log("AppComponent : isLoggedIn")
-    //   this.userDetails = await this.keycloakService.loadUserProfile();
-    //   this.user.username = this.userDetails.username;
-    //   this.user.firstName = this.userDetails.firstName;
-    //   this.user.lastName = this.userDetails.lastName;
-    //   this.user.email = this.userDetails.email;
-    //   this.loggedIn = true;
-    //   this.loggedInUser.emit(this.user);
-    // }
-    // console.log("LoginComponent userDetails : JSON : " + JSON.stringify(this.userDetails));
-    // console.log("LoginComponent user : JSON : " + JSON.stringify(this.user));
-  }
   get greeting() { return "Welcome " + this.user.firstName + " " + this.user.lastName}
   get diagnostic() { return JSON.stringify(this.user); }
 }
