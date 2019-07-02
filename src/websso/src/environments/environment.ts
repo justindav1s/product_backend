@@ -14,7 +14,7 @@ import { KeycloakConfig } from 'keycloak-angular';
 // };
 
 
-let keycloakConfigOcp: KeycloakConfig = {
+let keycloakConfig: KeycloakConfig = {
   url: 'https://sso-sso.apps.ocp.datr.eu/auth',
   realm: 'amazin',
   clientId: 'webapp'
