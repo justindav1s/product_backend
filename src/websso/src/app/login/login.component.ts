@@ -48,6 +48,11 @@ export class LoginComponent implements OnInit {
     console.log("LoginComponent user : JSON : " + JSON.stringify(this.user));
   }
 
+  onClickSignOut(): void {
+    console.log("LoginComponent onClickSignOut");
+    this.keycloakService.logout
+  }
+
   get greeting() { return "Welcome " + this.user.firstName + " " + this.user.lastName}
   get diagnostic() { return JSON.stringify(this.user); }
 }
