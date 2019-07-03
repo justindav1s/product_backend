@@ -15,6 +15,8 @@ export class BasketComponent implements OnInit {
   @Input() basket : Basket;
   @Output() updatedBasket = new EventEmitter<Basket>();
 
+  isCustomer : false;
+
   constructor(
     private basketService: BasketService
   ) { }
