@@ -8,4 +8,6 @@ export class User {
   lastName?: String;
   email?: String;
   roles?: string[] = [];
+  isCustomer: boolean = false;
+  isAdmin: boolean = false;
 }

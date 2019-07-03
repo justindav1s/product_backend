@@ -28,7 +28,9 @@ export const environment = {
   inventory_backend : "https://api-gateway-amazin-dev.apps.ocp.datr.eu",
   basket_backend : "https://api-gateway-amazin-dev.apps.ocp.datr.eu",
   user_backend : "https://api-gateway-amazin-dev.apps.ocp.datr.eu",
-  keycloak: keycloakConfig
+  keycloak: keycloakConfig,
+  customer_role: "ROLE_customer",
+  admin_role: "ROLE_admin",
 };
 
 /*

@@ -6,6 +6,8 @@ import { UserService } from '../services/user.service';
 import { KeycloakProfile } from 'keycloak-js';
 import { KeycloakService } from 'keycloak-angular';
 
+import { environment } from '../../environments/environment';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -33,8 +35,12 @@ export class LoginComponent implements OnInit {
       this.user.lastName = this.userDetails.lastName;
       this.user.email = this.userDetails.email;
       this.user.roles = this.keycloakService.getUserRoles(true);
-      // this.loggedIn = true;
-      // this.loggedInUser.emit(this.user);
+      if (this.user.roles.includes(environment.customer_role))  {
+        this.user.isCustomer = true;
+      }
+      if (this.user.roles.includes(environment.admin_role))  {
+        this.user.isAdmin = true;
+      }
       this.userService.login(this.user).subscribe( (user: User) => {
         console.log("LoginComponent : user : " + user.id + " : " + user.username);
         this.loggedIn = true;
