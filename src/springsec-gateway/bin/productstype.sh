@@ -18,8 +18,6 @@ PART2_BASE64=$(echo ${ACCESS_TOKEN} | cut -d"." -f2)
 PART2_BASE64=$(padBase64 ${PART2_BASE64})
 echo ${PART2_BASE64} | base64 -D | jq .
 
-
-
 curl -v -X GET \
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json' \

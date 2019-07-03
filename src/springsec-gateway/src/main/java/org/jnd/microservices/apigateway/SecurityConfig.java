@@ -49,7 +49,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         //allow anything through
-        //http.authorizeRequests().antMatchers(HttpMethod.POST,"/").permitAll();
+        //http.authorizeRequests().antMatchers("/").permitAll();
 
         //must present a valid access token
         //http.authorizeRequests().anyRequest().authenticated();
