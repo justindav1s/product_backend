@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
 
   onClickSignOut(): void {
     console.log("LoginComponent onClickSignOut");
-    this.keycloakService.logout
+    this.keycloakService.logout();
   }
 
   get greeting() { return "Welcome " + this.user.firstName + " " + this.user.lastName}
