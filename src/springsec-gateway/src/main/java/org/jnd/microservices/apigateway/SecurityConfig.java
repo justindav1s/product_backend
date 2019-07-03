@@ -7,6 +7,7 @@ import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticatio
 import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
@@ -44,6 +45,12 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
 
+        //to do a HTTP POST, we must turn off Cross-Site Request Forgery protection, which is on by default
+        http.csrf().disable();
+
+        //allow anything through
+        //http.authorizeRequests().antMatchers(HttpMethod.POST,"/").permitAll();
+
         //must present a valid access token
         //http.authorizeRequests().anyRequest().authenticated();
 
@@ -51,9 +58,10 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         // analysed in order.
         // if no pattern match for uri and role then denied
         http.authorizeRequests().
-                antMatchers("/api/products/all").hasRole("product").
-                antMatchers("/api/products/types").hasRole("product").
-                antMatchers("/api/products/type/**").hasRole("product").
+                antMatchers(HttpMethod.GET, "/api/products/all").hasRole("product").
+                antMatchers(HttpMethod.GET,"/api/products/types").hasRole("product").
+                antMatchers(HttpMethod.GET,"/api/products/type/**").hasRole("product").
+                antMatchers(HttpMethod.POST,"/api/session").hasRole("user").
                 antMatchers("/**").denyAll();
     }
 

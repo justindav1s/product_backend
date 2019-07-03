@@ -3,6 +3,10 @@ spring:
     name: api-gateway.build.test
   main:
     allow-bean-definition-overriding: true
+  security:
+    ignored: /**
+    basic:
+      enable: false
 
 server:
   port: 8081
@@ -32,3 +36,7 @@ keycloak:
   credentials.secret: cc48f8ad-80d3-4019-8d36-7dfb6f5c86e7
   use-resource-role-mappings: true
   principal-attribute: preferred_username
+
+
+security:
+  ignored: /**
