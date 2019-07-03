@@ -4,24 +4,24 @@
 
 import { KeycloakConfig } from 'keycloak-angular';
 
-let keycloakConfig: KeycloakConfig = {
-  url: 'http://127.0.0.1:8080/auth',
-  realm: 'amazin',
-  clientId: 'webapp',
-  "credentials": {
-    "secret": "cc48f8ad-80d3-4019-8d36-7dfb6f5c86e7"
-  }
-};
-
-
 // let keycloakConfig: KeycloakConfig = {
-//   url: 'https://sso-sso.apps.ocp.datr.eu/auth',
+//   url: 'http://127.0.0.1:8080/auth',
 //   realm: 'amazin',
 //   clientId: 'webapp',
 //   "credentials": {
-//     "secret": "4067e61d-377b-4995-bdc9-d08381567cf5"
+//     "secret": "cc48f8ad-80d3-4019-8d36-7dfb6f5c86e7"
 //   }
 // };
+
+
+let keycloakConfig: KeycloakConfig = {
+  url: 'https://sso-sso.apps.ocp.datr.eu/auth',
+  realm: 'amazin',
+  clientId: 'webapp',
+  "credentials": {
+    "secret": "4067e61d-377b-4995-bdc9-d08381567cf5"
+  }
+};
 
 export const environment = {
   production: false,
