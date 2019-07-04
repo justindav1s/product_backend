@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.jnd.microservices</groupId>
-	<artifactId>springsec-gateway</artifactId>
+	<artifactId>springsec-api-gateway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
