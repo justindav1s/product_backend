@@ -26,12 +26,12 @@ node('nodejs') {
       sh "pwd"
       sh "ls -ltr"
 
-      sh "oc create -f docker-build-template.yml \
+      sh "oc process -f docker-build-template.yml \
             -p APPLICATION_NAME=${app_name} \
             -p SOURCE_REPOSITORY_URL=${git_url} \
             -p SOURCE_REPOSITORY_REF=master \
-            -p DOCKERFILE_PATH='src/${app_name}' \
-            -n ${dev_project}"
+            -p DOCKERFILE_PATH='src/${app_name}' -n ${dev_project} \
+            | oc apply -f -"
 
 
       sh "oc start-build ${app_name}-docker-build --follow -n ${dev_project} || true"
