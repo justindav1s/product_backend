@@ -2,18 +2,18 @@ secure-cookie: false
 enable-logging: true
 enable-json-logging: false
 # is the url for retrieve the OpenID configuration - normally the <server>/auth/realm/<realm_name>
-discovery-url: http://127.0.0.1:8080/auth/realms/amazin
+discovery-url: https://sso-sso.apps.ocp.datr.eu/auth/realms/amazin
 # the client id for the 'client' application
 client-id: webapp
 # the secret associated to the 'client' application
-client-secret: cc48f8ad-80d3-4019-8d36-7dfb6f5c86e7
+client-secret: 4067e61d-377b-4995-bdc9-d08381567cf5
 # the interface definition you wish the proxy to listen, all interfaces is specified as ':<port>', unix sockets as unix://<REL_PATH>|</ABS PATH>
-listen: 127.0.0.1:3000
+listen: 0.0.0.0:3000
 # a collection of resource i.e. urls that you wish to protect
 enable-default-deny: true
 # the url hosting the actual services
-upstream-url: http://127.0.0.1:8081
-redirection-url: http://127.0.0.1:3000
+upstream-url: https://api-gateway-amazin-dev.apps.ocp.datr.eu
+redirection-url: https://sso-sso.apps.ocp.datr.eu/auth/realms/amazin/protocol/openid-connect/auth?client_id=webapp
 #store-url: boltdb://./boltfile
 
 resources:
