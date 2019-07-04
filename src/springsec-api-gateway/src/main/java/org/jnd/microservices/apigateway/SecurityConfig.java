@@ -48,6 +48,9 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         //to do a HTTP POST, we must turn off Cross-Site Request Forgery protection, which is on by default
         http.csrf().disable();
 
+        // exclude OPTIONS requests from authorization checks
+        http.cors();
+
         //allow anything through
         //http.authorizeRequests().antMatchers("/").permitAll();
 
