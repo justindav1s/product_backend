@@ -30,7 +30,7 @@ node('nodejs') {
             -p APPLICATION_NAME=${app_name} \
             -p SOURCE_REPOSITORY_URL=${git_url} \
             -p SOURCE_REPOSITORY_REF=master \
-            -p DOCKERFILE_PATH=. \
+            -p DOCKERFILE_PATH='./' \
             -n ${dev_project}"
 
       sh "oc logs -f bc/${app_name}-docker-build || true"
