@@ -26,12 +26,14 @@ node('nodejs') {
       sh "pwd"
       sh "ls -ltr"
 
-      sh "oc new-app -f gatekeeper-template.yml \
+      sh "oc new-app -f docker-build-template.yml \
             -p APPLICATION_NAME=${app_name} \
             -p SOURCE_REPOSITORY_URL=${git_url} \
             -p SOURCE_REPOSITORY_REF=master \
             -p DOCKERFILE_PATH='src/${app_name}' \
             -n ${dev_project}"
+
+      ssh "sleep 3"
 
       sh "oc logs -f bc/${app_name}-docker-build || true"
     }
