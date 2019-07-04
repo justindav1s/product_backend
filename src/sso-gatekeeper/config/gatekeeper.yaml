@@ -23,6 +23,8 @@ resources:
   - POST
   roles:
   - webapp:ROLE_product
+  - webapp:ROLE_user
+  require-any-role: true
 - uri: /*
   methods:
     - GET
