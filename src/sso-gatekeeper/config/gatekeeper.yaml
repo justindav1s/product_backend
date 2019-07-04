@@ -24,7 +24,7 @@ resources:
   roles:
   - webapp:ROLE_product
   - webapp:ROLE_user
-  require-any-role: true
+#  require-any-role: true
 - uri: /*
   methods:
     - GET
