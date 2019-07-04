@@ -30,8 +30,8 @@ node('nodejs') {
             -p APPLICATION_NAME=${app_name} \
             -p SOURCE_REPOSITORY_URL=${git_url} \
             -p SOURCE_REPOSITORY_REF=master \
-            -p DOCKERFILE_PATH='src/${app_name}' -n ${dev_project} \
-            | oc apply -f -"
+            -p DOCKERFILE_PATH='src/${app_name}' \
+            | oc apply -n ${dev_project} -f -"
 
 
       sh "oc start-build ${app_name}-docker-build --follow -n ${dev_project} || true"
