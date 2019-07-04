@@ -13,7 +13,7 @@ listen: :8080
 enable-default-deny: true
 # the url hosting the actual services
 upstream-url: https://api-gateway-amazin-dev.apps.ocp.datr.eu
-redirection-url: https://websso-amazin-dev.apps.ocp.datr.eu/oauth/callback
+redirection-url: https://sso-gatekeeper-amazin-dev.apps.ocp.datr.eu
 #store-url: boltdb://./boltfile
 
 resources:
