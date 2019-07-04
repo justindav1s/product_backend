@@ -1,12 +1,10 @@
 #!groovy
 
 node('nodejs') {
-
-  stage('initialise') {
-    def dev_project = "${org}-dev"
-    sh "echo Dev Project : ${dev_project}"
-  }
-
+  def dev_project = "${org}-dev"
+  sh "echo Dev Project : ${dev_project}"
+  sh "echo Git URL : ${git_url}"
+  sh "echo App name : ${app_name}"
 
   stage('Checkout Source') {
     git url: "${git_url}", branch: 'master'
@@ -40,7 +38,7 @@ node('nodejs') {
                 -p APPLICATION_NAME=${app_name} \
                 -p SOURCE_REPOSITORY_URL=${git_url} \
                 -p SOURCE_REPOSITORY_REF=master \
-                -p DOCKERFILE_PATH=" src//${app_name}"
+                -p DOCKERFILE_PATH='src/${app_name}'"
         }
       }
     }
