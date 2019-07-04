@@ -13,37 +13,34 @@ node('nodejs') {
 
   dir("deploy_istio_mtls_authn_authz/sso-gatekeeper") {
     //deploy_istio_mtls_authn_authz/sso-gatekeeper/gatekeeper-template.yml
-    stage('cleanup') {
 
-      openshift.withCluster() {
-        openshift.withProject("${dev_project}") {
+    openshift.withCluster() {
+      openshift.withProject("${dev_project}") {
 
+        stage('cleanup') {
           sh "oc delete imagestream ${app_name} || true"
           sh "oc delete buildconfig ${app_name}-docker-build || true"
           sh "oc delete deploymentconfig ${app_name} || true"
           sh "oc delete serviceaccounts ${app_name} || true"
           sh "oc delete service ${app_name} || true"
           sh "oc delete route ${app_name} || true"
-
         }
-      }
-    }
 
-    stage('build') {
-
-      openshift.withCluster() {
-        openshift.withProject("${dev_project}") {
-
+        stage('build') {
           sh "oc new-app -f gatekeeper-template.yml \
                 -p APPLICATION_NAME=${app_name} \
                 -p SOURCE_REPOSITORY_URL=${git_url} \
                 -p SOURCE_REPOSITORY_REF=master \
                 -p DOCKERFILE_PATH='src/${app_name}'"
         }
+
+
       }
     }
   }
 }
+
+
 
 //      oc new-app -f gatekeeper-template.yml \
 //    -p APPLICATION_NAME=${APP} \
