@@ -8,7 +8,7 @@ client-id: webapp
 # the secret associated to the 'client' application
 client-secret: 4067e61d-377b-4995-bdc9-d08381567cf5
 # the interface definition you wish the proxy to listen, all interfaces is specified as ':<port>', unix sockets as unix://<REL_PATH>|</ABS PATH>
-listen: 0.0.0.0:3000
+listen: :8080
 # a collection of resource i.e. urls that you wish to protect
 enable-default-deny: true
 # the url hosting the actual services

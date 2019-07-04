@@ -42,7 +42,7 @@ objects:
           imagePullPolicy: IfNotPresent
           name: ${APPLICATION_NAME}
           ports:
-          - containerPort: "${LISTEN_PORT}"
+          - containerPort: 8080
             protocol: TCP
           livenessProbe:
             failureThreshold: 3
@@ -50,7 +50,7 @@ objects:
             periodSeconds: 20
             successThreshold: 1
             tcpSocket:
-              port: http
+              port: 8080
             timeoutSeconds: 5
           readinessProbe:
             failureThreshold: 3
@@ -58,7 +58,7 @@ objects:
             periodSeconds: 20
             successThreshold: 1
             tcpSocket:
-              port: http
+              port: 8080
             timeoutSeconds: 5
           resources:
             requests:
@@ -103,9 +103,9 @@ objects:
   spec:
     ports:
     - name: ${APPLICATION_NAME}
-      port: ${LISTEN_PORT}
+      port: 8080
       protocol: TCP
-      targetPort: http
+      targetPort: 8080
     selector:
       app: ${APPLICATION_NAME}
       deploymentconfig: ${APPLICATION_NAME}
@@ -132,7 +132,3 @@ parameters:
   name: APPLICATION_NAME
   required: true
   value: grafeas
-- description: The listen port of the App.
-  name: LISTEN_PORT
-  required: true
-  value: '3000'

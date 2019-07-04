@@ -13,6 +13,5 @@ oc delete service ${APP}
 oc delete route ${APP}
 
 oc new-app -f gatekeeper-template.yml \
-    -p APPLICATION_NAME=${APP} \
-    -p LISTEN_PORT=3000
+    -p APPLICATION_NAME=${APP}
 
