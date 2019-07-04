@@ -12,8 +12,8 @@ listen: :8080
 # a collection of resource i.e. urls that you wish to protect
 enable-default-deny: true
 # the url hosting the actual services
-upstream-url:  https://api-gateway-amazin-dev.apps.ocp.datr.eu
-#upstream-url: https://springsec-api-gateway-amazin-dev.apps.ocp.datr.eu
+#upstream-url:  https://api-gateway-amazin-dev.apps.ocp.datr.eu
+upstream-url: https://springsec-api-gateway-amazin-dev.apps.ocp.datr.eu
 redirection-url: https://sso-gatekeeper-amazin-dev.apps.ocp.datr.eu
 #store-url: boltdb://./boltfile
 
