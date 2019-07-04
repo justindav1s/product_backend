@@ -45,7 +45,6 @@ public class GatewayController {
     ResponseEntity<?> login(@RequestBody User user, @RequestHeader HttpHeaders headers) {
 
         ResponseEntity<User> response = userProxy.login(user, headers);
-
         return response;
     }
 
@@ -53,7 +52,6 @@ public class GatewayController {
     ResponseEntity<?> session(@RequestBody User user, @RequestHeader HttpHeaders headers) {
 
         ResponseEntity<User> response = userProxy.login(user, headers);
-
         return response;
     }
 
@@ -95,7 +93,6 @@ public class GatewayController {
     ResponseEntity<?> getProduct(@PathVariable int id, @RequestHeader HttpHeaders headers) {
 
         ResponseEntity<?> response = inventoryProxy.getProduct(String.valueOf(id), headers);
-
         return response;
 
     }
