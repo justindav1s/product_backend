@@ -4,7 +4,7 @@ metadata:
   labels:
     app: ${APPLICATION_NAME}
   annotations:
-    description: The Grafeas OpenShift template
+    description: The Keycloak Gatekeeper OpenShift template
     tags: instant-app, ${APPLICATION_NAME}
   name: ${APPLICATION_NAME}
 objects:
@@ -163,7 +163,7 @@ objects:
   kind: Route
   metadata:
     annotations:
-      description: Route for Grafeas's http service.
+      description: Route for Keycloak Gatekeeper's http service.
     name: ${APPLICATION_NAME}
     labels:
       app: ${APPLICATION_NAME}
