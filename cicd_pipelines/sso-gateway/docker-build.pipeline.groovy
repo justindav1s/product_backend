@@ -4,7 +4,7 @@ node('nodejs') {
 
   stage('initialise') {
     def dev_project = "${org}-dev"
-    sh "echo Dev Project : " dev_project
+    sh "echo Dev Project : " ${dev_project}
   }
 
 
