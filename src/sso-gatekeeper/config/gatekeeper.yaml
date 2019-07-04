@@ -17,12 +17,50 @@ redirection-url: https://sso-gatekeeper-amazin-dev.apps.ocp.datr.eu
 #store-url: boltdb://./boltfile
 
 resources:
-- uri: /api/products/*
+
+- uri: /api/products/**
   methods:
-  - GET
-  - POST
+    - GET
+    - POST
   roles:
-  - webapp:ROLE_product
+    - webapp:ROLE_product
   require-any-role: true
+
+- uri: /api/session
+  methods:
+    - GET
+    - POST
+  roles:
+    - webapp:ROLE_user
+
+- uri: /api/login
+  methods:
+    - GET
+    - POST
+  roles:
+    - webapp:ROLE_user
+
+- uri: /api/logout
+  methods:
+    - DELETE
+  roles:
+    - webapp:ROLE_user
+    -
+- uri: /api/basket/**
+  methods:
+    - GET
+    - POST
+  roles:
+    - webapp:ROLE_product
+    - webapp:ROLE_basket
+    - webapp:ROLE_user
+
 - uri: /
   white-listed: true
+
+- uri: /health
+  white-listed: true
+
+- uri: /**
+  roles:
+    - webapp:ROLE_admin

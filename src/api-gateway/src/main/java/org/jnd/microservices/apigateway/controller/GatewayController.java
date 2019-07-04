@@ -49,6 +49,14 @@ public class GatewayController {
         return response;
     }
 
+    @RequestMapping(value = "/session", method = RequestMethod.POST, produces = "application/json")
+    ResponseEntity<?> session(@RequestBody User user, @RequestHeader HttpHeaders headers) {
+
+        ResponseEntity<User> response = userProxy.login(user, headers);
+
+        return response;
+    }
+
     @RequestMapping(value = "/logout/{id}", method = RequestMethod.DELETE, produces = "application/json")
     ResponseEntity<?> logout(@PathVariable int id, @RequestHeader HttpHeaders headers) {
 
