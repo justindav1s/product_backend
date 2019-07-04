@@ -3,7 +3,7 @@
 node('nodejs') {
 
   stage('initialise') {
-    def dev_project  = "${org}-dev"
+    def dev_project = "${org}-dev"
     sh "echo Dev Project : " dev_project
   }
 
@@ -13,7 +13,8 @@ node('nodejs') {
   }
 
 
-  dir("deploy_istio_mtls_authn_authz/sso-gatekeeper") {  //deploy_istio_mtls_authn_authz/sso-gatekeeper/gatekeeper-template.yml
+  dir("deploy_istio_mtls_authn_authz/sso-gatekeeper") {
+    //deploy_istio_mtls_authn_authz/sso-gatekeeper/gatekeeper-template.yml
     stage('cleanup') {
 
       openshift.withCluster() {
@@ -39,11 +40,12 @@ node('nodejs') {
                 -p APPLICATION_NAME=${app_name} \
                 -p SOURCE_REPOSITORY_URL=${git_url} \
                 -p SOURCE_REPOSITORY_REF=master \
-                -p DOCKERFILE_PATH="src//${app_name}"
+                -p DOCKERFILE_PATH=" src//${app_name}"
         }
       }
     }
-
+  }
+}
 
 //      oc new-app -f gatekeeper-template.yml \
 //    -p APPLICATION_NAME=${APP} \
@@ -97,4 +99,4 @@ node('nodejs') {
 //      openshiftVerifyDeployment apiURL: '', authToken: '', depCfg: app_name, namespace: dev_project, replicaCount: '1', verbose: 'false', verifyReplicaCount: 'true', waitTime: '180', waitUnit: 'sec'
 //    }
 //  }
-}
+//}
