@@ -11,9 +11,7 @@ node('nodejs') {
   }
 
 
-  dir("deploy_istio_mtls_authn_authz/sso-gatekeeper") {
-    //deploy_istio_mtls_authn_authz/sso-gatekeeper/gatekeeper-template.yml
-
+  dir("src/${app_name}") {
 
     stage('cleanup') {
       sh "oc delete imagestream ${app_name} -n ${dev_project} || true"
@@ -33,6 +31,8 @@ node('nodejs') {
             -p SOURCE_REPOSITORY_REF=master \
             -p DOCKERFILE_PATH=. \
             -n ${dev_project}"
+
+      sh "oc logs -f bc/${app_name}-docker-build || true"
     }
 
 
