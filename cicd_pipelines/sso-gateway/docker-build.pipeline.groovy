@@ -18,12 +18,12 @@ node('nodejs') {
       openshift.withCluster() {
         openshift.withProject("${dev_project}") {
 
-          sh "oc delete imagestream ${app_name}"
-          sh "oc delete buildconfig ${app_name}-docker-build"
-          sh "oc delete deploymentconfig ${app_name}"
-          sh "oc delete serviceaccounts ${app_name}"
-          sh "oc delete service ${app_name}"
-          sh "oc delete route ${app_name}"
+          sh "oc delete imagestream ${app_name} || true"
+          sh "oc delete buildconfig ${app_name}-docker-build || true"
+          sh "oc delete deploymentconfig ${app_name} || true"
+          sh "oc delete serviceaccounts ${app_name} || true"
+          sh "oc delete service ${app_name} || true"
+          sh "oc delete route ${app_name} || true"
 
         }
       }
