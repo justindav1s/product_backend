@@ -23,26 +23,26 @@ let keycloakConfig: KeycloakConfig = {
   }
 };
 
-// export const environment = {
-//   production: false,
-//   inventory_backend : "https://sso-gatekeeper-amazin-dev.apps.ocp.datr.eu",
-//   basket_backend : "https://sso-gatekeeper-amazin-dev.apps.ocp.datr.eu",
-//   user_backend : "https://sso-gatekeeper-amazin-dev.apps.ocp.datr.eu",
-//   keycloak: keycloakConfig,
-//   customer_role: "ROLE_customer",
-//   admin_role: "ROLE_admin",
-// };
-
-
 export const environment = {
   production: false,
-  inventory_backend : "https://springsec-api-gateway-amazin-dev.apps.ocp.datr.eu",
-  basket_backend : "https://springsec-api-gateway-amazin-dev.apps.ocp.datr.eu",
-  user_backend : "https://springsec-api-gateway-amazin-dev.apps.ocp.datr.eu",
+  inventory_backend : "https://sso-gatekeeper-amazin-dev.apps.ocp.datr.eu",
+  basket_backend : "https://sso-gatekeeper-amazin-dev.apps.ocp.datr.eu",
+  user_backend : "https://sso-gatekeeper-amazin-dev.apps.ocp.datr.eu",
   keycloak: keycloakConfig,
   customer_role: "ROLE_customer",
   admin_role: "ROLE_admin",
 };
+
+
+// export const environment = {
+//   production: false,
+//   inventory_backend : "https://springsec-api-gateway-amazin-dev.apps.ocp.datr.eu",
+//   basket_backend : "https://springsec-api-gateway-amazin-dev.apps.ocp.datr.eu",
+//   user_backend : "https://springsec-api-gateway-amazin-dev.apps.ocp.datr.eu",
+//   keycloak: keycloakConfig,
+//   customer_role: "ROLE_customer",
+//   admin_role: "ROLE_admin",
+// };
 
 // export const environment = {
 //   production: false,
