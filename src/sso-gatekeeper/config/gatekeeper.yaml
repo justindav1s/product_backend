@@ -22,6 +22,7 @@ resources:
   methods:
     - GET
     - POST
+    - OPTIONS
   roles:
     - webapp:ROLE_product
   require-any-role: true
@@ -30,6 +31,7 @@ resources:
   methods:
     - GET
     - POST
+    - OPTIONS
   roles:
     - webapp:ROLE_user
 
@@ -37,12 +39,14 @@ resources:
   methods:
     - GET
     - POST
+    - OPTIONS
   roles:
     - webapp:ROLE_user
 
 - uri: /api/logout
   methods:
     - DELETE
+    - OPTIONS
   roles:
     - webapp:ROLE_user
     -
@@ -50,6 +54,7 @@ resources:
   methods:
     - GET
     - POST
+    - OPTIONS
   roles:
     - webapp:ROLE_product
     - webapp:ROLE_basket
