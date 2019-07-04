@@ -3,6 +3,7 @@
 URL=http://127.0.0.1:8081/api/products/all
 URL=http://127.0.0.1:3000/api/products/all
 URL=https://sso-gatekeeper-amazin-dev.apps.ocp.datr.eu/api/products/all
+URL=http://springsec-api-gateway-amazin-dev.apps.ocp.datr.eu/api/products/all
 
 function padBase64  {
     STR=$1
@@ -18,6 +19,9 @@ function padBase64  {
 ACCESS_TOKEN=$(./get_token_direct_grant.sh)
 
 echo $ACCESS_TOKEN
+PART1_BASE64=$(echo ${ACCESS_TOKEN} | cut -d"." -f1)
+PART1_BASE64=$(padBase64 ${PART1_BASE64})
+echo ${PART1_BASE64} | base64 -D | jq .
 PART2_BASE64=$(echo ${ACCESS_TOKEN} | cut -d"." -f2)
 PART2_BASE64=$(padBase64 ${PART2_BASE64})
 echo ${PART2_BASE64} | base64 -D | jq .
