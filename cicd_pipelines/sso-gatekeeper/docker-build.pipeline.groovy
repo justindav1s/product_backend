@@ -33,7 +33,7 @@ node('nodejs') {
             -p DOCKERFILE_PATH='src/${app_name}' \
             -n ${dev_project}"
 
-      ssh "sleep 3"
+      sh "sleep 3"
 
       sh "oc logs -f bc/${app_name}-docker-build || true"
     }
