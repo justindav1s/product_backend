@@ -58,6 +58,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         // analysed in order.
         // if no pattern match for uri and role then denied
         http.authorizeRequests().
+                antMatchers(HttpMethod.GET,"/health").permitAll().
                 antMatchers(HttpMethod.GET, "/api/products/all").hasRole("product").
                 antMatchers(HttpMethod.GET,"/api/products/types").hasRole("product").
                 antMatchers(HttpMethod.GET,"/api/products/type/**").hasRole("product").
