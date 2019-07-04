@@ -61,6 +61,6 @@ resources:
 - uri: /health
   white-listed: true
 
-- uri: /**
+- uri: /*
   roles:
     - webapp:ROLE_admin
