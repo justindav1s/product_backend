@@ -41,6 +41,11 @@ node('maven') {
 //            junit 'target/surefire-reports/*.xml'
 //        }
 
+        stage('Deploy jar') {
+            echo "Deploying version : ${version}"
+            sh "${mvn} deploy -DskipTests"
+        }
+
         //Build the OpenShift Image in OpenShift and tag it.
         stage('Build and Tag OpenShift Image') {
             echo "Building OpenShift container image ${app_name}:${devTag}"
