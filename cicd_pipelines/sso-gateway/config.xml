@@ -29,7 +29,7 @@
                 <hudson.model.StringParameterDefinition>
                     <name>app_name</name>
                     <description>the product name</description>
-                    <defaultValue>web</defaultValue>
+                    <defaultValue>sso-gateway</defaultValue>
                 </hudson.model.StringParameterDefinition>
                 <hudson.model.StringParameterDefinition>
                     <name>git_url</name>
@@ -69,7 +69,7 @@
             <submoduleCfg class="list"/>
             <extensions/>
         </scm>
-        <scriptPath>cicd_pipelines/web/pipeline.groovy</scriptPath>
+        <scriptPath>cicd_pipelines/sso-gateway/pipeline.groovy</scriptPath>
         <lightweight>true</lightweight>
     </definition>
     <triggers/>

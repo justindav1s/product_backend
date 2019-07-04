@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-APP=web
+APP=sso-gateway
 
 . ../../env.sh
 
