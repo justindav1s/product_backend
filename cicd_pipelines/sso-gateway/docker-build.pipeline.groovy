@@ -31,7 +31,7 @@ node('nodejs') {
             -p APPLICATION_NAME=${app_name} \
             -p SOURCE_REPOSITORY_URL=${git_url} \
             -p SOURCE_REPOSITORY_REF=master \
-            -p DOCKERFILE_PATH=deploy_istio_mtls_authn_authz/${app_name} \
+            -p DOCKERFILE_PATH=. \
             -n ${dev_project}"
     }
 
