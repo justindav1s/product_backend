@@ -1,6 +1,9 @@
 spring:
   application:
     name: api-gateway.build.test
+  main:
+    allow-bean-definition-overriding: true
+
 
 server:
   port: 8080
@@ -14,10 +17,11 @@ inventory:
 user:
   host: user-amazin-dev.apps.ocp.datr.eu
 
-opentracing:
-  jaeger:
-    enable-b3-propagation: true
-    opentracing.jaeger.expand-exception-logs: true
-    http-sender:
-      url: http://jaeger-collector.istio-system.svc:14268/api/traces
-
+keycloak:
+  enabled: true
+  auth-server-url: https://sso-sso.apps.ocp.datr.eu
+  resource: webapp
+  realm: amazin
+  credentials.secret: 4067e61d-377b-4995-bdc9-d08381567cf5
+  use-resource-role-mappings: true
+  principal-attribute: preferred_username

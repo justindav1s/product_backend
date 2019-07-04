@@ -62,6 +62,11 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
                 antMatchers(HttpMethod.GET,"/api/products/types").hasRole("product").
                 antMatchers(HttpMethod.GET,"/api/products/type/**").hasRole("product").
                 antMatchers(HttpMethod.POST,"/api/session").hasRole("user").
+                antMatchers(HttpMethod.POST,"/api/login").hasRole("user").
+                antMatchers(HttpMethod.DELETE,"/api/logout").hasRole("user").
+                antMatchers(HttpMethod.DELETE,"/api/basket/**").hasRole("basket").
+                antMatchers(HttpMethod.PUT,"/api/basket/**").hasRole("basket").
+                antMatchers(HttpMethod.GET,"/api/basket/**").hasRole("basket").
                 antMatchers("/**").denyAll();
     }
 
