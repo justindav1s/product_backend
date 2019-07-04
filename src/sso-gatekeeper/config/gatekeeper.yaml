@@ -67,5 +67,6 @@ resources:
   white-listed: true
 
 - uri: /*
-  roles:
-    - webapp:ROLE_admin
+  methods:
+    - OPTIONS
+  white-listed: true
