@@ -26,7 +26,7 @@ node('nodejs') {
       sh "pwd"
       sh "ls -ltr"
 
-      sh "oc apply -f docker-build-template.yml \
+      sh "oc create -f docker-build-template.yml \
             -p APPLICATION_NAME=${app_name} \
             -p SOURCE_REPOSITORY_URL=${git_url} \
             -p SOURCE_REPOSITORY_REF=master \
