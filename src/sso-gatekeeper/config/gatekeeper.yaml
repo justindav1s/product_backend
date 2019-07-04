@@ -12,7 +12,8 @@ listen: :8080
 # a collection of resource i.e. urls that you wish to protect
 enable-default-deny: true
 # the url hosting the actual services
-upstream-url: https://springsec-api-gateway-amazin-dev.apps.ocp.datr.eu
+upstream-url:  https://api-gateway-amazin-dev.apps.ocp.datr.eu
+#upstream-url: https://springsec-api-gateway-amazin-dev.apps.ocp.datr.eu
 redirection-url: https://sso-gatekeeper-amazin-dev.apps.ocp.datr.eu
 #store-url: boltdb://./boltfile
 
@@ -22,7 +23,6 @@ resources:
   methods:
     - GET
     - POST
-    - OPTIONS
   roles:
     - webapp:ROLE_product
   require-any-role: true
@@ -31,7 +31,6 @@ resources:
   methods:
     - GET
     - POST
-    - OPTIONS
   roles:
     - webapp:ROLE_user
 
@@ -39,14 +38,12 @@ resources:
   methods:
     - GET
     - POST
-    - OPTIONS
   roles:
     - webapp:ROLE_user
 
 - uri: /api/logout
   methods:
     - DELETE
-    - OPTIONS
   roles:
     - webapp:ROLE_user
     -
@@ -54,7 +51,6 @@ resources:
   methods:
     - GET
     - POST
-    - OPTIONS
   roles:
     - webapp:ROLE_product
     - webapp:ROLE_basket
@@ -67,6 +63,8 @@ resources:
   white-listed: true
 
 - uri: /*
-  methods:
-    - OPTIONS
-  white-listed: true
+  roles:
+    - webapp:ROLE_admin
+
+#- uri: /*
+#  white-listed: true
