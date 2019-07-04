@@ -25,6 +25,7 @@ node('nodejs') {
     stage('build') {
       sh "pwd"
       sh "ls -ltr"
+      sh " find ../.. -name gatekeeper-template.yml"
       sh "oc new-app -f gatekeeper-template.yml \
             -p APPLICATION_NAME=${app_name} \
             -p SOURCE_REPOSITORY_URL=${git_url} \
