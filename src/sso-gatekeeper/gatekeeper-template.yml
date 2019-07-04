@@ -6,56 +6,9 @@ metadata:
   annotations:
     description: The Keycloak Gatekeeper OpenShift template
     tags: instant-app, ${APPLICATION_NAME}
-  name: ${APPLICATION_NAME}
+  name: openshift-deploy-template
 objects:
 
-- apiVersion: v1
-  kind: ImageStream
-  metadata:
-    labels:
-      app: ${APPLICATION_NAME}
-    name: ${APPLICATION_NAME}
-  spec:
-    tags:
-    - annotations:
-        description: Keycloak Gatekeeper Docker image
-        tags: ${APPLICATION_NAME}
-      from:
-        kind: DockerImage
-        name: ${APPLICATION_NAME}:latest
-      importPolicy: {}
-      name: latest
-
-- kind: BuildConfig
-  apiVersion: v1
-  metadata:
-    name: "${APPLICATION_NAME}-docker-build"
-    labels:
-      app: "${APPLICATION_NAME}"
-  spec:
-    triggers:
-    - type: ImageChange
-      imageChange: {}
-    - type: ConfigChange
-    source:
-      type: Git
-      git:
-        uri: "${SOURCE_REPOSITORY_URL}"
-        ref: "${SOURCE_REPOSITORY_REF}"
-      contextDir: ${DOCKERFILE_PATH}
-    strategy:
-      dockerStrategy:
-        dockerfilePath: ${DOCKERFILE_NAME}
-        env:
-          - name: "DOCKERFILE_PATH"
-            value: "${DOCKERFILE_PATH}"
-    output:
-      to:
-        kind: "ImageStreamTag"
-        name: "${APPLICATION_NAME}:latest"
-    resources: {}
-    postCommit: {}
-    
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
@@ -83,14 +36,13 @@ objects:
           app: ${APPLICATION_NAME}
           deploymentconfig: ${APPLICATION_NAME}
       spec:
-        serviceAccountName: ${APPLICATION_NAME}
         containers:
         - env:
           image: ' '
           imagePullPolicy: IfNotPresent
           name: ${APPLICATION_NAME}
           ports:
-          - containerPort: 8080
+          - containerPort: ${LISTEN_PORT}
             protocol: TCP
           livenessProbe:
             failureThreshold: 3
@@ -98,7 +50,7 @@ objects:
             periodSeconds: 20
             successThreshold: 1
             tcpSocket:
-              port: 8080
+              port: ${LISTEN_PORT}
             timeoutSeconds: 5
           readinessProbe:
             failureThreshold: 3
@@ -106,7 +58,7 @@ objects:
             periodSeconds: 20
             successThreshold: 1
             tcpSocket:
-              port: 8080
+              port: ${LISTEN_PORT}
             timeoutSeconds: 5
           resources:
             requests:
@@ -118,6 +70,8 @@ objects:
           terminationMessagePath: /dev/termination-log
         dnsPolicy: ClusterFirst
         restartPolicy: Always
+        serviceAccount: ${APPLICATION_NAME}-sa
+        serviceAccountName: ${APPLICATION_NAME}-sa
         securityContext: {}
         terminationGracePeriodSeconds: 30
     triggers:
@@ -135,10 +89,9 @@ objects:
 - kind: ServiceAccount
   apiVersion: v1
   metadata:
-    creationTimestamp: null
     labels:
       app: ${APPLICATION_NAME}
-    name: ${APPLICATION_NAME}
+    name: ${APPLICATION_NAME}-sa
 
 - apiVersion: v1
   kind: Service
@@ -150,9 +103,9 @@ objects:
   spec:
     ports:
     - name: ${APPLICATION_NAME}
-      port: 8080
+      port: ${LISTEN_PORT}
       protocol: TCP
-      targetPort: 8080
+      targetPort: ${LISTEN_PORT}
     selector:
       app: ${APPLICATION_NAME}
       deploymentconfig: ${APPLICATION_NAME}
@@ -179,21 +132,7 @@ parameters:
   name: APPLICATION_NAME
   required: true
   value: grafeas
-- description: Git source URI for application
-  name: SOURCE_REPOSITORY_URL
-  value: "https://github.com/justindav1s/microservices-on-openshift.git"
+- description: The listen port of the App.
+  name: LISTEN_PORT
   required: true
-- description: Git branch/tag reference
-  name: SOURCE_REPOSITORY_REF
-  value: "master"
-  required: false
-- name: DOCKERFILE_PATH
-  displayName: Dockerfile path
-  description: Path within Git Repo wehere Dockerfile can be found.
-  value: "grafeas"
-  required: false
-- name: DOCKERFILE_NAME
-  displayName: Dockerfile name
-  description: Name of Dockerfile.
-  value: "Dockerfile"
-  required: true
+  value: "3000"
