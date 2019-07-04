@@ -8,11 +8,11 @@ PROJECT=amazin-dev
 oc project $PROJECT
 
 oc delete deploymentconfig ${APP}
-oc delete serviceaccounts ${APP}
+oc delete serviceaccounts ${APP}-sa
 oc delete service ${APP}
 oc delete route ${APP}
 
 oc new-app -f gatekeeper-template.yml \
     -p APPLICATION_NAME=${APP} \
-    -p LISTEN_PORT="3000"
+    -p LISTEN_PORT=3000
 
