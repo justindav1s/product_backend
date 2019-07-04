@@ -68,12 +68,20 @@ objects:
               cpu: 1
               memory: 200Mi
           terminationMessagePath: /dev/termination-log
+          volumeMounts:
+            - mountPath: /app/etc
+              name: ${APPLICATION_NAME}-config-vol
         dnsPolicy: ClusterFirst
         restartPolicy: Always
         serviceAccount: ${APPLICATION_NAME}-sa
         serviceAccountName: ${APPLICATION_NAME}-sa
         securityContext: {}
         terminationGracePeriodSeconds: 30
+        volumes:
+          - configMap:
+              defaultMode: 420
+              name: ${APPLICATION_NAME}-config
+            name: ${APPLICATION_NAME}-config-vol
     triggers:
     - type: ConfigChange
     - imageChangeParams:

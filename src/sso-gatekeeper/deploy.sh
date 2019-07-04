@@ -15,3 +15,5 @@ oc delete route ${APP}
 oc new-app -f gatekeeper-template.yml \
     -p APPLICATION_NAME=${APP}
 
+oc delete configmap ${APP}-config --ignore-not-found=true -n ${PROJECT}
+oc create configmap ${APP}-config --from-file=config/gatekeeper.yaml -n ${PROJECT}
