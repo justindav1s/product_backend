@@ -2,7 +2,7 @@
 
 #export IP=192.168.0.91
 export IP=ocp.datr.eu
-export IP=master.aws.datr.eu
+#export IP=master.aws.datr.eu
 #export IP=local.datr.eu
 export USER=justin
 

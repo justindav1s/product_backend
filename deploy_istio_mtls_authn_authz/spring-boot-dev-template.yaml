@@ -164,7 +164,7 @@ objects:
       type: ClusterIP
     status:
       loadBalancer: {}
-      
+
 parameters:
   - description: The name for the application.
     name: APPLICATION_NAME
