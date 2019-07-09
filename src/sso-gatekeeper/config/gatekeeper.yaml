@@ -18,6 +18,8 @@ redirection-url: https://sso-gatekeeper-amazin-dev.apps.ocp.datr.eu
 #store-url: boltdb://./boltfile
 no-redirects: true
 skip-openid-provider-tls-verify: true
+enable-authorization-header: true
+
 resources:
 
 - uri: /api/products/**
