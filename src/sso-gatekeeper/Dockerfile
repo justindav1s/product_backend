@@ -8,8 +8,8 @@ RUN tar zxvf keycloak-gatekeeper-linux-amd64.tar.gz && ls -ltr && rm -rf keycloa
 COPY config/gatekeeper.yaml /gatekeeper.yaml
 
 FROM scratch
-WORKDIR /app
+WORKDIR /
 COPY --from=0 /keycloak-gatekeeper /keycloak-gatekeeper
 COPY --from=0 /gatekeeper.yaml /etc/gatekeeper.yaml
 
-CMD ["/keycloak-gatekeeper", "-config", "/etc/gatekeeper.yaml"]
+CMD ["/keycloak-gatekeeper", "-config", "/app/etc/gatekeeper.yaml"]
