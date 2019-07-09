@@ -7,7 +7,7 @@ RUN tar zxvf keycloak-gatekeeper-linux-amd64.tar.gz && ls -ltr && rm -rf keycloa
 
 COPY config/gatekeeper.yaml /gatekeeper.yaml
 
-FROM scratch
+FROM centos
 WORKDIR /app
 COPY --from=0 /keycloak-gatekeeper /app/keycloak-gatekeeper
 COPY --from=0 /gatekeeper.yaml /etc/gatekeeper.yaml
