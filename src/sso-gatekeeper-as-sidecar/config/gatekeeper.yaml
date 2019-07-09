@@ -19,7 +19,7 @@ redirection-url: https://sso-gatekeeper-amazin-dev.apps.ocp.datr.eu
 no-redirects: true
 resources:
 
-- uri: /api/products/**
+- uri: /products/**
   methods:
     - GET
     - POST

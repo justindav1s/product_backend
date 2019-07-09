@@ -17,8 +17,8 @@ REALM="amazin"
 GRANT_TYPE="password"
 CLIENT="webapp"
 CLIENT_SECRET="0e8055c5-099d-4d87-91b4-7eb9e08ad680"
-USER="justin"
-USER_PASSWORD="12jnd34"
+USER=$1
+USER_PASSWORD=$2
 
 #echo "Keycloak host : $KEYCLOAK"
 

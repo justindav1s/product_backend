@@ -16,7 +16,7 @@ function padBase64  {
     echo ${STR}
 }
 
-ACCESS_TOKEN=$(./get_token_direct_grant.sh justin 12jnd34)
+ACCESS_TOKEN=$(./get_token_direct_grant.sh jane jane)
 
 echo $ACCESS_TOKEN
 PART1_BASE64=$(echo ${ACCESS_TOKEN} | cut -d"." -f1)
@@ -28,7 +28,7 @@ echo ${PART2_BASE64} | base64 -D | jq .
 
 
 
-curl -X GET \
+curl -v -X GET \
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json' \
     -H "Authorization: Bearer ${ACCESS_TOKEN}" \
