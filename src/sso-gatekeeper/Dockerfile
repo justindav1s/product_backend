@@ -1,5 +1,6 @@
 FROM centos
 
+RUN yum update -y
 RUN yum install -y wget
 WORKDIR /
 RUN wget https://downloads.jboss.org/keycloak/4.8.3.Final/gatekeeper/keycloak-gatekeeper-linux-amd64.tar.gz
