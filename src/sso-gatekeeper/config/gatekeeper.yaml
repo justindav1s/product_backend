@@ -17,6 +17,7 @@ upstream-url: https://springsec-api-gateway-amazin-dev.apps.ocp.datr.eu
 redirection-url: https://sso-gatekeeper-amazin-dev.apps.ocp.datr.eu
 #store-url: boltdb://./boltfile
 no-redirects: true
+skip-openid-provider-tls-verify: true
 resources:
 
 - uri: /api/products/**
