@@ -16,12 +16,12 @@
         <snapshotRepository>
             <id>nexus</id>
             <name>Nexus</name>
-            <url>https://nexus.cicd.svc:8081/repository/maven-snapshots</url>
+            <url>http://nexus.cicd.svc:8081/repository/maven-snapshots</url>
         </snapshotRepository>
         <repository>
             <id>nexus</id>
             <name>Nexus</name>
-            <url>https://nexus.cicd.svc:8081/repository/maven-release</url>
+            <url>http://nexus.cicd.svc:8081/repository/maven-release</url>
         </repository>
     </distributionManagement>
 
