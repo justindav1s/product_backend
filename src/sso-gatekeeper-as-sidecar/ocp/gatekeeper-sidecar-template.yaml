@@ -116,7 +116,7 @@ objects:
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
           volumeMounts:
-          - mountPath: /app/etc
+          - mountPath: /etc
             name: ${APPLICATION_NAME}-gatekeeper-config-vol
           dnsPolicy: ClusterFirst
         restartPolicy: Always
