@@ -2,7 +2,7 @@ secure-cookie: false
 enable-logging: true
 enable-json-logging: false
 # is the url for retrieve the OpenID configuration - normally the <server>/auth/realm/<realm_name>
-discovery-url: https://sso-sso.apps.192.168.33.10.xip.io/auth/realms/amazin
+discovery-url: https://sso-sso.apps.ocp.datr.eu/auth/realms/amazin
 # the client id for the 'client' application
 client-id: webapp
 # the secret associated to the 'client' application
@@ -16,7 +16,7 @@ enable-default-deny: true
 upstream-url: http://127.0.0.1:8080
 redirection-url: https://sso-gatekeeper-amazin-dev.apps.ocp.datr.eu
 #store-url: boltdb://./boltfile
-no-redirects: true
+
 resources:
 
 - uri: /api/products/**
@@ -26,6 +26,35 @@ resources:
   roles:
     - webapp:ROLE_product
   require-any-role: true
+
+- uri: /api/session
+  methods:
+    - GET
+    - POST
+  roles:
+    - webapp:ROLE_user
+
+- uri: /api/login
+  methods:
+    - GET
+    - POST
+  roles:
+    - webapp:ROLE_user
+
+- uri: /api/logout
+  methods:
+    - DELETE
+  roles:
+    - webapp:ROLE_user
+    -
+- uri: /api/basket/**
+  methods:
+    - GET
+    - POST
+  roles:
+    - webapp:ROLE_product
+    - webapp:ROLE_basket
+    - webapp:ROLE_user
 
 - uri: /
   white-listed: true
@@ -37,3 +66,5 @@ resources:
   roles:
     - webapp:ROLE_admin
 
+#- uri: /*
+#  white-listed: true

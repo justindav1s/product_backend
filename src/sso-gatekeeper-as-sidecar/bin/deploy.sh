@@ -2,7 +2,7 @@
 
 #set -x
 
-APP=sso-gatekeeper-api-gateway
+APP=sso-gatekeeper-inventory
 . ../../../env.sh
 
 oc login https://${IP}:8443 -u $USER

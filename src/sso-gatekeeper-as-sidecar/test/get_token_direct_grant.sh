@@ -12,11 +12,11 @@ function padBase64  {
 }
 
 
-KEYCLOAK=https://sso-sso.apps.ocp.datr.eu
+KEYCLOAK=https://sso-sso.apps.192.168.33.10.xip.io
 REALM="amazin"
 GRANT_TYPE="password"
 CLIENT="webapp"
-CLIENT_SECRET="4067e61d-377b-4995-bdc9-d08381567cf5"
+CLIENT_SECRET="0e8055c5-099d-4d87-91b4-7eb9e08ad680"
 USER="justin"
 USER_PASSWORD="12jnd34"
 
