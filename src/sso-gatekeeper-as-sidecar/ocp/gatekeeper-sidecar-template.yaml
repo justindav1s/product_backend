@@ -57,7 +57,7 @@ objects:
             periodSeconds: 5
             successThreshold: 1
             timeoutSeconds: 1
-          name: 'api-gateway'
+          name: 'resource-server'
           readinessProbe:
             failureThreshold: 5
             httpGet:
