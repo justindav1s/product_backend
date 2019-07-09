@@ -3,7 +3,7 @@ spring:
     name: inventory.dev
 
 server:
-  port: 8080
+  port: 8081
 
 basket:
   host: basket:8080

@@ -1,11 +1,17 @@
 #!/bin/bash
 
-URL=http://127.0.0.1:8081/api/products/all
-URL=http://127.0.0.1:3000/api/products/all
-URL=http://sso-gatekeeper-api-gateway-amazin-dev.apps.ocp.datr.eu/api/products/all
+set -x
+URLBASE=http://sso-gatekeeper-api-gateway-amazin-dev.apps.ocp.datr.eu
 
-curl -v -X GET \
+URL=${URLBASE}/api/products/all
+
+curl -v -X GET -D headers.txt \
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json' \
     $URL
 
+LOC=$(grep Location headers.txt | awk '{print $2}')
+rm -rf headers.txt
+echo ${URLBASE}$LOC
+
+curl -v "${URLBASE}$LOC"
