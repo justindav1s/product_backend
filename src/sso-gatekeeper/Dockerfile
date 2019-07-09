@@ -9,7 +9,7 @@ COPY config/gatekeeper.yaml /gatekeeper.yaml
 
 FROM scratch
 WORKDIR /app
-COPY --from=0 /keycloak-gatekeeper /app/keycloak-gatekeeper
+COPY --from=0 /keycloak-gatekeeper /keycloak-gatekeeper
 #COPY --from=0 /gatekeeper.yaml /etc/gatekeeper.yaml
 
-CMD ["/app/keycloak-gatekeeper", "-config", "/etc/gatekeeper.yaml"]
+CMD ["/keycloak-gatekeeper", "-config", "/etc/gatekeeper.yaml"]
