@@ -1,4 +1,4 @@
-p#!/bin/bash
+#!/bin/bash
 
 function padBase64  {
     STR=$1
@@ -19,10 +19,10 @@ PART2_BASE64=$(padBase64 ${PART2_BASE64})
 echo ${PART2_BASE64} | base64 -D | jq .
 
 
-
-curl -v -X GET \
+curl -v -X POST \
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json' \
     -H "Authorization: Bearer ${ACCESS_TOKEN}" \
-    http://127.0.0.1:8081/api/products/all
+    --data '{"username":"xyz","password":"xyz"}' \
+    http://127.0.0.1:8081/api/session
 

@@ -1,4 +1,4 @@
-p#!/bin/bash
+#!/bin/bash
 
 function padBase64  {
     STR=$1
@@ -24,5 +24,5 @@ curl -v -X GET \
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json' \
     -H "Authorization: Bearer ${ACCESS_TOKEN}" \
-    http://127.0.0.1:8081/api/products/all
+    http://127.0.0.1:8081/api/fsdfsdfadsf/asddasd
 
