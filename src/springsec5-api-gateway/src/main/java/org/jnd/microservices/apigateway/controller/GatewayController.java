@@ -15,22 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-/**
- * ${environment.user_backend}/basket/login POST
- * ${environment.user_backend}/basket/logout DELETE
- * ${environment.basket_backend}/basket/get/${basket.id} GET
- * ${environment.basket_backend}/basket/add/${product.id} PUT
- * ${environment.basket_backend}/basket/remove/${itemAtIndex} DELETE
- * ${environment.inventory_backend}/products/types GET
- * ${environment.inventory_backend}/products/all GET
- * ${environment.inventory_backend}/products/type/${type} GET
- */
-
 @CrossOrigin
 @RestController
 @RequestMapping("/api")
-
 public class GatewayController {
 
     private static final Logger log = LoggerFactory.getLogger(GatewayController.class);
