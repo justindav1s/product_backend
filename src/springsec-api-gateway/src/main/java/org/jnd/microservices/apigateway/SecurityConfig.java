@@ -32,6 +32,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         auth.authenticationProvider(keycloakAuthenticationProvider());
     }
 
+
     /**
      * Defines the session authentication strategy.
      */

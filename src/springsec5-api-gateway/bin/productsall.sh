@@ -1,4 +1,4 @@
-p#!/bin/bash
+#!/bin/bash
 
 function padBase64  {
     STR=$1
