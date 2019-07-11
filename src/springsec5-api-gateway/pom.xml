@@ -28,17 +28,6 @@
 		<spring.boot.version>2.1.6.RELEASE</spring.boot.version>
 	</properties>
 
-<!--	<dependencyManagement>-->
-<!--		<dependencies>-->
-<!--			<dependency>-->
-<!--				<groupId>org.keycloak.bom</groupId>-->
-<!--				<artifactId>keycloak-adapter-bom</artifactId>-->
-<!--				<version>4.8.3.Final</version>-->
-<!--				<type>pom</type>-->
-<!--				<scope>import</scope>-->
-<!--			</dependency>-->
-<!--		</dependencies>-->
-<!--	</dependencyManagement>-->
 
 	<dependencies>
 		<dependency>
@@ -79,35 +68,12 @@
 			<version>1.2.3</version>
 		</dependency>
 
-		<dependency>
-			<groupId>io.opentracing.contrib</groupId>
-			<artifactId>opentracing-spring-jaeger-web-starter</artifactId>
-			<version>1.0.3</version>
-		</dependency>
-
-		<!-- keycloak dependencies -->
-<!--		<dependency>-->
-<!--			<groupId>org.keycloak</groupId>-->
-<!--			<artifactId>keycloak-spring-security-adapter</artifactId>-->
-<!--			<version>4.8.3.Final</version>-->
-<!--		</dependency>-->
-
-<!--		<dependency>-->
-<!--			<groupId>org.keycloak</groupId>-->
-<!--			<artifactId>keycloak-spring-boot-starter</artifactId>-->
-<!--		</dependency>-->
-
+		<!-- security dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 			<version>${spring.boot.version}</version>
 		</dependency>
-
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.security.oauth.boot</groupId>-->
-<!--			<artifactId>spring-security-oauth2-autoconfigure</artifactId>-->
-<!--			<version>${spring.boot.version}</version>-->
-<!--		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.security</groupId>
