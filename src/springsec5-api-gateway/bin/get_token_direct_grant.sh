@@ -15,10 +15,10 @@ function padBase64  {
 KEYCLOAK=http://127.0.0.1:8080
 REALM="amazin"
 GRANT_TYPE="password"
-#CLIENT="webapp"
-#CLIENT_SECRET="cc48f8ad-80d3-4019-8d36-7dfb6f5c86e7"
-CLIENT="scopedapp"
-CLIENT_SECRET="c29d6502-e392-4c99-b025-3da1c8e8ca8c"
+CLIENT="webapp"
+CLIENT_SECRET="cc48f8ad-80d3-4019-8d36-7dfb6f5c86e7"
+#CLIENT="scopedapp"
+#CLIENT_SECRET="c29d6502-e392-4c99-b025-3da1c8e8ca8c"
 USER="justin"
 USER_PASSWORD="12jnd34"
 
