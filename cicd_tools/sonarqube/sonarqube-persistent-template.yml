@@ -192,7 +192,7 @@ objects:
   kind: Service
   metadata:
     annotations:
-      service.alpha.openshift.io/dependencies: '[{"name":"postgres-${DOMAIN}","namespace":"","kind":"Service"}]'
+      service.alpha.openshift.io/dependencies: '[{"name":"postgresl","namespace":"","kind":"Service"}]'
     name: ${APPLICATION_NAME}
     labels:
       app: ${APPLICATION_NAME}
@@ -228,9 +228,6 @@ parameters:
   name: APPLICATION_NAME
   required: true
   value: postgres
-- description: The functional domain of the application.
-  name: DOMAIN
-  required: true
 - description: Git source URI for application
   name: SOURCE_REPOSITORY_URL
   value: "https://github.com/justindav1s/microservices-on-openshift.git"
@@ -250,7 +247,7 @@ parameters:
   value: "Dockerfile"
   required: true
 - displayName: SonarQube version
-  value: "7.7"
+  value: "7.9"
   name: SONARQUBE_VERSION
   required: true
 - description: Username for SonarQube Server PostgreSQL backend

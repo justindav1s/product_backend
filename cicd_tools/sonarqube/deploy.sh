@@ -6,7 +6,7 @@ oc login https://${IP}:8443 -u justin
 
 APP=sonarqube
 
-oc project $CICD_PROJECT
+oc project sonarqube
 
 oc delete imagestream ${APP}
 oc delete buildconfig ${APP}-docker-build
@@ -19,7 +19,6 @@ oc delete route ${APP}
 
 
 oc new-app -f sonarqube-persistent-template.yml \
-    -p DOMAIN=${DOMAIN} \
     -p APPLICATION_NAME=${APP} \
     -p SOURCE_REPOSITORY_URL=https://github.com/justindav1s/microservices-on-openshift.git \
     -p SOURCE_REPOSITORY_URL=master \

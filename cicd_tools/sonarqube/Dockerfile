@@ -1,4 +1,4 @@
-FROM jboss/base-jdk:8
+FROM jboss/base-jdk:11
 
 ENV SONAR_VERSION=$SONARQUBE_VERSION \
     SONARQUBE_HOME=/opt/sonarqube \
@@ -13,16 +13,6 @@ USER root
 
 RUN groupadd -r sonarqube && useradd -r -g sonarqube sonarqube
 
-## grab gosu for easy step-down from root
-#RUN set -x \
-#    && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/1.10/gosu-$(dpkg --print-architecture)" \
-#    && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/1.10/gosu-$(dpkg --print-architecture).asc" \
-#    && export GNUPGHOME="$(mktemp -d)" \
-#    && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
-#    && gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
-#    && rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc \
-#    && chmod +x /usr/local/bin/gosu \
-#    && gosu nobody true
 
 RUN set -x \
     && cd /opt \
