@@ -18,7 +18,7 @@ node('maven') {
         def packaging    = getPackagingFromPom("pom.xml")
         def sonar_url    = "http://sonarqube.cicd.svc:9000"
         def nexus_url    = "https://nexus-cicd.apps.ocp4.datr.eu/repository/maven-snapshots"
-        def registry     = "docker-registry.default.svc:5000"
+        def registry     = "image-registry.openshift-image-registry.svc:5000"
 
         stage('Build jar') {
             echo "Building version : ${version}"
