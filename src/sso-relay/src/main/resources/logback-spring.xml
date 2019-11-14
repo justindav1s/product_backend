@@ -6,6 +6,7 @@
     <logger name="org.springframework.core" level="INFO"/>
     <logger name="org.jnd" level="DEBUG"/>
     <logger name="org.apache.http" level="DEBUG"/>
+    <logger name="org.apache.http.wire" level="DEBUG"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <target>System.out</target>

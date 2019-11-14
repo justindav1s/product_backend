@@ -26,7 +26,7 @@ echo "Keycloak host : $KEYCLOAK"
 #Get Code
 GET_BODY="scope=openid&response_type=code&client_id=${CLIENT}&redirect_uri=${REDIRECT}"
 
-RESPONSE=$(curl -L -vk -D headers.txt \
+RESPONSE=$(curl -vk -D headers.txt \
     -u ${USER}:${USER_PASSWORD} \
     -X GET \
     ${KEYCLOAK}/auth/realms/${REALM}/protocol/openid-connect/auth?${GET_BODY})
@@ -40,7 +40,7 @@ echo "CODE"=${CODE}
 echo ${#CODE}
 
 #Get Token
-POST_BODY="grant_type=${GRANT_TYPE}&redirect_uri=http://127.0.0.1:9090/getcode&client_id=${CLIENT}&client_secret=${CLIENT_SECRET}&code="
+POST_BODY="grant_type=${GRANT_TYPE}&redirect_uri=${REDIRECT}&client_id=${CLIENT}&client_secret=${CLIENT_SECRET}&code="
 POST_BODY=${POST_BODY}${CODE}
 echo POST_BODY=${POST_BODY}
 
