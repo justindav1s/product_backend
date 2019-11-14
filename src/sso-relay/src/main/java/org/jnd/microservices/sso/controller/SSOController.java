@@ -18,9 +18,10 @@ public class SSOController {
 
 
     @RequestMapping(value = "/handle-oauth", method = RequestMethod.GET, produces = "application/json")
-    public String login(@RequestHeader HttpHeaders headers) {
+    public String login(@RequestHeader HttpHeaders headers, @RequestParam(name = "code") String code) {
 
         log.info("handle-oauth");
+        log.info("code : "+code);
 
         for (String key : headers.keySet()) {
             log.info(key+" : "+headers.get(key));
