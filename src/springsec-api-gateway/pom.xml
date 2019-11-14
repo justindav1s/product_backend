@@ -15,12 +15,12 @@
 		<snapshotRepository>
 			<id>nexus</id>
 			<name>Nexus</name>
-			<url>https://nexus-cicd.apps.ocp.datr.eu/repository/maven-snapshots</url>
+			<url>https://nexus-cicd.apps.ocp4.datr.eu/repository/maven-snapshots</url>
 		</snapshotRepository>
 		<repository>
 			<id>nexus</id>
 			<name>Nexus</name>
-			<url>https://nexus-cicd.apps.ocp.datr.eu/repository/maven-release</url>
+			<url>https://nexus-cicd.apps.ocp4.datr.eu/repository/maven-release</url>
 		</repository>
 	</distributionManagement>
 
