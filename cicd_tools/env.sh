@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #export IP=192.168.0.91
-export IP=ocp.datr.eu
+export IP=api.ocp4.datr.eu:6443
 export USER=justin
 
 export CICD_PROJECT=cicd

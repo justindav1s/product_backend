@@ -5,7 +5,7 @@ DATABASE_USER=sonar
 DATABASE_PASSWORD=sonar
 DATABASE_NAME=sonar
 
-oc project sonarqube
+oc project cicd
 
 oc delete all -l app=${APP_NAME}
 oc delete pvc ${APP_NAME}-pvc

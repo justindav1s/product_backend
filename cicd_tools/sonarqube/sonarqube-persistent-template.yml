@@ -85,6 +85,7 @@ objects:
         labels:
           app: ${APPLICATION_NAME}
           deploymentconfig: ${APPLICATION_NAME}
+          tuned.openshift.io/elasticsearch: ""
       spec:
         serviceAccountName: ${APPLICATION_NAME}
         containers:

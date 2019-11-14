@@ -2,11 +2,11 @@
 
 . ../env.sh
 
-oc login https://${IP}:8443 -u justin
+oc login https://${IP} -u justin
 
 APP=sonarqube
 
-oc project sonarqube
+oc project cicd
 
 oc delete imagestream ${APP}
 oc delete buildconfig ${APP}-docker-build
