@@ -1,6 +1,6 @@
-package org.jnd.microservices.apigateway;
+package org.jnd.microservices.sso;
 
-import org.jnd.microservices.apigateway.controller.GatewayController;
+import org.jnd.microservices.sso.controller.SSOController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,17 +25,10 @@ import javax.annotation.PostConstruct;
 @EnableAutoConfiguration
 @SpringBootApplication
 @RestController
-public class GatewayApplication extends SpringBootServletInitializer  {
+public class SSOApplication extends SpringBootServletInitializer  {
 
-    private static final Logger log = LoggerFactory.getLogger(GatewayController.class);
+    private static final Logger log = LoggerFactory.getLogger(SSOController.class);
 
-    @Value( "${basket.host}" )
-    String basket_host;
-
-    @Value( "${user.host}" )
-    String user_host;
-
-    @Value( "${inventory.host}" )
     String inventory_host;
 
     @Value( "${greeting}" )
@@ -43,7 +36,7 @@ public class GatewayApplication extends SpringBootServletInitializer  {
 
     public static void main(String[] args) {
 
-        SpringApplication.run(GatewayApplication.class, args);
+        SpringApplication.run(SSOApplication.class, args);
 
     }
 
@@ -59,9 +52,6 @@ public class GatewayApplication extends SpringBootServletInitializer  {
 
     @PostConstruct
     public void debug() {
-        log.info("Inventory host : "+inventory_host);
-        log.info("Basket host : "+basket_host);
-        log.info("User host : "+user_host);
         log.info("Greeting : "+greeting);
     }
 

@@ -1,4 +1,4 @@
-package org.jnd.microservices.apigateway;
+package org.jnd.microservices.sso.controller;
 
 import org.keycloak.adapters.KeycloakConfigResolver;
 import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
