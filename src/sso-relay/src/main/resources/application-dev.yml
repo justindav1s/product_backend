@@ -13,3 +13,9 @@ sso:
   redirect_uri: "http%3A%2F%2Fsso-relay-amazin-dev.apps.ocp4.datr.eu%2Fapi%2Fhandle-oauth"
   grant_type: "authorization_code"
 
+
+logging:
+  level:
+    org:
+      apache:
+        http: DEBUG
