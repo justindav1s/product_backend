@@ -68,8 +68,6 @@ node('maven') {
                 openshift.withProject("${dev_project}") {
 
                     echo "Building ...."
-                    //def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}.${packaging}")
-                    //nb.logs('-f')
 
                     sh "oc start-build ${app_name} --from-file=${artifactId}.${packaging} --follow  --wait -n ${dev_project}"
 
