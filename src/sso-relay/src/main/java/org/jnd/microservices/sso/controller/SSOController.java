@@ -72,7 +72,7 @@ public class SSOController {
 
         String response = exchange.getBody();
 
-        return new ResponseEntity<String>(response, null, HttpStatus.OK);;
+        return new ResponseEntity<String>(response, null, HttpStatus.OK);
     }
 
 
