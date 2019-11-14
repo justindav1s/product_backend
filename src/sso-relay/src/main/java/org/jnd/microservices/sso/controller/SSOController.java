@@ -28,7 +28,6 @@ public class SSOController {
 
         log.info("handle-oauth");
         String uri = request.getRequestURI();
-        Enumeration attrs = request.getAttributeNames();
 
         log.info("query string  : "+request.getQueryString());
 
