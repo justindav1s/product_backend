@@ -1,5 +1,6 @@
 package org.jnd.microservices.sso;
 
+
 import org.jnd.microservices.sso.controller.SSOController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
