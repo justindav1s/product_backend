@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 
 
 @CrossOrigin
@@ -27,6 +28,14 @@ public class SSOController {
 
         log.info("handle-oauth");
         String uri = request.getRequestURI();
+        Enumeration attrs = request.getAttributeNames();
+
+        while (attrs.hasMoreElements()) {
+
+            String attr = (String)attrs.nextElement();
+            log.info("attr : "+attr+" val : "+request.getAttribute(attr));
+
+        }
 
         log.info("uri : "+uri);
         log.info("code : "+code);
