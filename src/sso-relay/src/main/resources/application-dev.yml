@@ -19,3 +19,4 @@ logging:
     org:
       apache:
         http: DEBUG
+          wire: DEBUG
