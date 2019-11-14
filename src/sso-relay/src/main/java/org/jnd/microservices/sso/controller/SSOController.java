@@ -30,12 +30,8 @@ public class SSOController {
         String uri = request.getRequestURI();
         Enumeration attrs = request.getAttributeNames();
 
-        while (attrs.hasMoreElements()) {
+        log.info("query string  : "+request.getQueryString());
 
-            String attr = (String)attrs.nextElement();
-            log.info("attr : "+attr+" val : "+request.getAttribute(attr));
-
-        }
 
         log.info("uri : "+uri);
         log.info("code : "+code);
