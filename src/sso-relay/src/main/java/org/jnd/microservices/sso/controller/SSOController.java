@@ -17,8 +17,8 @@ public class SSOController {
     private static final Logger log = LoggerFactory.getLogger(SSOController.class);
 
 
-    @RequestMapping(value = "/handle-oauth", method = RequestMethod.POST, produces = "application/json")
-    ResponseEntity<?> login(@RequestHeader HttpHeaders headers) {
+    @RequestMapping(value = "/handle-oauth", method = RequestMethod.GET, produces = "application/json")
+    public String login(@RequestHeader HttpHeaders headers) {
 
         log.info("handle-oauth");
 
@@ -26,7 +26,7 @@ public class SSOController {
             log.info(key+" : "+headers.get(key));
         }
 
-        return null;
+        return "handle-oauth";
     }
 
 
