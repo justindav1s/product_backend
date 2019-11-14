@@ -45,7 +45,7 @@ public class SSOController {
         log.info("sso_server : "+sso_server);
 
         String sso_uri = sso_server+"auth/realms/"+realm+"/protocol/openid-connect/token";
-        log.info("sso_server : "+sso_server);
+        log.info("sso_uri : "+sso_uri);
 
         String post_body = "grant_type="+grant_type+"&redirect_uri="+redirect_uri+"&client_id="+client_id+"&client_secret="+client_secret+"&code="+code;
         log.info("post_body : "+post_body);
