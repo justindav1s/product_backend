@@ -20,6 +20,12 @@ public class SSOController {
     @RequestMapping(value = "/handle-oauth", method = RequestMethod.POST, produces = "application/json")
     ResponseEntity<?> login(@RequestHeader HttpHeaders headers) {
 
+        log.info("handle-oauth");
+
+        for (String key : headers.keySet()) {
+            log.info(key+" : "+headers.get(key));
+        }
+
         return null;
     }
 
