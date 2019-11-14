@@ -53,8 +53,9 @@ public class SSOController {
         for (String key : headers.keySet()) {
             log.info(key+" : "+headers.get(key));
         }
-
-        HttpEntity<String> request = new HttpEntity<>(post_body);
+        HttpHeaders outheaders = new HttpHeaders();
+        outheaders.add(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded");
+        HttpEntity<String> request = new HttpEntity<>(post_body, outheaders);
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> exchange = null;
         try {
