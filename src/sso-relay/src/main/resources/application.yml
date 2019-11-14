@@ -5,3 +5,5 @@ spring:
 server:
   port: 8080
 
+sso:
+  server: "https://sso-sso.apps.ocp4.datr.eu/"
