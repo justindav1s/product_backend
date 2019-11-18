@@ -6,7 +6,7 @@ S2I_IMAGE=java:8
 
 . ../../env.sh
 
-oc login https://${IP}:8443 -u $USER
+oc login https://${IP} -u $USER
 
 oc project ${DEV_PROJECT}
 

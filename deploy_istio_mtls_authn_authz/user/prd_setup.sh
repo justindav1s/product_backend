@@ -11,7 +11,7 @@ SERVICE_NAME=${APP}-${ENV}
 
 . ../../env.sh
 
-oc login https://${IP}:8443 -u $USER
+oc login https://${IP} -u $USER
 
 oc project ${PROD_PROJECT}
 

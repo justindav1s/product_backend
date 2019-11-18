@@ -2,7 +2,7 @@
 
 . ../env.sh
 
-oc login https://${IP}:8443 -u $USER
+oc login https://${IP} -u $USER
 
 #oc delete project $PROD_PROJECT
 #oc adm new-project $PROD_PROJECT --node-selector='' 2> /dev/null
