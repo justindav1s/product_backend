@@ -10,7 +10,7 @@ node('maven') {
     def app_url_dev  = "http://${app_name}.${dev_project}.svc:8080"
     def sonar_url    = "http://sonarqube.cicd.svc:9000"
     def nexus_url    = "http://nexus.cicd.svc:8081/repository/maven-snapshots"
-    def registry     = "docker-registry.default.svc:5000"
+    def registry     = "image-registry.openshift-image-registry.svc:5000"
     def groupId, version, packaging = null
     def artifactId = null
 
