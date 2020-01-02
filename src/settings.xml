@@ -17,7 +17,7 @@
                     </snapshots>
                     <id>central</id>
                     <name>nexus</name>
-                    <url>http://nexus.cicd.svc:8081/repository/maven-public</url>
+                    <url>http://nexus3.cicd.svc:8081/repository/maven-public</url>
                 </repository>
             </repositories>
             <pluginRepositories>
@@ -27,7 +27,7 @@
                     </snapshots>
                     <id>central</id>
                     <name>nexus</name>
-                    <url>http://nexus.cicd.svc:8081/repository/maven-public</url>
+                    <url>http://nexus3.cicd.svc:8081/repository/maven-public</url>
                 </pluginRepository>
             </pluginRepositories>
             <id>nexus</id>
