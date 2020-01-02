@@ -13,6 +13,8 @@ while [ $? \> 0 ]; do
 oc new-project $DEV_PROJECT 2> /dev/null
 done
 
+oc project $DEV_PROJECT
+
 oc policy add-role-to-user edit system:serviceaccount:${CICD_PROJECT}:jenkins -n ${DEV_PROJECT}
 oc policy add-role-to-user edit system:serviceaccount:${CICD_PROJECT}:default -n ${DEV_PROJECT}
 oc policy add-role-to-user view --serviceaccount=default -n ${DEV_PROJECT}
@@ -25,6 +27,7 @@ while [ $? \> 0 ]; do
     oc new-project $PROD_PROJECT 2> /dev/null
 done
 
+oc project $PROD_PROJECT
 
 oc policy add-role-to-user edit system:serviceaccount:${CICD_PROJECT}:jenkins -n ${PROD_PROJECT}
 oc policy add-role-to-user edit system:serviceaccount:${CICD_PROJECT}:default -n ${PROD_PROJECT}
