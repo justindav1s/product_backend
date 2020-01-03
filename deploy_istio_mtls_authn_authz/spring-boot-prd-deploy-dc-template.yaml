@@ -42,7 +42,7 @@ objects:
           - env:
               - name: SPRING_PROFILES_ACTIVE
                 value: "${SPRING_PROFILES_ACTIVE}"
-            image: "docker-registry.default.svc:5000/amazin-dev/${IMAGE_NAME}:${IMAGE_TAG}"
+            image: "image-registry.openshift-image-registry.svc:5000/amazin-dev/${IMAGE_NAME}:${IMAGE_TAG}"
             imagePullPolicy: Always
             ports:
             - containerPort: 8080

@@ -168,7 +168,7 @@ node('maven') {
                     echo "Deploy .... Image to Production : ${deployment}"
 
                     //update deployment config with new image
-                    openshift.set("image", "dc/${deployment}", "${app_name}=docker-registry.default.svc:5000/${dev_project}/${app_name}:${prodTag}")
+                    openshift.set("image", "dc/${deployment}", "${app_name}=image-registry.openshift-image-registry.svc:5000/${dev_project}/${app_name}:${prodTag}")
 
                     //update app config
                     openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
