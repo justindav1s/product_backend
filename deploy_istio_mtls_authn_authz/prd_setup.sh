@@ -5,11 +5,11 @@
 oc login https://${IP} -u $USER
 
 oc delete project $PROD_PROJECT
-oc adm new-project $PROD_PROJECT --node-selector='' 2> /dev/null
+oc new-project $PROD_PROJECT 2> /dev/null
 while [ $? \> 0 ]; do
     sleep 1
     printf "."
-    oc adm new-project $PROD_PROJECT --node-selector='' 2> /dev/null
+    oc new-project $PROD_PROJECT 2> /dev/null
 done
 
 
