@@ -4,13 +4,13 @@
 
 oc login https://${IP} -u $USER
 
-oc delete project $PROD_PROJECT
-oc new-project $PROD_PROJECT 2> /dev/null
-while [ $? \> 0 ]; do
-    sleep 1
-    printf "."
-    oc new-project $PROD_PROJECT 2> /dev/null
-done
+#oc delete project $PROD_PROJECT
+#oc new-project $PROD_PROJECT 2> /dev/null
+#while [ $? \> 0 ]; do
+#    sleep 1
+#    printf "."
+#    oc new-project $PROD_PROJECT 2> /dev/null
+#done
 
 
 oc policy add-role-to-user edit system:serviceaccount:${CICD_PROJECT}:jenkins -n ${PROD_PROJECT}
