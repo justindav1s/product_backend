@@ -31,8 +31,8 @@ oc new-app -f ../service-template.yaml \
 sleep 2
 
 oc policy add-role-to-group system:image-puller system:serviceaccounts:${SERVICEACCOUNT_NAME} -n ${DEV_PROJECT}
-oc adm policy add-scc-to-user anyuid -z ${SERVICEACCOUNT_NAME}
-oc adm policy add-scc-to-user privileged -z ${SERVICEACCOUNT_NAME}
+#oc adm policy add-scc-to-user anyuid -z ${SERVICEACCOUNT_NAME}
+#oc adm policy add-scc-to-user privileged -z ${SERVICEACCOUNT_NAME}
 
 sleep 2
 
