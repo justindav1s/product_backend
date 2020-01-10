@@ -22,7 +22,7 @@ oc delete configmap ${APP}-${SPRING_PROFILES_ACTIVE}-config --ignore-not-found=t
 oc create configmap ${APP}-${SPRING_PROFILES_ACTIVE}-config --from-file=../../src/inventory/src/main/resources/config.${SPRING_PROFILES_ACTIVE}.properties -n ${PROD_PROJECT}
 
 
-oc new-app -f ../spring-boot-prd-deploy-dc-template.yaml \
+oc new-app -f ../spring-boot-prd-deploy-template.yaml \
     -p APPLICATION_NAME=${APP} \
     -p IMAGE_NAME=${IMAGE_NAME} \
     -p IMAGE_TAG=${IMAGE_TAG} \

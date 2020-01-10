@@ -3,7 +3,7 @@
 #export IP=192.168.0.91
 #export IP=ocp.datr.eu
 #export IP=master.aws.datr.eu
-export IP=api.crc.testing:6443
+export IP=api.ocp4.datr.eu:6443
 export USER=justin
 
 export ORG=amazin
@@ -13,8 +13,14 @@ export CICD_PROJECT=cicd
 
 export CURL="curl -k -v"
 export JENKINS_USER=justin-admin-edit-view
-export JENKINS_TOKEN=11a7b56b34dd8992e1e6716b298361d0d9
+export JENKINS_TOKEN=114b62b06b42034a890373d44f25477424
 export JENKINS=jenkins-cicd.apps.ocp4.datr.eu
-export JENKINS=jenkins-cicd.apps-crc.testing
+#export JENKINS=jenkins-cicd.apps-crc.testing
 #export JENKINS=jenkins-cicd.apps.${IP}
+
+
+export DOMAIN=$CICD_PROJECT
+export DATABASE_USER="sonar"
+export DATABASE_PASSWORD="sonar"
+export DATABASE_URL="jdbc:postgresql://postgresql/sonar"
 

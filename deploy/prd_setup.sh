@@ -20,11 +20,6 @@ oc policy add-role-to-user view --serviceaccount=default -n ${PROD_PROJECT}
 #Allow all the downstream projects to pull the dev image
 oc policy add-role-to-group system:image-puller system:serviceaccounts:${PROD_PROJECT} -n ${DEV_PROJECT}
 
-#oc adm policy add-scc-to-user privileged -z default -n ${PROD_PROJECT}
-#oc adm policy add-scc-to-user anyuid -z default -n ${PROD_PROJECT}
-#
-#oc label namespace amazin-prod istio-injection=enabled --overwrite=true
-
 oc project ${PROD_PROJECT}
 
 cd user && ./prd_setup.sh && cd -
@@ -32,5 +27,3 @@ cd basket && ./prd_setup.sh && cd -
 cd api-gateway && ./prd_setup.sh && cd -
 
 cd inventory && ./prd_setup_v1.sh &&  ./prd_setup_v2.sh && ./prd_setup_v3.sh && cd -
-
-#cd istio && ./istio-setup.sh && cd -
