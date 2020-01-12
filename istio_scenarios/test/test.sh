@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
-HOST=api-gateway.amazin.apps.ocp.datr.eu/api
+HOST=istio-ingressgateway-istio-system.apps.ocp4.datr.eu/api
 
 for i in $(seq 1 1000)
 do
     echo Iteration \# ${i}
     echo POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"password"}' http://${HOST}/login
     curl -s -X POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"password"}' http://${HOST}/login
-    echo
-    echo POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"passw' http://${HOST}/login
-    curl -s -X POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"passw' http://${HOST}/login
+#    echo
+#    echo POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"passw' http://${HOST}/login
+#    curl -s -X POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"passw' http://${HOST}/login
     echo
     echo POST -H "Content-Type: application/json" -d "{\"username\":\"justin${i}\",\"password\":\"password\"}" http://${HOST}/login
     BASKET=$(curl -s -X POST -H "Content-Type: application/json" -d "{\"username\":\"justin${i}\",\"password\":\"password\"}" http://${HOST}/login | jq .basketId)
@@ -19,18 +19,18 @@ do
     echo
     echo GET http://${HOST}/products/7
     curl -s -X GET http://${HOST}/products/7
-    echo
-    echo  GET http://${HOST}/products/19
-    curl -s -X GET http://${HOST}/products/19
-    echo
-    echo GET http://${HOST}/prod/19
-    curl -s -X GET http://${HOST}/prod/19
-    echo
-    echo GET http://${HOST}/products/19
-    curl -s -X GET http://${HOST}/products/19
-    echo
-    echo POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"password"}' http://${HOST}/user/login
-    curl -s -X POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"password"}' http://${HOST}/user/login
+#    echo
+#    echo  GET http://${HOST}/products/19
+#    curl -s -X GET http://${HOST}/products/19
+#    echo
+#    echo GET http://${HOST}/prod/19
+#    curl -s -X GET http://${HOST}/prod/19
+#    echo
+#    echo GET http://${HOST}/products/19
+#    curl -s -X GET http://${HOST}/products/19
+#    echo
+#    echo POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"password"}' http://${HOST}/user/login
+#    curl -s -X POST -H "Content-Type: application/json" -d '{"username":"justin1","password":"password"}' http://${HOST}/user/login
     echo
     echo PUT http://${HOST}/basket/${BASKET}/add/1
     curl -s -X PUT http://${HOST}/basket/${BASKET}/add/1
@@ -44,20 +44,20 @@ do
     echo PUT http://${HOST}/basket/${BASKET}/add/9
     curl -s -X PUT http://${HOST}/basket/${BASKET}/add/9
     echo
-    echo PUT http://${HOST}/basket/${BASKET}/add/19
-    curl -s -X PUT http://${HOST}/basket/${BASKET}/add/19
-    echo
-    echo PUT http://${HOST}/basket/${BASKET}/add/anything
-    curl -s -X PUT http://${HOST}/basket/${BASKET}/add/anything
-    echo
-    echo DELETE http://${HOST}/basket/${BASKET}/remove/1
-    curl -s -X DELETE http://${HOST}/basket/${BASKET}/remove/1
+#    echo PUT http://${HOST}/basket/${BASKET}/add/19
+#    curl -s -X PUT http://${HOST}/basket/${BASKET}/add/19
+#    echo
+#    echo PUT http://${HOST}/basket/${BASKET}/add/anything
+#    curl -s -X PUT http://${HOST}/basket/${BASKET}/add/anything
     echo
     echo DELETE http://${HOST}/basket/${BASKET}/remove/1
     curl -s -X DELETE http://${HOST}/basket/${BASKET}/remove/1
     echo
-    echo DELETE http://${HOST}/basket/${BASKET}/remove/1
-    curl -s -X DELETE http://${HOST}/basket/${BASKET}/remove/1
+#    echo DELETE http://${HOST}/basket/${BASKET}/remove/1
+#    curl -s -X DELETE http://${HOST}/basket/${BASKET}/remove/1
+#    echo
+#    echo DELETE http://${HOST}/basket/${BASKET}/remove/1
+#    curl -s -X DELETE http://${HOST}/basket/${BASKET}/remove/1
     echo
     echo GET http://${HOST}/basket/${BASKET}/empty
     curl -s -X DELETE http://${HOST}/basket/${BASKET}/empty
