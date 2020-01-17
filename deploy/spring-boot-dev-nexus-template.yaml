@@ -11,6 +11,23 @@ objects:
         app: ${APPLICATION_NAME}
       name: ${APPLICATION_NAME}-sa
 
+  - apiVersion: v1
+    kind: ImageStream
+    metadata:
+      labels:
+        app: ${APPLICATION_NAME}
+      name: ${APPLICATION_NAME}
+    spec:
+      tags:
+      - annotations:
+          description: The ${APPLICATION_NAME} Docker image
+          tags: ${APPLICATION_NAME}
+        from:
+          kind: DockerImage
+          name: nexus3-docker-cicd.apps.ocp4.datr.eu/repository/docker/${PROJECT}/${APPLICATION_NAME}:latest
+        importPolicy: {}
+        name: latest
+
   - apiVersion: build.openshift.io/v1
     kind: BuildConfig
     metadata:
