@@ -100,13 +100,13 @@ node('maven') {
                     //remove any triggers
                     openshift.set("triggers", "dc/${app_name}", "--remove-all")
 
-                    //update deployment config with new image
-                    openshift.set("image", "dc/${app_name}", "${app_name}=${registry}/${dev_project}/${app_name}:${commitId}")
-                    //sh "oc set triggers dc/${app_name} --from-image=${dev_project}/${app_name}:${commitId} -c ${app_name} -n ${dev_project}"
-
                     //update app config
                     openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
                     openshift.create("configmap", "${app_name}-config", "--from-file=${config_file}")
+
+                    //update deployment config with new image
+                    openshift.set("image", "dc/${app_name}", "${app_name}=${registry}/${dev_project}/${app_name}:${commitId}")
+                    //sh "oc set triggers dc/${app_name} --from-image=${dev_project}/${app_name}:${commitId} -c ${app_name} -n ${dev_project}"
 
                     //trigger a rollout of the new image
                     rm = openshift.selector("dc", [app:app_name]).rollout().latest()
