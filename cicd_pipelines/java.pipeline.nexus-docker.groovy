@@ -79,10 +79,10 @@ node('maven') {
                     nb.logs('-f')
 
                     echo "Tagging ...."
-                    sh "oc tag --source=docker ${app_name}:latest ${app_name}:${devTag} -n ${dev_project}"
-                    sh "oc tag --source=docker ${app_name}:latest ${app_name}:${commitId} -n ${dev_project}"
-//                    openshift.tag("${app_name}:latest", "${app_name}:${devTag}")
-//                    openshift.tag("${app_name}:latest", "${app_name}:${commitId}")
+//                    sh "oc tag --source=docker ${app_name}:latest ${app_name}:${devTag} -n ${dev_project}"
+//                    sh "oc tag --source=docker ${app_name}:latest ${app_name}:${commitId} -n ${dev_project}"
+                    openshift.tag("${app_name}:latest", "${app_name}:${devTag}")
+                    openshift.tag("${app_name}:latest", "${app_name}:${commitId}")
                 }
             }
 
@@ -101,7 +101,7 @@ node('maven') {
                     openshift.set("triggers", "dc/${app_name}", "--remove-all");
 
                     //update deployment config with new image
-                    openshift.set("image", "dc/${app_name}", "${app_name}=${registry}/${dev_project}/${app_name}:latest")
+                    openshift.set("image", "dc/${app_name}", "${app_name}=${app_name}:${commitId}")
 
                     //update app config
                     openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
