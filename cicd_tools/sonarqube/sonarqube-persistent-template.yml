@@ -54,8 +54,10 @@ objects:
             value: "${DOCKERFILE_PATH}"
     output:
       to:
-        kind: "ImageStreamTag"
-        name: "${APPLICATION_NAME}:latest"
+#         kind: "ImageStreamTag"
+#         name: "${APPLICATION_NAME}:latest"
+        kind: "DockerImage"
+        name: "nexus3-docker-cicd.apps.ocp4.datr.eu/${APPLICATION_NAME}:latest"
     resources: {}
     postCommit: {}
     

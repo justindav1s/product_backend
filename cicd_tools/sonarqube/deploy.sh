@@ -26,6 +26,7 @@ oc create secret docker-registry nexus-dockercfg \
   -n cicd
 
 oc secrets link ${APP} nexus-dockercfg --for=pull -n cicd
+oc secrets link builder nexus-dockercfg -n cicd
 
 oc new-app -f sonarqube-persistent-template.yml \
     -p APPLICATION_NAME=${APP} \
