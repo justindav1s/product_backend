@@ -4,7 +4,7 @@ APP=web
 S2I_IMAGE=openshift/nginx:1.10
 . ../../env.sh
 
-oc login https://${IP}:8443 -u $USER
+oc login https://${IP} -u $USER
 
 oc project ${DEV_PROJECT}
 
