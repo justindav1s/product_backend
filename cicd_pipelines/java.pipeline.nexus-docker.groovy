@@ -102,7 +102,7 @@ node('maven') {
 
                     //update deployment config with new image
                     //openshift.set("image", "dc/${app_name}", "${app_name}=${app_name}:${commitId}")
-                    sh "oc set triggers dc/${app_name} --from-image=${dev_project}/${app_name}:${commitId} -n ${dev_project}"
+                    sh "oc set triggers dc/${app_name} --from-image=${dev_project}/${app_name}:${commitId} -c ${app_name} -n ${dev_project}"
 
                     //update app config
                     openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
