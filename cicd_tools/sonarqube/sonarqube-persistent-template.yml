@@ -154,7 +154,7 @@ objects:
         - ${APPLICATION_NAME}
         from:
           kind: ImageStreamTag
-          name: ${APPLICATION_NAME}:latest
+          name: ${APPLICATION_NAME}:${SONARQUBE_VERSION}
       type: ImageChange
 
 - apiVersion: v1
