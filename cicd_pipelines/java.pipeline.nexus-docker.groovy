@@ -75,14 +75,18 @@ node('maven') {
                 openshift.withProject("${dev_project}") {
 
                     echo "Building ...."
+                    def bc = openshift.selector( "bc/${app_name}" ).object()
+                    bc.spec.output.to.name="${registry}/${dev_project}/${app_name}:${commitId}" // Adjust the model
+                    openshift.apply(bc)
+
                     def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}-${commitId}.${packaging}")
                     nb.logs('-f')
 
-                    echo "Tagging ...."
+//                    echo "Tagging ...."
 //                    sh "oc tag --source=docker ${app_name}:latest ${app_name}:${devTag} -n ${dev_project}"
 //                    sh "oc tag --source=docker ${app_name}:latest ${app_name}:${commitId} -n ${dev_project}"
-                    openshift.tag("${app_name}:latest", "${app_name}:${devTag}")
-                    openshift.tag("${app_name}:latest", "${app_name}:${commitId}")
+//                    openshift.tag("${app_name}:latest", "${app_name}:${devTag}")
+//                    openshift.tag("${app_name}:latest", "${app_name}:${commitId}")
                 }
             }
 
