@@ -23,7 +23,7 @@ objects:
         tags: ${APPLICATION_NAME}
       from:
         kind: DockerImage
-        name: nexus3-docker-cicd.apps.ocp4.datr.eu/${APPLICATION_NAME}:${SONARQUBE_VERSION}
+        name: nexus3-docker-cicd.apps.ocp4.datr.eu/repository/docker/${APPLICATION_NAME}:${SONARQUBE_VERSION}
       importPolicy: {}
       name: ${SONARQUBE_VERSION}
 
@@ -57,7 +57,7 @@ objects:
 #         kind: "ImageStreamTag"
 #         name: "${APPLICATION_NAME}:latest"
         kind: "DockerImage"
-        name: "nexus3-docker.cicd.svc:5443/repository/docker/${APPLICATION_NAME}:latest"
+        name: "nexus3-docker-cicd.apps.ocp4.datr.eu/repository/docker/${APPLICATION_NAME}:latest"
     resources: {}
     postCommit: {}
     
