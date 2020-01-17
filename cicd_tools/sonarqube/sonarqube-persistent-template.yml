@@ -57,7 +57,7 @@ objects:
 #         kind: "ImageStreamTag"
 #         name: "${APPLICATION_NAME}:latest"
         kind: "DockerImage"
-        name: "https://nexus-cicd.apps.ocp4.datr.eu/repository/docker/${APPLICATION_NAME}:latest"
+        name: "nexus-cicd.apps.ocp4.datr.eu:443/repository/docker/${APPLICATION_NAME}:latest"
     resources: {}
     postCommit: {}
     
