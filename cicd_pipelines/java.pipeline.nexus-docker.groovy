@@ -98,8 +98,7 @@ node('maven') {
             openshift.withCluster() {
                 openshift.withProject(dev_project) {
                     //remove any triggers
-                    openshift.set("triggers", "dc/${app_name}", "--remove-all");
-                    def rm = openshift.selector("dc", [app:app_name]).rollout().pause()
+                    openshift.set("triggers", "dc/${app_name}", "--remove-all")
 
                     //update deployment config with new image
                     openshift.set("image", "dc/${app_name}", "${app_name}=${app_name}:${commitId}")
@@ -172,7 +171,7 @@ node('maven') {
                     echo "Deploy .... Image to Production : ${deployment}"
 
                     //update deployment config with new image
-                    openshift.set("image", "dc/${deployment}", "${app_name}=image-registry.openshift-image-registry.svc:5000/${dev_project}/${app_name}:${prodTag}")
+                    openshift.set("image", "dc/${deployment}", "${app_name}=${dev_project}/${app_name}:${prodTag}")
 
                     //update app config
                     openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
