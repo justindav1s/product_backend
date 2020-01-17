@@ -79,8 +79,8 @@ node('maven') {
                     nb.logs('-f')
 
                     echo "Tagging ...."
-                    sh "oc tag --source=docker ${app_name}:latest ${app_name}:${devTag}"
-                    sh "oc tag --source=docker ${app_name}:latest ${app_name}:${commitId}"
+                    sh "oc tag --source=docker ${app_name}:latest ${app_name}:${devTag} -n ${dev_project}"
+                    sh "oc tag --source=docker ${app_name}:latest ${app_name}:${commitId} -n ${dev_project}"
 //                    openshift.tag("${app_name}:latest", "${app_name}:${devTag}")
 //                    openshift.tag("${app_name}:latest", "${app_name}:${commitId}")
                 }
