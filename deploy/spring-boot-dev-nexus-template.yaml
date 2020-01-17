@@ -21,8 +21,10 @@ objects:
     spec:
       output:
         to:
-          kind: ImageStreamTag
-          name: ${APPLICATION_NAME}:latest
+          kind: DockerImage
+          name: nexus3-docker-cicd.apps.ocp4.datr.eu/repository/docker/${PROJECT}/${APPLICATION_NAME}:latest
+        pushSecret:
+          name: nexus-dockercfg
       postCommit: {}
       resources: {}
       runPolicy: Serial
