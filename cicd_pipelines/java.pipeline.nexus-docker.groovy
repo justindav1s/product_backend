@@ -99,17 +99,18 @@ node('maven') {
                 openshift.withProject(dev_project) {
                     //remove any triggers
                     openshift.set("triggers", "dc/${app_name}", "--remove-all");
+                    def rm = openshift.selector("dc", [app:app_name]).rollout().pause()
 
                     //update deployment config with new image
-                    //openshift.set("image", "dc/${app_name}", "${app_name}=${app_name}:${commitId}")
-                    sh "oc set triggers dc/${app_name} --from-image=${dev_project}/${app_name}:${commitId} -c ${app_name} -n ${dev_project}"
+                    openshift.set("image", "dc/${app_name}", "${app_name}=${app_name}:${commitId}")
+                    //sh "oc set triggers dc/${app_name} --from-image=${dev_project}/${app_name}:${commitId} -c ${app_name} -n ${dev_project}"
 
                     //update app config
                     openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
                     openshift.create("configmap", "${app_name}-config", "--from-file=${config_file}")
 
 //                    //trigger a rollout of the new image
-//                    def rm = openshift.selector("dc", [app:app_name]).rollout().latest()
+//                    rm = openshift.selector("dc", [app:app_name]).rollout().latest()
 //                    //wait for rollout to start
 //                    timeout(5) {
 //                        openshift.selector("dc", [app:app_name]).related('pods').untilEach(1) {

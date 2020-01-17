@@ -52,8 +52,6 @@ oc create secret docker-registry nexus-dockercfg \
   --docker-email=docker@email.com \
   -n ${PROD_PROJECT}
 
-oc secrets link deployer nexus-dockercfg --for=pull -n ${PROD_PROJECT}
-
 cd user && ./dev_setup.sh && cd -
 cd basket && ./dev_setup.sh && cd -
 cd api-gateway && ./dev_setup.sh && cd -

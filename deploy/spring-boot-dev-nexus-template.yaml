@@ -90,7 +90,7 @@ objects:
             - env:
                 - name: SPRING_PROFILES_ACTIVE
                   value: dev
-              image: ' '
+              image: '${APPLICATION_NAME}/${PROJECT}'
               imagePullPolicy: Always
               livenessProbe:
                 failureThreshold: 3
