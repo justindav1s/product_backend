@@ -16,7 +16,7 @@ oc delete template ${APP}-dev-dc ${APP}-dev-template -n ${DEV_PROJECT}
 oc delete configmap ${APP}-config -n ${DEV_PROJECT}
 
 echo Setting up ${APP} for ${DEV_PROJECT}
-oc new-app -f ../spring-boot-dev-template.yaml \
+oc new-app -f ../spring-boot-dev-nexus-template.yaml \
     -p PROJECT=${DEV_PROJECT} \
     -p APPLICATION_NAME=${APP} \
     -p BASE_IMAGE_NAMESPACE="openshift" \

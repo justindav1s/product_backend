@@ -22,6 +22,15 @@ oc policy add-role-to-group system:image-puller system:serviceaccounts:${PROD_PR
 
 oc project ${PROD_PROJECT}
 
+oc create secret docker-registry nexus-dockercfg \
+  --docker-server=nexus3-docker-cicd.apps.ocp4.datr.eu \
+  --docker-username=${NEXUS_USER} \
+  --docker-password=${NEXUS_PASSWORD} \
+  --docker-email=docker@gmail.com \
+  -n ${PROD_PROJECT}
+
+oc secrets link deployer nexus-dockercfg --for=pull -n ${PROD_PROJECT}
+
 cd user && ./prd_setup.sh && cd -
 cd basket && ./prd_setup.sh && cd -
 cd api-gateway && ./prd_setup.sh && cd -
