@@ -57,7 +57,7 @@ objects:
 #         kind: "ImageStreamTag"
 #         name: "${APPLICATION_NAME}:latest"
         kind: "DockerImage"
-        name: "nexus3-docker.cicd.svc:5000/repository/docker/${APPLICATION_NAME}:latest"
+        name: "nexus3-docker.cicd.svc:5443/repository/docker/${APPLICATION_NAME}:latest"
     resources: {}
     postCommit: {}
     

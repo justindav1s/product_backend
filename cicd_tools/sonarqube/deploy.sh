@@ -19,7 +19,7 @@ oc delete route ${APP}
 oc delete secret nexus-dockercfg
 
 oc create secret docker-registry nexus-dockercfg \
-  --docker-server=nexus3-docker.cicd.svc:5000 \
+  --docker-server=nexus3-docker.cicd.svc:5443 \
   --docker-username=${NEXUS_USER} \
   --docker-password=${NEXUS_PASSWORD} \
   --docker-email=docker@gmail.com \
