@@ -15,10 +15,10 @@ oc login https://${IP} -u $USER
 
 oc project ${PROD_PROJECT}
 
-oc delete dc ${APP}-${VERSION_LABEL} -n ${PROD_PROJECT}
-oc delete deployments ${APP}-${VERSION_LABEL} -n ${PROD_PROJECT}
-oc delete svc ${SERVICE_NAME} -n ${PROD_PROJECT}
-oc delete sa ${SERVICEACCOUNT_NAME} -n ${PROD_PROJECT}
+oc delete dc ${APP}-${VERSION_LABEL} --ignore-not-found=true -n ${PROD_PROJECT}
+oc delete deployments ${APP}-${VERSION_LABEL} --ignore-not-found=true -n ${PROD_PROJECT}
+oc delete svc ${SERVICE_NAME} --ignore-not-found=true -n ${PROD_PROJECT}
+oc delete sa ${SERVICEACCOUNT_NAME} --ignore-not-found=true -n ${PROD_PROJECT}
 
 oc delete configmap ${APP}-${SPRING_PROFILES_ACTIVE}-config --ignore-not-found=true -n ${PROD_PROJECT}
 oc create configmap ${APP}-${SPRING_PROFILES_ACTIVE}-config --from-file=../../src/inventory/src/main/resources/config.${SPRING_PROFILES_ACTIVE}.properties -n ${PROD_PROJECT}
