@@ -57,7 +57,7 @@ objects:
 #         kind: "ImageStreamTag"
 #         name: "${APPLICATION_NAME}:latest"
         kind: "DockerImage"
-        name: "nexus3-docker.cicd.svc:5000/${APPLICATION_NAME}:latest"
+        name: "nexus3-docker.cicd.svc:5000/repository/docker/${APPLICATION_NAME}:latest"
     resources: {}
     postCommit: {}
     
@@ -233,7 +233,7 @@ parameters:
   value: postgres
 - description: Git source URI for application
   name: SOURCE_REPOSITORY_URL
-  value: "https://github.com/justindav1s/microservices-on-openshift.git"
+  value: ""
   required: true
 - description: Git branch/tag reference
   name: SOURCE_REPOSITORY_REF
