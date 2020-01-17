@@ -18,6 +18,15 @@ oc delete service ${APP}
 oc delete route ${APP}
 
 
+oc create secret docker-registry nexus-dockercfg \
+  --docker-server=nexus3-docker-cicd.apps.ocp4.datr.eu \
+  --docker-username=${NEXUS_USER} \
+  --docker-password=${NEXUS_PASSWORD} \
+  --docker-email=docker@gmail.com \
+  -n cicd
+
+oc secrets link ${APP} nexus-dockercfg --for=pull -n cicd
+
 oc new-app -f sonarqube-persistent-template.yml \
     -p APPLICATION_NAME=${APP} \
     -p SOURCE_REPOSITORY_URL=https://github.com/justindav1s/microservices-on-openshift.git \
@@ -26,7 +35,5 @@ oc new-app -f sonarqube-persistent-template.yml \
     -p SONARQUBE_JDBC_USERNAME=${DATABASE_USER} \
     -p SONARQUBE_JDBC_PASSWORD=${DATABASE_PASSWORD} \
     -p SONARQUBE_JDBC_URL=${DATABASE_URL}
-
-
 
 #then download quality profile from market place https://sonarqube-cicd.apps.ocp.datr.eu/admin/marketplace

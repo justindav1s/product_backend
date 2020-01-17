@@ -23,7 +23,7 @@ objects:
         tags: ${APPLICATION_NAME}
       from:
         kind: DockerImage
-        name: ${APPLICATION_NAME}:${SONARQUBE_VERSION}
+        name: nexus3-docker-cicd.apps.ocp4.datr.eu/${APPLICATION_NAME}:${SONARQUBE_VERSION}
       importPolicy: {}
       name: ${SONARQUBE_VERSION}
 
