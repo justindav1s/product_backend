@@ -42,7 +42,7 @@ objects:
           - env:
               - name: SPRING_PROFILES_ACTIVE
                 value: "${SPRING_PROFILES_ACTIVE}"
-            image: "image-registry.openshift-image-registry.svc:5000/amazin-dev/${IMAGE_NAME}:${IMAGE_TAG}"
+            image: ' '
             imagePullPolicy: Always
             ports:
             - containerPort: 8080
@@ -93,7 +93,6 @@ objects:
               defaultMode: 420
               name: ${APPLICATION_NAME}-${SPRING_PROFILES_ACTIVE}-config
             name: ${APPLICATION_NAME}-config-vol
-#     triggers: []
 
 parameters:
   - description: The name for the application.

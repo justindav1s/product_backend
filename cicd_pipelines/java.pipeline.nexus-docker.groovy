@@ -76,17 +76,12 @@ node('maven') {
 
                     echo "Building ...."
                     def bc = openshift.selector( "bc/${app_name}" ).object()
-                    bc.spec.output.to.name="${registry}/${dev_project}/${app_name}:${commitId}" // Adjust the model
+                    bc.spec.output.to.name="${registry}/${dev_project}/${app_name}:${commitId}"
                     openshift.apply(bc)
 
                     def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}-${commitId}.${packaging}")
                     nb.logs('-f')
 
-//                    echo "Tagging ...."
-//                    sh "oc tag --source=docker ${app_name}:latest ${app_name}:${devTag} -n ${dev_project}"
-//                    sh "oc tag --source=docker ${app_name}:latest ${app_name}:${commitId} -n ${dev_project}"
-//                    openshift.tag("${app_name}:latest", "${app_name}:${devTag}")
-//                    openshift.tag("${app_name}:latest", "${app_name}:${commitId}")
                 }
             }
 
@@ -110,7 +105,6 @@ node('maven') {
 
                     //update deployment config with new image
                     openshift.set("image", "dc/${app_name}", "${app_name}=${registry}/${dev_project}/${app_name}:${commitId}")
-                    //sh "oc set triggers dc/${app_name} --from-image=${dev_project}/${app_name}:${commitId} -c ${app_name} -n ${dev_project}"
 
                     //trigger a rollout of the new image
                     rm = openshift.selector("dc", [app:app_name]).rollout().latest()
@@ -160,26 +154,20 @@ node('maven') {
 
             openshift.withCluster() {
 
-
-                openshift.withProject(dev_project) {
-                    echo "Tagging .... Image for Production"
-                    openshift.tag("${app_name}:${devTag}", "${app_name}:${prodTag}")
-                }
-
                 openshift.withProject(prod_project) {
 
                     def deployment  = "${app_name}-${prodTag}"
 
                     openshift.set("triggers", "dc/${deployment}", "--remove-all");
 
-                    echo "Deploy .... Image to Production : ${deployment}"
-
-                    //update deployment config with new image
-                    openshift.set("image", "dc/${deployment}", "${app_name}=${dev_project}/${app_name}:${prodTag}")
-
                     //update app config
                     openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
                     openshift.create("configmap", "${app_name}-config", "--from-file=../../src/${app_name}/src/main/resources/config.${prodTag}.properties")
+
+                    echo "Deploy .... Image to Production : ${deployment}"
+
+                    //update deployment config with new image
+                    openshift.set("image", "dc/${deployment}", "${app_name}=${dev_project}/${app_name}:${commitId}")
 
                     //trigger a rollout of the new image
                     def rm = openshift.selector("dc/${deployment}").rollout().latest()

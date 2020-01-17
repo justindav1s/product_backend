@@ -33,6 +33,8 @@ sleep 2
 oc policy add-role-to-group system:image-puller system:serviceaccounts:${PROD_PROJECT} -n ${DEV_PROJECT}
 oc policy add-role-to-group system:image-puller system:serviceaccounts:${SERVICEACCOUNT_NAME} -n ${DEV_PROJECT}
 
+oc secrets link ${SERVICEACCOUNT_NAME} nexus-dockercfg --for=pull -n ${PROD_PROJECT}
+
 sleep 2
 
 oc new-app -f ../spring-boot-prd-deploy-template.yaml \
