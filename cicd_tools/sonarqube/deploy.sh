@@ -16,10 +16,10 @@ oc delete persistentvolumeclaim ${APP}-extensions
 oc delete serviceaccounts ${APP}
 oc delete service ${APP}
 oc delete route ${APP}
-
+oc delete secret nexus-dockercfg
 
 oc create secret docker-registry nexus-dockercfg \
-  --docker-server=nexus3-docker-cicd.apps.ocp4.datr.eu \
+  --docker-server=nexus3-docker-cicd.apps.ocp4.datr.eu:443 \
   --docker-username=${NEXUS_USER} \
   --docker-password=${NEXUS_PASSWORD} \
   --docker-email=docker@gmail.com \
