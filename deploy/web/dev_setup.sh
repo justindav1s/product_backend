@@ -17,3 +17,4 @@ echo Setting up ${APP} for ${DEV_PROJECT}
 oc new-build --binary=true --strategy=source --labels=app=${APP} --name=${APP} --image-stream=${S2I_IMAGE} -n ${DEV_PROJECT}
 oc new-app -f ${APP}-dev-template.yaml -n ${DEV_PROJECT}
 
+oc secrets link ${APP}-sa nexus-dockercfg --for=pull -n ${DEV_PROJECT}
