@@ -25,6 +25,7 @@ oc create secret docker-registry nexus-dockercfg \
   --docker-email=docker@gmail.com \
   -n cicd
 
+oc create sa ${APP}
 oc secrets link ${APP} nexus-dockercfg --for=pull -n cicd
 oc secrets link builder nexus-dockercfg -n cicd
 

@@ -57,7 +57,7 @@ objects:
 #         kind: "ImageStreamTag"
 #         name: "${APPLICATION_NAME}:latest"
         kind: "DockerImage"
-        name: "nexus3-docker-cicd.apps.ocp4.datr.eu:443/repository/docker/${APPLICATION_NAME}:latest"
+        name: "nexus3-docker-cicd.apps.ocp4.datr.eu:443/${APPLICATION_NAME}:latest"
     resources: {}
     postCommit: {}
     
@@ -183,13 +183,13 @@ objects:
       requests:
         storage: ${SONAR_VOLUME_CAPACITY}
 
-- kind: ServiceAccount
-  apiVersion: v1
-  metadata:
-    creationTimestamp: null
-    labels:
-      app: ${APPLICATION_NAME}
-    name: ${APPLICATION_NAME}
+# - kind: ServiceAccount
+#   apiVersion: v1
+#   metadata:
+#     creationTimestamp: null
+#     labels:
+#       app: ${APPLICATION_NAME}
+#     name: ${APPLICATION_NAME}
 
 - apiVersion: v1
   kind: Service
