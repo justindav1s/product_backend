@@ -167,7 +167,7 @@ node('maven') {
                     echo "Deploy .... Image to Production : ${deployment}"
 
                     //update deployment config with new image
-                    openshift.set("image", "dc/${deployment}", "${app_name}=${dev_project}/${app_name}:${commitId}")
+                    openshift.set("image", "dc/${deployment}", "${app_name}=${registry}/${dev_project}/${app_name}:${commitId}")
 
                     //trigger a rollout of the new image
                     def rm = openshift.selector("dc/${deployment}").rollout().latest()
