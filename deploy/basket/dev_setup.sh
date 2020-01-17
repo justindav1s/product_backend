@@ -9,11 +9,10 @@ oc login https://${IP} -u $USER
 
 oc project ${DEV_PROJECT}
 
-oc delete all -l app=${APP} -n ${DEV_PROJECT}
-oc delete pvc -l app=${APP} -n ${DEV_PROJECT}
-oc delete is,bc,dc,svc,route,sa ${APP} -n ${DEV_PROJECT}
-oc delete template ${APP}-dev-dc ${APP}-dev-template -n ${DEV_PROJECT}
-oc delete configmap ${APP}-config -n ${DEV_PROJECT}
+oc delete all -l app=${APP} --ignore-not-found=true -n ${DEV_PROJECT}
+oc delete pvc -l app=${APP} --ignore-not-found=true -n ${DEV_PROJECT}
+oc delete is,bc,dc,svc,route,sa ${APP} --ignore-not-found=true -n ${DEV_PROJECT}
+oc delete configmap ${APP}-config --ignore-not-found=true -n ${DEV_PROJECT}
 
 echo Setting up ${APP} for ${DEV_PROJECT}
 oc new-app -f ../spring-boot-dev-nexus-template.yaml \
