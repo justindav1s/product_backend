@@ -23,8 +23,6 @@ oc delete sa ${SERVICEACCOUNT_NAME} --ignore-not-found=true -n ${PROD_PROJECT}
 oc delete configmap ${APP}-${SPRING_PROFILES_ACTIVE}-config --ignore-not-found=true -n ${PROD_PROJECT}
 oc create configmap ${APP}-${SPRING_PROFILES_ACTIVE}-config --from-file=../../src/basket/src/main/resources/config.${SPRING_PROFILES_ACTIVE}.properties -n ${PROD_PROJECT}
 
-oc secrets link ${SERVICEACCOUNT_NAME} nexus-dockercfg --for=pull -n ${PROD_PROJECT}
-
 oc new-app -f ../service-template.yaml \
     -p APPLICATION_NAME=${APP} \
     -p SERVICEACCOUNT_NAME=${SERVICEACCOUNT_NAME} \
@@ -34,6 +32,8 @@ sleep 2
 
 oc policy add-role-to-group system:image-puller system:serviceaccounts:${PROD_PROJECT} -n ${DEV_PROJECT}
 oc policy add-role-to-group system:image-puller system:serviceaccounts:${SERVICEACCOUNT_NAME} -n ${DEV_PROJECT}
+
+oc secrets link ${SERVICEACCOUNT_NAME} nexus-dockercfg --for=pull -n ${PROD_PROJECT}
 
 sleep 2
 
