@@ -27,6 +27,7 @@ hs_err_pid*
 .classpath
 .project
 **/node_modules
+.vscode
 /**/credentials
 /cicd_tools/hygieia/api/api.jar
 /twistlock/lic.sh
