@@ -8,8 +8,8 @@ objects:
   kind: Service
   metadata:
     labels:
-      app: nexus
-    name: docker-registry
+      app: nexus3
+    name: nexus3-docker
   spec:
     ports:
     - name: 5000-tcp
@@ -17,7 +17,7 @@ objects:
       protocol: TCP
       targetPort: 5000
     selector:
-      deploymentconfig: nexus
+      app: nexus3
     sessionAffinity: None
     type: ClusterIP
 
@@ -26,8 +26,8 @@ objects:
   metadata:
     annotations:
     labels:
-      app: nexus
-    name: registry
+      app: nexus3
+    name: nexus3-docker
   spec:
     tls:
       termination: edge
@@ -35,5 +35,5 @@ objects:
       targetPort: 5000-tcp
     to:
       kind: Service
-      name: docker-registry
+      name: nexus3-docker
       weight: 100

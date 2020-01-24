@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
- 
+. ../../env.sh
+
+oc login https://${IP} -u justin
+
+APP=sonarqube
+
+oc project cicd
 
 oc delete imagestream ${APP}
 oc delete buildconfig ${APP}-docker-build
