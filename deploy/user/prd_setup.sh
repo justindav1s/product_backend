@@ -25,10 +25,6 @@ oc new-app -f ../service-template.yaml \
     -p SERVICE_NAME=${SERVICE_NAME} \
     -n ${PROD_PROJECT}
 
-#oc policy add-role-to-group system:image-puller system:serviceaccounts:${SERVICEACCOUNT_NAME} -n ${DEV_PROJECT}
-
-oc secrets link ${SERVICEACCOUNT_NAME} nexus-dockercfg --for=pull -n ${PROD_PROJECT}
-
 oc new-app -f ../spring-boot-prd-deploy-template.yaml \
     -p APPLICATION_NAME=${APP} \
     -p IMAGE_NAME=${IMAGE_NAME} \
@@ -38,4 +34,5 @@ oc new-app -f ../spring-boot-prd-deploy-template.yaml \
     -p SERVICEACCOUNT_NAME=${SERVICEACCOUNT_NAME} \
     -n ${PROD_PROJECT}
 
+oc secrets link ${SERVICEACCOUNT_NAME} nexus-dockercfg --for=pull -n ${PROD_PROJECT}
 oc set triggers dc/${APP}-${VERSION_LABEL} --remove-all -n ${PROD_PROJECT}

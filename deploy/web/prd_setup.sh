@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-#set -x
-
 APP=web
 S2I_IMAGE=nginx:1.10
 
