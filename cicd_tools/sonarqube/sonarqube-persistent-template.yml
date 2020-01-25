@@ -10,23 +10,6 @@ metadata:
 message: "Login to SonarQube with the default admin basket: admin/admin"
 objects:
 
-- apiVersion: v1
-  kind: ImageStream
-  metadata:
-    labels:
-      app: ${APPLICATION_NAME}
-    name: ${APPLICATION_NAME}
-  spec:
-    tags:
-    - annotations:
-        description: The SonarQube Docker image
-        tags: ${APPLICATION_NAME}
-      from:
-        kind: DockerImage
-        name: nexus3-docker-cicd.apps.ocp4.datr.eu/repository/docker/${APPLICATION_NAME}:${SONARQUBE_VERSION}
-      importPolicy: {}
-      name: ${SONARQUBE_VERSION}
-
 - kind: BuildConfig
   apiVersion: v1
   metadata:
@@ -34,10 +17,7 @@ objects:
     labels:
       app: "${APPLICATION_NAME}"
   spec:
-    triggers:
-    - type: ImageChange
-      imageChange: {}
-    - type: ConfigChange
+    triggers: []
     source:
       type: Git
       git:
@@ -181,14 +161,6 @@ objects:
       requests:
         storage: ${SONAR_VOLUME_CAPACITY}
 
-# - kind: ServiceAccount
-#   apiVersion: v1
-#   metadata:
-#     creationTimestamp: null
-#     labels:
-#       app: ${APPLICATION_NAME}
-#     name: ${APPLICATION_NAME}
-
 - apiVersion: v1
   kind: Service
   metadata:
@@ -228,7 +200,7 @@ parameters:
 - description: The name for the application.
   name: APPLICATION_NAME
   required: true
-  value: postgres
+  value: sonarqube
 - description: Git source URI for application
   name: SOURCE_REPOSITORY_URL
   value: ""

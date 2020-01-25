@@ -5,6 +5,7 @@
 oc login https://${IP} -u justin
 
 APP=sonarqube
+VERSION=7.9
 
 oc project cicd
 
@@ -33,11 +34,20 @@ oc secrets link builder nexus-dockercfg -n cicd
 
 oc new-app -f sonarqube-persistent-template.yml \
     -p APPLICATION_NAME=${APP} \
+    -p SONARQUBE_VERSION=${VERSION} \
     -p SOURCE_REPOSITORY_URL=https://github.com/justindav1s/microservices-on-openshift.git \
     -p SOURCE_REPOSITORY_URL=master \
     -p DOCKERFILE_PATH="cicd_tools/sonarqube" \
     -p SONARQUBE_JDBC_USERNAME=${DATABASE_USER} \
     -p SONARQUBE_JDBC_PASSWORD=${DATABASE_PASSWORD} \
     -p SONARQUBE_JDBC_URL=${DATABASE_URL}
+
+oc start-build ${APP}-docker-build  --follow
+
+oc import-image ${APP}:${VERSION} \
+  --from nexus3-docker-cicd.apps.ocp4.datr.eu/repository/docker/${APP}:${VERSION} \
+  --confirm
+
+
 
 #then download quality profile from market place https://sonarqube-cicd.apps.ocp.datr.eu/admin/marketplace
