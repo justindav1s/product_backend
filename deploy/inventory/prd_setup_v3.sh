@@ -27,6 +27,7 @@ oc new-app -f ../spring-boot-prd-deploy-template.yaml \
     -p IMAGE_TAG=${IMAGE_TAG} \
     -p SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE} \
     -p VERSION_LABEL=${VERSION_LABEL} \
-    -p SERVICEACCOUNT_NAME=${SERVICEACCOUNT_NAME}
+    -p SERVICEACCOUNT_NAME=${SERVICEACCOUNT_NAME} \
+    -n ${PROD_PROJECT}
 
-oc set triggers dc/${APP}-${VERSION_LABEL} --remove-all
+oc set triggers dc/${APP}-${VERSION_LABEL} --remove-all -n ${PROD_PROJECT}

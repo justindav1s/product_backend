@@ -7,10 +7,6 @@ S2I_IMAGE=nginx:1.10
 
 . ../../env.sh
 
-oc login https://${IP}:8443 -u $USER
-
-oc project ${PROD_PROJECT}
-
 oc delete all -l app=${APP} -n ${PROD_PROJECT}
 oc delete pvc -l app=${APP} -n ${PROD_PROJECT}
 oc delete bc,dc,svc,route ${APP} -n ${PROD_PROJECT}

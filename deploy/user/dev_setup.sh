@@ -5,10 +5,6 @@ S2I_IMAGE=java:8
 
 . ../../env.sh
 
-oc login https://${IP} -u $USER
-
-oc project ${DEV_PROJECT}
-
 oc delete all -l app=${APP} --ignore-not-found=true -n ${DEV_PROJECT}
 oc delete pvc -l app=${APP} --ignore-not-found=true -n ${DEV_PROJECT}
 oc delete is,bc,dc,svc,route,sa ${APP} --ignore-not-found=true -n ${DEV_PROJECT}
