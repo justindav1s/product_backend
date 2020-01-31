@@ -25,4 +25,10 @@ patchesJson6902:
     version: v1beta1
     kind: Ingress
     name: user-ingress
-  path: ingress-json-patches.yaml  
+  path: ingress-json-patches.yaml
+- target:
+    group:
+    version: v1
+    kind: Service
+    name: user-service
+  path: service-json-patches.yaml     

@@ -26,3 +26,9 @@ patchesJson6902:
     kind: Ingress
     name: api-gateway-ingress
   path: ingress-json-patches.yaml  
+- target:
+    group:
+    version: v1
+    kind: Service
+    name: api-gateway-service
+  path: service-json-patches.yaml    
