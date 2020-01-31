@@ -8,4 +8,4 @@
 
 - op: replace
   path: /spec/rules/0/http/paths/0/backend/serviceName
-  value: basket-service       
+  value: basket
