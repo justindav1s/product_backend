@@ -14,9 +14,9 @@ spec:
             value: dev
           volumeMounts:
             - mountPath: /config
-              name: inventory-config-vol
+              name: inventory-config-vol      
       volumes:
       - configMap:
           defaultMode: 420
           name: inventory-config
-        name: inventory-config-vol
+        name: inventory-config-vol                                     
