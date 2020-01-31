@@ -1,0 +1,10 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1beta1
+metadata:
+  name: ingress
+spec:
+  tls:
+    - hosts:
+        - inventory-amazin.apps.ocp4.datr.eu
+  rules:
+    - host: inventory-amazin.apps.ocp4.datr.eu
