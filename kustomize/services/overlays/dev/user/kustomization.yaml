@@ -4,25 +4,25 @@ resources:
 - ../../../base
 patchesStrategicMerge:
 - deployment-patch.yaml
-namePrefix: inventory-
+namePrefix: user-
 commonLabels:
-  service: inventory
+  service: user
 
 configMapGenerator:
 - files:
   - config.properties
-  name: inventory-config
+  name: user-config
 
 patchesJson6902:
 - target:
     group: apps
     version: v1
     kind: Deployment
-    name: inventory-deployment
+    name: user-deployment
   path: deployment-json-patches.yaml
 - target:
     group: networking.k8s.io
     version: v1beta1
     kind: Ingress
-    name: inventory-ingress
+    name: user-ingress
   path: ingress-json-patches.yaml  
