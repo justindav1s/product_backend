@@ -6,6 +6,8 @@ oc login https://${IP} -u justin
 
 APP=sonarqube
 VERSION=7.9
+REG_HOST=nexus3-docker-cicd.apps.ocp4.datr.eu
+REG_HOST=nexus3-docker-cicd.apps-crc.testing
 
 oc project cicd
 
@@ -20,7 +22,7 @@ oc delete route ${APP}
 oc delete secret nexus-dockercfg
 
 oc create secret docker-registry nexus-dockercfg \
-  --docker-server=nexus3-docker-cicd.apps.ocp4.datr.eu \
+  --docker-server=${REG_HOST} \
   --docker-username=${NEXUS_USER} \
   --docker-password=${NEXUS_PASSWORD} \
   --docker-email=docker@gmail.com \
@@ -30,6 +32,7 @@ oc create sa ${APP}
 oc secrets link ${APP} nexus-dockercfg --for=pull -n cicd
 oc secrets link default nexus-dockercfg --for=pull -n cicd
 oc secrets link builder nexus-dockercfg --for=pull -n cicd
+oc secrets link deployer nexus-dockercfg --for=pull -n cicd
 oc secrets link builder nexus-dockercfg -n cicd
 
 oc new-app -f sonarqube-persistent-template.yml \
@@ -40,12 +43,14 @@ oc new-app -f sonarqube-persistent-template.yml \
     -p DOCKERFILE_PATH="cicd_tools/sonarqube" \
     -p SONARQUBE_JDBC_USERNAME=${DATABASE_USER} \
     -p SONARQUBE_JDBC_PASSWORD=${DATABASE_PASSWORD} \
-    -p SONARQUBE_JDBC_URL=${DATABASE_URL}
+    -p SONARQUBE_JDBC_URL=${DATABASE_URL} \
+    -p REG_HOST=${REG_HOST}
 
 oc start-build ${APP}-docker-build  --follow
 
 oc import-image ${APP}:${VERSION} \
-  --from nexus3-docker-cicd.apps.ocp4.datr.eu/repository/docker/${APP}:${VERSION} \
+  --from ${REG_HOST}/repository/docker/${APP}:${VERSION} \
+  --insecure=true \
   --confirm
 
 

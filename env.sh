@@ -4,6 +4,7 @@
 #export IP=ocp.datr.eu
 #export IP=master.aws.datr.eu
 export IP=api.ocp4.datr.eu:6443
+export IP=api.crc.testing:6443
 #export IP=api.shared-rhpds.rhpds.openshift.opentlc.com:6443
 export USER=justin
 #export USER=jusdavis-redhat.com
