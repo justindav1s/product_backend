@@ -1,8 +1,0 @@
-kind: ServiceAccount
-apiVersion: v1
-metadata:
-  name: default
-secrets:
-  - name: nexus-dockercfg
-imagePullSecrets:
-  - name: nexus-dockercfg

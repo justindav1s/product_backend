@@ -5,6 +5,8 @@
 
 oc login https://${IP} -u $USER
 
+oc delete secret nexus-dockercfg
+
 oc create secret docker-registry nexus-dockercfg \
   --docker-server=${REGISTRY} \
   --docker-username=${NEXUS_USER} \

@@ -8,7 +8,7 @@ spec:
       serviceAccountName: basket-sa
       containers:
         - name: container 
-          image: nexus3-docker-cicd.apps.ocp4.datr.eu/repository/docker/amazin-dev/basket:cbc06c6
+          image: nexus3-docker-cicd.apps-crc.testing/repository/docker/amazin-dev/basket:6e6ef00
           env:
           - name: SPRING_PROFILES_ACTIVE
             value: dev
