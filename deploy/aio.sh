@@ -40,6 +40,7 @@ oc create secret docker-registry nexus-dockercfg \
   --docker-email=docker@gmail.com \
   -n ${DEV_PROJECT}
 
+oc secrets link builder nexus-dockercfg -n $DEV_PROJECT
 oc secrets link deployer nexus-dockercfg --for=pull -n ${DEV_PROJECT}
 
 # Setup Prod Project
