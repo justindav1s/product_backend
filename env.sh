@@ -3,7 +3,7 @@
 #export IP=192.168.0.91
 #export IP=ocp.datr.eu
 #export IP=master.aws.datr.eu
-export IP=api.ocp4.datr.eu:6443
+#export IP=api.ocp4.datr.eu:6443
 export IP=api.crc.testing:6443
 #export IP=api.shared-rhpds.rhpds.openshift.opentlc.com:6443
 export USER=justin
@@ -16,9 +16,9 @@ export CICD_PROJECT=cicd
 
 export CURL="curl -k -v"
 export JENKINS_USER=justin-admin-edit-view
-export JENKINS_TOKEN=11913da9e038c65dae7d14baca3cf382cc
+export JENKINS_TOKEN=11919e073501bbb1474661280a563e25b6
 export JENKINS=jenkins-cicd.apps.ocp4.datr.eu
-#export JENKINS=jenkins-cicd.apps-crc.testing
+export JENKINS=jenkins-cicd.apps-crc.testing
 #export JENKINS=jenkins-cicd.apps.${IP}
 
 

@@ -3,6 +3,6 @@ kind: Kustomization
 resources:
 - namespace.yaml
 - ../base
-namespace: k-amazin-dev
+namespace: amazin-dev
 commonLabels:
-  app: k-amazin-dev
+  ns: amazin-dev
