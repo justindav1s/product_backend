@@ -16,10 +16,13 @@ export CICD_PROJECT=cicd
 
 export CURL="curl -k -v"
 export JENKINS_USER=justin-admin-edit-view
-export JENKINS_TOKEN=11919e073501bbb1474661280a563e25b6
+export JENKINS_TOKEN=11424cf44e516cebd79475681fd78e807d
 export JENKINS=jenkins-cicd.apps.ocp4.datr.eu
 export JENKINS=jenkins-cicd.apps-crc.testing
 #export JENKINS=jenkins-cicd.apps.${IP}
+
+
+export REGISTRY=nexus3-docker-cicd.apps-crc.testing
 
 
 export DOMAIN=$CICD_PROJECT

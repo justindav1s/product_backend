@@ -20,7 +20,7 @@ oc policy add-role-to-user edit system:serviceaccount:${CICD_PROJECT}:default -n
 oc policy add-role-to-user view --serviceaccount=default -n ${DEV_PROJECT}
 
 oc create secret docker-registry nexus-dockercfg \
-  --docker-server=nexus3-docker-cicd.apps.ocp4.datr.eu \
+  --docker-server=${REGISTRY} \
   --docker-username=${NEXUS_USER} \
   --docker-password=${NEXUS_PASSWORD} \
   --docker-email=docker@gmail.com \
@@ -46,7 +46,7 @@ oc policy add-role-to-user view --serviceaccount=default -n ${PROD_PROJECT}
 oc policy add-role-to-group system:image-puller system:serviceaccount:${PROD_PROJECT} -n ${DEV_PROJECT}
 
 oc create secret docker-registry nexus-dockercfg \
-  --docker-server=nexus3-docker-cicd.apps.ocp4.datr.eu \
+  --docker-server=${REGISTRY} \
   --docker-username=${NEXUS_USER} \
   --docker-password=${NEXUS_PASSWORD} \
   --docker-email=docker@email.com \
