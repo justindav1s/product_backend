@@ -1,10 +1,12 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- datr-eu-certs.yaml
-- resource-quota.yaml
-- limit-range.yaml
-- dockercfg-secret.yaml
+#- datr-eu-certs.yaml
+#- resource-quota.yaml
+#- limit-range.yaml
+- crc-nexus-dockercfg-secret.yaml
+- rhpds-nexus-dockercfg-secret.yaml
+- datreu-nexus-dockercfg-secret.yaml
 - serviceaccounts.yaml
 - jenkins-edit-rb.yaml
 patchesStrategicMerge:

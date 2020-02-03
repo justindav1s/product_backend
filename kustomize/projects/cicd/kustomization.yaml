@@ -3,6 +3,8 @@ kind: Kustomization
 resources:
 #- namespace.yaml
 - ../base
-namespace: amazin-prod
+- nexus.yaml
+- postgres.yaml
+namespace: cicd
 commonLabels:
-  app: amazin-prod
+  role: cicd

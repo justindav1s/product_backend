@@ -2,7 +2,11 @@ kind: ServiceAccount
 apiVersion: v1
 metadata:
   name: deployer
-secrets:
-  - name: nexus-dockercfg
+ssecrets:
+  - name: crc-nexus-dockercfg
+  - name: rhpds-nexus-dockercfg 
+  - name: datreu-nexus-dockercfg  
 imagePullSecrets:
-  - name: nexus-dockercfg
+  - name: crc-nexus-dockercfg
+  - name: rhpds-nexus-dockercfg
+  - name: datreu-nexus-dockercfg
