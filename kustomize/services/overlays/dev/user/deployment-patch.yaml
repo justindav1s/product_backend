@@ -7,8 +7,7 @@ spec:
     spec:
       serviceAccountName: user-sa
       containers:
-        - name: container 
-          image: nexus3-docker-cicd.apps-crc.testing/repository/docker/amazin-dev/user:6e6ef00
+        - name: container
           env:
           - name: SPRING_PROFILES_ACTIVE
             value: dev

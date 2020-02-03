@@ -8,10 +8,9 @@ spec:
       serviceAccountName: api-gateway-sa
       containers:
         - name: container 
-          image: nexus3-docker-cicd.apps.ocp4.datr.eu/repository/docker/amazin-dev/api-gateway:cbc06c6
           env:
           - name: SPRING_PROFILES_ACTIVE
-            value: dev
+            value: prd
           volumeMounts:
             - mountPath: /config
               name: api-gateway-config-vol      

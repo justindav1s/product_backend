@@ -8,6 +8,11 @@ namePrefix: user-
 commonLabels:
   service: user
 
+images:
+- name: image
+  newName: nexus3-docker-cicd.apps.ocp4.datr.eu/repository/docker/amazin-dev/user
+  newTag: latest
+
 configMapGenerator:
 - files:
   - config.properties
