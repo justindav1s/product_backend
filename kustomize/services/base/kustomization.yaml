@@ -5,3 +5,10 @@ resources:
 - deployment.yaml
 - service.yaml
 - ingress.yaml
+
+secretGenerator:
+- name: datr-eu-certs
+  files:
+  - secrets/tls.crt
+  - secrets/tls.key
+  type: "kubernetes.io/tls" 
