@@ -117,7 +117,7 @@ spec:
   tls:
     - hosts:
         - nexus-cicd.apps.shared-rhpds.rhpds.openshift.opentlc.com
-      secretName: datr-eu-certs  
+      # secretName: datr-eu-certs  
   rules:
     - host: nexus-cicd.apps.shared-rhpds.rhpds.openshift.opentlc.com
       http:
@@ -135,7 +135,7 @@ spec:
   tls:
     - hosts:
         - nexus3-docker-cicd.apps.shared-rhpds.rhpds.openshift.opentlc.com
-      secretName: datr-eu-certs  
+      # secretName: datr-eu-certs  
   rules:
     - host: nexus3-docker-cicd.apps.shared-rhpds.rhpds.openshift.opentlc.com
       http:

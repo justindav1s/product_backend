@@ -5,6 +5,8 @@ resources:
 - ../base
 - nexus.yaml
 - postgres.yaml
+- sonarqube.yaml
 namespace: cicd
-commonLabels:
-  role: cicd
+
+patchesStrategicMerge:
+- dockercfg-sonarqube-patch.yaml  

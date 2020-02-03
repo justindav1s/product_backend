@@ -2,7 +2,7 @@
 
 . ../../env.sh
 
-oc login https://${IP} -u justin
+oc login https://${IP} -u ${USER}
 
 APP=sonarqube
 VERSION=7.9
