@@ -13,6 +13,9 @@ images:
   newName: nexus3-docker-cicd.apps.ocp4.datr.eu/repository/docker/amazin-dev/inventory
   newTag: latest
 
+replicas:
+- name: inventory-deployment
+  count: 1
 
 configMapGenerator:
 - files:
