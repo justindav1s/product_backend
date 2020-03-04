@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
 #- namespace.yaml
 - ../base
+- serviceaccounts.yaml
 - nexus.yaml
 - postgres.yaml
 - sonarqube.yaml

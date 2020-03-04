@@ -14,6 +14,9 @@ spec:
       maxSurge: 25%
   replicas: 1
   selector:
+    matchLabels:
+      app: nexus
+      deploymentconfig: nexus
     app: nexus
     deploymentconfig: nexus
   strategy:

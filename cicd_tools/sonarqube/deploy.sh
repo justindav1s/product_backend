@@ -7,7 +7,7 @@ oc login https://${IP} -u ${USER}
 APP=sonarqube
 VERSION=7.9
 REG_HOST=nexus3-docker-cicd.apps.ocp4.datr.eu
-REG_HOST=nexus3-docker-cicd.apps-crc.testing
+#REG_HOST=nexus3-docker-cicd.apps-crc.testing
 
 oc project cicd
 

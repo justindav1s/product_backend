@@ -27,29 +27,6 @@ node('maven') {
         version      = getVersionFromPom("pom.xml")
         packaging    = getPackagingFromPom("pom.xml")
 
-        stage('Build jar') {
-            echo "Building version : ${version}"
-            sh "${mvn} clean package -Dspring.profiles.active=dev -DskipTests"
-        }
-
-        // Using Maven run the unit tests
-        stage('Unit/Integration Tests') {
-            echo "Running Unit Tests"
-            sh "${mvn} test -Dmaven.wagon.http.ssl.insecure=true -Dspring.profiles.active=dev"
-            archive "target/**/*"
-            junit 'target/surefire-reports/*.xml'
-        }
-
-        stage('Coverage') {
-            echo "Running Coverage"
-            sh "${mvn} clean org.jacoco:jacoco-maven-plugin:prepare-agent install -Dspring.profiles.active=dev"
-        }
-
-        // Using Maven call SonarQube for Code Analysis
-        stage('Code Analysis') {
-            echo "Running Code Analysis"
-            sh "${mvn} sonar:sonar -Dspring.profiles.active=dev -Dsonar.host.url=${sonar_url}"
-        }
 
         // Publish the built war file to Nexus
         stage('Publish to Nexus') {
@@ -129,70 +106,6 @@ node('maven') {
             echo "Deploying container image to Development Project : FINISHED"
 
         }
-
-//        dir("build-metadata") {
-//
-//            stage('manage version data') {
-//                echo "Project : ${dev_project}"
-//                manageVersionData(commitId, commitmsg, groupId, artifactId, dev_project)
-//            }
-//
-//        }
-
-        stage("Wait for approval for ${app_name} to be staged into production") {
-                timeout(time: 2, unit: 'DAYS') {
-                    input message: "Approve this ${app_name} build to be staged in production ?"
-                }
-        }
-
-        // Deploy the built image to the Development Environment.
-        stage('Deploy to Production') {
-            echo "Deploying container image to Production Project"
-            echo "Project : ${prod_project}"
-            echo "App : ${app_name}"
-            echo "Prod Tag : ${prodTag}"
-
-            openshift.withCluster() {
-
-                openshift.withProject(prod_project) {
-
-                    def deployment  = "${app_name}-${prodTag}"
-
-                    openshift.set("triggers", "dc/${deployment}", "--remove-all");
-
-                    //update app config
-                    openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
-                    openshift.create("configmap", "${app_name}-config", "--from-file=../../src/${app_name}/src/main/resources/config.${prodTag}.properties")
-
-                    echo "Deploy .... Image to Production : ${deployment}"
-
-                    //update deployment config with new image
-                    openshift.set("image", "dc/${deployment}", "${app_name}=${registry}/${dev_project}/${app_name}:${commitId}")
-
-                    //trigger a rollout of the new image
-                    def rm = openshift.selector("dc/${deployment}").rollout().latest()
-                    //wait for rollout to start
-                    timeout(5) {
-                        openshift.selector("dc/${deployment}").related('pods').untilEach(1) {
-                            return (it.object().status.phase == "Running")
-                        }
-                    }
-                    //rollout has started
-                }
-
-            }
-            echo "Deploying container image to Production Project : FINISHED"
-
-        }
-
-//        dir("build-metadata") {
-//
-//            stage('manage version data') {
-//                echo "Project : ${dev_project}"
-//                manageVersionData(commitId, commitmsg, groupId, artifactId, prod_project)
-//            }
-//
-//        }
     }
 }
 
@@ -215,28 +128,3 @@ def getPackagingFromPom(pom) {
     def matcher = readFile(pom) =~ '<packaging>(.+)</packaging>'
     matcher ? matcher[0][1] : null
 }
-
-//def manageVersionData(commitId, commitmsg, groupId, artifactId, project) {
-//
-//    withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-//        def github_repo = "manifest-test"
-//        def trackingrepo = "https://github.com/${GIT_USERNAME}/${github_repo}.git"
-//        echo "1"
-//        git url: "${trackingrepo}", branch: 'master', credentialsId: 'github'
-//        echo "2"
-//        def versionFileName = "version"
-//        versionFileName = groupId+"."+artifactId+"."+project+"."+versionFileName
-//        echo "3"
-//        @Field def timeStamp = Calendar.getInstance().getTime().format('ddMMyy-HH:mm:ss',TimeZone.getTimeZone('GMT'))
-//        echo "4"
-//        def newVersionString = "{ \\\"build\\\": \\\"${env.BUILD_NUMBER}\\\", \\\"timestamp\\\": \\\"${timeStamp}\\\", \\\"commitId\\\": \\\"${commitId}\\\", \\\"commitMsg\\\": \\\"${commitmsg}\\\"}"
-//        sh(returnStdout: true, script: "echo ${newVersionString} >> ${versionFileName}")
-//        echo "5"
-//        sh (returnStdout: true, script: "git config user.email \"jenkins@${GIT_USERNAME}.dev\"; git config user.name \"${GIT_USERNAME}\"")
-//        sh (returnStdout: true, script: "git add ${versionFileName}")
-//        sh (returnStdout: true, script: "git commit -m \"version data update for ${artifactId} to ${env.BUILD_NUMBER}:${commitId}\" || true")
-//        sh (returnStdout: true, script: "git pull origin master || true");
-//        sh (returnStdout: true, script: "git merge master || true")
-//        sh (returnStdout: true, script: "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/${github_repo}.git master || true")
-//    }
-//}
