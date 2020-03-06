@@ -22,8 +22,8 @@ export JENKINS=jenkins-cicd.apps.ocp4.datr.eu
 #export JENKINS=jenkins-cicd.apps.${IP}
 
 
-export REGISTRY=nexus3-docker-cicd.apps-crc.testing
-
+#export REGISTRY=nexus3-docker-cicd.apps-crc.testing
+export REGISTRY=nexus3-docker-cicd.apps.ocp4.datr.eu
 
 export DOMAIN=$CICD_PROJECT
 export DATABASE_USER="sonar"
