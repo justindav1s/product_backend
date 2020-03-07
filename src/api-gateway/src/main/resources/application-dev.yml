@@ -6,13 +6,13 @@ server:
   port: 8080
 
 basket:
-  host: basket.amazin-dev.svc:8080
+  host: basket:8080
 
 inventory:
-  host: inventory.amazin-dev.svc:8080
+  host: inventory:8080
 
 user:
-  host: user.amazin-dev.svc:8080
+  host: user:8080
 
 opentracing:
   jaeger:
