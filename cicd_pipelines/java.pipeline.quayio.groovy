@@ -53,7 +53,7 @@ node('maven') {
 
                     echo "Building ...."
                     def bc = openshift.selector( "bc/${app_name}" ).object()
-                    bc.spec.output.to.name="${registry}/${dev_project}/${app_name}:${commitId}"
+                    bc.spec.output.to.name="${registry}/${app_name}:${commitId}"
                     openshift.apply(bc)
 
                     def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}-${commitId}.${packaging}")
@@ -81,7 +81,7 @@ node('maven') {
                     openshift.create("configmap", "${app_name}-config", "--from-file=${config_file}")
 
                     //update deployment config with new image
-                    openshift.set("image", "dc/${app_name}", "${app_name}=${registry}/${dev_project}/${app_name}:${commitId}")
+                    openshift.set("image", "dc/${app_name}", "${app_name}=${registry}/${app_name}:${commitId}")
 
                     //trigger a rollout of the new image
                     rm = openshift.selector("dc", [app:app_name]).rollout().latest()

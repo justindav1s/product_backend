@@ -24,6 +24,7 @@ export JENKINS=jenkins-cicd.apps.ocp4.datr.eu
 
 #export REGISTRY=nexus3-docker-cicd.apps-crc.testing
 export REGISTRY=nexus3-docker-cicd.apps.ocp4.datr.eu
+export QUAYIO_REGISTRY=quay.io
 
 export DOMAIN=$CICD_PROJECT
 export DATABASE_USER="sonar"
