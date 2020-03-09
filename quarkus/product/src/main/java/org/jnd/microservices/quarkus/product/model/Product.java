@@ -15,6 +15,8 @@ public class Product {
     private Float price = null;
     private int basketIndex = 0;
 
+    public Product() {}
+
     public Product(String id, String name, ProductType type, Float price) {
         this.id = id;
         this.name = name;
