@@ -1,11 +1,13 @@
 package org.jnd.microservices.quarkus.product.repository;
 
-import org.jnd.microservices.quarkus.model.Product;
-import org.jnd.microservices.quarkus.model.ProductType;
+import org.jnd.microservices.quarkus.product.model.Product;
+import org.jnd.microservices.quarkus.product.model.ProductType;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.util.HashMap;
 import java.util.Map;
 
+@ApplicationScoped
 public class ProductCache {
 
     public Map<String, Product> getFood()   {
