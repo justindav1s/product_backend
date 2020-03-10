@@ -57,7 +57,7 @@ node('maven') {
         // Publish the built war file to Nexus
         stage('Publish to Nexus') {
             echo "Publish to Nexus"
-            sh "${mvn} deploy -DskipTests"
+            sh "${mvn} deploy -DskipTests -Dquarkus.package.uber-jar=true"
         }
 
         //Build the OpenShift Image in OpenShift and tag it.
