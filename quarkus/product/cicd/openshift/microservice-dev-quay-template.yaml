@@ -91,24 +91,24 @@ objects:
               image: ' '
               imagePullPolicy: Always
               livenessProbe:
-                failureThreshold: 3
+                failureThreshold: 5
                 httpGet:
-                  path: /health
+                  path: /health/live
                   port: 8080
                   scheme: HTTP
-                initialDelaySeconds: 10
-                periodSeconds: 10
+                initialDelaySeconds: 5
+                periodSeconds: 5
                 successThreshold: 1
                 timeoutSeconds: 1
               name: ${APPLICATION_NAME}
               readinessProbe:
-                failureThreshold: 3
+                failureThreshold: 5
                 httpGet:
-                  path: /health
+                  path: /health/ready
                   port: 8080
                   scheme: HTTP
-                initialDelaySeconds: 10
-                periodSeconds: 10
+                initialDelaySeconds: 5
+                periodSeconds: 5
                 successThreshold: 1
                 timeoutSeconds: 1
               resources: {}

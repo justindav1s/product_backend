@@ -5,11 +5,14 @@ import io.restassured.response.Response;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.eclipse.microprofile.health.HealthCheckResponse;
+import org.eclipse.microprofile.health.HealthCheckResponse.State;
 import org.junit.jupiter.api.Test;
 import org.jnd.microservices.quarkus.product.model.Product;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.IOException;
@@ -22,6 +25,36 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ProductTests {
 
   private Log log = LogFactory.getLog(ProductTests.class);
+
+  @Test
+  public void livenessTest() {
+    Response response = given().when().get("/health/live").then().statusCode(200).extract().response();
+
+    try {
+      ObjectMapper mapper = new ObjectMapper();
+      JsonNode node = mapper.readTree(response.asString());
+      log.info(response.asString());
+      log.info("Status : "+node.get("status"));
+      assertThat(node.get("checks").get(0).get("name").asText(), equalToIgnoringCase("Product Health"));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  public void readinessTest() {
+    Response response = given().when().get("/health/ready").then().statusCode(200).extract().response();
+
+    try {
+      ObjectMapper mapper = new ObjectMapper();
+      JsonNode node = mapper.readTree(response.asString());
+      log.info(response.asString());
+      log.info("Status : "+node.get("status"));
+      assertThat(node.get("checks").get(0).get("name").asText(), equalToIgnoringCase("Product Health"));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 
   @Test
   public void testRootEndpoint() {
