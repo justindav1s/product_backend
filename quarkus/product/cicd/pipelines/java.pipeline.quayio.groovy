@@ -3,7 +3,7 @@
 
 node('maven') {
 
-    def mvn          = "/opt/maven/bin/mvn -U -B -q -s settings.xml"
+    def mvn          = "/opt/apache-maven-3.6.3/bin/mvn -U -B -q -s settings.xml"
     def dev_project  = "${org}-dev"
     def prod_project = "${org}-prod"
     def app_url_dev  = "http://${app_name}.${dev_project}.svc:8080"
