@@ -19,6 +19,7 @@ node('maven') {
 
     stage('Check Maven Version') {
             sh "mvn -version"
+            sh "env"
             sh "echo $M2_HOME"
             sh "echo $PATH"
     }
