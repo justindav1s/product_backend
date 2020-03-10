@@ -69,10 +69,10 @@ node('maven') {
             echo "Artifact ID : ${artifactId}"
             echo "Version : ${version}"
             echo "Packaging : ${packaging}"
-            sh "${mvn} clean"
-            sh "${mvn} dependency:copy -DstripVersion=true -Dartifact=${groupId}:${artifactId}:${version}:${packaging} -DoutputDirectory=."
-            sh "cp \$(find . -type f -name \"${artifactId}-*.${packaging}\")  ${artifactId}-${commitId}.${packaging}"
-            sh "pwd; ls -ltr"
+
+            sh "cp target/${artifactId}-*runner.${packaging} ."
+            sh "cp ${artifactId}-*runner.${packaging} ${artifactId}-${commitId}.${packaging}"
+            sh "pwd && ls -ltr"
 
             openshift.withCluster() {
                 openshift.withProject("${dev_project}") {
