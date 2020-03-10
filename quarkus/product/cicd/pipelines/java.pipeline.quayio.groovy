@@ -29,7 +29,7 @@ node('maven') {
 
         stage('Build jar') {
             echo "Building version : ${version}"
-            sh "${mvn} clean package -Dspring.profiles.active=dev -DskipTests"
+            sh "mvn clean package"
         }
 
         // Using Maven run the unit tests
