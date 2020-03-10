@@ -7,7 +7,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.Test;
 import org.jnd.microservices.quarkus.product.model.Product;
-import java.util.ArrayList;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
@@ -79,4 +78,44 @@ public class ProductTests {
             
   } 
 
+  @Test
+  public void testProductsOfTypeEndpoint() {
+    Response response = given().when().get("/products/type/clothes").then().statusCode(200).extract().response();
+
+    log.info(response.asString());
+
+    try {
+      ObjectMapper mapper = new ObjectMapper();
+      JsonNode node = mapper.readTree(response.asString());
+      Product[] products = mapper.readValue(response.asString(), Product[].class);
+      log.info(node.get(0));
+      log.info(products[0]);
+      assertThat(products[0].getName(), is("socks"));
+      assertThat(products[1].getName(), is("jacket"));
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+            
+  } 
+
+  @Test
+  public void testGetProductEndpoint() {
+    Response response = given().when().get("/products/1").then().statusCode(200).extract().response();
+
+    log.info(response.asString());
+
+    try {
+      ObjectMapper mapper = new ObjectMapper();
+      JsonNode node = mapper.readTree(response.asString());
+      Product product = mapper.readValue(response.asString(), Product.class);
+      log.info(node);
+      log.info(product);
+      assertThat(product.getName(), is("marmalade"));
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+            
+  } 
 }

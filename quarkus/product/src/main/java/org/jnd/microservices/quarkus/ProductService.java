@@ -3,6 +3,7 @@ package org.jnd.microservices.quarkus;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
@@ -55,4 +56,34 @@ public class ProductService {
 
         return types;
     }
+
+    @GET
+    @Path("/type/{type}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Object[] getProductsOfType(@PathParam("type") String type) {
+
+        log.debug("Product get of type :"+type);
+
+        ArrayList<Product> products = new ArrayList<Product>();
+        for (Product p : repository.getProducts().values()){
+            if (p.getType().toString().equalsIgnoreCase(type))   {
+                products.add(p);
+            }
+        }
+
+        return products.toArray();
+    }
+
+    @GET
+    @Path("/{productId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Product get(@PathParam("productId") Integer productId) {
+
+        log.debug("Product get : "+productId);
+
+        Product product = repository.getProducts().get(Integer.toString(productId));
+
+        return product;
+    }
+
 }
