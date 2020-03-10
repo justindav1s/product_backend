@@ -18,8 +18,8 @@ node('maven') {
     }
 
     stage('Check Maven Version') {
-            sh "mvn -version"
-            sh "env"
+            sh "${mvn} -version"
+            sh "ls -ltr /opt"
     }
 
     def commitId  = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
