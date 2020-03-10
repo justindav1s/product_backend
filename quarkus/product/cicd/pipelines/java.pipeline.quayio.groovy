@@ -48,7 +48,7 @@ node('maven') {
 
         stage('Coverage') {
             echo "Running Coverage"
-            sh "${mvn} clean package org.jacoco:jacoco-maven-plugin:prepare-agent"
+            sh "${mvn} clean install org.jacoco:jacoco-maven-plugin:prepare-agent"
         }
 
         // Using Maven call SonarQube for Code Analysis
