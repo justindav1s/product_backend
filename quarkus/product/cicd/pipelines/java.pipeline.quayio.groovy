@@ -33,7 +33,7 @@ node('maven') {
 
         stage('Build jar') {
             echo "Building version : ${version}"
-            sh "mvn clean package"
+            sh "mvn -U -B -q -s settings.xml clean package"
         }
 
         // Using Maven run the unit tests
