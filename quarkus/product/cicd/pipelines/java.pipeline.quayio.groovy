@@ -10,7 +10,8 @@ node('maven') {
     def sonar_url    = "http://sonarqube.cicd.svc:9000"
     def nexus_url    = "http://nexus.cicd.svc:8081/repository/maven-snapshots"
     def registry     = "quay.io/justindav1s"
-    def groupId, version, packaging = null
+    def packaging    = "jar"
+    def groupId, version = null
     def artifactId = null
 
     stage('Checkout Source') {
@@ -31,7 +32,7 @@ node('maven') {
         groupId      = getGroupIdFromPom("pom.xml")
         artifactId   = getArtifactIdFromPom("pom.xml")
         version      = getVersionFromPom("pom.xml")
-        packaging    = getPackagingFromPom("pom.xml")
+        //packaging    = getPackagingFromPom("pom.xml")
 
         stage('Build jar') {
             echo "Building version : ${version}"
