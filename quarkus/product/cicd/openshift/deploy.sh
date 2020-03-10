@@ -15,7 +15,7 @@ oc delete is,bc,dc,svc,route,sa ${APP} --ignore-not-found=true -n ${PROJECT}
 oc delete configmap ${APP}-config --ignore-not-found=true -n ${PROJECT}
 
 echo Setting up ${APP} for ${PROJECT}
-oc new-app -f spring-boot-dev-quay-template.yaml \
+oc new-app -f microservice-dev-quay-template.yaml \
     -p PROJECT=${PROJECT} \
     -p APPLICATION_NAME=${APP} \
     -p BASE_IMAGE_NAMESPACE="openshift" \

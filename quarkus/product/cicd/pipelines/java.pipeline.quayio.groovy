@@ -79,7 +79,7 @@ node('maven') {
 
                     echo "Building ...."
                     def bc = openshift.selector( "bc/${app_name}" ).object()
-                    bc.spec.output.to.name="${app_name}:latest"
+                    bc.spec.output.to.name="${registry}/${app_name}:${commitId}"
                     openshift.apply(bc)
 
                     def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}-${commitId}.${packaging}")

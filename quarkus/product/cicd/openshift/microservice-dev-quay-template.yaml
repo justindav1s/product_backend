@@ -36,8 +36,10 @@ objects:
     spec:
       output:
         to:
-          kind: ImageStreamTag
-          name: ${APPLICATION_NAME}:latest
+          kind: DockerImage
+          name: quay.io/justindav1s/${APPLICATION_NAME}:latest
+        pushSecret:
+          name: quayio-dockercfg
       postCommit: {}
       resources: {}
       runPolicy: Serial
