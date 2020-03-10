@@ -19,6 +19,8 @@ node('maven') {
 
     stage('Check Maven Version') {
             sh "mvn -version"
+            sh "echo $M2_HOME"
+            sh "echo $PATH"
     }
 
     def commitId  = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
