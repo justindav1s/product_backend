@@ -28,7 +28,7 @@ node('maven') {
         groupId      = getGroupIdFromPom("pom.xml")
         artifactId   = getArtifactIdFromPom("pom.xml")
         version      = getVersionFromPom("pom.xml")
-        //packaging    = getPackagingFromPom("pom.xml")
+        packaging    = getPackagingFromPom("pom.xml")
 
         stage('Build jar') {
             echo "Building version : ${version}"
