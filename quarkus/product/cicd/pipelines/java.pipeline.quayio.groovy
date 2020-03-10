@@ -3,7 +3,7 @@
 
 node('maven') {
 
-    def mvn          = "mvn -U -B -q -s ../settings.xml -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"
+    def mvn          = "mvn -U -B -q -s settings.xml -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"
     def dev_project  = "${org}-dev"
     def prod_project = "${org}-prod"
     def app_url_dev  = "http://${app_name}.${dev_project}.svc:8080"
