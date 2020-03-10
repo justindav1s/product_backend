@@ -4,23 +4,19 @@
 node('maven') {
 
     def mvn          = "/opt/apache-maven-3.6.3/bin/mvn -U -B -q -s settings.xml"
-    def dev_project  = "${org}-dev"
-    def prod_project = "${org}-prod"
+    def dev_project  = "${org}-quarkus"
     def app_url_dev  = "http://${app_name}.${dev_project}.svc:8080"
     def sonar_url    = "http://sonarqube.cicd.svc:9000"
     def nexus_url    = "http://nexus.cicd.svc:8081/repository/maven-snapshots"
     def registry     = "quay.io/justindav1s"
-    def packaging    = "jar"
-    def groupId, version = null
+    def groupId, version, packaging = null
     def artifactId = null
 
     stage('Checkout Source') {
         git url: "${git_url}", branch: 'master'
     }
 
-    stage('Check Maven Version') {
-            
-            sh "ls -ltr /opt"
+    stage('Check Maven Version') {           
             sh "${mvn} -version"
     }
 
