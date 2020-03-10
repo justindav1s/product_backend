@@ -1,23 +1,21 @@
 #!/usr/bin/env bash
 
-. ../env.sh
+. ../../env.sh
 
 set -x
 
 oc login https://${IP}:8443 -u $USER
 
-IMAGE=jenkins-slave-skopeo:latest
-REGISTRY_HOST=docker-registry.default.svc:5000
+IMAGE=jenkins-slave-quarkus:latest
+REGISTRY_HOST=nexus3-docker-cicd.apps.ocp4.datr.eu:443
 
 oc project ${CICD_PROJECT}
 
 docker build -t $IMAGE .
-docker tag $IMAGE $REGISTRY_HOST/${CICD_PROJECT}/$IMAGE
+docker tag $IMAGE $REGISTRY_HOST/$IMAGE
 
-TOKEN=`oc whoami -t`
-
-docker login -p $TOKEN -u justin $REGISTRY_HOST
+docker login -u admin $REGISTRY_HOST
 
 sleep 5
 
-docker push $REGISTRY_HOST/${CICD_PROJECT}/$IMAGE
+docker push $REGISTRY_HOST/$IMAGE

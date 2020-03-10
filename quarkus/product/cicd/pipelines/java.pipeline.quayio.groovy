@@ -3,7 +3,7 @@
 
 node('maven') {
 
-    def mvn          = "mvn -U -B -q -s settings.xml"
+    def mvn          = "/opt/maven/bin/mvn -U -B -q -s settings.xml"
     def dev_project  = "${org}-dev"
     def prod_project = "${org}-prod"
     def app_url_dev  = "http://${app_name}.${dev_project}.svc:8080"
@@ -20,8 +20,6 @@ node('maven') {
     stage('Check Maven Version') {
             sh "mvn -version"
             sh "env"
-            sh "echo $M2_HOME"
-            sh "echo $PATH"
     }
 
     def commitId  = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
@@ -47,10 +45,10 @@ node('maven') {
             junit 'target/surefire-reports/*.xml'
         }
 
-        // stage('Coverage') {
-        //     echo "Running Coverage"
-        //     sh "${mvn} clean package org.jacoco:jacoco-maven-plugin:prepare-agent"
-        // }
+        stage('Coverage') {
+            echo "Running Coverage"
+            sh "${mvn} clean package org.jacoco:jacoco-maven-plugin:prepare-agent"
+        }
 
         // Using Maven call SonarQube for Code Analysis
         stage('Code Analysis') {
