@@ -44,10 +44,10 @@ node('maven') {
             junit 'target/surefire-reports/*.xml'
         }
 
-        stage('Coverage') {
-            echo "Running Coverage"
-            sh "${mvn} clean package org.jacoco:jacoco-maven-plugin:prepare-agent"
-        }
+        // stage('Coverage') {
+        //     echo "Running Coverage"
+        //     sh "${mvn} clean package org.jacoco:jacoco-maven-plugin:prepare-agent"
+        // }
 
         // Using Maven call SonarQube for Code Analysis
         stage('Code Analysis') {
