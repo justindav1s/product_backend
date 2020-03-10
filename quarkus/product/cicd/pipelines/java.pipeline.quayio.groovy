@@ -17,6 +17,10 @@ node('maven') {
         git url: "${git_url}", branch: 'master'
     }
 
+    stage('Check Maven Version') {
+            sh "mvn -version"
+    }
+
     def commitId  = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
     def commitmsg  = sh(returnStdout: true, script: "git log --format=%B -n 1 ${commitId}").trim()
 
