@@ -3,7 +3,7 @@
     <actions>
         <io.jenkins.blueocean.service.embedded.BlueOceanUrlAction plugin="blueocean-rest-impl@1.1.4">
             <blueOceanUrlObject class="io.jenkins.blueocean.service.embedded.BlueOceanUrlObjectImpl">
-                <mappedUrl>blue/organizations/jenkins/amazin-inventory</mappedUrl>
+                <mappedUrl>blue/organizations/jenkins/amazin-quarkus-java-product</mappedUrl>
             </blueOceanUrlObject>
         </io.jenkins.blueocean.service.embedded.BlueOceanUrlAction>
     </actions>
@@ -74,7 +74,7 @@
             <submoduleCfg class="list"/>
             <extensions/>
         </scm>
-        <scriptPath>quarkus/product/cicd/pipelines/java.pipeline.quayio.groovy</scriptPath>
+        <scriptPath>quarkus/product/cicd/pipelines/java/java.pipeline.quayio.groovy</scriptPath>
         <lightweight>true</lightweight>
     </definition>
     <triggers/>
