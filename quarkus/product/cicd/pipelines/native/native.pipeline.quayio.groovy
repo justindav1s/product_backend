@@ -70,6 +70,7 @@ node('maven') {
             echo "Project : ${dev_project}"
             echo "App : ${app_name}"
             echo "Dev Tag : ${devTag}"
+            def container = ${app_name}
             app_name  = "${app_name}-native"
 
             openshift.withCluster() {
@@ -82,7 +83,7 @@ node('maven') {
                     openshift.create("configmap", "${app_name}-config", "--from-file=${config_file}")
 
                     //update deployment config with new image
-                    openshift.set("image", "dc/${app_name}", "${app_name}=${registry}/${app_name}-native:${commitId}")
+                    openshift.set("image", "dc/${app_name}", "${container}=${registry}/${app_name}-native:${commitId}")
 
                     //trigger a rollout of the new image
                     rm = openshift.selector("dc", [app:app_name]).rollout().latest()
