@@ -16,6 +16,4 @@ docker tag $IMAGE $REGISTRY_HOST/$IMAGE
 
 docker login -u admin $REGISTRY_HOST
 
-sleep 5
-
 docker push $REGISTRY_HOST/$IMAGE

@@ -33,8 +33,8 @@ node('maven') {
         packaging    = getPackagingFromPom("pom.xml")
 
         stage ('Maven native build'){
-            echo 'Building native binary'
-            sh "${mvn} package -Pnative -DskipTests"   
+            echo 'Building and test native binary'
+            sh "${mvn} package -Pnative"   
         }
 
         // Deploy the built image to the Development Environment.

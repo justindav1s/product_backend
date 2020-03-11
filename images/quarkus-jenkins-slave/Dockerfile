@@ -21,7 +21,13 @@ RUN tar zxvf graalvm-ce-java11-linux-amd64-20.0.0.tar.gz
 RUN ls -ltr
 ENV GRAALVM_HOME=/opt/graalvm-ce-java11-20.0.0
 
-RUN export PATH=$GRAALVM_HOME/bin:$M2_HOME/bin:$PATH
+ENV PATH=$GRAALVM_HOME/bin:$M2_HOME/bin:$PATH
+
+RUN gu install native-image
+
+RUN yum -y install gcc glibc-devel zlib zlib-devel libstdc++-devel libstdc++
+
+RUN find /usr/lib | grep lz
 
 RUN chown -R 1001:0 $HOME && \
     chmod -R g+rw $HOME
