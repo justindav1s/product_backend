@@ -47,23 +47,21 @@ node('maven') {
             echo "Version : ${version}"
             echo "Packaging : ${packaging}"
 
-            sh "cp target/${artifactId}-*runner ."
-            sh "cp ${artifactId}-*runner ${artifactId}-${commitId}"
-            sh "pwd && ls -ltr"
+            sh "ls -ltr target"
 
-            // openshift.withCluster() {
-            //     openshift.withProject("${dev_project}") {
+            openshift.withCluster() {
+                openshift.withProject("${dev_project}") {
 
-            //         echo "Building ...."
-            //         def bc = openshift.selector( "bc/${app_name}" ).object()
-            //         bc.spec.output.to.name="${registry}/${app_name}:${commitId}"
-            //         openshift.apply(bc)
+                    echo "Building ...."
+                    def bc = openshift.selector( "bc/${app_name}-native" ).object()
+                    bc.spec.output.to.name="${registry}/${app_name}-native:${commitId}"
+                    openshift.apply(bc)
 
-            //         def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}-${commitId}.${packaging}")
-            //         nb.logs('-f')
+                    def nb = openshift.startBuild("${app_name}-native")
+                    nb.logs('-f')
 
-            //     }
-            // }
+                }
+            }
 
         }
     }
