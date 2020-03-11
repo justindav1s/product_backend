@@ -105,6 +105,7 @@ node('maven') {
                 }
             }
             echo "Deploying container image to Development Project : FINISHED"
+        }
     }
 }
 
