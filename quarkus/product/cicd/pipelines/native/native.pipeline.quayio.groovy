@@ -32,9 +32,7 @@ node('maven') {
 
         stage ('Maven native build'){
             echo 'Building native binary'
-            dir('webstore') {
-                sh 'mvn package -Pnative -DskipTests'
-            }       
+            sh 'mvn package -Pnative -DskipTests'     
         }
 
         // Deploy the built image to the Development Environment.
