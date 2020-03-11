@@ -70,7 +70,7 @@ node('maven') {
             echo "Project : ${dev_project}"
             echo "App : ${app_name}"
             echo "Dev Tag : ${devTag}"
-            def container = ${app_name}
+            def container = "${app_name}"
             app_name  = "${app_name}-native"
 
             openshift.withCluster() {
