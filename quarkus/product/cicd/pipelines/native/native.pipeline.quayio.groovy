@@ -34,12 +34,7 @@ node('maven') {
 
         stage ('Maven native build'){
             echo 'Building and test native binary'
-            sh "${mvn} package -Pnative"   
-        }
-
-        stage ('Maven native build'){
-            echo 'Building and test native binary'
-            sh "${mvn} verify -Pnative"   
+            sh "${mvn} package verify -Pnative"   
         }
 
          //Build the OpenShift Image in OpenShift and tag it.
