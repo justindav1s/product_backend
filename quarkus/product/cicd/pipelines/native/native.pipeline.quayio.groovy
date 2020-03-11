@@ -71,7 +71,9 @@ node('maven') {
             echo "App : ${app_name}"
             echo "Dev Tag : ${devTag}"
             def container = "${app_name}"
-            app_name  = "${app_name}-native"
+            def config_name = "${app_name}-native--config"
+            app_name = "${app_name}-native"
+            def app_label = "${app_name}"
 
             openshift.withCluster() {
                 openshift.withProject(dev_project) {
@@ -79,24 +81,24 @@ node('maven') {
                     openshift.set("triggers", "dc/${app_name}", "--remove-all")
 
                     //update app config
-                    openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
-                    openshift.create("configmap", "${app_name}-config", "--from-file=${config_file}")
+                    openshift.delete("configmap", "${config_name}", "--ignore-not-found=true")
+                    openshift.create("configmap", "${config_name}", "--from-file=${config_file}")
 
                     //update deployment config with new image
-                    openshift.set("image", "dc/${app_name}", "${container}=${registry}/${app_name}-native:${commitId}")
+                    openshift.set("image", "dc/${app_name}", "${container}=${registry}/${app_name}:${commitId}")
 
                     //trigger a rollout of the new image
-                    rm = openshift.selector("dc", [app:app_name]).rollout().latest()
+                    rm = openshift.selector("dc", [app:app_label]).rollout().latest()
                     //wait for rollout to start
                     timeout(5) {
-                        openshift.selector("dc", [app:app_name]).related('pods').untilEach(1) {
+                        openshift.selector("dc", [app:app_label]).related('pods').untilEach(1) {
                             return (it.object().status.phase == "Running")
                         }
                     }
                     //rollout has started
 
                     //wait for deployment to finish and for new pods to become active
-                    def latestDeploymentVersion = openshift.selector('dc',[app:app_name]).object().status.latestVersion
+                    def latestDeploymentVersion = openshift.selector('dc',[app:app_label]).object().status.latestVersion
                     def rc = openshift.selector("rc", "${app_name}-${latestDeploymentVersion}")
                     rc.untilEach(1) {
                         def rcMap = it.object()
