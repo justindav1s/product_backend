@@ -37,12 +37,33 @@ node('maven') {
             sh "${mvn} package -Pnative"   
         }
 
-        // Deploy the built image to the Development Environment.
-        stage('Deploy to Dev') {
-            echo "Deploying container image to Development Project"
+         //Build the OpenShift Image in OpenShift and tag it.
+        stage('Build and Tag OpenShift Image') {
+            echo "Building OpenShift container image ${app_name}:${devTag}"
             echo "Project : ${dev_project}"
             echo "App : ${app_name}"
-            echo "Dev Tag : ${devTag}"
+            echo "Group ID : ${groupId}"
+            echo "Artifact ID : ${artifactId}"
+            echo "Version : ${version}"
+            echo "Packaging : ${packaging}"
+
+            sh "cp target/${artifactId}-*runner ."
+            sh "cp ${artifactId}-*runner ${artifactId}-${commitId}"
+            sh "pwd && ls -ltr"
+
+            // openshift.withCluster() {
+            //     openshift.withProject("${dev_project}") {
+
+            //         echo "Building ...."
+            //         def bc = openshift.selector( "bc/${app_name}" ).object()
+            //         bc.spec.output.to.name="${registry}/${app_name}:${commitId}"
+            //         openshift.apply(bc)
+
+            //         def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}-${commitId}.${packaging}")
+            //         nb.logs('-f')
+
+            //     }
+            // }
 
         }
     }
