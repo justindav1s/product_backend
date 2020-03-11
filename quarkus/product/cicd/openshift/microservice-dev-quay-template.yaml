@@ -143,13 +143,13 @@ objects:
     metadata:
       annotations:
       labels:
-        app: ${APPLICATION_NAME}
+        app: ${APPLICATION_NAME}-native
       name: ${APPLICATION_NAME}-native
     spec:
       replicas: 1
       selector:
-        app: ${APPLICATION_NAME}
-        deploymentconfig: ${APPLICATION_NAME}
+        app: ${APPLICATION_NAME}-native
+        deploymentconfig: ${APPLICATION_NAME}-native
       strategy:
         activeDeadlineSeconds: 21600
         resources: {}
@@ -164,8 +164,8 @@ objects:
         metadata:
           annotations:
           labels:
-            app: ${APPLICATION_NAME}
-            deploymentconfig: ${APPLICATION_NAME}
+            app: ${APPLICATION_NAME}-native
+            deploymentconfig: ${APPLICATION_NAME}-native
         spec:
           serviceAccountName: ${APPLICATION_NAME}-sa
           containers:
@@ -229,6 +229,22 @@ objects:
         weight: 100
       wildcardPolicy: None
 
+  - apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      annotations:
+      labels:
+        app: ${APPLICATION_NAME}-native
+      name: ${APPLICATION_NAME}-native
+    spec:
+      port:
+        targetPort: 8080
+      to:
+        kind: Service
+        name: ${APPLICATION_NAME}-native
+        weight: 100
+      wildcardPolicy: None      
+
   - apiVersion: v1
     kind: Service
     metadata:
@@ -248,6 +264,26 @@ objects:
       type: ClusterIP
     status:
       loadBalancer: {}
+
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: ${APPLICATION_NAME}-native
+      name: ${APPLICATION_NAME}-native
+    spec:
+      ports:
+        - port: 8080
+          protocol: TCP
+          targetPort: 8080
+      selector:
+        app: ${APPLICATION_NAME}-native
+        deploymentconfig: ${APPLICATION_NAME}-native
+      sessionAffinity: None
+      type: ClusterIP
+    status:
+      loadBalancer: {}      
       
 parameters:
   - description: The name for the application.

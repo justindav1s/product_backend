@@ -70,24 +70,25 @@ node('maven') {
             echo "Project : ${dev_project}"
             echo "App : ${app_name}"
             echo "Dev Tag : ${devTag}"
+            app_name  = "${app_name}-native"
 
             openshift.withCluster() {
                 openshift.withProject(dev_project) {
                     //remove any triggers
-                    openshift.set("triggers", "dc/${app_name}-native", "--remove-all")
+                    openshift.set("triggers", "dc/${app_name}", "--remove-all")
 
                     //update app config
                     openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
                     openshift.create("configmap", "${app_name}-config", "--from-file=${config_file}")
 
                     //update deployment config with new image
-                    openshift.set("image", "dc/${app_name}-native", "${app_name}-native=${registry}/${app_name}-native:${commitId}")
+                    openshift.set("image", "dc/${app_name}", "${app_name}=${registry}/${app_name}-native:${commitId}")
 
                     //trigger a rollout of the new image
-                    rm = openshift.selector("dc", [app:"${app_name}-native"]).rollout().latest()
+                    rm = openshift.selector("dc", [app:app_name]).rollout().latest()
                     //wait for rollout to start
                     timeout(5) {
-                        openshift.selector("dc", [app:"${app_name}-native"]).related('pods').untilEach(1) {
+                        openshift.selector("dc", [app:app_name]).related('pods').untilEach(1) {
                             return (it.object().status.phase == "Running")
                         }
                     }
@@ -104,7 +105,6 @@ node('maven') {
                 }
             }
             echo "Deploying container image to Development Project : FINISHED"
-        }
     }
 }
 
