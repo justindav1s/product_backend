@@ -48,9 +48,8 @@ objects:
       name: ${APPLICATION_NAME}-native
     spec:
       source:
-        contextDir: quarkus/product
-        binary: {}
         type: Binary
+        binary: {}
       strategy:
         type: Docker
         dockerStrategy:

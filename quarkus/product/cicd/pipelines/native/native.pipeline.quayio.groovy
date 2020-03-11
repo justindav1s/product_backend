@@ -57,7 +57,7 @@ node('maven') {
                     bc.spec.output.to.name="${registry}/${app_name}-native:${commitId}"
                     openshift.apply(bc)
 
-                    def nb = openshift.startBuild("${app_name}-native")
+                    def nb = openshift.startBuild("${app_name}-native", "--from-dir=.")
                     nb.logs('-f')
 
                 }
