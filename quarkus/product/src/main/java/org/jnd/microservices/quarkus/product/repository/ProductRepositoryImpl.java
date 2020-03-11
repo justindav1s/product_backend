@@ -4,8 +4,7 @@ import org.jnd.microservices.quarkus.product.model.Product;
 import org.jnd.microservices.quarkus.product.model.ProductType;
 import org.jnd.microservices.quarkus.product.repository.RepositoryBase;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.jboss.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -17,7 +16,7 @@ import java.util.Map;
 @ApplicationScoped
 public class ProductRepositoryImpl extends RepositoryBase {
 
-    private Log log = LogFactory.getLog(ProductRepository.class);
+    private static final Logger log = Logger.getLogger(ProductRepository.class.getName());
 
     @Inject
     protected ProductCache cache;

@@ -7,9 +7,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.jboss.logging.Logger;
 
 import org.jnd.microservices.quarkus.product.model.Product;
 
@@ -18,7 +16,7 @@ import org.jnd.microservices.quarkus.product.repository.ProductRepository;
 @Path("/products")
 public class ProductService {
 
-    private Log log = LogFactory.getLog(ProductService.class);
+    private static final Logger log = Logger.getLogger(ProductService.class.getName());
 
     @Inject
     ProductRepository repository;

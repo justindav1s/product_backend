@@ -3,10 +3,7 @@ package org.jnd.microservices.quarkus.org.jnd.microservices;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.response.Response;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.eclipse.microprofile.health.HealthCheckResponse;
-import org.eclipse.microprofile.health.HealthCheckResponse.State;
+import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
 import org.jnd.microservices.quarkus.product.model.Product;
 
@@ -24,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @QuarkusTest
 public class ProductTests {
 
-  private Log log = LogFactory.getLog(ProductTests.class);
+  private static final Logger log = Logger.getLogger(ProductTests.class.getName());
 
   @Test
   public void livenessTest() {
