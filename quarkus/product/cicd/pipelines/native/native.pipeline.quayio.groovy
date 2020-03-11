@@ -3,7 +3,7 @@
 
 node('maven') {
 
-    def mvn          = "mvn -U -B -q -s settings.xml"
+    def mvn          = "/opt/apache-maven-3.6.3/bin/mvn -U -B -q -s settings.xml"
     def dev_project  = "${org}-quarkus"
     def app_url_dev  = "http://${app_name}.${dev_project}.svc:8080"
     def sonar_url    = "http://sonarqube.cicd.svc:9000"
@@ -32,7 +32,7 @@ node('maven') {
 
         stage ('Maven native build'){
             echo 'Building native binary'
-            sh 'mvn package -Pnative -DskipTests'     
+            sh "${mvn} package -Pnative -DskipTests"   
         }
 
         // Deploy the built image to the Development Environment.
