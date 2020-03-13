@@ -19,9 +19,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @QuarkusTest
-public class ProductTests {
+public class QuarkusTests {
 
-  private static final Logger log = Logger.getLogger(ProductTests.class.getName());
+  private static final Logger log = Logger.getLogger(QuarkusTests.class.getName());
 
   @Test
   public void livenessTest() {
@@ -145,7 +145,20 @@ public class ProductTests {
 
     } catch (IOException e) {
       e.printStackTrace();
-    }
-            
-  } 
+    }          
+  }
+ 
+  @Test
+  public void configTest1() {
+    Response response = given().when().get("/config/1").then().statusCode(200).extract().response();
+    log.info(response.asString());
+    assertThat(response.asString(), is("This is Config Data 1"));         
+  }
+
+  // @Test
+  // public void configTest2() {
+  //   Response response = given().when().get("/config/2").then().statusCode(200).extract().response();
+  //   log.info(response.asString());
+  //   assertThat(response.asString(), is("This is Config Data 2"));         
+  // }
 }

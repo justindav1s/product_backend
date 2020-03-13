@@ -1,5 +1,6 @@
 package org.jnd.microservices.quarkus;
 
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -17,10 +18,17 @@ import org.jnd.microservices.quarkus.product.model.Product;
 
 import org.jnd.microservices.quarkus.product.repository.ProductRepository;
 
+import io.quarkus.runtime.StartupEvent;
+import io.quarkus.runtime.configuration.ProfileManager;
+
 @Path("/products")
 public class ProductService {
 
     private static final Logger log = Logger.getLogger(ProductService.class.getName());
+
+    void onStart(@Observes StartupEvent ev) {
+        log.info("The application is starting with profile : " + ProfileManager.getActiveProfile());
+    }
 
     @Inject
     ProductRepository repository;
