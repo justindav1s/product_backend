@@ -39,7 +39,7 @@
                 <hudson.model.StringParameterDefinition>
                     <name>config_file</name>
                     <description>a config file to be attached to a configmap</description>
-                    <defaultValue>src/main/resources/config.dev.properties</defaultValue>
+                    <defaultValue>src/main/resources/config/application.properties</defaultValue>
                 </hudson.model.StringParameterDefinition>
                 <hudson.model.StringParameterDefinition>
                     <name>devTag</name>
