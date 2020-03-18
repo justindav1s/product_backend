@@ -127,6 +127,8 @@ objects:
               volumeMounts:
                 - mountPath: /config
                   name: ${APPLICATION_NAME}-config-vol
+                - mountPath: /deployments/config
+                  name: ${APPLICATION_NAME}-depconfig-vol                     
           dnsPolicy: ClusterFirst
           restartPolicy: Always
           schedulerName: default-scheduler
@@ -137,6 +139,10 @@ objects:
                 defaultMode: 420
                 name: ${APPLICATION_NAME}-config
               name: ${APPLICATION_NAME}-config-vol
+            - configMap:
+                defaultMode: 420
+                name: ${APPLICATION_NAME}-config
+              name: ${APPLICATION_NAME}-depconfig-vol
 
   - apiVersion: apps.openshift.io/v1
     kind: DeploymentConfig
@@ -201,6 +207,8 @@ objects:
               volumeMounts:
                 - mountPath: /config
                   name: ${APPLICATION_NAME}-config-vol
+                - mountPath: /deployments/config
+                  name: ${APPLICATION_NAME}-depconfig-vol                  
           dnsPolicy: ClusterFirst
           restartPolicy: Always
           schedulerName: default-scheduler
@@ -211,7 +219,10 @@ objects:
                 defaultMode: 420
                 name: ${APPLICATION_NAME}-native-config
               name: ${APPLICATION_NAME}-config-vol              
-
+            - configMap:
+                defaultMode: 420
+                name: ${APPLICATION_NAME}-config
+              name: ${APPLICATION_NAME}-depconfig-vol
 
   - apiVersion: route.openshift.io/v1
     kind: Route

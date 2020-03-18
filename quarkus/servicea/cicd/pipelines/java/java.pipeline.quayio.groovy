@@ -104,7 +104,9 @@ node('maven') {
 
                     //update app config
                     openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
+                    openshift.delete("configmap", "${app_name}-depconfig", "--ignore-not-found=true")
                     openshift.create("configmap", "${app_name}-config", "--from-file=${config_file}")
+                    openshift.create("configmap", "${app_name}-depconfig", "--from-file=${config_file}")
 
                     //update deployment config with new image
                     openshift.set("image", "dc/${app_name}", "${app_name}=${registry}/${app_name}:${commitId}")
