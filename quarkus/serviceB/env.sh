@@ -1,6 +1,6 @@
 #!/bin/bash
 
 PROJECT=amazin-quarkus
-APP=serviceB
+APP=serviceb
 VERSION=dev
 S2I_IMAGE=java:8
