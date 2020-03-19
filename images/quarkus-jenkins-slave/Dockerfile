@@ -17,7 +17,7 @@ ENV PATH=$GRAALVM_HOME/bin:$M2_HOME/bin:$PATH
 
 RUN gu install native-image
 
-RUN yum -y install gcc glibc-devel zlib zlib-devel libstdc++-devel libstdc++
+RUN yum -y install gcc glibc-devel zlib zlib-devel libstdc++-devel libstdc++ compat-libstdc++-33
 
 RUN chown -R 1001:0 $HOME && \
     chmod -R g+rw $HOME
