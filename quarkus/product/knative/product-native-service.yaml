@@ -27,10 +27,6 @@ spec:
               value: Knative
           image: 'quay.io/justindav1s/product-native:008ac05'
           name: user-container
-          readinessProbe:
-            successThreshold: 1
-            tcpSocket:
-              port: 8080
           resources: {}
           volumeMounts:
             - name: config-vol

@@ -1,7 +1,7 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: product-config
+  name: serviceb-config
   namespace: amazin-serverless
 data:
   application.properties: |
@@ -10,27 +10,23 @@ data:
 apiVersion: serving.knative.dev/v1beta1
 kind: Service
 metadata:
-  name: product-native
+  name: serviceb-native
   namespace: amazin-serverless
+  labels:
+    serving.knative.dev/visibility: cluster-local  
 spec:
   template:
     metadata:
       annotations:
-        client.knative.dev/user-image: 'quay.io/justindav1s/product-native:008ac05'
+        client.knative.dev/user-image: 'quay.io/justindav1s/serviceb-native:463849d'       
     spec:
       containerConcurrency: 1
       containers:
         - env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: dev
             - name: TARGET
               value: Knative
-          image: 'quay.io/justindav1s/product-native:008ac05'
+          image: 'quay.io/justindav1s/serviceb-native:463849d'
           name: user-container
-          readinessProbe:
-            successThreshold: 1
-            tcpSocket:
-              port: 8080
           resources: {}
           volumeMounts:
             - name: config-vol
@@ -39,7 +35,7 @@ spec:
       volumes:
         - name: config-vol
           configMap:
-            name: product-config
+            name: serviceb-config
             defaultMode: 420
   traffic:
     - latestRevision: true

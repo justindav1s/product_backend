@@ -1,36 +1,33 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: product-config
+  name: servicea-config
   namespace: amazin-serverless
 data:
   application.properties: |
+    org.jnd.microservices.quarkus.ServiceBClient/mp-rest/url=http://serviceb-native.amazin-serverless.svc.cluster.local
+    org.jnd.microservices.quarkus.ServiceBClient/mp-rest/scope=javax.inject.Singleton
+
     config.test.data.2=This is Config Data 2
 ---
 apiVersion: serving.knative.dev/v1beta1
 kind: Service
 metadata:
-  name: product-native
+  name: servicea-native
   namespace: amazin-serverless
 spec:
   template:
     metadata:
       annotations:
-        client.knative.dev/user-image: 'quay.io/justindav1s/product-native:008ac05'
+        client.knative.dev/user-image: 'quay.io/justindav1s/servicea-native:a47e5bb'
     spec:
       containerConcurrency: 1
       containers:
         - env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: dev
             - name: TARGET
               value: Knative
-          image: 'quay.io/justindav1s/product-native:008ac05'
+          image: 'quay.io/justindav1s/servicea-native:a47e5bb'
           name: user-container
-          readinessProbe:
-            successThreshold: 1
-            tcpSocket:
-              port: 8080
           resources: {}
           volumeMounts:
             - name: config-vol
@@ -39,7 +36,7 @@ spec:
       volumes:
         - name: config-vol
           configMap:
-            name: product-config
+            name: servicea-config
             defaultMode: 420
   traffic:
     - latestRevision: true
