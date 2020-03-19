@@ -199,7 +199,7 @@ objects:
               terminationMessagePath: /dev/termination-log
               terminationMessagePolicy: File
               volumeMounts:
-                - mountPath: /config
+                - mountPath: /work/config
                   name: ${APPLICATION_NAME}-config-vol              
           dnsPolicy: ClusterFirst
           restartPolicy: Always
