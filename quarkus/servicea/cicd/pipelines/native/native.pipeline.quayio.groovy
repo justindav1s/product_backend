@@ -71,7 +71,7 @@ node('maven') {
             echo "App : ${app_name}"
             echo "Dev Tag : ${devTag}"
             def container = "${app_name}"
-            def config_name = "${app_name}-native--config"
+            def config_name = "${app_name}-native-config"
             app_name = "${app_name}-native"
             def app_label = "${app_name}"
 
