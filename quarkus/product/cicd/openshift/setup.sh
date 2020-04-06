@@ -10,7 +10,7 @@ oc login https://${IP} -u $USER
 
 echo Deleting $PROJECT
 oc delete project $PROJECT
-echo Creating $DPROJECT
+echo Creating $PROJECT
 oc new-project $PROJECT 2> /dev/null
 while [ $? \> 0 ]; do
     sleep 1
@@ -18,8 +18,8 @@ while [ $? \> 0 ]; do
 oc new-project $PROJECT 2> /dev/null
 done
 
-oc delete secret quayio-dockercfg -n $CICD_PROJECT
-oc delete secret quayio-dockercfg -n $PROJECT
+oc delete secret quayio-dockercfg -n $CICD_PROJECT --ignore-not-found=true
+oc delete secret quayio-dockercfg -n $PROJECT --ignore-not-found=true
 
 oc create secret docker-registry quayio-dockercfg \
   --docker-server=${QUAYIO_REGISTRY} \
