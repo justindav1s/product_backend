@@ -2,10 +2,6 @@
 
 . ../../env.sh
 
-set -x
-
-oc login https://${IP}:8443 -u $USER
-
 IMAGE=jenkins-slave-quarkus:latest
 REGISTRY_HOST=nexus3-docker-cicd.apps.ocp4.datr.eu:443
 USER-admin

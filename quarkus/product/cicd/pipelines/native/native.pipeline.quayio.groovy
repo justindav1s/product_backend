@@ -1,5 +1,4 @@
 #!groovy
-//import groovy.transform.Field
 
 node('maven') {
 

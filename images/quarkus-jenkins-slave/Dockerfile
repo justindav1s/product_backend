@@ -4,26 +4,21 @@ USER root
 
 WORKDIR /opt 
 
-RUN wget https://apache.mirrors.nublue.co.uk/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz >/dev/null 2>&1
-RUN tar zxvf apache-maven-3.6.3-bin.tar.gz
-RUN ln -s apache-maven-3.6.3 maven
+RUN wget https://apache.mirrors.nublue.co.uk/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz >/dev/null 2>&1 \
+    && tar zxvf apache-maven-3.6.3-bin.tar.gz \
+    && ln -s apache-maven-3.6.3 maven
+
 ENV M2_HOME=/opt/maven
 
-RUN wget https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-19.3.1/graalvm-ce-java8-linux-amd64-19.3.1.tar.gz >/dev/null 2>&1
-RUN tar zxvf graalvm-ce-java8-linux-amd64-19.3.1.tar.gz
-ENV GRAALVM_HOME=/opt/graalvm-ce-java8-19.3.1
+RUN wget https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-20.0.0/graalvm-ce-java11-linux-amd64-20.0.0.tar.gz >/dev/null 2>&1 \
+    && tar zxvf graalvm-ce-java11-linux-amd64-20.0.0.tar.gz
 
-# RUN wget https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-20.0.0/graalvm-ce-java11-linux-amd64-20.0.0.tar.gz >/dev/null 2>&1
-# RUN tar zxvf graalvm-ce-java11-linux-amd64-20.0.0.tar.gz
-# ENV GRAALVM_HOME=/opt/graalvm-ce-java11-20.0.0
-
+ENV GRAALVM_HOME=/opt/graalvm-ce-java11-20.0.0
 ENV PATH=$GRAALVM_HOME/bin:$M2_HOME/bin:$PATH
 
 RUN gu install native-image
 
-RUN yum-config-manager --enable rhel-7-server-optional-rpms
-RUN yum -y install gcc gcc-c++ glibc-devel zlib zlib-devel
-RUN yum -y install libstdc++-devel libstdc++
+RUN yum -y install gcc gcc-c++ glibc-devel libstdc++-devel libstdc++ zlib zlib-devel
 
 RUN chown -R 1001:0 $HOME && \
     chmod -R g+rw $HOME

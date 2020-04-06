@@ -21,18 +21,11 @@ public class ProductRepositoryImpl extends RepositoryBase {
     @Inject
     protected ProductCache cache;
 
-    @ConfigProperty(name = "sleep.time.ms")
-    protected int sleepTime = 0;
-
-    @ConfigProperty(name = "active.profile")
-    protected String profile = null;
-
     @PostConstruct
     public void init()  {
 
         log.debug("Setting up repository");
-        log.debug("Sleep time (ms) : "+sleepTime);
-        log.debug("Spring Profile : "+profile);
+
 
         getTypes().add(ProductType.FOOD.toString());
         getTypes().add(ProductType.CLOTHES.toString());
@@ -47,17 +40,11 @@ public class ProductRepositoryImpl extends RepositoryBase {
 
     public Map<String, Product> getProducts() {
 
-        log.debug("Sleep time (ms) : "+sleepTime);
-        log.debug("Spring Profile : "+profile);
-        sleep(sleepTime);
         return super.getProducts();
     }
 
     public List<String> getTypes() {
 
-        log.debug("Sleep time (ms) : "+sleepTime);
-        log.debug("Spring Profile : "+profile);
-        sleep(sleepTime);
         return super.getTypes();
     }
 

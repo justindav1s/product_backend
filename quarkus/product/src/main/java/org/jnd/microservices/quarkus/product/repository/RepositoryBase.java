@@ -23,13 +23,4 @@ public class RepositoryBase implements ProductRepository {
         return types;
     }
 
-    public void sleep(int millis)   {
-        try {
-            log.debug("Sleeping : "+millis+" ms");
-            Thread.sleep(millis);
-        } catch(InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
 }
