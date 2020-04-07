@@ -7,25 +7,33 @@ resources:
 - serviceaccounts.yaml
 - jenkins-edit-rb.yaml
 
-patchesJson6902:
-- target:
-    group:
-    version: v1
-    kind: ServiceAccount
-    name: default
-  path: serviceaccount-json-patches.yaml
-- target:
-    group:
-    version: v1
-    kind: ServiceAccount
-    name: builder
-  path: serviceaccount-json-patches.yaml
-- target:
-    group:
-    version: v1
-    kind: ServiceAccount
-    name: deployer
-  path: serviceaccount-json-patches.yaml
+
+
+patchesStrategicMerge:
+- dockercfg-default-patch.yaml
+- dockercfg-builder-patch.yaml
+- dockercfg-deployer-patch.yaml
+
+
+# patchesJson6902:
+# - target:
+#     group:
+#     version: v1
+#     kind: ServiceAccount
+#     name: default
+#   path: serviceaccount-json-patches.yaml
+# - target:
+#     group:
+#     version: v1
+#     kind: ServiceAccount
+#     name: builder
+#   path: serviceaccount-json-patches.yaml
+# - target:
+#     group:
+#     version: v1
+#     kind: ServiceAccount
+#     name: deployer
+#   path: serviceaccount-json-patches.yaml
  
 
 commonAnnotations:
