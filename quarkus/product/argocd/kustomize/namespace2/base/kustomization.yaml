@@ -12,6 +12,7 @@ resources:
 patchesStrategicMerge:
 - dockercfg-default-patch.yaml
 - dockercfg-builder-patch.yaml
+- dockercfg-builder-secret-patch.yaml
 - dockercfg-deployer-patch.yaml
 
 
