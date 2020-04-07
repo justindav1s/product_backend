@@ -4,7 +4,6 @@ resources:
 #- datr-eu-certs.yaml
 #- resource-quota.yaml
 #- limit-range.yaml
-- serviceaccounts.yaml
 - jenkins-edit-rb.yaml
 
 patchesJson6902:
