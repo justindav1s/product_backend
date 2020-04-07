@@ -1,8 +1,13 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
 resources:
-#- namespace.yaml
-- ../base
-namespace: amazin-dev
+- namespace.yaml
+
+namespace: amazin-quarkus2
+
 commonLabels:
-  ns: amazin-dev
+  ns: amazin-quarkus2
+
+bases:
+- ../base
