@@ -65,4 +65,3 @@ spec:
           defaultMode: 420
           name: product-config
         name: product-config-vol
-  triggers: []
