@@ -3,9 +3,9 @@ apiVersion: v1
 metadata:
   name: default
 secrets:
-  - name: crc-nexus-dockercfg
-  - name: rhpds-nexus-dockercfg 
-  - name: datreu-nexus-dockercfg  
+  # - name: crc-nexus-dockercfg
+  # - name: rhpds-nexus-dockercfg 
+  # - name: datreu-nexus-dockercfg  
 imagePullSecrets:
   - name: crc-nexus-dockercfg
   - name: rhpds-nexus-dockercfg
