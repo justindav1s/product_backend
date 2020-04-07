@@ -4,10 +4,10 @@ kind: Kustomization
 resources:
 - namespace.yaml
 
-namespace: amazin-quarkus2
+namespace: product-kustomize
 
 commonLabels:
-  ns: amazin-quarkus2
+  ns: product-kustomize
 
 bases:
 - ../base
