@@ -7,10 +7,13 @@ resources:
 - serviceaccounts.yaml
 - jenkins-edit-rb.yaml
 
+
+
 patchesStrategicMerge:
 - dockercfg-default-patch.yaml
 - dockercfg-builder-patch.yaml
 - dockercfg-deployer-patch.yaml
+
 
 commonAnnotations:
   author: Justin Davis

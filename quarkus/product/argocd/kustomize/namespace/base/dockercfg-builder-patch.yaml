@@ -1,12 +1,8 @@
 kind: ServiceAccount
 apiVersion: v1
 metadata:
-  name: builder
-secrets:
-  - name: crc-nexus-dockercfg
-  - name: rhpds-nexus-dockercfg 
-  - name: datreu-nexus-dockercfg  
+  name: builder 
 imagePullSecrets:
   - name: crc-nexus-dockercfg
   - name: rhpds-nexus-dockercfg
-  - name: datreu-nexus-dockercfg      
+  - name: datreu-nexus-dockercfg
