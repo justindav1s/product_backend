@@ -12,7 +12,7 @@ spec:
           - name: SOME_VAR
             value: SOME_VAL
           volumeMounts:
-            - mountPath: /config
+            - mountPath: /deployments/config
               name: product-config-vol      
       volumes:
       - configMap:
