@@ -20,6 +20,11 @@ RUN gu install native-image
 
 RUN yum -y install gcc gcc-c++ glibc-devel libstdc++-devel libstdc++ zlib zlib-devel
 
+RUN  wget https://github.com/argoproj/argo-cd/releases/download/v1.5.1/argocd-linux-amd64 \
+     && cp argocd-linux-amd64 /usr/local/bin/arcgocd \
+     && chmod 777 /usr/local/bin/arcgocd
+
+
 RUN chown -R 1001:0 $HOME && \
     chmod -R g+rw $HOME
 
