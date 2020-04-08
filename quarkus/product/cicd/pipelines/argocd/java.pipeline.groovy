@@ -105,8 +105,8 @@ node('maven') {
             echo "ARGOCD_PASSWORD : ${ARGOCD_PASSWORD}"
             echo "ARGOCD_SERVER : ${ARGOCD_SERVER}"
             sh "ls -ltr /usr/local/bin/argocd"
-            sh (returnStdout: true, script: "argocd --insecure login --username ${ARGOCD_USER} --password ${ARGOCD_PASSWORD} ${ARGOCD_SERVER}")
-            sh (returnStdout: true, script: "argocd --insecure app list")             
+            sh "argocd --insecure login --username ${ARGOCD_USER} --password ${ARGOCD_PASSWORD} ${ARGOCD_SERVER}"
+            sh "argocd --insecure app list"             
         }
 
     }
