@@ -35,8 +35,8 @@ patchesJson6902:
     group: networking.k8s.io
     version: v1beta1
     kind: Ingress
-    name: product-ingress
-  path: ingress-json-patches.yaml
+    name: product-route
+  path: route-json-patches.yaml
 - target:
     group:
     version: v1
