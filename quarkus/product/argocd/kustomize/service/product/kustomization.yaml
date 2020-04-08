@@ -32,9 +32,9 @@ patchesJson6902:
     name: product-deployment
   path: deployment-json-patches.yaml
 - target:
-    group: networking.k8s.io
-    version: v1beta1
-    kind: Ingress
+    group: route.openshift.io
+    version: v1
+    kind: Route
     name: product-route
   path: route-json-patches.yaml
 - target:
