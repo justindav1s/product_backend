@@ -5,7 +5,7 @@ metadata:
 spec:
   tls:
     - hosts:
-        - service-ns.replaceme.com
+      - service-ns.replaceme.com
       secretName: selfsigned-certs
   rules:
     - host: service-ns.replaceme.com
