@@ -20,8 +20,8 @@ node('maven') {
     //         sh "${mvn} -version"
     // }
 
-    def commitId  = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
-    def commitmsg  = sh(returnStdout: true, script: "git log --format=%B -n 1 ${commitId}").trim()
+    // def commitId  = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+    // def commitmsg  = sh(returnStdout: true, script: "git log --format=%B -n 1 ${commitId}").trim()
 
     dir("${src_root}/${app_name}") {
 
