@@ -4,10 +4,10 @@ kind: Kustomization
 resources:
 - namespace.yaml
 
-namespace: product-kustomize
+namespace: product-services
 
 commonLabels:
-  ns: product-kustomize
+  ns: product-services
 
 bases:
 - ../base
