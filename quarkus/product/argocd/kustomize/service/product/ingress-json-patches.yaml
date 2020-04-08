@@ -1,9 +1,9 @@
 - op: replace
   path: /spec/tls/0/hosts/0
-  value: product-product-kustomize.apps.ocp4.datr.eu
+  value: product-product-services.apps.ocp4.datr.eu
 - op: replace
   path: /spec/rules/0/host
-  value: product-product-kustomize.apps.ocp4.datr.eu
+  value: product-product-services.apps.ocp4.datr.eu
 
 - op: replace
   path: /spec/rules/0/http/paths/0/backend/serviceName
