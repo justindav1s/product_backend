@@ -9,8 +9,8 @@ spec:
       containers:
         - name: container 
           env:
-          - name: SOME_VAR
-            value: SOME_VAL
+          - name: SOME_VAR2
+            value: SOME_VAL2
           volumeMounts:
             - mountPath: /deployments/config
               name: product-config-vol      

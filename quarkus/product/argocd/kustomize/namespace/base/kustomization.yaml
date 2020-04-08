@@ -21,7 +21,7 @@ secretGenerator:
   files:
   - .dockerconfigjson=secrets/datreu-dockerconfig.json
   type: "kubernetes.io/dockerconfigjson"
-- name: datr-eu-certs
+- name: selfsigned-certs
   files:
   - secrets/tls.crt
   - secrets/tls.key

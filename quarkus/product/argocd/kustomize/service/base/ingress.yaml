@@ -5,10 +5,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - service-amazin.apps.ocp4.datr.eu
-      secretName: datr-eu-certs
+        - service-ns.replaceme.com
+      secretName: selfsigned-certs
   rules:
-    - host: service-amazin.apps.ocp4.datr.eu
+    - host: service-ns.replaceme.com
       http:
         paths:
           - path: /
