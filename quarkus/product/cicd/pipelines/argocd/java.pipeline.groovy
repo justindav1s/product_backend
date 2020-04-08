@@ -11,6 +11,7 @@ node('maven') {
     def registry     = "quay.io/justindav1s"
     def groupId, version, packaging = null
     def artifactId = null
+    def github_repo  = sh (returnStdout: true, script: "echo $git_url | cut -d'/' -f5 | cut -d '.' -f1") 
 
     stage('Checkout Source') {
         git url: "${git_url}", branch: 'master'
@@ -97,7 +98,16 @@ node('maven') {
 
         // Deploy the built image to the Development Environment.
         stage('Update Repo') {
+            sh "sed 's/val1/val2/' argocd/plain-yaml/configmap.yaml"
+            sh "cat argocd/plain-yaml/configmap.yaml"
+            echo "github repo : ${github_repo}"
 
+            withCredentials([usernamePassword(credentialsId: 'GIT', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                sh "git status"
+                sh "git add ."
+                sh "git commit -m \"updated by Jenkins\" || true"
+                sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/${github_repo}.git master || true"
+            }
         }
 
         stage('Argocd Sync') {
