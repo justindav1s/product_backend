@@ -12,9 +12,9 @@ node('maven') {
     def groupId, version, packaging = null
     def artifactId = null
 
-    // stage('Checkout Source') {
-    //     git url: "${git_url}", branch: 'master'
-    // }
+    stage('Checkout Source') {
+        git url: "${git_url}", branch: 'master'
+    }
 
     // stage('Check Maven Version') {           
     //         sh "${mvn} -version"
@@ -32,6 +32,7 @@ node('maven') {
 
         stage('Init') {
             sh "env"
+            sh "ls -ltr"
         }
 
         // stage('Build jar') {

@@ -17,4 +17,4 @@ data:
     sleep.time.ms=2
     active.profile=dev
 
-    config.test.data.1=This is Config Data 3
+    config.test.data.1=val1
