@@ -25,10 +25,10 @@ node('maven') {
 
     dir("${src_root}/${app_name}") {
 
-        groupId      = getGroupIdFromPom("pom.xml")
-        artifactId   = getArtifactIdFromPom("pom.xml")
-        version      = getVersionFromPom("pom.xml")
-        packaging    = getPackagingFromPom("pom.xml")
+        // groupId      = getGroupIdFromPom("pom.xml")
+        // artifactId   = getArtifactIdFromPom("pom.xml")
+        // version      = getVersionFromPom("pom.xml")
+        // packaging    = getPackagingFromPom("pom.xml")
 
         stage('Init') {
             sh "env"
