@@ -34,65 +34,65 @@ node('maven') {
             sh "env"
         }
 
-        stage('Build jar') {
-            echo "Building version : ${version}"
-            sh "${mvn} clean package"
-        }
+        // stage('Build jar') {
+        //     echo "Building version : ${version}"
+        //     sh "${mvn} clean package"
+        // }
 
-        // Using Maven run the unit tests
-        stage('Unit/Integration Tests') {
-            echo "Running Unit Tests"
-            sh "${mvn} test"
-            archive "target/**/*"
-            junit 'target/surefire-reports/*.xml'
-        }
+        // // Using Maven run the unit tests
+        // stage('Unit/Integration Tests') {
+        //     echo "Running Unit Tests"
+        //     sh "${mvn} test"
+        //     archive "target/**/*"
+        //     junit 'target/surefire-reports/*.xml'
+        // }
 
-        stage('Coverage') {
-            echo "Running Coverage"
-            sh "${mvn} clean install org.jacoco:jacoco-maven-plugin:prepare-agent"
-        }
+        // stage('Coverage') {
+        //     echo "Running Coverage"
+        //     sh "${mvn} clean install org.jacoco:jacoco-maven-plugin:prepare-agent"
+        // }
 
-        // Using Maven call SonarQube for Code Analysis
-        stage('Code Analysis') {
-            echo "Running Code Analysis"
-            sh "${mvn} sonar:sonar -Dspring.profiles.active=dev -Dsonar.host.url=${sonar_url}"
-        }
+        // // Using Maven call SonarQube for Code Analysis
+        // stage('Code Analysis') {
+        //     echo "Running Code Analysis"
+        //     sh "${mvn} sonar:sonar -Dspring.profiles.active=dev -Dsonar.host.url=${sonar_url}"
+        // }
 
         // Publish the built war file to Nexus
-        stage('Publish to Nexus') {
-            echo "Publish to Nexus"
-            sh "${mvn} deploy -DskipTests -Dquarkus.package.uber-jar=true"
-        }
+        // stage('Publish to Nexus') {
+        //     echo "Publish to Nexus"
+        //     sh "${mvn} deploy -DskipTests -Dquarkus.package.uber-jar=true"
+        // }
 
-        //Build the OpenShift Image in OpenShift and tag it.
-        stage('Build and Tag OpenShift Image') {
-            echo "Building OpenShift container image ${app_name}:${devTag}"
-            echo "Project : ${dev_project}"
-            echo "App : ${app_name}"
-            echo "Group ID : ${groupId}"
-            echo "Artifact ID : ${artifactId}"
-            echo "Version : ${version}"
-            echo "Packaging : ${packaging}"
+        // //Build the OpenShift Image in OpenShift and tag it.
+        // stage('Build and Tag OpenShift Image') {
+        //     echo "Building OpenShift container image ${app_name}:${devTag}"
+        //     echo "Project : ${dev_project}"
+        //     echo "App : ${app_name}"
+        //     echo "Group ID : ${groupId}"
+        //     echo "Artifact ID : ${artifactId}"
+        //     echo "Version : ${version}"
+        //     echo "Packaging : ${packaging}"
 
-            sh "cp target/${artifactId}-*runner.${packaging} ."
-            sh "cp ${artifactId}-*runner.${packaging} ${artifactId}-${commitId}.${packaging}"
-            sh "pwd && ls -ltr"
+        //     sh "cp target/${artifactId}-*runner.${packaging} ."
+        //     sh "cp ${artifactId}-*runner.${packaging} ${artifactId}-${commitId}.${packaging}"
+        //     sh "pwd && ls -ltr"
 
-            openshift.withCluster() {
-                openshift.withProject("${dev_project}") {
+        //     openshift.withCluster() {
+        //         openshift.withProject("${dev_project}") {
 
-                    echo "Building ...."
-                    def bc = openshift.selector( "bc/${app_name}" ).object()
-                    bc.spec.output.to.name="${registry}/${app_name}:${commitId}"
-                    openshift.apply(bc)
+        //             echo "Building ...."
+        //             def bc = openshift.selector( "bc/${app_name}" ).object()
+        //             bc.spec.output.to.name="${registry}/${app_name}:${commitId}"
+        //             openshift.apply(bc)
 
-                    def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}-${commitId}.${packaging}")
-                    nb.logs('-f')
+        //             def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}-${commitId}.${packaging}")
+        //             nb.logs('-f')
 
-                }
-            }
+        //         }
+        //     }
 
-        }
+        // }
 
         // Deploy the built image to the Development Environment.
         stage('Update Repo') {
@@ -100,7 +100,13 @@ node('maven') {
         }
 
         stage('Argocd Sync') {
+            echo "ArgoCD Parameters"
+            echo "ARGOCD_USER : ${ARGOCD_USER}"
+            echo "ARGOCD_PASSWORD : ${ARGOCD_PASSWORD}"
+            echo "ARGOCD_SERVER : ${ARGOCD_SERVER}"
 
+            sh (returnStdout: true, script: "argocd --insecure login ${ARGOCD_USER} -name ${ARGOCD_USER} -password ${ARGOCD_PASSWORD} ${ARGOCD_SERVER}")
+            sh (returnStdout: true, script: "argocd --insecure app list")             
         }
 
     }
