@@ -20,10 +20,6 @@ node('maven') {
         git url: "${git_url}", branch: 'master'
     }
 
-    // stage('Check Maven Version') {           
-    //         sh "${mvn} -version"
-    // }
-
     def commitId  = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
     def commitmsg  = sh(returnStdout: true, script: "git log --format=%B -n 1 ${commitId}").trim()
 
@@ -58,13 +54,13 @@ node('maven') {
             sh "${mvn} sonar:sonar -Dspring.profiles.active=dev -Dsonar.host.url=${sonar_url}"
         }
 
-        Publish the built war file to Nexus
+        //Publish the built war file to Nexus
         stage('Publish to Nexus') {
             echo "Publish to Nexus"
             sh "${mvn} deploy -DskipTests -Dquarkus.package.uber-jar=true"
         }
 
-        //Build the OpenShift Image in OpenShift and tag it.
+        //Build the Container Image in OpenShift, tag it and send it to a registry.
         stage('Build and Tag OpenShift Image') {
             echo "Building OpenShift container image ${app_name}:${devTag}"
             echo "Project : ${dev_project}"
@@ -94,7 +90,7 @@ node('maven') {
 
         }
 
-        // Deploy the built image to the Development Environment.
+        // make updates to the Git repo, commit them and push them.
         stage('Update Repo') {
             sh "sed -i.bak 's/config.test.data.1=val1/config.test.data.1=val2/' argocd/plain-yaml/configmap.yaml"
             sh "echo \"    lastCommit=${commitId}\" >> argocd/plain-yaml/configmap.yaml"
@@ -110,6 +106,7 @@ node('maven') {
             }
         }
 
+        // Trigger ArgoCD to sync the repo with openshift.
         stage('Argocd Sync') {
             echo "ArgoCD Parameters"
             echo "ARGOCD_USER : ${ARGOCD_USER}"
