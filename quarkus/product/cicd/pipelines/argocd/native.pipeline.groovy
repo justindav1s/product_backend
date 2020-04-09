@@ -3,13 +3,14 @@
 node('maven') {
 
     def mvn          = "/opt/apache-maven-3.6.3/bin/mvn -U -B -q -s settings.xml"
-    def dev_project  = "${org}-quarkus"
-    def app_url_dev  = "http://${app_name}.${dev_project}.svc:8080"
     def sonar_url    = "http://sonarqube.cicd.svc:9000"
     def nexus_url    = "http://nexus.cicd.svc:8081/repository/maven-snapshots"
-    def registry     = "quay.io/justindav1s"
     def groupId, version, packaging = null
     def artifactId = null
+    def github_repo  = sh (returnStdout: true, script: "echo $git_url | awk '{split(\$0,a,\"[/.]\"); print a[6]}' | tr -d '\n'") 
+    sh "git config --global user.email \"justinndavis@gmail.com\""
+    sh "git config --global user.name \"Justin Davis\""
+    sh "git config --global push.default matching"
 
     stage('Checkout Source') {
         git url: "${git_url}", branch: 'master'
@@ -63,51 +64,10 @@ node('maven') {
             }
         }
 
-        // Deploy the built image to the Development Environment.
-        stage('Deploy to Dev') {
-            echo "Deploying container image to Development Project"
-            echo "Project : ${dev_project}"
-            echo "App : ${app_name}"
-            echo "Dev Tag : ${devTag}"
-            def container = "${app_name}"
-            def config_name = "${app_name}-native--config"
-            app_name = "${app_name}-native"
-            def app_label = "${app_name}"
 
-            openshift.withCluster() {
-                openshift.withProject(dev_project) {
-                    //remove any triggers
-                    openshift.set("triggers", "dc/${app_name}", "--remove-all")
 
-                    //update app config
-                    openshift.delete("configmap", "${config_name}", "--ignore-not-found=true")
-                    openshift.create("configmap", "${config_name}", "--from-file=${config_file}")
 
-                    //update deployment config with new image
-                    openshift.set("image", "dc/${app_name}", "${container}=${registry}/${app_name}:${commitId}")
 
-                    //trigger a rollout of the new image
-                    rm = openshift.selector("dc", [app:app_label]).rollout().latest()
-                    //wait for rollout to start
-                    timeout(5) {
-                        openshift.selector("dc", [app:app_label]).related('pods').untilEach(1) {
-                            return (it.object().status.phase == "Running")
-                        }
-                    }
-                    //rollout has started
-
-                    //wait for deployment to finish and for new pods to become active
-                    def latestDeploymentVersion = openshift.selector('dc',[app:app_label]).object().status.latestVersion
-                    def rc = openshift.selector("rc", "${app_name}-${latestDeploymentVersion}")
-                    rc.untilEach(1) {
-                        def rcMap = it.object()
-                        return (rcMap.status.replicas.equals(rcMap.status.readyReplicas))
-                    }
-                    //deployment finished
-                }
-            }
-            echo "Deploying container image to Development Project : FINISHED"
-        }
     }
 }
 

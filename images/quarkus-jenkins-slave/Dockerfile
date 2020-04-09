@@ -21,12 +21,17 @@ RUN gu install native-image
 RUN yum -y install gcc gcc-c++ glibc-devel libstdc++-devel libstdc++ zlib zlib-devel
 
 RUN  wget https://github.com/argoproj/argo-cd/releases/download/v1.5.1/argocd-linux-amd64 \
-     && cp argocd-linux-amd64 /usr/local/bin/argocd \
-     && chmod 777 /usr/local/bin/argocd
+    && cp argocd-linux-amd64 /usr/local/bin/argocd \
+    && chmod 777 /usr/local/bin/argocd
 
 RUN wget https://github.com/mikefarah/yq/releases/download/3.2.1/yq_linux_amd64 \
      && cp yq_linux_amd64 /usr/local/bin/yq \
      && chmod 777 /usr/local/bin/yq
+
+RUN wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv3.5.4/kustomize_v3.5.4_linux_amd64.tar.gz \
+    && tar zxvf kustomize_v3.5.4_linux_amd64.tar.gz \
+    && cp kustomize /usr/local/bin/kustomize \
+    && chmod 777 /usr/local/bin/kustomize    
 
 RUN chown -R 1001:0 $HOME && \
     chmod -R g+rw $HOME
