@@ -24,6 +24,9 @@ RUN  wget https://github.com/argoproj/argo-cd/releases/download/v1.5.1/argocd-li
      && cp argocd-linux-amd64 /usr/local/bin/argocd \
      && chmod 777 /usr/local/bin/argocd
 
+RUN wget https://github.com/mikefarah/yq/releases/download/3.2.1/yq_linux_amd64 \
+     && cp yq_linux_amd64 /usr/local/bin/yq \
+     && chmod 777 /usr/local/bin/yq
 
 RUN chown -R 1001:0 $HOME && \
     chmod -R g+rw $HOME

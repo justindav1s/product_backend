@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   labels:
     app: product
-  name: product
+  name: NewName
 spec:
   replicas: 1
   selector:
@@ -24,7 +24,7 @@ spec:
       - env:
         - name: SOME_VAR
           value: SOME_VAL
-        image: quay.io/justindav1s/product:ae71991
+        image: quay.io/justindav1s/product:ffffff
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 5
@@ -47,9 +47,9 @@ spec:
           periodSeconds: 5
           successThreshold: 1
           timeoutSeconds: 1
-        resources: 
+        resources:
           requests:
-            memory: "256Mi"
+            memory: "256cd Mi"
             cpu: "250m"
           limits:
             memory: "512Mi"

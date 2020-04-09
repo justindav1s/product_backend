@@ -34,11 +34,6 @@ node('maven') {
         // version      = getVersionFromPom("pom.xml")
         // packaging    = getPackagingFromPom("pom.xml")
 
-        stage('Init') {
-            sh "env"
-            sh "ls -ltr"
-        }
-
         // stage('Build jar') {
         //     echo "Building version : ${version}"
         //     sh "${mvn} clean package"
@@ -101,9 +96,11 @@ node('maven') {
 
         // Deploy the built image to the Development Environment.
         stage('Update Repo') {
+            commitId = "507dcf1"
             sh "sed -i.bak 's/val1/val2/' argocd/plain-yaml/configmap.yaml"
             sh "echo \"    lastCommit=${commitId}\" >> argocd/plain-yaml/configmap.yaml"
             sh "cat argocd/plain-yaml/configmap.yaml"
+            sh "yq w -i argocd/plain-yaml/deployment.yaml 'spec.template.spec.containers[0].image' quay.io/justindav1s/product:${commitId}"
             echo "github repo : ${github_repo}"
 
             withCredentials([usernamePassword(credentialsId: 'GIT', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
