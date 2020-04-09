@@ -40,3 +40,4 @@ hs_err_pid*
 /src/websso/node_modules/
 
 **/*@tmp/
+*.bak
