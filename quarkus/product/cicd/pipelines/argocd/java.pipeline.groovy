@@ -109,7 +109,7 @@ node('maven') {
                 sh "git status"
                 sh "git add .."
                 sh "git commit -m \"updated by Jenkins\" || true"
-                sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/${github_repo}\.git master || true"
+                sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/${github_repo}.git master || true"
             }
         }
 
