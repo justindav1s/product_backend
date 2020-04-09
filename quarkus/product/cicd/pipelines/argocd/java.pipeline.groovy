@@ -14,7 +14,7 @@ node('maven') {
     def github_repo  = sh (returnStdout: true, script: "echo $git_url | cut -d'/' -f5 | cut -d '.' -f1") 
     sh "git config --global user.email \"justinndavis@gmail.com\""
     sh "git config --global user.name \"Justin Davis\""
-    //sh "git config --global push.default simple"
+    sh "git config --global push.default matching"
 
     stage('Repo Clone') {
         git url: "${git_url}", branch: 'master'
@@ -109,7 +109,7 @@ node('maven') {
                 sh "git status"
                 sh "git add .."
                 sh "git commit -m \"updated by Jenkins\" || true"
-                sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/${github_repo}.git origin master || true"
+                sh "git push origin master || true"
             }
         }
 
