@@ -101,7 +101,8 @@ node('maven') {
 
         // Deploy the built image to the Development Environment.
         stage('Update Repo') {
-            sh "sed -i.bak 's/val1/${commitId}/' argocd/plain-yaml/configmap.yaml"
+            sh "sed -i.bak 's/val1/val2/' argocd/plain-yaml/configmap.yaml"
+            sh "echo \"    lastCommit=${commitId}\" >> argocd/plain-yaml/configmap.yaml"
             sh "cat argocd/plain-yaml/configmap.yaml"
             echo "github repo : ${github_repo}"
 
