@@ -24,7 +24,7 @@ spec:
       - env:
         - name: SOME_VAR
           value: SOME_VAL
-        image: quay.io/justindav1s/product:caeabbd
+        image: quay.io/justindav1s/product:563766c
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 5
