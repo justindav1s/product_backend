@@ -39,3 +39,4 @@ hs_err_pid*
 /src/websso/dist/
 /src/websso/node_modules/
 
+**/*@tmp/
