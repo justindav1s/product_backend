@@ -12,8 +12,10 @@ node('maven') {
     def groupId, version, packaging = null
     def artifactId = null
     def github_repo  = sh (returnStdout: true, script: "echo $git_url | cut -d'/' -f5 | cut -d '.' -f1") 
+    sh "git config --global user.email \"justinndavis@gmail.com\""
+    sh "git config --global user.name \"Justin Davis\""
 
-    stage('Checkout Source') {
+    stage('Repo Clone') {
         git url: "${git_url}", branch: 'master'
     }
 
