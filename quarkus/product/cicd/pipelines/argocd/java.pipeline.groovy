@@ -106,8 +106,8 @@ node('maven') {
             echo "github repo : ${github_repo}"
 
             withCredentials([usernamePassword(credentialsId: 'GIT', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                sh "git status"
                 sh "git add .."
+                sh "git status"
                 sh "git commit -m \"updated by Jenkins\" || true"
                 def origin = "https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/${github_repo}.git"
                 sh "git push ${origin} master || true"
