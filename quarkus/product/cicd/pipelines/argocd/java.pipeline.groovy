@@ -14,6 +14,7 @@ node('maven') {
     def github_repo  = sh (returnStdout: true, script: "echo $git_url | cut -d'/' -f5 | cut -d '.' -f1") 
     sh "git config --global user.email \"justinndavis@gmail.com\""
     sh "git config --global user.name \"Justin Davis\""
+    sh "git config --global push.default simple"
 
     stage('Repo Clone') {
         git url: "${git_url}", branch: 'master'
