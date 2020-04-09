@@ -11,7 +11,7 @@ node('maven') {
     def registry     = "quay.io/justindav1s"
     def groupId, version, packaging = null
     def artifactId = null
-    def github_repo  = sh (returnStdout: true, script: "echo $git_url | awk '{split($0,a,\"[/.]\"); print a[6]}'") 
+    def github_repo  = sh (returnStdout: true, script: "echo $git_url | awk '{split(\$0,a,\"[/.]\"); print a[6]}'") 
     sh "git config --global user.email \"justinndavis@gmail.com\""
     sh "git config --global user.name \"Justin Davis\""
     sh "git config --global push.default matching"
