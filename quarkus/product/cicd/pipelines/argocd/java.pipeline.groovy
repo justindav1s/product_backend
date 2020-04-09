@@ -25,83 +25,81 @@ node('maven') {
     // }
 
     def commitId  = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
-    // def commitmsg  = sh(returnStdout: true, script: "git log --format=%B -n 1 ${commitId}").trim()
+    def commitmsg  = sh(returnStdout: true, script: "git log --format=%B -n 1 ${commitId}").trim()
 
     dir("${src_root}/${app_name}") {
 
-        // groupId      = getGroupIdFromPom("pom.xml")
-        // artifactId   = getArtifactIdFromPom("pom.xml")
-        // version      = getVersionFromPom("pom.xml")
-        // packaging    = getPackagingFromPom("pom.xml")
+        groupId      = getGroupIdFromPom("pom.xml")
+        artifactId   = getArtifactIdFromPom("pom.xml")
+        version      = getVersionFromPom("pom.xml")
+        packaging    = getPackagingFromPom("pom.xml")
 
-        // stage('Build jar') {
-        //     echo "Building version : ${version}"
-        //     sh "${mvn} clean package"
-        // }
+        stage('Build jar') {
+            echo "Building version : ${version}"
+            sh "${mvn} clean package"
+        }
 
-        // // Using Maven run the unit tests
-        // stage('Unit/Integration Tests') {
-        //     echo "Running Unit Tests"
-        //     sh "${mvn} test"
-        //     archive "target/**/*"
-        //     junit 'target/surefire-reports/*.xml'
-        // }
+        // Using Maven run the unit tests
+        stage('Unit/Integration Tests') {
+            echo "Running Unit Tests"
+            sh "${mvn} test"
+            archive "target/**/*"
+            junit 'target/surefire-reports/*.xml'
+        }
 
-        // stage('Coverage') {
-        //     echo "Running Coverage"
-        //     sh "${mvn} clean install org.jacoco:jacoco-maven-plugin:prepare-agent"
-        // }
+        stage('Coverage') {
+            echo "Running Coverage"
+            sh "${mvn} clean install org.jacoco:jacoco-maven-plugin:prepare-agent"
+        }
 
-        // // Using Maven call SonarQube for Code Analysis
-        // stage('Code Analysis') {
-        //     echo "Running Code Analysis"
-        //     sh "${mvn} sonar:sonar -Dspring.profiles.active=dev -Dsonar.host.url=${sonar_url}"
-        // }
+        // Using Maven call SonarQube for Code Analysis
+        stage('Code Analysis') {
+            echo "Running Code Analysis"
+            sh "${mvn} sonar:sonar -Dspring.profiles.active=dev -Dsonar.host.url=${sonar_url}"
+        }
 
-        // Publish the built war file to Nexus
-        // stage('Publish to Nexus') {
-        //     echo "Publish to Nexus"
-        //     sh "${mvn} deploy -DskipTests -Dquarkus.package.uber-jar=true"
-        // }
+        Publish the built war file to Nexus
+        stage('Publish to Nexus') {
+            echo "Publish to Nexus"
+            sh "${mvn} deploy -DskipTests -Dquarkus.package.uber-jar=true"
+        }
 
-        // //Build the OpenShift Image in OpenShift and tag it.
-        // stage('Build and Tag OpenShift Image') {
-        //     echo "Building OpenShift container image ${app_name}:${devTag}"
-        //     echo "Project : ${dev_project}"
-        //     echo "App : ${app_name}"
-        //     echo "Group ID : ${groupId}"
-        //     echo "Artifact ID : ${artifactId}"
-        //     echo "Version : ${version}"
-        //     echo "Packaging : ${packaging}"
+        //Build the OpenShift Image in OpenShift and tag it.
+        stage('Build and Tag OpenShift Image') {
+            echo "Building OpenShift container image ${app_name}:${devTag}"
+            echo "Project : ${dev_project}"
+            echo "App : ${app_name}"
+            echo "Group ID : ${groupId}"
+            echo "Artifact ID : ${artifactId}"
+            echo "Version : ${version}"
+            echo "Packaging : ${packaging}"
 
-        //     sh "cp target/${artifactId}-*runner.${packaging} ."
-        //     sh "cp ${artifactId}-*runner.${packaging} ${artifactId}-${commitId}.${packaging}"
-        //     sh "pwd && ls -ltr"
+            sh "cp target/${artifactId}-*runner.${packaging} ."
+            sh "cp ${artifactId}-*runner.${packaging} ${artifactId}-${commitId}.${packaging}"
+            sh "pwd && ls -ltr"
 
-        //     openshift.withCluster() {
-        //         openshift.withProject("${dev_project}") {
+            openshift.withCluster() {
+                openshift.withProject("${dev_project}") {
 
-        //             echo "Building ...."
-        //             def bc = openshift.selector( "bc/${app_name}" ).object()
-        //             bc.spec.output.to.name="${registry}/${app_name}:${commitId}"
-        //             openshift.apply(bc)
+                    echo "Building ...."
+                    def bc = openshift.selector( "bc/${app_name}" ).object()
+                    bc.spec.output.to.name="${registry}/${app_name}:${commitId}"
+                    openshift.apply(bc)
 
-        //             def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}-${commitId}.${packaging}")
-        //             nb.logs('-f')
+                    def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}-${commitId}.${packaging}")
+                    nb.logs('-f')
 
-        //         }
-        //     }
+                }
+            }
 
-        // }
+        }
 
         // Deploy the built image to the Development Environment.
         stage('Update Repo') {
-            commitId = "507dcf1"
-            sh "sed -i.bak 's/val1/val2/' argocd/plain-yaml/configmap.yaml"
+            sh "sed -i.bak 's/config.test.data.1=val1/config.test.data.1=val2/' argocd/plain-yaml/configmap.yaml"
             sh "echo \"    lastCommit=${commitId}\" >> argocd/plain-yaml/configmap.yaml"
             sh "cat argocd/plain-yaml/configmap.yaml"
             sh "yq w -i argocd/plain-yaml/deployment.yaml 'spec.template.spec.containers[0].image' quay.io/justindav1s/product:${commitId}"
-            echo "github repo : ${github_repo}"
 
             withCredentials([usernamePassword(credentialsId: 'GIT', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                 sh "git add .."
@@ -143,27 +141,3 @@ def getPackagingFromPom(pom) {
     def matcher = readFile(pom) =~ '<packaging>(.+)</packaging>'
     matcher ? matcher[0][1] : null
 }
-
-
-//def manageVersionData(commitId, commitmsg, groupId, artifactId, project) {
-//
-//    withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-//        def github_repo = "manifest-test"
-//        def trackingrepo = "https://github.com/${GIT_USERNAME}/${github_repo}.git"
-//        echo "1"
-//        git url: "${trackingrepo}", branch: 'master', credentialsId: 'github'
-//        echo "2"
-//        def versionFileName = "version"
-//        versionFileName = groupId+"."+artifactId+"."+project+"."+versionFileName
-//        echo "3"
-//        @Field def timeStamp = Calendar.getInstance().getTime().format('ddMMyy-HH:mm:ss',TimeZone.getTimeZone('GMT'))
-//        echo "4"
-//        def newVersionString = "{ \\\"build\\\": \\\"${env.BUILD_NUMBER}\\\", \\\"timestamp\\\": \\\"${timeStamp}\\\", \\\"commitId\\\": \\\"${commitId}\\\", \\\"commitMsg\\\": \\\"${commitmsg}\\\"}"
-//        sh(returnStdout: true, script: "echo ${newVersionString} >> ${versionFileName}")
-//        echo "5"
-//        sh (returnStdout: true, script: "git config user.email \"jenkins@${GIT_USERNAME}.dev\"; git config user.name \"${GIT_USERNAME}\"")
-//        sh (returnStdout: true, script: "git add ${versionFileName}")
-//        sh (returnStdout: true, script: "git commit -m \"version data update for ${artifactId} to ${env.BUILD_NUMBER}:${commitId}\" || true")
-//        sh (returnStdout: true, script: "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/${github_repo}.git master || true")
-//    }
-//}
