@@ -4,6 +4,8 @@
 
 replicaCount: 1
 
+containerPort: 8080
+
 image:
   repository: quay.io/justindav1s/product
   pullPolicy: IfNotPresent
@@ -11,6 +13,12 @@ image:
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+
+livenessProbe:
+  path: /health/live
+
+readinessProbe:
+  path: /health/ready
 
 serviceAccount:
   # Specifies whether a service account should be created
