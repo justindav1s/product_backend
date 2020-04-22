@@ -12,5 +12,10 @@
 
 ## New Service
 
-3scale import openapi -d 3scale product_openapi3.yaml --override-private-base-url=http://product-amazin-quarkus.apps.ocp4.datr.eu/ -t product-catalog
+3scale import openapi \
+    -d 3scale \
+    product_openapi3.yaml \
+    --override-private-base-url=http://product-amazin-quarkus.apps.ocp4.datr.eu \
+    -t product-catalog default \
+    --default-credentials-userkey=monkey123
 
