@@ -9,7 +9,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
+import java.util.Collection;
+
 import org.jboss.logging.Logger;
+
+import java.util.List;
 
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Request;
@@ -39,6 +43,7 @@ public class ProductService {
     public String ok() {
         return "OK";
     }
+
     @GET
     @Path("/health")
     @Produces(MediaType.TEXT_PLAIN)
@@ -51,11 +56,11 @@ public class ProductService {
     @Produces(MediaType.APPLICATION_JSON)
     public Product[] all(@Context UriInfo uriInfo, @Context Request req) {
 
-        log.info(req.getMethod()+" "+uriInfo.getRequestUri());
+        log.info(req.getMethod() + " " + uriInfo.getRequestUri());
 
-        Product[] products = (Product[])repository.getProducts().values().toArray();
+        Collection<Product> products = repository.getProducts().values();
         log.debug(products);
-        return products;
+        return products.toArray(new Product[products.size()]);
     }
 
     @GET
@@ -66,9 +71,9 @@ public class ProductService {
         log.info("Product get types");
         log.info(req.getMethod()+" "+uriInfo.getRequestUri());
 
-        String[] types = (String[])repository.getTypes().toArray();
+        List<String> types = repository.getTypes();
 
-        return types;
+        return types.toArray(new String[types.size()]);
     }
 
     @GET
