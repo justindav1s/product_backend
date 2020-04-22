@@ -25,7 +25,7 @@ public class CustomConfigService {
 
     @GET
     @Path("/1")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     public String data1(@Context UriInfo uriInfo, @Context Request req) {
 
         log.info(req.getMethod()+" "+uriInfo.getRequestUri());
@@ -35,7 +35,7 @@ public class CustomConfigService {
 
     @GET
     @Path("/2")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     public String data2(@Context UriInfo uriInfo, @Context Request req) {
 
         log.info(req.getMethod()+" "+uriInfo.getRequestUri());

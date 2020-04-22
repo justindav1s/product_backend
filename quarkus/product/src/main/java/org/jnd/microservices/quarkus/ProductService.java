@@ -49,11 +49,11 @@ public class ProductService {
     @GET
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public Object[] all(@Context UriInfo uriInfo, @Context Request req) {
+    public Product[] all(@Context UriInfo uriInfo, @Context Request req) {
 
         log.info(req.getMethod()+" "+uriInfo.getRequestUri());
 
-        Object[] products = (Object[])repository.getProducts().values().toArray();
+        Product[] products = (Product[])repository.getProducts().values().toArray();
         log.debug(products);
         return products;
     }
@@ -61,12 +61,12 @@ public class ProductService {
     @GET
     @Path("/types")
     @Produces(MediaType.APPLICATION_JSON)
-    public Object[] getTypes(@Context UriInfo uriInfo, @Context Request req) {
+    public String[] getTypes(@Context UriInfo uriInfo, @Context Request req) {
 
         log.info("Product get types");
         log.info(req.getMethod()+" "+uriInfo.getRequestUri());
 
-        Object[] types = (Object[])repository.getTypes().toArray();
+        String[] types = (String[])repository.getTypes().toArray();
 
         return types;
     }
@@ -74,7 +74,7 @@ public class ProductService {
     @GET
     @Path("/type/{type}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Object[] getProductsOfType(@PathParam("type") String type, @Context UriInfo uriInfo, @Context Request req) {
+    public Product[] getProductsOfType(@PathParam("type") String type, @Context UriInfo uriInfo, @Context Request req) {
 
         log.debug("Product get of type :"+type);
         log.info(req.getMethod()+" "+uriInfo.getRequestUri());
@@ -86,7 +86,7 @@ public class ProductService {
             }
         }
 
-        return products.toArray();
+        return products.toArray(new Product[products.size()]);
     }
 
     @GET
