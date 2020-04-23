@@ -4,6 +4,7 @@ metadata:
   labels:
     app: product
   name: product-config
+  namespace: product-plain-yaml
 data:
   application.properties: |-
     quarkus.log.console.enable=true

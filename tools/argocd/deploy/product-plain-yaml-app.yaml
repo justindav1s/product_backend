@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: product-plain-yaml-app
+spec:
+  destination:
+    namespace: default
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    path: quarkus/product/argocd/plain-yaml
+    repoURL: 'git@github.com:justindav1s/microservices-on-openshift.git'
+    targetRevision: HEAD

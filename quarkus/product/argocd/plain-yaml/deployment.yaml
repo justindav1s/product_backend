@@ -4,6 +4,7 @@ metadata:
   labels:
     app: product
   name: product
+  namespace: product-plain-yaml  
 spec:
   replicas: 1
   selector:
