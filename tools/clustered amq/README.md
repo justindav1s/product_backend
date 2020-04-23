@@ -1,1 +1,0 @@
-https://access.redhat.com/documentation/en-us/red_hat_amq/7.2/html/deploying_amq_broker_on_openshift_container_platform/install-deploy-ocp-broker-ocp
