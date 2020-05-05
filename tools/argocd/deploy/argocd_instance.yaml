@@ -17,7 +17,7 @@ spec:
   server:
     host: argocd-argocd.apps.ocp4.datr.eu
     route: true 
-    insecure: true
+    insecure: false
   initialRepositories: |
     - url: git@github.com:justindav1s/argocd-resources.git
       sshPrivateKeySecret:

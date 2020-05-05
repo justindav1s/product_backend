@@ -9,7 +9,7 @@
 
 #Run this on linux, sed misbehaves on a Mac
 
-set -x 
+set +x 
 
 while getopts n:u:t:h--help: option; do
   case "${option}" in
