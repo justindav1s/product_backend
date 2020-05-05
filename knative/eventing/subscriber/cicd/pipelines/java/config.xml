@@ -74,7 +74,7 @@
             <submoduleCfg class="list"/>
             <extensions/>
         </scm>
-        <scriptPath>quarkus/subscriber/cicd/pipelines/java/java.pipeline.quayio.groovy</scriptPath>
+        <scriptPath>knative/eventing/subscriber/cicd/pipelines/java/java.pipeline.quayio.groovy</scriptPath>
         <lightweight>true</lightweight>
     </definition>
     <triggers/>

@@ -22,5 +22,5 @@ ${CURL} -H "Content-Type: text/xml" \
   --user ${JENKINS_USER}:${JENKINS_TOKEN} \
   -H Jenkins-Crumb:${CRUMB} \
   --data-binary @config.xml \
-  -X POST https://${JENKINS}/createItem?name=amazin-${APP}
+  -X POST https://${JENKINS}/createItem?name=knative-${APP}
 

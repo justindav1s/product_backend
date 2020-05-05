@@ -23,7 +23,7 @@ node('maven') {
     def commitId  = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
     def commitmsg  = sh(returnStdout: true, script: "git log --format=%B -n 1 ${commitId}").trim()
 
-    dir("knative/eventing/${app_name}") {
+    dir("${org}/eventing/${app_name}") {
 
         groupId      = getGroupIdFromPom("pom.xml")
         artifactId   = getArtifactIdFromPom("pom.xml")
