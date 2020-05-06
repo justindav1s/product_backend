@@ -47,7 +47,7 @@ public class Emitter {
 
         log.debug("Attempting to send to Broker");
         
-        data = ("{\"data\": \""+data+"\"");
+        data = ("{\"data\": \""+data+"\" }");
         log.debug("Data : "+data);
 
         log.info(req.getMethod()+" "+uriInfo.getRequestUri());
