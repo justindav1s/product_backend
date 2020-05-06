@@ -21,9 +21,8 @@ public interface BrokerClient {
     // -H "ce-id: 123-abc"
     
     @POST
-    @Produces("application/json")
-    Response send(String data,
-            @HeaderParam("content-type") String contenttype,
+    //@Produces("application/json")
+    Response send(String data, 
             @HeaderParam("ce-specversion") String specversion,
             @HeaderParam("ce-source") String source,
             @HeaderParam("ce-type") String type,

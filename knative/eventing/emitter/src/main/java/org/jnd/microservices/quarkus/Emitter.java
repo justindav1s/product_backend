@@ -64,7 +64,7 @@ public class Emitter {
         String type = "test.request";
         String id = "1";
 
-        Response response = brokerClient.send(data, contenttype, specversion, source, type, id);
+        Response response = brokerClient.send(data, specversion, source, type, id);
 
         log.debug("Sent to Broker");
 
