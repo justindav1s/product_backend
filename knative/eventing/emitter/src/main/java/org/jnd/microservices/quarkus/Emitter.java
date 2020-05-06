@@ -4,6 +4,7 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -44,9 +45,25 @@ public class Emitter {
     public String echo(@PathParam("data") String data, @Context UriInfo uriInfo, @Context Request req) {
 
         log.debug("Attempting to send to Broker");
+        
+        data = ("{\"data\": \""+data+"\"");
+        log.debug("Data : "+data);
+
         log.info(req.getMethod()+" "+uriInfo.getRequestUri());
 
-        String response = brokerClient.send(data);
+        // -H "content-type: application/json"
+        // -H "ce-specversion: 1.0"
+        // -H "ce-source: curl-command"
+        // -H "ce-type: curl.demo"
+        // -H "ce-id: 123-abc"
+
+        String contenttype = "application/json"; 
+        String specversion = "0.3";
+        String source = "jd-emitter";
+        String type = "test.request";
+        String id = "1";
+
+        String response = brokerClient.send(data, contenttype, specversion, source, type, id);
 
         log.debug("Sent to Broker");
 
