@@ -8,7 +8,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 
-@Path("/broker")
+@Path("/client")
 @RegisterRestClient
 public interface BrokerClient {
 
