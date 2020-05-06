@@ -15,6 +15,7 @@ import org.jboss.logging.Logger;
 
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Request;
+import javax.ws.rs.core.Response;
 
 import io.quarkus.runtime.StartupEvent;
 import io.quarkus.runtime.configuration.ProfileManager;
@@ -63,11 +64,11 @@ public class Emitter {
         String type = "test.request";
         String id = "1";
 
-        String response = brokerClient.send(data, contenttype, specversion, source, type, id);
+        Response response = brokerClient.send(data, contenttype, specversion, source, type, id);
 
         log.debug("Sent to Broker");
 
-        return response;
+        return ""+response.getStatus();
     }
 
 

@@ -6,6 +6,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
 
 @Path("/")
@@ -20,7 +21,7 @@ public interface BrokerClient {
     
     @POST
     @Produces("application/json")
-    String send(String data,
+    Response send(String data,
             @HeaderParam("content-type") String contenttype,
             @HeaderParam("ce-specversion") String specversion,
             @HeaderParam("ce-source") String source,
