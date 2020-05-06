@@ -48,6 +48,8 @@ public class Emitter {
 
         String response = brokerClient.send(data);
 
+        log.debug("Sent to Broker");
+
         return response;
     }
 
