@@ -30,7 +30,7 @@ public class QuarkusTests {
       JsonNode node = mapper.readTree(response.asString());
       log.info(response.asString());
       log.info("Status : "+node.get("status"));
-      assertThat(node.get("checks").get(0).get("name").asText(), equalToIgnoringCase("ServiceB Health"));
+      assertThat(node.get("checks").get(0).get("name").asText(), equalToIgnoringCase("Subscriber Health"));
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -45,7 +45,7 @@ public class QuarkusTests {
       JsonNode node = mapper.readTree(response.asString());
       log.info(response.asString());
       log.info("Status : "+node.get("status"));
-      assertThat(node.get("checks").get(0).get("name").asText(), equalToIgnoringCase("ServiceB Health"));
+      assertThat(node.get("checks").get(0).get("name").asText(), equalToIgnoringCase("Subscriber Health"));
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -54,14 +54,15 @@ public class QuarkusTests {
 
   @Test
   public void testHealthEndpoint() {
-    given().when().get("/subscribe/health").then().statusCode(200).body(is("OK"));
+    given().when().get("/healthz").then().statusCode(200).body(is("OK"));
   }
 
 
 
   @Test
-  public void testServiceb() {
-    given().when().get("/subscribe/echo/test_data").then().statusCode(200).body(is("From Subscriber : test_data"));
+  public void testSubscriberEcho() {
+
+    given().when().body("test_data").post("/").then().statusCode(200).body(is("{\"data\": \"from the subscriber\"}"));;
   }
 
  

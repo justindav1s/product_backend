@@ -13,6 +13,6 @@ public class SimpleHealthCheck implements HealthCheck {
 
     @Override
     public HealthCheckResponse call() {
-        return HealthCheckResponse.up("ServiceB Health");
+        return HealthCheckResponse.up("Subscriber Health");
     }
 }
