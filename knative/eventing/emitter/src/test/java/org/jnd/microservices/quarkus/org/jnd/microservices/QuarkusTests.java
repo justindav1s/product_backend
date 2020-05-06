@@ -60,10 +60,10 @@ public class QuarkusTests {
 
 
 
-  // @Test
-  // public void testServiceb() {
-  //   given().when().get("/servicea/echo/data_from_service_a").then().statusCode(200).body(is("From Service B : data_from_service_a"));
-  // }
+  @Test
+  public void testServiceb() {
+    given().when().get("/emit/broker/test_data").then().statusCode(200);
+  }
 
  
 
