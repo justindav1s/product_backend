@@ -23,8 +23,8 @@ public interface BrokerClient {
     @POST
     //@Produces("application/json")
     Response send(String data, 
-            @HeaderParam("ce-specversion") String specversion,
-            @HeaderParam("ce-source") String source,
-            @HeaderParam("ce-type") String type,
-            @HeaderParam("ce-id") String id);
+            @HeaderParam("Ce-Specversion") String specversion,
+            @HeaderParam("Ce-Source") String source,
+            @HeaderParam("Ce-Type") String type,
+            @HeaderParam("Ce-Id") String id);
 }
