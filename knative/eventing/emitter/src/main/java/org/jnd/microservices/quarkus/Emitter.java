@@ -43,6 +43,7 @@ public class Emitter {
     @Produces(MediaType.APPLICATION_JSON)
     public String echo(@PathParam("data") String data, @Context UriInfo uriInfo, @Context Request req) {
 
+        log.debug("Attempting to send to Broker");
         log.info(req.getMethod()+" "+uriInfo.getRequestUri());
 
         String response = brokerClient.send(data);
