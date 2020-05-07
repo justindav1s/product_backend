@@ -30,7 +30,7 @@ oc new-build nginx https://github.com/justindav1s/microservices-on-openshift \
     --push-secret="quayio-dockercfg" \
     --source-image="registry.redhat.io/rhel8/nginx-116" \
     --to="quay.io/justindav1s" \
-    --context-dir=""
+    --context-dir="api-routing/nginx/src"
     --strategy="Source"
 
 
