@@ -20,17 +20,18 @@ oc create secret docker-registry rh-dockercfg \
   -n $PROJECT
 
 oc create secret docker-registry quayio-dockercfg \
-  --docker-server=${QUAYIO_REGISTRY} \
+  --docker-server=quay.io \
   --docker-username=${QUAYIO_USER} \
   --docker-password=${QUAYIO_PASSWORD} \
   --docker-email=${QUAYIO_EMAIL} \
   -n $PROJECT
 
-oc new-build nginx https://github.com/justindav1s/microservices-on-openshift \
+oc new-build https://github.com/justindav1s/microservices-on-openshift \
+    --docker-image="rhel8/nginx-116" \
     --push-secret="quayio-dockercfg" \
-    --source-image="registry.redhat.io/rhel8/nginx-116" \
-    --to="quay.io/justindav1s" \
-    --context-dir="api-routing/nginx/src"
-    --strategy="Source"
+    --to="quay.io/justindav1s/nginx" \
+    --context-dir="api-routing/nginx/src" \
+    --strategy="Source" \
+    --allow-missing-images
 
 
