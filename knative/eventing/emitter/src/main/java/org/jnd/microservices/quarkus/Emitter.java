@@ -58,7 +58,7 @@ public class Emitter {
         // -H "ce-type: curl.demo"
         // -H "ce-id: 123-abc"
 
-        String contenttype = "application/json"; 
+        //String contenttype = "application/json"; 
         String specversion = "0.3";
         String source = "jd-emitter";
         String type = "test.request";
