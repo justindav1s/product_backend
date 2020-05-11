@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: "registry.redhat.io/rhscl/nginx-116-rhel7"
+          image: "quay.io/justindav1s/nginx:latest"
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -39,7 +39,7 @@ spec:
           terminationMessagePolicy: File
           imagePullPolicy: Always
       imagePullSecrets:
-        - name: rh-dockercfg
+        - name: quayio-dockercfg
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
