@@ -1,5 +1,9 @@
 FROM ubi8/s2i-core:rhel8.2
 
+COPY ./etc-pki-entitlement /etc/pki/entitlement
+COPY ./rhsm-conf /etc/rhsm
+COPY ./rhsm-ca /etc/rhsm/ca
+
 EXPOSE 8080
 EXPOSE 8443
 
