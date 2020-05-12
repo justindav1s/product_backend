@@ -1,4 +1,4 @@
-FROM registry.redhat.io/ubi8/ubi
+FROM ubi8/s2i-core:rhel8.2
 
 EXPOSE 8080
 EXPOSE 8443
