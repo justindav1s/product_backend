@@ -12,7 +12,7 @@ ENV NAME=nginx \
     NGINX_SHORT_VER=116 \
     VERSION=0
 
-RUN subscription-manager repos \
+RUN rm /etc/rhsm-host && subscription-manager repos \
     --disable=rhel-7-server-htb-rpms \
     --enable="rhel-7-server-rpms" \
     --enable="rhel-7-server-extras-rpms"    
@@ -25,7 +25,7 @@ ENV NGINX_CONFIGURATION_PATH=${APP_ROOT}/etc/nginx.d \
     NGINX_LOG_PATH=/var/log/nginx \
     NGINX_PERL_MODULE_PATH=${APP_ROOT}/etc/perl
 
-RUN rm /etc/rhsm-host && yum -y update && yum -y install nginx && \
+RUN yum -y update && yum -y install nginx && \
     INSTALL_PKGS="nss_wrapper bind-utils gettext hostname nginx nginx-mod-stream nginx-mod-http-perl" && \
     yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
