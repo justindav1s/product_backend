@@ -1,4 +1,4 @@
-FROM ubi8/s2i-core:rhel8.2
+FROM registry.redhat.io/rhel7
 
 COPY ./etc-pki-entitlement /etc/pki/entitlement
 COPY ./rhsm-conf /etc/rhsm
@@ -12,6 +12,11 @@ ENV NAME=nginx \
     NGINX_SHORT_VER=116 \
     VERSION=0
 
+RUN subscription-manager repos \
+    --disable=rhel-7-server-htb-rpms \
+    --enable="rhel-7-server-rpms" \
+    --enable="rhel-7-server-extras-rpms"    
+
 ENV NGINX_CONFIGURATION_PATH=${APP_ROOT}/etc/nginx.d \
     NGINX_CONF_PATH=/etc/nginx/nginx.conf \
     NGINX_DEFAULT_CONF_PATH=${APP_ROOT}/etc/nginx.default.d \
@@ -20,7 +25,7 @@ ENV NGINX_CONFIGURATION_PATH=${APP_ROOT}/etc/nginx.d \
     NGINX_LOG_PATH=/var/log/nginx \
     NGINX_PERL_MODULE_PATH=${APP_ROOT}/etc/perl
 
-RUN yum -y install nginx:$NGINX_VERSION && yum -y module enable nginx:$NGINX_VERSION && \
+RUN yum -y update && yum -y install nginx && \
     INSTALL_PKGS="nss_wrapper bind-utils gettext hostname nginx nginx-mod-stream nginx-mod-http-perl" && \
     yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
