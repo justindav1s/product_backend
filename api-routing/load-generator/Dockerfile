@@ -1,6 +1,6 @@
 FROM centos
 
-RUN yum -y update && yum -y install curl nginx wget git
+RUN yum -y update && yum -y install curl nginx wget git epel-release
 
 RUN sed -i.bak 's/80/8080/g' /etc/nginx/nginx.conf
 RUN sed -i.bak 's/443/8433/g' /etc/nginx/nginx.conf
