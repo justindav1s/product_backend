@@ -13,4 +13,4 @@ EXPOSE 8443/tcp
 
 USER 1001 
 
-CMD ["nginx -g daemon off"]
+CMD ["nginx", "-g", "daemon off"]
