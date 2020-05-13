@@ -1,8 +1,8 @@
 #!/bin/bash
+set -e
 
-echo starting nginx 
-
-/usr/bin/nginx -g daemon off
+echo PATH : $PATH
+exec /usr/sbin/nginx -g "daemon off;"
 
 
 

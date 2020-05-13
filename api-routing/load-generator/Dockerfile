@@ -12,7 +12,8 @@ EXPOSE 8080/tcp
 EXPOSE 8443/tcp
 
 COPY /nginx.sh /
-
+RUN chmod 777 /nginx.sh
+RUN chmod -R 777 /run
 USER 1001 
 
-CMD ["/nginx.sh"]
+ENTRYPOINT [ "/nginx.sh" ]
