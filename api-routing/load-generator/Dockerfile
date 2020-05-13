@@ -19,4 +19,4 @@ RUN chmod 777 /nginx.sh
 
 USER 1001 
 
-#ENTRYPOINT [ "/nginx.sh" ]
+ENTRYPOINT [ "/nginx.sh" ]
