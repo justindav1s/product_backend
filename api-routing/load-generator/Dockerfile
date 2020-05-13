@@ -11,6 +11,8 @@ RUN wget https://storage.googleapis.com/hey-release/hey_linux_amd64 && \
 EXPOSE 8080/tcp
 EXPOSE 8443/tcp
 
+COPY /nginx.sh /
+
 USER 1001 
 
-CMD ["nginx", "-g", "daemon off"]
+CMD ["/nginx.sh"]
