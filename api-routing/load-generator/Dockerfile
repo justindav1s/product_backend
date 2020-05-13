@@ -1,4 +1,4 @@
-FROM registry.redhat.io/rhel7/rhel
+FROM centos
 
 RUN yum -y update && yum -y install curl
 
