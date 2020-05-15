@@ -1,0 +1,73 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: nginx-proxy
+  name: nginx-proxy
+spec:
+  replicas: 1
+  selector:
+    app: nginx-proxy
+    deploymentconfig: nginx-proxy
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      labels:
+        app: nginx-proxy
+        deploymentconfig: nginx-proxy
+    spec:
+      imagePullSecrets:
+        - name: quayio-dockercfg
+      containers:
+      - image: ''
+        imagePullPolicy: Always
+        name: nginx-proxy
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        - containerPort: 8443
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+          - mountPath: /opt/app-root/etc/nginx.default.d
+            name: proxy-conf-volume
+          - mountPath: /test-data
+            name: test-data-volume              
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: proxy-conf-volume 
+          configMap:
+            name: proxy-conf
+            defaultMode: 420
+        - name: test-data-volume 
+          configMap:
+            name: test-data 
+            defaultMode: 420               
+  test: false
+  triggers:
+  - type: ConfigChange
+  - type: ImageChange
+    imageChangeParams:
+      automatic: true
+      containerNames:
+      - nginx-proxy
+      from:
+        kind: ImageStreamTag
+        name: nginx-proxy:latest
+        namespace: cd-improvements
+    
