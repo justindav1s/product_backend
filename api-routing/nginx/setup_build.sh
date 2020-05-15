@@ -27,16 +27,24 @@ oc create secret docker-registry quayio-dockercfg \
   -n $PROJECT
 
 oc create secret docker-registry datr-dockercfg \
-  --docker-server=nexus-docker-cicd.apps.ocp4.datr.eu \
+  --docker-server=nexus3-docker-cicd.apps.ocp4.datr.eu \
   --docker-username=admin \
   --docker-password=monkey123 \
-  --docker-email=docker@nexus.com \
+  --docker-email=admin@example.org \
   -n $PROJECT
+
+oc create secret docker-registry nexus-dockercfg \
+  --docker-server=nexus3-docker-cicd.apps.ocp4.datr.eu \
+  --docker-username=${NEXUS_USER} \
+  --docker-password=${NEXUS_PASSWORD} \
+  --docker-email=docker@gmail.com \
+  -n ${PROJECT}  
 
 
 oc secrets link builder datr-dockercfg
 oc secrets link builder rh-dockercfg
 oc secrets link builder quayio-dockercfg
+oc secrets link builder --for=pull datr-dockercfg
 
 oc new-build registry.redhat.io/rhel8/nginx-116~https://github.com/justindav1s/microservices-on-openshift \
     --push-secret="datr-dockercfg" \

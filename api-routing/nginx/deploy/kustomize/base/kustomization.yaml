@@ -1,5 +1,12 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- deploymentconfig.yaml
+- deployment.yaml
 - service.yaml
+
+
+secretGenerator:
+- name: nexus-dockercfg
+  files:
+  - .dockerconfigjson=secrets/nexus-dockerconfig.json
+  type: "kubernetes.io/dockerconfigjson"

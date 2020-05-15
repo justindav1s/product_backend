@@ -3,34 +3,19 @@ kind: Kustomization
 resources:
 - ../../base
 
-namePrefix: nginx-proxy-
 commonLabels:
   app: nginx-proxy
 
 configMapGenerator:
 - files:
   - proxy.conf
-  name: api-gateway-config
+  name: proxy-conf
 
 replicas:
-- name: api-gateway-deployment
+- name: nginx-proxy
   count: 1
   
 images:
 - name: image
-  newName: nexus3-docker-cicd.apps.ocp4.datr.eu/repository/docker/amazin-dev/api-gateway
-  newTag: latest    
-
-patchesJson6902:
-- target:
-    group: apps
-    version: v1
-    kind: Deployment
-    name: api-gateway-deployment
-  path: deployment-json-patches.yaml 
-- target:
-    group:
-    version: v1
-    kind: Service
-    name: api-gateway-service
-  path: service-json-patches.yaml    
+  newName: nexus3-docker-cicd.apps.ocp4.datr.eu/repository/docker/nginx/nginx-proxy
+  newTag: latest

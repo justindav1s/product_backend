@@ -1,5 +1,5 @@
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   labels:
     app: nginx-proxy
@@ -18,7 +18,7 @@ spec:
       maxUnavailable: 25%
       timeoutSeconds: 600
       updatePeriodSeconds: 1
-    type: Rolling
+    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -26,9 +26,9 @@ spec:
         deploymentconfig: nginx-proxy
     spec:
       imagePullSecrets:
-        - name: quayio-dockercfg
+        - name: nexus-dockercfg
       containers:
-      - image: ''
+      - image: image
         imagePullPolicy: Always
         name: nginx-proxy
         ports:
@@ -41,9 +41,7 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
           - mountPath: /opt/app-root/etc/nginx.default.d
-            name: proxy-conf-volume
-          - mountPath: /test-data
-            name: test-data-volume              
+            name: proxy-conf-volume            
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -53,21 +51,8 @@ spec:
         - name: proxy-conf-volume 
           configMap:
             name: proxy-conf
-            defaultMode: 420
-        - name: test-data-volume 
-          configMap:
-            name: test-data 
-            defaultMode: 420               
+            defaultMode: 420             
   test: false
   triggers:
   - type: ConfigChange
-  - type: ImageChange
-    imageChangeParams:
-      automatic: true
-      containerNames:
-      - nginx-proxy
-      from:
-        kind: ImageStreamTag
-        name: nginx-proxy:latest
-        namespace: cd-improvements
     
