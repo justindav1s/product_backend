@@ -34,12 +34,13 @@ oc create secret docker-registry datr-dockercfg \
   -n $PROJECT
 
 
+oc secrets link builder datr-dockercfg
 oc secrets link builder rh-dockercfg
 oc secrets link builder quayio-dockercfg
 
 oc new-build registry.redhat.io/rhel8/nginx-116~https://github.com/justindav1s/microservices-on-openshift \
     --push-secret="datr-dockercfg" \
-    --to="docker-cicd.apps.ocp4.datr.eu/nginx-proxy" \
+    --to="nexus3-docker-cicd.apps.ocp4.datr.eu/repository/docker/nginx/nginx-proxy:latest" \
     --context-dir="api-routing/nginx/src" \
     --strategy="Source" \
     --to-docker=true \
