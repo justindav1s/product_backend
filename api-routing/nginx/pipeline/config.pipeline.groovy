@@ -25,8 +25,8 @@ node('maven') {
             openshift.withCluster() {
                 openshift.withProject(project) {
 
-                    def configmap-name  = sh(returnStdout: true, script: "echo ${config-file-name} | sed 's/\./-/'").trim()
-
+                    //def configmap-name  = sh(returnStdout: true, script: "echo ${config-file-name} | sed 's/\./-/'").trim()
+                    def cm-name  = sh(returnStdout: true, script: "echo ${config-file-name} | sed 's/\./-/'")
                     sh "oc create configmap ${configmap-name} --from-file=proxy.conf=${config-file-name}"
                     
 
