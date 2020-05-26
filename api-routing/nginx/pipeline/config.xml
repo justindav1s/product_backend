@@ -34,7 +34,7 @@
                 <hudson.model.StringParameterDefinition>
                     <name>config_file</name>
                     <description>a config file to be attached to a configmap</description>
-                    <defaultValue>cloud-proxy.conf</defaultValue>
+                    <defaultValue>proxy1.conf</defaultValue>
                 </hudson.model.StringParameterDefinition>
             </parameterDefinitions>
         </hudson.model.ParametersDefinitionProperty>
