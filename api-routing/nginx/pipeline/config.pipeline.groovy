@@ -13,7 +13,7 @@ node('maven') {
         git url: "${git_url}", branch: 'master'
     }
 
-    dir("config/${project}") {
+    dir("api-routing/nginx/config/${project}") {
 
         // Deploy the configMap
         stage('Deploy to ConfigMap') {
