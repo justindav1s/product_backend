@@ -25,7 +25,7 @@ node('maven') {
 
                     //def configmap-name  = sh(returnStdout: true, script: "echo ${config-file-name} | sed 's/\./-/'").trim()
                     sh(returnStdout: true, script: "echo ${config_file}")
-                    sh "oc create configmap ${configmap-name} --from-file=proxy.conf=${config-file-name}"
+                    sh "oc create configmap ${configmap-name} --from-file=proxy.conf=${config_file}"
                     
 
                 }
