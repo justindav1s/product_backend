@@ -12,7 +12,7 @@ spec:
   rbac:
     defaultPolicy: 'role:readonly'
     policy: |
-      g, cluster-admins, role:admin
+      g, argocd-admins, role:admin
     scopes: '[groups]'    
   server:
     host: argocd-argocd.apps.ocp4.datr.eu

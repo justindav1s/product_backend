@@ -22,6 +22,7 @@ RUN yum -y install gcc gcc-c++ glibc-devel libstdc++-devel libstdc++ zlib zlib-d
 
 RUN  wget https://github.com/argoproj/argo-cd/releases/download/v1.5.1/argocd-linux-amd64 \
     && cp argocd-linux-amd64 /usr/local/bin/argocd \
+    && rm -rf argocd-linux-amd64 \
     && chmod 777 /usr/local/bin/argocd
 
 RUN wget https://github.com/mikefarah/yq/releases/download/3.2.1/yq_linux_amd64 \

@@ -4,9 +4,9 @@ metadata:
   name: product-plain-yaml-app
 spec:
   destination:
-    namespace: default
+    namespace: project1-dev
     server: 'https://kubernetes.default.svc'
-  project: default
+  project: argocd-project1
   source:
     path: quarkus/product/argocd/plain-yaml
     repoURL: 'git@github.com:justindav1s/microservices-on-openshift.git'
