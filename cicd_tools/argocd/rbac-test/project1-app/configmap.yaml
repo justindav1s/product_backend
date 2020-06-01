@@ -18,3 +18,4 @@ data:
     active.profile=dev
 
     config.test.data.1=val4
+    config.test.data.1=val4
