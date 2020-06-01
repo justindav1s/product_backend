@@ -11,3 +11,7 @@ spec:
     path: cicd_tools/argocd/rbac-test/project1-app
     repoURL: 'git@github.com:justindav1s/microservices-on-openshift.git'
     targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true    

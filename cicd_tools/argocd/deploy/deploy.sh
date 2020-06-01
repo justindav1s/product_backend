@@ -25,4 +25,5 @@ oc apply -f project1-groups.yaml
 oc apply -f project2-groups.yaml
 oc apply -f argocd-project1.yaml
 oc apply -f argocd-project2.yaml
-oc apply -f product-plain-yaml-app.yaml
+oc apply -f project1-app.yaml
+oc apply -f project2-app.yaml
