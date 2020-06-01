@@ -3,7 +3,7 @@ kind: AppProject
 metadata:
   name: argocd-project2
 spec:
-  description: ArgoCD Project 1
+  description: ArgoCD Project 2
   # Allow manifests to deploy from any Git repos
   sourceRepos:
   - '*'
@@ -38,7 +38,7 @@ spec:
   - name: argocd-project2-ro
     description: Read-only privileges to argocd-project2
     policies:
-    - p, proj:argocd-project2:read-only, applications, get, argocd-project2/*, allow
+    - p, role:project2-ro, applications, get, argocd-project2/*, allow
     groups:
     - argocd-project2-ro
   # A role which provides sync privileges to only the guestbook-dev application, e.g. to provide
@@ -46,6 +46,6 @@ spec:
   - name: argocd-project2-admin
     description: Sync privileges for argocd-project2
     policies:
-    - p, proj:argocd-project2:project2-admin, applications, sync, argocd-project2/*, allow
+    - p, role:project2-admin, applications, sync, argocd-project2/*, allow
     groups:
     - argocd-project2-admins

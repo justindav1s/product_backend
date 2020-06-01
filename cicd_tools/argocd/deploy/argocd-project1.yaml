@@ -38,7 +38,7 @@ spec:
   - name: argocd-project1-ro
     description: Read-only privileges to argocd-project1
     policies:
-    - p, proj:argocd-project1:read-only, applications, get, argocd-project1/*, allow
+    - p, role:project1-ro, applications, get, argocd-project1/*, allow
     groups:
     - argocd-project1-ro
   # A role which provides sync privileges to only the guestbook-dev application, e.g. to provide
@@ -46,6 +46,7 @@ spec:
   - name: argocd-project1-admin
     description: Sync privileges for argocd-project1
     policies:
-    - p, proj:argocd-project1:project1-admin, applications, sync, argocd-project1/*, allow
+    - p, role:project1-admin, applications, *, argocd-project1/*, allow
+    - p, role:project1-admin, repositories, *, argocd-project1/*, allow
     groups:
     - argocd-project1-admins

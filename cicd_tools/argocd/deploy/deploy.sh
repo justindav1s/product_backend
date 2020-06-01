@@ -18,6 +18,7 @@ oc create secret generic github-secret --from-file=ssh-privatekey=${HOME}/.ssh/i
 
 oc apply -f operatorgroup.yaml
 oc apply -f subscription.yaml
+
 oc apply -f argocd_instance.yaml
 oc apply -f argocd-admins-group.yaml
 oc apply -f project1-groups.yaml

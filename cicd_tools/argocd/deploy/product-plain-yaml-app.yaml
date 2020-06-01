@@ -8,6 +8,6 @@ spec:
     server: 'https://kubernetes.default.svc'
   project: argocd-project1
   source:
-    path: quarkus/product/argocd/plain-yaml
+    path: cicd_tools/argocd/rbac-test/project1-test
     repoURL: 'git@github.com:justindav1s/microservices-on-openshift.git'
     targetRevision: HEAD
