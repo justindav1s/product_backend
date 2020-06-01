@@ -46,6 +46,7 @@ spec:
   - name: argocd-project2-admin
     description: Sync privileges for argocd-project2
     policies:
-    - p, role:project2-admin, applications, sync, argocd-project2/*, allow
+    - p, role:project2-admin, applications, *, argocd-project2/*, allow
+    - p, role:project2-admin, repositories, *, argocd-project2/*, allow
     groups:
     - argocd-project2-admins
