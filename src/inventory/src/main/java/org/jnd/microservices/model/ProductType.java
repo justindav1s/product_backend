@@ -14,6 +14,11 @@ public enum ProductType {
                 return "gadgets";
             case CLOTHES:
                 return "clothes";
+             //missing default case
+            default:
+                // add default case
+                break;
+
         }
         return null;
     }
