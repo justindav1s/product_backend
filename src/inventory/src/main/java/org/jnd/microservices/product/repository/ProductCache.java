@@ -6,6 +6,7 @@ import org.jnd.microservices.model.ProductType;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component("ProductCache")
 public class ProductCache {
 
     public Map<String, Product> getFood()   {
