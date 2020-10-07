@@ -36,9 +36,9 @@ objects:
     output:
       to:    
         kind: "DockerImage"
-        name: "${REG_HOST}/repository/docker/${APPLICATION_NAME}:${SONARQUBE_VERSION}"
+        name: "${REG_HOST}/justindav1s/${APPLICATION_NAME}:${SONARQUBE_VERSION}"
       pushSecret:
-        name: nexus-dockercfg      
+        name: reg-dockercfg      
     resources: {}
     postCommit: {}
     

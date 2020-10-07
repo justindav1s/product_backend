@@ -6,7 +6,9 @@ oc login https://${IP} -u ${USER}
 
 APP=sonarqube
 VERSION=7.9
-REG_HOST=nexus3-docker-cicd.apps.ocp4.datr.eu
+REG_HOST=quay.io
+REG_USER=${QUAYIO_USER}
+REG_PASSWORD=${QUAYIO_PASSWORD}
 #REG_HOST=nexus3-docker-cicd.apps-crc.testing
 
 oc project cicd
@@ -19,21 +21,21 @@ oc delete persistentvolumeclaim ${APP}-extensions
 oc delete serviceaccounts ${APP}
 oc delete service ${APP}
 oc delete route ${APP}
-oc delete secret nexus-dockercfg
+oc delete secret reg-dockercfg
 
-oc create secret docker-registry nexus-dockercfg \
+oc create secret docker-registry reg-dockercfg \
   --docker-server=${REG_HOST} \
-  --docker-username=${NEXUS_USER} \
-  --docker-password=${NEXUS_PASSWORD} \
-  --docker-email=docker@gmail.com \
+  --docker-username=${REG_USER} \
+  --docker-password=${REG_PASSWORD} \
+  --docker-email=justinndavis@gmail.com \
   -n cicd
 
 oc create sa ${APP}
-oc secrets link ${APP} nexus-dockercfg --for=pull -n cicd
-oc secrets link default nexus-dockercfg --for=pull -n cicd
-oc secrets link builder nexus-dockercfg --for=pull -n cicd
-oc secrets link deployer nexus-dockercfg --for=pull -n cicd
-oc secrets link builder nexus-dockercfg -n cicd
+oc secrets link ${APP} reg-dockercfg --for=pull -n cicd
+oc secrets link default reg-dockercfg --for=pull -n cicd
+oc secrets link builder reg-dockercfg --for=pull -n cicd
+oc secrets link deployer reg-dockercfg --for=pull -n cicd
+oc secrets link builder reg-dockercfg -n cicd
 
 oc new-app -f sonarqube-persistent-template.yml \
     -p APPLICATION_NAME=${APP} \
@@ -49,8 +51,7 @@ oc new-app -f sonarqube-persistent-template.yml \
 oc start-build ${APP}-docker-build  --follow
 
 oc import-image ${APP}:${VERSION} \
-  --from ${REG_HOST}/repository/docker/${APP}:${VERSION} \
-  --insecure=true \
+  --from ${REG_HOST}/justindav1s/${APP}:${VERSION} \
   --confirm
 
 

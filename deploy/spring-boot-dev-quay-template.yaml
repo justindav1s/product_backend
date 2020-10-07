@@ -22,7 +22,7 @@ objects:
       - name: 'latest'
         from:
           kind: DockerImage
-          name: quay-enterprise-quay-enterprise.apps.ocp.datr.eu/${PROJECT}/${APPLICATION_NAME}
+          name: quay.io/justindav1s/${APPLICATION_NAME}
       lookupPolicy:
         local: false
 

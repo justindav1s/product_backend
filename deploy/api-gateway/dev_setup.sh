@@ -19,4 +19,4 @@ oc new-app -f ../spring-boot-dev-nexus-template.yaml \
     -p BASE_IMAGE=${S2I_IMAGE} \
     -n ${DEV_PROJECT}
 
-oc secrets link ${APP}-sa nexus-dockercfg --for=pull -n ${DEV_PROJECT}
+oc secrets link ${APP}-sa reg-dockercfg --for=pull -n ${DEV_PROJECT}

@@ -16,14 +16,14 @@ export CICD_PROJECT=cicd
 
 export CURL="curl -k -v"
 export JENKINS_USER=justin-admin-edit-view
-export JENKINS_TOKEN=1136103e195bf18c915a8c35e78651a62e
+export JENKINS_TOKEN=115b58de41bfe1c14b69fc50af2aa81f4f
 export JENKINS=jenkins-cicd.apps.ocp4.datr.eu
 #export JENKINS=jenkins-cicd.apps-crc.testing
 #export JENKINS=jenkins-cicd.apps.${IP}
 
 
 #export REGISTRY=nexus3-docker-cicd.apps-crc.testing
-export REGISTRY=nexus3-docker-cicd.apps.ocp4.datr.eu
+export REGISTRY=nexus3-cicd.apps.ocp4.datr.eu
 export QUAYIO_REGISTRY=quay.io
 
 export DOMAIN=$CICD_PROJECT

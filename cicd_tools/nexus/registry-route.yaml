@@ -23,6 +23,8 @@ metadata:
     app: nexus3
   name: nexus3-docker
 spec:
+  host: nexus3-cicd.apps.ocp4.datr.eu
+  path: "/repository/docker/"
   tls:
     termination: edge
   port:

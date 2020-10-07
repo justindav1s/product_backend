@@ -34,5 +34,5 @@ oc new-app -f ../spring-boot-prd-deploy-template.yaml \
     -p SERVICEACCOUNT_NAME=${SERVICEACCOUNT_NAME} \
     -n ${PROD_PROJECT}
 
-oc secrets link ${SERVICEACCOUNT_NAME} nexus-dockercfg --for=pull -n ${PROD_PROJECT}
+oc secrets link ${SERVICEACCOUNT_NAME} reg-dockercfg --for=pull -n ${PROD_PROJECT}
 oc set triggers dc/${APP}-${VERSION_LABEL} --remove-all -n ${PROD_PROJECT}
