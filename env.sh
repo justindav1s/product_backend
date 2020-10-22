@@ -16,7 +16,7 @@ export CICD_PROJECT=cicd
 
 export CURL="curl -k -v"
 export JENKINS_USER=justin-admin-edit-view
-export JENKINS_TOKEN=115b58de41bfe1c14b69fc50af2aa81f4f
+export JENKINS_TOKEN=11cfdd54b08dd0fd51edf2ed87269d8fe6
 export JENKINS=jenkins-cicd.apps.ocp4.datr.eu
 #export JENKINS=jenkins-cicd.apps-crc.testing
 #export JENKINS=jenkins-cicd.apps.${IP}
