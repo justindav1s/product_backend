@@ -51,7 +51,7 @@ node('maven') {
             echo "Running Code Analysis"
             sh "${mvn} sonar:sonar -Dspring.profiles.active=dev -Dsonar.host.url=${sonar_url}"
         }
-        
+
         // Publish the built war file to Nexus
         stage('Publish to Nexus') {
             echo "Publish to Nexus"
@@ -100,6 +100,7 @@ node('maven') {
                     //remove any triggers
                     openshift.set("triggers", "dc/${app_name}", "--remove-all")
 
+                    //oc set trigger 
                     //update app config
                     openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
                     openshift.create("configmap", "${app_name}-config", "--from-file=${config_file}")
