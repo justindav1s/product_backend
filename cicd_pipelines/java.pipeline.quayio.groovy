@@ -170,8 +170,8 @@ node('maven') {
                     //rollout has started
 
                     //wait for deployment to finish and for new pods to become active
-                    def latestDeploymentVersion = openshift.selector('dc',[app:app_name]).object().status.latestVersion
-                    def rc = openshift.selector("rc", "${app_name}-${latestDeploymentVersion}")
+                    def latestDeploymentVersion = openshift.selector("dc/${deployment}").object().status.latestVersion
+                    def rc = openshift.selector("rc", "${deployment}-${latestDeploymentVersion}")
                     rc.untilEach(1) {
                         def rcMap = it.object()
                         return (rcMap.status.replicas.equals(rcMap.status.readyReplicas))
