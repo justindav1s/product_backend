@@ -79,7 +79,7 @@
             <submoduleCfg class="list"/>
             <extensions/>
         </scm>
-        <scriptPath>cicd_pipelines/java.pipeline.nexus-docker.groovy</scriptPath>
+        <scriptPath>cicd_pipelines/java.pipeline.quayio.groovy</scriptPath>
         <lightweight>true</lightweight>
     </definition>
     <triggers/>
