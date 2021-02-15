@@ -20,3 +20,6 @@ sleep 5
 
 docker push $TAG
 
+#run it
+
+#docker run -d -p 8080:8080 quay.io/justindav1s/inventory

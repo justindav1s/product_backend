@@ -1,4 +1,5 @@
-FROM image-registry.openshift-image-registry.svc:5000/openshift/java:latest
+#FROM image-registry.openshift-image-registry.svc:5000/openshift/java:latest
+FROM registry.access.redhat.com/ubi8/openjdk-8
 
 MAINTAINER Justin Davis
 
@@ -11,6 +12,6 @@ ENV SERVICE_JAR_FILE=$SERVICE_ARTIFACT_ID-$SERVICE_VERSION.jar
 
 COPY target/$SERVICE_JAR_FILE .
 
-ENV JAVA_OPTS=""
+ENV JAVA_OPTS="-Dspring.profiles.active=dev"
 
 ENTRYPOINT [ "sh", "-c", "java -Djava.security.egd=file:/dev/./urandom $JAVA_OPTS -jar $SERVICE_JAR_FILE" ]

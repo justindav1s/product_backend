@@ -1,0 +1,19 @@
+apiVersion: postgresql.dev4devs.com/v1alpha1
+kind: Database
+metadata:
+  name: postgresql
+  namespace: cicd
+spec:
+  size: 1
+  databasePasswordKeyEnvVar: POSTGRESQL_PASSWORD
+  databaseName: sonar
+  databaseUser: sonar
+  databaseCpu: 30m
+  databaseCpuLimit: 60m
+  databaseStorageRequest: 10Gi
+  databaseMemoryRequest: 128Mi
+  databaseUserKeyEnvVar: POSTGRESQL_USER
+  databaseNameKeyEnvVar: POSTGRESQL_DATABASE
+  databasePassword: sonar
+  image: centos/postgresql-96-centos7
+  databaseMemoryLimit: 512Mi
