@@ -15,7 +15,7 @@ oc login https://${IP} -u $USER
 
 oc project ${PROD_PROJECT}
 
-oc delete dc ${APP}-${VERSION_LABEL} --ignore-not-found=true -n ${PROD_PROJECT}
+#oc delete dc ${APP}-${VERSION_LABEL} --ignore-not-found=true -n ${PROD_PROJECT}
 oc delete deployments ${APP}-${VERSION_LABEL} --ignore-not-found=true -n ${PROD_PROJECT}
 oc delete svc ${SERVICE_NAME} --ignore-not-found=true -n ${PROD_PROJECT}
 oc delete sa ${SERVICEACCOUNT_NAME} --ignore-not-found=true -n ${PROD_PROJECT}
@@ -29,7 +29,7 @@ oc new-app -f ../service-template.yaml \
     -p SERVICE_NAME=${SERVICE_NAME} \
     -n ${PROD_PROJECT}
 
-oc new-app -f ../spring-boot-prd-deploy-template.yaml \
+oc new-app -f ../spring-boot-prd-deployment-template.yaml \
     -p APPLICATION_NAME=${APP} \
     -p IMAGE_NAME=${IMAGE_NAME} \
     -p IMAGE_TAG=${IMAGE_TAG} \
@@ -39,4 +39,4 @@ oc new-app -f ../spring-boot-prd-deploy-template.yaml \
     -n ${PROD_PROJECT}
 
 oc secrets link ${SERVICEACCOUNT_NAME} reg-dockercfg --for=pull -n ${PROD_PROJECT}
-oc set triggers dc/${APP}-${VERSION_LABEL} --remove-all -n ${PROD_PROJECT}
+oc set triggers deployment/${APP}-${VERSION_LABEL} --remove-all -n ${PROD_PROJECT}

@@ -163,22 +163,22 @@ node('maven') {
 
                     def deployment  = "${app_name}-${prodTag}"
 
-                    openshift.set("triggers", "dc/${deployment}", "--remove-all");
+                    openshift.set("triggers", "deployment/${deployment}", "--remove-all");
 
                     echo "Deploy .... Image to Production : ${deployment}"
 
                     //update deployment config with new image
-                    openshift.set("image", "dc/${deployment}", "${app_name}=image-registry.openshift-image-registry.svc:5000/${dev_project}/${app_name}:${prodTag}")
+                    openshift.set("image", "deployment/${deployment}", "${app_name}=image-registry.openshift-image-registry.svc:5000/${dev_project}/${app_name}:${prodTag}")
 
                     //update app config
                     openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
                     openshift.create("configmap", "${app_name}-config", "--from-file=../../src/${app_name}/src/main/resources/config.${prodTag}.properties")
 
                     //trigger a rollout of the new image
-                    def rm = openshift.selector("dc/${deployment}").rollout().latest()
+                    def rm = openshift.selector("deployment/${deployment}").rollout().latest()
                     //wait for rollout to start
                     timeout(5) {
-                        openshift.selector("dc/${deployment}").related('pods').untilEach(1) {
+                        openshift.selector("deployment/${deployment}").related('pods').untilEach(1) {
                             return (it.object().status.phase == "Running")
                         }
                     }

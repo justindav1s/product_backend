@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-curl -v https://istio-ingressgateway-istio-system.apps.ocp.datr.eu/api/health
+curl -v http://istio-ingressgateway-istio-system.apps.ocp4.openshiftlabs.net/api/health
 
 
 

@@ -58,7 +58,7 @@ oc create secret docker-registry reg-dockercfg \
 oc secrets link deployer reg-dockercfg --for=pull -n ${PROD_PROJECT}
 
 #Deploy microservice OCP components
-#cd inventory && ./dev_setup.sh && ./prd_setup_v1.sh && ./prd_setup_v2.sh && ./prd_setup_v3.sh  && cd -
+cd inventory && ./dev_setup.sh && ./prd_setup_v1.sh && ./prd_setup_v2.sh && ./prd_setup_v3.sh  && cd -
 cd user && ./dev_setup.sh && ./prd_setup.sh && cd -
 cd basket && ./dev_setup.sh && ./prd_setup.sh && cd -
 cd api-gateway && ./dev_setup.sh && ./prd_setup.sh && cd -
