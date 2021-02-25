@@ -1,0 +1,14 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: amazin
+  namespace: amazin-prod
+spec:
+  host:
+  to:
+    kind: Service
+    name: api-gateway-prd
+    weight: 100
+  port:
+    targetPort: http   
+  wildcardPolicy: None

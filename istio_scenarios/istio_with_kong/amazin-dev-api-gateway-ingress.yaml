@@ -7,11 +7,15 @@ spec:
     istio: ingressgateway # use istio default controller
   servers:
   - port:
-      number: 80
-      name: http
-      protocol: HTTP
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      serverCertificate: /etc/istio/ingressgateway-certs/tls.crt
+      privateKey: /etc/istio/ingressgateway-certs/tls.key      
     hosts:
-    - "*"
+    - "amazin-istio-system.apps.ocp4.openshiftlabs.net"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService

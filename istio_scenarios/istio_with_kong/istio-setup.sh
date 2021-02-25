@@ -9,5 +9,7 @@ oc delete gateway --all -n amazin-prod
 oc apply -f amazin-dev-api-gateway-ingress.yaml -n amazin-prod
 oc apply -f amazin-prd-destrules.yaml -n amazin-prod
 
+#oc apply -f route.yaml
+
 
 
