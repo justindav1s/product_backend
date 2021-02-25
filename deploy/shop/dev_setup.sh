@@ -7,7 +7,7 @@ S2I_IMAGE=java:8
 
 oc delete all -l app=${APP} --ignore-not-found=true -n ${DEV_PROJECT}
 oc delete pvc -l app=${APP} --ignore-not-found=true -n ${DEV_PROJECT}
-oc delete is,bc,dc,svc,route,sa ${APP} --ignore-not-found=true -n ${DEV_PROJECT}
+oc delete imagestream,bc,dc,svc,route,sa ${APP} --ignore-not-found=true -n ${DEV_PROJECT}
 oc delete sa ${APP}-sa --ignore-not-found=true -n ${DEV_PROJECT}
 oc delete configmap ${APP}-config --ignore-not-found=true -n ${DEV_PROJECT}
 

@@ -51,7 +51,7 @@ public class GatewayApplicationIntTest {
 		ObjectMapper mapper = new ObjectMapper();
 
 		User user = new User("justin1", "password");
-		MvcResult result = mvc.perform(post("/api/login")
+		MvcResult result = mvc.perform(post("/amazin/login")
 				.content(mapper.writeValueAsString(user))
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isCreated())
@@ -75,7 +75,7 @@ public class GatewayApplicationIntTest {
 		ObjectMapper mapper = new ObjectMapper();
 
 		User user = new User("justin1", "password");
-		MvcResult result = mvc.perform(post("/api/login")
+		MvcResult result = mvc.perform(post("/amazin/login")
 				.content(mapper.writeValueAsString(user))
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isCreated())
@@ -92,7 +92,7 @@ public class GatewayApplicationIntTest {
 		assertTrue(user.getId() > 0);
 		assertTrue(user.getBasketId() > 0);
 
-		result = mvc.perform(delete("/api/logout/"+user.getId())
+		result = mvc.perform(delete("/amazin/logout/"+user.getId())
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andReturn();
@@ -107,7 +107,7 @@ public class GatewayApplicationIntTest {
 	public void getAllProductsTest200()
 			throws Exception {
 
-		MvcResult result = mvc.perform(get("/api/products/all")
+		MvcResult result = mvc.perform(get("/amazin/products/all")
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content()
@@ -125,7 +125,7 @@ public class GatewayApplicationIntTest {
 	public void getProductTest200()
 			throws Exception {
 
-		MvcResult result = mvc.perform(get("/api/products/1")
+		MvcResult result = mvc.perform(get("/amazin/products/1")
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content()
@@ -143,7 +143,7 @@ public class GatewayApplicationIntTest {
 	public void getAllFoodTest200()
 			throws Exception {
 
-		MvcResult result = mvc.perform(get("/api/products/type/food")
+		MvcResult result = mvc.perform(get("/amazin/products/type/food")
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content()
@@ -166,7 +166,7 @@ public class GatewayApplicationIntTest {
 	public void getProductTypesTest200()
 			throws Exception {
 
-		MvcResult result = mvc.perform(get("/api/products/types")
+		MvcResult result = mvc.perform(get("/amazin/products/types")
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content()
@@ -187,7 +187,7 @@ public class GatewayApplicationIntTest {
 		String uuid = String.valueOf(System.currentTimeMillis())+"get";
 
 		User user = new User(uuid, "password");
-		MvcResult result = mvc.perform(post("/api/login")
+		MvcResult result = mvc.perform(post("/amazin/login")
 				.content(mapper.writeValueAsString(user))
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isCreated())
@@ -216,7 +216,7 @@ public class GatewayApplicationIntTest {
 		assertTrue(basket.getId() == user.getBasketId());
 
 
-		result = mvc.perform(delete("/api/logout/"+user.getId())
+		result = mvc.perform(delete("/amazin/logout/"+user.getId())
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andReturn();
@@ -236,7 +236,7 @@ public class GatewayApplicationIntTest {
 
 		//Login and get a basket
 		User user = new User(uuid, "password");
-		MvcResult result = mvc.perform(post("/api/login")
+		MvcResult result = mvc.perform(post("/amazin/login")
 				.content(mapper.writeValueAsString(user))
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isCreated())
@@ -252,7 +252,7 @@ public class GatewayApplicationIntTest {
 		assertTrue(user.getBasketId() > 0);
 
 		//Add to Basket
-		result = mvc.perform(put("/api/basket/"+user.getBasketId()+"/add/"+1)
+		result = mvc.perform(put("/amazin/basket/"+user.getBasketId()+"/add/"+1)
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content()
@@ -267,7 +267,7 @@ public class GatewayApplicationIntTest {
 		assertTrue(basket.getId() == user.getBasketId());
 
 		//cleanup by logging out
-		result = mvc.perform(delete("/api/logout/"+user.getId())
+		result = mvc.perform(delete("/amazin/logout/"+user.getId())
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andReturn();
@@ -285,7 +285,7 @@ public class GatewayApplicationIntTest {
 		String uuid = String.valueOf(System.currentTimeMillis())+"rem";
 		//Login and get a basket
 		User user = new User(uuid, "password");
-		MvcResult result = mvc.perform(post("/api/login")
+		MvcResult result = mvc.perform(post("/amazin/login")
 				.content(mapper.writeValueAsString(user))
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isCreated())
@@ -301,7 +301,7 @@ public class GatewayApplicationIntTest {
 		assertTrue(user.getBasketId() > 0);
 
 		//Add to Basket
-		result = mvc.perform(put("/api/basket/"+user.getBasketId()+"/add/"+1)
+		result = mvc.perform(put("/amazin/basket/"+user.getBasketId()+"/add/"+1)
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content()
@@ -317,7 +317,7 @@ public class GatewayApplicationIntTest {
 		assertTrue(basket.getProducts().size() == 1);
 
 		//Add to Basket
-		result = mvc.perform(delete("/api/basket/"+user.getBasketId()+"/remove/"+0)
+		result = mvc.perform(delete("/amazin/basket/"+user.getBasketId()+"/remove/"+0)
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content()
