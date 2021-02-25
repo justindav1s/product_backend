@@ -202,7 +202,7 @@ public class GatewayApplicationIntTest {
 		assertTrue(user.getId() > 0);
 		assertTrue(user.getBasketId() > 0);
 
-		result = mvc.perform(get("/api/basket/get/"+user.getBasketId())
+		result = mvc.perform(get("/amazin/basket/get/"+user.getBasketId())
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content()
@@ -332,7 +332,7 @@ public class GatewayApplicationIntTest {
 		assertTrue(basket.getProducts().size() == 0);
 
 		//cleanup by logging out
-		result = mvc.perform(delete("/api/logout/"+user.getId())
+		result = mvc.perform(delete("/amazin/logout/"+user.getId())
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andReturn();
