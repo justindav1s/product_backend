@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/amazin")
 public class GatewayController {
 
     private static final Logger log = LoggerFactory.getLogger(GatewayController.class);
