@@ -2,6 +2,7 @@
 
 
 ***** Always create a new ResponseEntity when proxying a response, else you will get a 503 !!!!
+***** Browser, curl, spring-boot don't care but Istio does ! 
 
 https://medium.com/expedia-group-tech/all-about-istio-proxy-5xx-issues-e0221b29e692#:~:text=Inbound%20Call%20Error%20example,the%20pod%20has%20been%20terminated.
 ## The Application 
