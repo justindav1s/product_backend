@@ -25,12 +25,12 @@ public class RepositoryBase implements ProductRepository {
     }
 
     public void sleep(int millis)   {
-        try {
-            log.debug("Sleeping : "+millis+" ms");
-            Thread.sleep(millis);
-        } catch(InterruptedException e) {
-            e.printStackTrace();
-        }
+        // try {
+        //     log.debug("Sleeping : "+millis+" ms");
+        //     Thread.sleep(millis);
+        // } catch(InterruptedException e) {
+        //     e.printStackTrace();
+        // }
     }
 
 }
