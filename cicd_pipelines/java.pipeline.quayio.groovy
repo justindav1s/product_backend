@@ -37,8 +37,8 @@ node('maven') {
         stage('Unit/Integration Tests') {
             echo "Running Unit Tests"
             sh "${mvn} test -Dmaven.wagon.http.ssl.insecure=true -Dspring.profiles.active=dev"
-            archive "target/**/*"
-            junit 'target/surefire-reports/*.xml'
+            // archive "target/**/*"
+            // junit 'target/surefire-reports/*.xml'
         }
 
         stage('Coverage') {
