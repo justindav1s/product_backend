@@ -49,17 +49,13 @@ public class DefaultProductRepository extends RepositoryBase {
 
     public Map<String, Product> getProducts() {
 
-        log.debug("Sleep time (ms) : "+sleepTime);
         log.debug("Spring Profile : "+profile);
-        sleep(sleepTime);
         return super.getProducts();
     }
 
     public List<String> getTypes() {
 
-        log.debug("Sleep time (ms) : "+sleepTime);
         log.debug("Spring Profile : "+profile);
-        sleep(sleepTime);
         return super.getTypes();
     }
 

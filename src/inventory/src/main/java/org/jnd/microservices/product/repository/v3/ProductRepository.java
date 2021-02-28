@@ -34,8 +34,6 @@ public class ProductRepository extends RepositoryBase {
     @Autowired
     private ProductCache cache;
 
-    @Value("${sleep.time.ms:0}")
-    private int sleepTime = 0;
 
     @Value("${spring.profiles.active:na}")
     private String profile = null;
@@ -44,7 +42,6 @@ public class ProductRepository extends RepositoryBase {
     public void init()  {
 
         log.debug("Setting up repository");
-        log.debug("Sleep time (ms) : "+sleepTime);
         log.debug("Spring Profile : "+profile);
 
         getTypes().add(ProductType.FOOD.toString());
@@ -60,17 +57,13 @@ public class ProductRepository extends RepositoryBase {
 
     public Map<String, Product> getProducts() {
 
-        log.debug("Sleep time (ms) : "+sleepTime);
         log.debug("Spring Profile : "+profile);
-        sleep(sleepTime);
         return super.getProducts();
     }
 
     public List<String> getTypes() {
 
-        log.debug("Sleep time (ms) : "+sleepTime);
         log.debug("Spring Profile : "+profile);
-        sleep(sleepTime);
         return super.getTypes();
     }
 
