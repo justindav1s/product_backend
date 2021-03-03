@@ -31,8 +31,8 @@ public class BasketProxy {
                         new HttpEntity<byte[]>(headers),
                         new ParameterizedTypeReference<Basket>() {},
                         basketid, productid);
-
-        return exchange;
+                        
+        return new ResponseEntity<>(exchange.getBody(), null, HttpStatus.OK);
     }
 
     public ResponseEntity<Basket> removefromBasket(int basketid, int productindex, HttpHeaders headers) {
@@ -47,7 +47,7 @@ public class BasketProxy {
                         new ParameterizedTypeReference<Basket>() {},
                         basketid, productindex);
 
-        return exchange;
+        return new ResponseEntity<>(exchange.getBody(), null, HttpStatus.OK);
     }
 
     public ResponseEntity<Basket> getBasket(int basketid, HttpHeaders headers) {
@@ -65,7 +65,7 @@ public class BasketProxy {
         if (exchange.getBody() == null)
             throw new RuntimeException();
 
-        return exchange;
+        return new ResponseEntity<>(exchange.getBody(), null, HttpStatus.OK);
     }
 
     public ResponseEntity<Basket> emptyBasket(int basketid, HttpHeaders headers) {
@@ -80,6 +80,6 @@ public class BasketProxy {
                         new ParameterizedTypeReference<Basket>() {},
                         basketid);
 
-        return exchange;
+        return new ResponseEntity<>(exchange.getBody(), null, HttpStatus.OK);
     }
 }

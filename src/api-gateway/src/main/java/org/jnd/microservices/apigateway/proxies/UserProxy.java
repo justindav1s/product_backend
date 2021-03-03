@@ -44,7 +44,7 @@ public class UserProxy {
         user = exchange.getBody();
         log.debug("UserProxy login Response : "+user);
 
-        return exchange;
+        return new ResponseEntity<>(exchange.getBody(), null, HttpStatus.OK);
     }
 
 

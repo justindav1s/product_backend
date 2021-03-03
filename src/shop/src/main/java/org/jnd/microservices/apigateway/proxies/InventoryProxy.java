@@ -6,12 +6,12 @@ import org.jnd.microservices.model.Product;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
@@ -44,12 +44,10 @@ public class InventoryProxy {
         if (exchange == null)
             throw new RuntimeException();
 
-        return exchange;
+        return new ResponseEntity<>(exchange.getBody(), null, HttpStatus.OK);
     }
 
     public ResponseEntity<List> getAllProducts(HttpHeaders headers) {
-
-        //B3HeaderHelper.getB3Headers(headers);
 
         ResponseEntity<List> exchange =
                 this.restTemplate.exchange(
@@ -64,7 +62,7 @@ public class InventoryProxy {
         if (exchange == null)
             throw new RuntimeException();
 
-        return exchange;
+        return new ResponseEntity<>(exchange.getBody(), null, HttpStatus.OK);
     }
 
     public ResponseEntity<List> getProductsofType(String type, HttpHeaders headers) {
@@ -83,8 +81,9 @@ public class InventoryProxy {
         if (exchange == null)
             throw new RuntimeException();
 
-        return exchange;
+        return new ResponseEntity<>(exchange.getBody(), null, HttpStatus.OK);
     }
+
 
     public ResponseEntity<List> getProductTypes(HttpHeaders headers) {
 
@@ -104,7 +103,7 @@ public class InventoryProxy {
         if (exchange == null)
             throw new RuntimeException();
 
-        return exchange;
+        return new ResponseEntity<>(exchange.getBody(), null, HttpStatus.OK);
     }
 
 }
