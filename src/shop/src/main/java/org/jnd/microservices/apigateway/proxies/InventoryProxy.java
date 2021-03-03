@@ -6,6 +6,7 @@ import org.jnd.microservices.model.Product;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class InventoryProxy {
                 this.restTemplate.exchange(
                         "http://"+inventory_host+"/products/{id}",
                         HttpMethod.GET,
-                        /** new HttpEntity<byte[]>(headers) */ null,
+                        new HttpEntity<byte[]>(headers),
                         new ParameterizedTypeReference<Product>() {},
                         id);
 
@@ -44,16 +45,18 @@ public class InventoryProxy {
         if (exchange == null)
             throw new RuntimeException();
 
+            
         return new ResponseEntity<>(exchange.getBody(), null, HttpStatus.OK);
     }
 
     public ResponseEntity<List> getAllProducts(HttpHeaders headers) {
 
+
         ResponseEntity<List> exchange =
                 this.restTemplate.exchange(
                         "http://"+inventory_host+"/products/all",
                         HttpMethod.GET,
-                        /** new HttpEntity<byte[]>(headers) */ null,
+                        new HttpEntity<byte[]>(headers),
                         new ParameterizedTypeReference<List>() {});
 
         log.debug("All Products Response : "+exchange.getBody());
@@ -72,7 +75,7 @@ public class InventoryProxy {
                 this.restTemplate.exchange(
                         "http://"+inventory_host+"/products/type/{type}",
                         HttpMethod.GET,
-                        /** new HttpEntity<byte[]>(headers) */ null,
+                        new HttpEntity<byte[]>(headers),
                         new ParameterizedTypeReference<List>() {},
                         type);
 
@@ -84,7 +87,6 @@ public class InventoryProxy {
         return new ResponseEntity<>(exchange.getBody(), null, HttpStatus.OK);
     }
 
-
     public ResponseEntity<List> getProductTypes(HttpHeaders headers) {
 
 
@@ -93,7 +95,7 @@ public class InventoryProxy {
                 this.restTemplate.exchange(
                         "http://"+inventory_host+"/products/types",
                         HttpMethod.GET,
-                        /** new HttpEntity<byte[]>(headers) */ null,
+                        new HttpEntity<byte[]>(headers),
                         new ParameterizedTypeReference<List>() {});
 
         log.debug("Product types response : "+exchange.getBody());
