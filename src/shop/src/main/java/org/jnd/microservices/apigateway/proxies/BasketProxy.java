@@ -32,6 +32,7 @@ public class BasketProxy {
                         new ParameterizedTypeReference<Basket>() {},
                         basketid, productid);
 
+                        
         return new ResponseEntity<>(exchange.getBody(), null, HttpStatus.OK);
     }
 

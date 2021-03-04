@@ -45,6 +45,8 @@ public class GatewayController {
     ResponseEntity<?> login(@RequestBody User user, @RequestHeader HttpHeaders headers) {
 
         ResponseEntity<User> response = userProxy.login(user, headers);
+        response.getHeaders().remove("Content-Type");
+        response.getHeaders().add("Content-Type", "application/json");
         return response;
     }
 
