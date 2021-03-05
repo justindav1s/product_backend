@@ -38,7 +38,7 @@ public class UserProxy {
             log.debug("UserProxy header : "+header + " val : "+ headers.get(header));
         }
 
-        HttpEntity<User> request = new HttpEntity<>(user, headers);
+        HttpEntity<String> request = new HttpEntity<>(mapper.writeValueAsString(user), headers);
 
 
         ResponseEntity<User> exchange = null;
