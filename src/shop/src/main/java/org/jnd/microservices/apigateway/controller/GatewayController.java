@@ -8,6 +8,7 @@ import org.jnd.microservices.apigateway.proxies.UserProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.amqp.RabbitProperties.Retry;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +45,7 @@ public class GatewayController {
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
     ResponseEntity<?> login(@RequestBody User user, @RequestHeader HttpHeaders headers) {
 
+        
         ResponseEntity<User> response = userProxy.login(user, headers);
         response.getHeaders().remove("Content-Type");
         response.getHeaders().add("Content-Type", "application/json");

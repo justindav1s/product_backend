@@ -32,10 +32,14 @@ public class UserProxy {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
 
+        
+        for (String header : headers.keySet())   {
+            log.debug("UserProxy header : "+header + " val : "+ headers.get(header));
+        }
 
         HttpEntity<User> request = new HttpEntity<>(user, headers);
+
 
         ResponseEntity<User> exchange = null;
         try {
