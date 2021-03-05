@@ -23,6 +23,8 @@ public class UserProxy {
 
     public ResponseEntity<String> login(User user, HttpHeaders headers) {
 
+        log.debug("UserProxy login START");
+
         log.debug("UserProxy login : "+user);
         log.debug("http://"+ user_host +"/user/login");
         for (String header : headers.keySet())   {
@@ -62,6 +64,7 @@ public class UserProxy {
             e.printStackTrace();
         }
 
+        log.debug("UserProxy login END");
         return resp;
     }
 
