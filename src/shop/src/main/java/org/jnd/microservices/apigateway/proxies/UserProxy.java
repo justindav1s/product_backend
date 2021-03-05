@@ -76,4 +76,21 @@ public class UserProxy {
         restTemplate.delete("http://"+ user_host +"/user/logout/"+id);
         return "LOGGED OUT";
     }
+
+    public ResponseEntity<String> getLoginHealth(HttpHeaders headers) {
+
+        ResponseEntity<String> exchange =
+                this.restTemplate.exchange(
+                        "http://"+user_host+"/user/loginhealth",
+                        HttpMethod.GET,
+                        new HttpEntity<byte[]>(headers),
+                        new ParameterizedTypeReference<String>() {});
+
+        log.debug("Product types response : "+exchange.getBody());
+
+        if (exchange == null)
+            throw new RuntimeException();
+
+        return new ResponseEntity<>(exchange.getBody(), null, HttpStatus.OK);
+    }
 }

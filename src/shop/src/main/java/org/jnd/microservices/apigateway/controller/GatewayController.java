@@ -44,11 +44,16 @@ public class GatewayController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
     ResponseEntity<String> login(@RequestBody User user, @RequestHeader HttpHeaders headers) {
-
         
         ResponseEntity<String> response = userProxy.login(user, headers);
-        // response.getHeaders().remove("Content-Type");
-        // response.getHeaders().add("Content-Type", "application/json");
+        return response;
+    }
+
+    @RequestMapping(value = "/loginhealth", method = RequestMethod.GET, produces = "application/json")
+    ResponseEntity<String> loginhealth(@RequestHeader HttpHeaders headers) {
+        
+        ResponseEntity<String> response = userProxy.getLoginHealth(headers);
+        
         return response;
     }
 

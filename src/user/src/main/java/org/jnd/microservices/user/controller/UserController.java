@@ -44,7 +44,7 @@ public class UserController {
             log.info("User Create : " +user);
             userRepository.put(user.getUsername(), user);
         }
-        
+
 
         //get basket's basket data
         ResponseEntity<User> responseEntity = basketRepositoryProxy.getBasket(user, headers);
@@ -74,5 +74,14 @@ public class UserController {
     public String ping() {
         basketRepositoryProxy.getBasketHealth();
         return "OK";
+    }
+
+
+    @RequestMapping(value = "/loginhealth", method = RequestMethod.GET)
+    public String route() {
+
+        String basketHealth = "BASKET : "+basketRepositoryProxy.getBasketHealth();
+
+        return basketHealth+" | USER : OK";
     }
 }
