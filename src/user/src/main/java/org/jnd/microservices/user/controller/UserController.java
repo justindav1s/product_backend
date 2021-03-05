@@ -82,6 +82,6 @@ public class UserController {
 
         String basketHealth = "BASKET : "+basketRepositoryProxy.getBasketHealth();
 
-        return basketHealth+" | USER : OK";
+        return basketHealth+" | USER : USER OK";
     }
 }

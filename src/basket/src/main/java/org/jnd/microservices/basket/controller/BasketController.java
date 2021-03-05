@@ -178,4 +178,8 @@ public class BasketController {
         return basket;
     }
 
+    @RequestMapping(value = "/health", method = RequestMethod.GET)
+    public String ping() {
+        return "BASKET OK";
+    }
 }
