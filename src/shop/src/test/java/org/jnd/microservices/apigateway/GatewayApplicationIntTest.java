@@ -61,6 +61,7 @@ public class GatewayApplicationIntTest {
 						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andReturn();
 
+		log.debug("loginTest200 Middle");		
 
 		String json = result.getResponse().getContentAsString();
 		log.debug("result : " + json);
