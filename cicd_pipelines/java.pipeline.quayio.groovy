@@ -134,11 +134,11 @@ node('maven') {
 
         }
 
-        stage("Wait for approval for ${app_name} to be staged into production") {
-                timeout(time: 2, unit: 'DAYS') {
-                    input message: "Approve this ${app_name} build to be staged in production ?"
-                }
-        }
+        // stage("Wait for approval for ${app_name} to be staged into production") {
+        //         timeout(time: 2, unit: 'DAYS') {
+        //             input message: "Approve this ${app_name} build to be staged in production ?"
+        //         }
+        // }
 
         // stage('Deploy to Production') {
         //     echo "Deploying container image to Production"
