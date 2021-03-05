@@ -47,6 +47,8 @@ public class GatewayApplicationIntTest {
 	@Test
 	public void loginTest200()
 			throws Exception {
+		
+		log.debug("loginTest200 START");		
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -67,6 +69,8 @@ public class GatewayApplicationIntTest {
 		assertNotNull(user);
 		assertTrue(user.getId() > 0);
 		assertTrue(user.getBasketId() > 0);
+
+		log.debug("loginTest200 END");
 	}
 
 	@Test
