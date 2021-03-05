@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @Component("UserProxy")
@@ -24,6 +25,15 @@ public class UserProxy {
 
         log.debug("UserProxy login : "+user);
         log.debug("http://"+ user_host +"/user/login");
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            log.debug("User : "+mapper.writeValueAsString(user));    
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+
 
         HttpEntity<User> request = new HttpEntity<>(user, headers);
 
