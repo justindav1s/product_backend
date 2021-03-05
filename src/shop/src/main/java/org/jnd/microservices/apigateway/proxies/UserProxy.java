@@ -9,6 +9,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.core.ParameterizedTypeReference;
 
 
 @Component("UserProxy")
@@ -47,7 +48,8 @@ public class UserProxy {
                             "http://" + user_host + "/user/login",
                             HttpMethod.POST,
                             request,
-                            User.class);
+                            new ParameterizedTypeReference<User>() {});
+                            
         }
         catch (Exception e) {
             e.printStackTrace();
