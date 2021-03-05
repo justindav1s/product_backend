@@ -21,7 +21,7 @@ public class UserProxy {
 
     private RestTemplate restTemplate = new RestTemplate();;
 
-    public ResponseEntity<User> login(User user, HttpHeaders headers) {
+    public ResponseEntity<String> login(User user, HttpHeaders headers) {
 
         log.debug("UserProxy login : "+user);
         log.debug("http://"+ user_host +"/user/login");
@@ -54,8 +54,15 @@ public class UserProxy {
 
         user = exchange.getBody();
         log.debug("UserProxy login Response : "+user);
+        ResponseEntity<String> resp = null;
+        try {
+            log.debug("exchange.getBody() : "+mapper.writeValueAsString(exchange.getBody())); 
+            resp = new ResponseEntity<>(mapper.writeValueAsString(exchange.getBody()), null, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        return new ResponseEntity<>(exchange.getBody(), null, HttpStatus.OK);
+        return resp;
     }
 
 
