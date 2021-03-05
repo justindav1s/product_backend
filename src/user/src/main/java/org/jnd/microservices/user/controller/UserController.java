@@ -47,10 +47,11 @@ public class UserController {
 
 
         //get basket's basket data
-        ResponseEntity<User> responseEntity = basketRepositoryProxy.getBasket(user, headers);
+        //ResponseEntity<User> responseEntity = basketRepositoryProxy.getBasket(user, headers);
 
+        return new ResponseEntity<>(user, null, HttpStatus.OK);
 
-        return responseEntity;
+        //return responseEntity;
     }
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
