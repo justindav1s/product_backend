@@ -53,13 +53,20 @@ public class GatewayApplicationIntTest {
 		ObjectMapper mapper = new ObjectMapper();
 
 		User user = new User("justin1", "password");
-		MvcResult result = mvc.perform(post("/amazin/login")
+		MvcResult result = null;
+		
+		try {
+			result = mvc.perform(post("/amazin/login")
 				.content(mapper.writeValueAsString(user))
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(content()
 						.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-				.andReturn();
+				.andReturn();		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 
 		log.debug("loginTest200 Middle");		
 
