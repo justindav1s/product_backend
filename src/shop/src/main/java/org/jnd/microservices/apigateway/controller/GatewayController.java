@@ -43,10 +43,10 @@ public class GatewayController {
     private BasketProxy basketProxy;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
-    ResponseEntity<?> login(@RequestBody User user, @RequestHeader HttpHeaders headers) {
+    ResponseEntity<String> login(@RequestBody User user, @RequestHeader HttpHeaders headers) {
 
         
-        ResponseEntity<User> response = userProxy.login(user, headers);
+        ResponseEntity<String> response = userProxy.login(user, headers);
         response.getHeaders().remove("Content-Type");
         response.getHeaders().add("Content-Type", "application/json");
         return response;
