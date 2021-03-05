@@ -25,8 +25,8 @@ public class BasketRepositoryProxy {
 
     public ResponseEntity<User> getBasket(User user, HttpHeaders headers) {
 
-        log.debug("BasketRepositoryProxy getBasket for basket : "+user);
-        log.debug("BasketRepositoryProxy getBasket for URL : "+"http://"+basket_host+"/basket/create");
+        log.info("BasketRepositoryProxy getBasket for basket : "+user);
+        log.info("BasketRepositoryProxy getBasket for URL : "+"http://"+basket_host+"/basket/create");
 
 
         HttpEntity<User> request = new HttpEntity<>(user, headers);
@@ -39,7 +39,7 @@ public class BasketRepositoryProxy {
                         User.class);
 
         user = exchange.getBody();
-        log.debug("Basket Response : "+user);
+        log.info("Basket Response : "+user);
 
         if (user == null)
             throw new RuntimeException();

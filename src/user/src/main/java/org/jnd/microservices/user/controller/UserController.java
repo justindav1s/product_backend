@@ -35,15 +35,16 @@ public class UserController {
         if (userRepository.containsKey(user.getUsername())) {
             //this basket exists : retreive
             user = userRepository.get(user.getUsername());
-            log.debug("User exists : " +user);
+            log.info("User exists : " +user);
         }
         else    {
             //this basket does not exist : create
             nextId = nextId + 1;
             user.setId(nextId);
-            log.debug("User Create : " +user);
+            log.info("User Create : " +user);
             userRepository.put(user.getUsername(), user);
         }
+        
 
         //get basket's basket data
         ResponseEntity<User> responseEntity = basketRepositoryProxy.getBasket(user, headers);
