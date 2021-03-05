@@ -53,9 +53,9 @@ public class GatewayController {
     }
 
     @RequestMapping(value = "/session", method = RequestMethod.POST, produces = "application/json")
-    ResponseEntity<?> session(@RequestBody User user, @RequestHeader HttpHeaders headers) {
+    ResponseEntity<String> session(@RequestBody User user, @RequestHeader HttpHeaders headers) {
 
-        ResponseEntity<User> response = userProxy.login(user, headers);
+        ResponseEntity<String> response = userProxy.login(user, headers);
         return response;
     }
 
