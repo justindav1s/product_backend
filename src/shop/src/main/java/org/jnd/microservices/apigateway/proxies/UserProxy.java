@@ -51,7 +51,7 @@ public class UserProxy {
         }
         catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(null, null, HttpStatus.SERVICE_UNAVAILABLE);
+            //return new ResponseEntity<>(null, null, HttpStatus.SERVICE_UNAVAILABLE);
         }
 
         user = exchange.getBody();
