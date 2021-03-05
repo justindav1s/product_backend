@@ -25,21 +25,18 @@ public class UserProxy {
 
         log.debug("UserProxy login : "+user);
         log.debug("http://"+ user_host +"/user/login");
-
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            log.debug("User : "+mapper.writeValueAsString(user));    
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        
         for (String header : headers.keySet())   {
             log.debug("UserProxy header : "+header + " val : "+ headers.get(header));
         }
 
-        HttpEntity<String> request = new HttpEntity<>(mapper.writeValueAsString(user), headers);
-
+        HttpEntity<String> request =  null;
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            log.debug("User : "+mapper.writeValueAsString(user)); 
+            request = new HttpEntity<>(mapper.writeValueAsString(user), headers);   
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         ResponseEntity<User> exchange = null;
         try {
