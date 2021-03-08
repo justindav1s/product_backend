@@ -158,12 +158,12 @@ node('maven') {
                     openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
                     openshift.create("configmap", "${app_name}-config", "--from-file=${config_file}")
 
-                    sh "oc --record deployment.apps/${deployment} set image deployment.v1.apps/${deployment} ${app_name}=${registry}/${app_name}:latest"
+                    sh "oc --record deployment.apps/${deployment} set image deployment.v1.apps/${deployment} ${app_name}=${registry}/${app_name}:latest -n ${prod_project}"
                     
-                    sh "oc rollout status deployment/deployment.apps/${deployment}"
+                    sh "oc rollout status deployment/deployment.apps/${deployment} -n ${prod_project}"
 
-                    sh "oc get pods"
-                    
+                    sh "oc get pods -n ${prod_project}"
+
                     // //update deployment config with new image
                     // openshift.set("image", "deployment/${deployment}", "${app_name}=${registry}/${app_name}:${commitId}")
 
