@@ -152,7 +152,7 @@ node('maven') {
                     def deployment  = "${app_name}-${prodTag}"
 
                     //remove any triggers
-                    openshift.set("triggers", "deployment/${deployment}", "--remove-all")
+                    sh "oc rollout pause deployment/${deployment} -n ${prod_project}"
 
                     //update app config
                     openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
@@ -160,6 +160,8 @@ node('maven') {
 
                     sh "oc set image deployment/${deployment}  ${app_name}=${registry}/${app_name}:latest -n ${prod_project}"
                     
+                    sh "oc rollout resume deployment/${deployment} -n ${prod_project}"
+
                     sh "oc rollout status deployment/${deployment} -n ${prod_project}"
 
                     sh "oc get pods -n ${prod_project}"
