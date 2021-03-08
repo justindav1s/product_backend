@@ -56,34 +56,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- <dependency>
-			<groupId>io.opentracing.contrib</groupId>
-			<artifactId>opentracing-spring-jaeger-web-starter</artifactId>
-			<version>1.0.3</version>
-		</dependency> -->
-
-		<!-- <dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-core</artifactId>
-			<version>1.1.49</version>
-			<exclusions>
-				<exclusion>
-					<groupId>io.github.classgraph</groupId>
-					<artifactId>classgraph</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.1.49</version>
-		</dependency>
-		<dependency>
-			<groupId>io.github.classgraph</groupId>
-			<artifactId>classgraph</artifactId>
-			<version>4.8.44</version>
-		</dependency> -->
-
 	</dependencies>
 
 	<build>
