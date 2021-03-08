@@ -134,56 +134,62 @@ node('maven') {
 
         }
 
-        // stage("Wait for approval for ${app_name} to be staged into production") {
-        //         timeout(time: 2, unit: 'DAYS') {
-        //             input message: "Approve this ${app_name} build to be staged in production ?"
-        //         }
-        // }
+        stage("Wait for approval for ${app_name} to be staged into production") {
+                timeout(time: 2, unit: 'DAYS') {
+                    input message: "Approve this ${app_name} build to be staged in production ?"
+                }
+        }
 
-        // stage('Deploy to Production') {
-        //     echo "Deploying container image to Production"
-        //     echo "Project : ${prod_project}"
-        //     echo "App : ${app_name}"
-        //     echo "Prod Tag : ${prodTag}"
+        stage('Deploy to Production') {
+            echo "Deploying container image to Production"
+            echo "Project : ${prod_project}"
+            echo "App : ${app_name}"
+            echo "Prod Tag : ${prodTag}"
 
-        //     openshift.withCluster() {
-        //         openshift.withProject(prod_project) {
+            openshift.withCluster() {
+                openshift.withProject(prod_project) {
 
-        //             def deployment  = "${app_name}-${prodTag}"
+                    def deployment  = "${app_name}-${prodTag}"
 
-        //             //remove any triggers
-        //             openshift.set("triggers", "deployment/${deployment}", "--remove-all")
+                    //remove any triggers
+                    openshift.set("triggers", "deployment/${deployment}", "--remove-all")
 
-        //             //update app config
-        //             openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
-        //             openshift.create("configmap", "${app_name}-config", "--from-file=${config_file}")
+                    //update app config
+                    openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
+                    openshift.create("configmap", "${app_name}-config", "--from-file=${config_file}")
 
-        //             //update deployment config with new image
-        //             openshift.set("image", "deployment/${deployment}", "${app_name}=${registry}/${app_name}:${commitId}")
+                    sh "oc --record deployment.apps/${deployment} set image deployment.v1.apps/${deployment} ${app_name}=${registry}/${app_name}:latest"
+                    
+                    sh "oc rollout status deployment/deployment.apps/${deployment}"
 
-        //             //trigger a rollout of the new image
-        //             def rm = openshift.selector("deployment/${deployment}").rollout().latest()
-        //             //wait for rollout to start
-        //             timeout(5) {
-        //                 openshift.selector("deployment/${deployment}").related('pods').untilEach(1) {
-        //                     return (it.object().status.phase == "Running")
-        //                 }
-        //             }
-        //             //rollout has started
+                    sh "oc get pods"
+                    
+                    // //update deployment config with new image
+                    // openshift.set("image", "deployment/${deployment}", "${app_name}=${registry}/${app_name}:${commitId}")
 
-        //             //wait for deployment to finish and for new pods to become active
-        //             def latestDeploymentVersion = openshift.selector("deployment/${deployment}").object().status.latestVersion
-        //             def rc = openshift.selector("rc", "${deployment}-${latestDeploymentVersion}")
-        //             rc.untilEach(1) {
-        //                 def rcMap = it.object()
-        //                 return (rcMap.status.replicas.equals(rcMap.status.readyReplicas))
-        //             }
-        //             //deployment finished
-        //         }
-        //     }
-        //     echo "Deploying container image to Production : FINISHED"
+                    // //trigger a rollout of the new image
+                    // def rm = openshift.selector("deployment/${deployment}").rollout().latest()
+                    // //wait for rollout to start
+                    // timeout(5) {
+                    //     openshift.selector("deployment/${deployment}").related('pods').untilEach(1) {
+                    //         return (it.object().status.phase == "Running")
+                    //     }
+                    // }
+                    // //rollout has started
 
-        // }
+                    // //wait for deployment to finish and for new pods to become active
+                    // def latestDeploymentVersion = openshift.selector("deployment/${deployment}").object().status.latestVersion
+                    // def rc = openshift.selector("rc", "${deployment}-${latestDeploymentVersion}")
+                    // rc.untilEach(1) {
+                    //     def rcMap = it.object()
+                    //     return (rcMap.status.replicas.equals(rcMap.status.readyReplicas))
+                    // }
+                    // //deployment finished
+                }
+            }
+            echo "Deploying container image to Production : FINISHED"
+
+        }
 
     }
 }
