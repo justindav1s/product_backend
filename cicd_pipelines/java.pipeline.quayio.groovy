@@ -152,7 +152,7 @@ node('maven') {
                     def deployment  = "${app_name}-${prodTag}"
 
                     //remove any triggers
-                    sh "oc rollout pause deployment/${deployment} -n ${prod_project}"
+                    sh "oc rollout pause deployment/${deployment} -n ${prod_project} 2 > /dev/null"
 
                     //update app config
                     openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
