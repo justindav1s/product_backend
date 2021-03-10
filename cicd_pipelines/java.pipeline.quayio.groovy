@@ -161,7 +161,7 @@ node('maven') {
                     sh "oc set image deployment/${deployment}  ${app_name}=${registry}/${app_name}:latest -n ${prod_project}"
                     
                     sh "oc rollout resume deployment/${deployment} -n ${prod_project}"
-
+                    sh "oc rollout latest deployment/${deployment} -n ${prod_project}"
                     sh "oc rollout status deployment/${deployment} -n ${prod_project}"
 
                     sh "oc get pods -n ${prod_project}"
