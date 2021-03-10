@@ -77,8 +77,8 @@ node('maven') {
 
                     echo "Building ...."
                     def bc = openshift.selector( "bc/${app_name}" ).object()
-                    // bc.spec.output.to.name="${registry}/${app_name}:${commitId}"
-                    bc.spec.output.to.name="${registry}/${app_name}:latest"
+                     bc.spec.output.to.name="${registry}/${app_name}:${commitId}"
+                    //bc.spec.output.to.name="${registry}/${app_name}:latest"
                     openshift.apply(bc)
 
                     def nb = openshift.startBuild("${app_name}", "--from-file=${artifactId}-${commitId}.${packaging}")
@@ -107,8 +107,8 @@ node('maven') {
                     openshift.create("configmap", "${app_name}-config", "--from-file=${config_file}")
 
                     //update deployment config with new image
-                    //openshift.set("image", "dc/${app_name}", "${app_name}=${registry}/${app_name}:${commitId}")
-                    openshift.set("image", "dc/${app_name}", "${app_name}=${registry}/${app_name}:latest")
+                    openshift.set("image", "dc/${app_name}", "${app_name}=${registry}/${app_name}:${commitId}")
+                    //openshift.set("image", "dc/${app_name}", "${app_name}=${registry}/${app_name}:latest")
 
                     //trigger a rollout of the new image
                     rm = openshift.selector("dc", [app:app_name]).rollout().latest()
@@ -158,14 +158,15 @@ node('maven') {
                     openshift.delete("configmap", "${app_name}-config", "--ignore-not-found=true")
                     openshift.create("configmap", "${app_name}-config", "--from-file=${config_file}")
 
-                    sh "oc set image deployment/${deployment}  ${app_name}=${registry}/${app_name}:latest -n ${prod_project}"
-                    
+                    // A Deployment Deployment
+                    sh "oc set image deployment/${deployment}  ${app_name}=${registry}/${app_name}:${commitId} -n ${prod_project}"
                     sh "oc rollout resume deployment/${deployment} -n ${prod_project}"
                     sh "oc rollout restart deployment/${deployment} -n ${prod_project}"
                     sh "oc rollout status deployment/${deployment} -n ${prod_project}"
 
                     sh "oc get pods -n ${prod_project}"
 
+                    // A DeploymentConfig Deployment using Jenkins Openshift DSL plugin
                     // //update deployment config with new image
                     // openshift.set("image", "deployment/${deployment}", "${app_name}=${registry}/${app_name}:${commitId}")
 
