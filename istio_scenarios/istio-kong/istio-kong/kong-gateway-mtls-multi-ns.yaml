@@ -1,0 +1,179 @@
+
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: kong-gateway
+  namespace: kong-istio
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: kong-tls-credentials     
+    hosts:
+    - "kong.192.168.28.136.nip.io"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: kong-vs
+  namespace: kong-istio
+spec:
+  hosts:
+  - "kong.192.168.28.136.nip.io"
+  gateways:
+  - kong-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /amazin
+    - uri:
+        prefix: /java       
+    route:
+    - destination:
+        host: kong-1614614380-kong-proxy.kong-istio.svc.cluster.local
+        port:
+          number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: shop-ingress
+  annotations:
+    kubernetes.io/ingress.class: kong
+    konghq.com/override: shop-kongingress
+    configuration.konghq.com: shop-kongingress
+  namespace: shop
+spec:
+  rules:
+    - host: kong.192.168.28.136.nip.io
+      http:
+        paths:
+          - path: /amazin
+            pathType: Prefix
+            backend:
+              service:
+                name: shop
+                port:
+                  number: 8080  
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongIngress
+metadata:
+  name: shop-kongingress
+  namespace: shop
+route:
+  preserve_host: false
+upstream:
+  host_header: shop.shop.svc 
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: java-ingress
+  annotations:
+    kubernetes.io/ingress.class: kong
+    konghq.com/override: java-proxy-kongingress
+    configuration.konghq.com: java-proxy-kongingress
+  namespace: shop
+spec:
+  rules:
+    - host: kong.192.168.28.136.nip.io
+      http:
+        paths:
+          - path: /java
+            pathType: Prefix
+            backend:
+              service:
+                name: java-proxy
+                port:
+                  number: 8080  
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongIngress
+metadata:
+  name: java-proxy-kongingress
+  namespace: shop
+route:
+  preserve_host: false
+upstream:
+  host_header: java-proxy.shop.svc 
+---  
+apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: shop-amazin
+  namespace: shop
+spec:
+  hosts:
+  - shop-amazin-dev.apps.ocp4.openshiftlabs.net
+  ports:
+  - number: 443
+    name: https
+    protocol: HTTPS
+  resolution: DNS
+  location: MESH_EXTERNAL
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: python-ingress
+  annotations:
+    kubernetes.io/ingress.class: kong
+    configuration.konghq.com: python-proxy-kongingress
+    konghq.com/override: python-proxy-kongingress
+  namespace: shop
+spec:
+  rules:
+    - host: kong.192.168.28.136.nip.io
+      http:
+        paths:
+          - path: /api/products/all
+            pathType: Prefix
+            backend:
+              service:
+                name: python-proxy
+                port:
+                  number: 8080 
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongIngress
+metadata:
+  name: python-proxy-kongingress
+  namespace: shop
+route:
+  preserve_host: false
+upstream:
+  host_header: python-proxy.shop.svc  
+---
+apiVersion: "security.istio.io/v1beta1"
+kind: "PeerAuthentication"
+metadata:
+  name: "default"
+  namespace: "istio-system"
+spec:
+  mtls:
+    mode: STRICT 
+---
+apiVersion: "security.istio.io/v1beta1"
+kind: "PeerAuthentication"
+metadata:
+  name: "default"
+  namespace: "shop"
+spec:
+  mtls:
+    mode: STRICT
+---
+apiVersion: "security.istio.io/v1beta1"
+kind: "PeerAuthentication"
+metadata:
+  name: "default"
+  namespace: "kong-istio"
+spec:
+  mtls:
+    mode: STRICT                                           

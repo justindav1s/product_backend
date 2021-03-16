@@ -1,0 +1,112 @@
+
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: kong-gateway
+  namespace: shop  
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: kong-tls-credentials     
+    hosts:
+    - "kong.192.168.28.136.nip.io"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: kong-vs
+  namespace: shop
+spec:
+  hosts:
+  - "kong.192.168.28.136.nip.io"
+  gateways:
+  - kong-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: shop-kong-kong-proxy.shop.svc.cluster.local
+        port:
+          number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: java-ingress
+  annotations:
+    kubernetes.io/ingress.class: kong
+    configuration.konghq.com: java-proxy-do-not-preserve-host
+    konghq.com/override: java-proxy-do-not-preserve-host
+  namespace: shop
+spec:
+  rules:
+    - host: kong.192.168.28.136.nip.io
+      http:
+        paths:
+          - path: /java/products/all
+            pathType: Prefix
+            backend:
+              service:
+                name: java-proxy
+                port:
+                  number: 8080  
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: python-ingress
+  annotations:
+    kubernetes.io/ingress.class: kong
+    configuration.konghq.com: do-not-preserve-host
+    konghq.com/override: do-not-preserve-host
+  namespace: shop
+spec:
+  rules:
+    - host: kong.192.168.28.136.nip.io
+      http:
+        paths:
+          - path: /api/products/all
+            pathType: Prefix
+            backend:
+              service:
+                name: python-proxy
+                port:
+                  number: 8080 
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongIngress
+metadata:
+  name: java-proxy-kongingress
+  namespace: shop
+route:
+  preserve_host: false
+upstream:
+  host_header: java-proxy.shop.svc 
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongIngress
+metadata:
+  name: python-proxy-kongingress
+  namespace: shop
+route:
+  preserve_host: false
+upstream:
+  host_header: python-proxy.shop.svc   
+---
+apiVersion: "security.istio.io/v1beta1"
+kind: "PeerAuthentication"
+metadata:
+  name: "default"
+  namespace: "istio-system"
+spec:
+  mtls:
+    mode: STRICT                                            

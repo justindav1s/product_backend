@@ -1,0 +1,114 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: shop-gateway
+  annotations:
+    kubernetes.io/ingress.class: kong
+    konghq.com/preserve-host: "false"  
+  namespace: shop
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "shop.192.168.28.136.nip.io"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: shop
+  namespace: shop
+spec:
+  hosts:
+  - "shop.192.168.28.136.nip.io"
+  gateways:
+  - shop-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /amazin
+    route:
+    - destination:
+        host: shop.shop.svc.cluster.local
+        port:
+          number: 8080
+    retries:
+      attempts: 3       
+      perTryTimeout: 2s
+      retryOn: gateway-error,connect-failure,refused-stream,reset
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: inventory
+  namespace: shop
+spec:
+  hosts:
+  - "shop.192.168.28.136.nip.io"
+  gateways:
+  - shop-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /products
+    route:
+    - destination:
+        host: inventory.shop.svc.cluster.local
+        port:
+          number: 8080
+    retries:
+      attempts: 3
+      perTryTimeout: 2s
+      retryOn: gateway-error,connect-failure,refused-stream,reset
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: python-proxy
+  namespace: shop
+spec:
+  hosts:
+  - "shop.192.168.28.136.nip.io"
+  gateways:
+  - shop-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /api
+    route:
+    - destination:
+        host: python-proxy.shop.svc.cluster.local
+        port:
+          number: 8080
+    retries:
+      attempts: 3
+      perTryTimeout: 2s
+      retryOn: gateway-error,connect-failure,refused-stream,reset
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: java-proxy
+  namespace: shop
+spec:
+  hosts:
+  - "shop.192.168.28.136.nip.io"
+  gateways:
+  - shop-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /java
+    route:
+    - destination:
+        host: java-proxy.shop.svc.cluster.local
+        port:
+          number: 8080
+    retries:
+      attempts: 3
+      perTryTimeout: 2s
+      retryOn: gateway-error,connect-failure,refused-stream,reset      

@@ -1,0 +1,113 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: bookinfo-gateway
+  namespace: bookinfo
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "bookinfo.192.168.28.136.nip.io"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: bookinfo-vs
+  namespace: bookinfo
+spec:
+  hosts:
+  - "bookinfo.192.168.28.136.nip.io"
+  gateways:
+  - bookinfo-gateway
+  http:
+  - match:
+    - uri:
+        exact: /productpage
+    - uri:
+        prefix: /static
+    - uri:
+        exact: /login
+    - uri:
+        exact: /logout
+    - uri:
+        prefix: /api/v1/products
+    route:
+    - destination:
+        host: productpage
+        port:
+          number: 9080
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: shop-gateway
+  namespace: shop
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "shop.192.168.28.136.nip.io"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: inventory-dr
+  namespace: shop
+spec:
+  host: inventory
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+--- 
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: shop-dr
+  namespace: shop
+spec:
+  host: shop
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+---             
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: shop-vs
+  namespace: shop
+spec:
+  hosts:
+  - "shop.192.168.28.136.nip.io"
+  gateways:
+  - shop-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /api
+    route:
+    - destination:
+        host: shop
+        subset: v1
+        port:
+          number: 8080 
+  - match:        
+    - uri:
+        prefix: /products
+    route:
+    - destination:
+        host: inventory
+        subset: v1
+        port:
+          number: 8080 
