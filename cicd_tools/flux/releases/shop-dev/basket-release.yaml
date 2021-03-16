@@ -1,0 +1,37 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: basket
+  namespace: shop-dev
+  annotations:
+    fluxcd.io/automated: "false" 
+    filter.fluxcd.io/chart-image: glob:basket* 
+spec:
+  helmVersion: v3
+  forceUpgrade: true
+  chart:
+    repository: https://raw.githubusercontent.com/justindav1s/helmcharts/main/charts
+    ref: master
+    name: microservice
+    version: 1.0.12
+  values:
+    platform: ocp
+    versionlabel: v1
+    applabel: flux
+    image_reg: quay.io/justindav1s
+    image_name: basket
+    image_tag: latest
+    containerport: 8080
+    spring_active_profile: dev
+    replicas: 1    
+    container:
+      env:
+      - name: SPRING_PROFILES_ACTIVE
+        value: dev
+      - name: inventory.host
+        value: inventory:8080
+      - name: user.host
+        value: user:8080
+      - name: basket.host
+        value: basket:8080     
+    trigger: 1
