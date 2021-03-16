@@ -1,0 +1,134 @@
+image: registry.redhat.io/openshift4/ose-jenkins-agent-maven
+
+stages:
+- cache
+- build
+- test
+- sonar
+- Deploy to Nexus
+- Build Container Image
+- Deploy to Dev OCP
+
+variables:
+  GROUPID: org.jnd.microservices
+  ARTIFACTID: inventory
+  VERSION: 0.0.1-SNAPSHOT
+  PACKAGING: jar
+  MAVEN_CLI_OPTS: "-s settings.xml --batch-mode"
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+  OPENSHIFT_PROJECT: amazin-gitlab
+  SONAR_URL: "http://sonarqube.cicd.svc:9000"
+
+cache:
+  key: "amazin-cache"
+  paths:
+  - .m2/repository/
+  - target/
+
+build:
+  stage: build
+  script:
+  - mvn $MAVEN_CLI_OPTS compile
+
+test:
+  stage: test
+  script:
+    - mvn verify
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - target/surefire-reports/TEST-*.xml
+        - target/failsafe-reports/TEST-*.xml
+
+sonar:
+  stage: test
+  script:
+    - mvn $MAVEN_CLI_OPTS sonar:sonar -Dspring.profiles.active=dev -Dsonar.host.url=${SONAR_URL}
+
+
+Deploy to Nexus:
+  stage: Deploy to Nexus
+  script:
+  - mvn $MAVEN_CLI_OPTS deploy
+
+
+.Build Container Image: &build_image
+  before_script:
+  - oc login -u ${OPENSHIFT_USER} -p ${OPENSHIFT_PASSWORD} --server=${OPENSHIFT_DEV_SERVER} --insecure-skip-tls-verify
+  - oc policy add-role-to-user edit system:serviceaccount:cicd:default -n ${OPENSHIFT_PROJECT}
+  - oc project "$OPENSHIFT_PROJECT"
+
+  - oc delete secret reg-dockercfg --ignore-not-found=true -n ${OPENSHIFT_PROJECT} 
+  - oc delete bc ${APP} --ignore-not-found=true -n ${OPENSHIFT_PROJECT}
+
+  - oc create secret docker-registry reg-dockercfg
+    --docker-server=${QUAYIO_HOST}
+    --docker-username=${QUAYIO_USER}
+    --docker-password=${QUAYIO_PASSWORD}
+    --docker-email=${QUAYIO_EMAIL}
+    -n ${OPENSHIFT_PROJECT}
+
+  - oc secrets link builder reg-dockercfg -n ${OPENSHIFT_PROJECT}
+  - oc secrets link deployer reg-dockercfg --for=pull -n ${OPENSHIFT_PROJECT}
+  
+  
+  script:
+  - "mvn -B -q -s settings.xml dependency:copy -DstripVersion=true -Dartifact=$GROUPID:$ARTIFACTID:$VERSION:$PACKAGING -DoutputDirectory=."
+
+  - rm -rf .m2/repository/org/jnd/microservices/inventory/0.0.1-SNAPSHOT
+
+  - cp $(find . -type f -name $ARTIFACTID-*.$PACKAGING) $ARTIFACTID-$VERSION.$PACKAGING
+
+  - oc apply -f openshift/build-config.yml
+
+  - oc start-build $APP --from-file=$ARTIFACTID-$VERSION.$PACKAGING --follow
+
+
+.Deploy to Dev OCP: &deploy_to_dev
+  before_script:
+  - oc whoami
+  - oc project "$OPENSHIFT_PROJECT"
+  script:
+  - oc apply -f openshift/deployment-config.yml
+
+  - oc apply -f openshift/serviceaccount.yml
+
+  - oc set image dc/${APP} ${APP}=${QUAYIO_HOST}/${QUAYIO_USER}/${APP}-gitlab:latest
+
+  - oc secrets link inventory-sa reg-dockercfg --for=pull -n ${OPENSHIFT_PROJECT}
+
+  - oc delete configmap ${APP}-config --ignore-not-found=true
+
+  - oc create configmap ${APP}-config --from-file=src/main/resources/config.dev.properties
+
+  - oc rollout latest dc/${APP}
+
+  - oc apply -f openshift/service.yml
+
+  - oc apply -f openshift/route.yml
+  
+Build Container Image:
+  <<: *build_image
+  stage: Build Container Image
+  variables:
+    APP: inventory
+    APP_HOST: $ARTIFACTID-$OPENSHIFT_PROJECT.$OPENSHIFT_DOMAIN
+  environment:
+    name: dev
+    url: http://$ARTIFACTID-$OPENSHIFT_PROJECT.$OPENSHIFT_DOMAIN
+  only:
+  - master  
+
+
+Deploy to Dev OCP:
+  <<: *deploy_to_dev
+  stage: Deploy to Dev OCP
+  variables:
+    APP: inventory
+    APP_HOST: $ARTIFACTID-$OPENSHIFT_PROJECT.$OPENSHIFT_DOMAIN
+  environment:
+    name: dev
+    url: http://$ARTIFACTID-$OPENSHIFT_PROJECT.$OPENSHIFT_DOMAIN
+  only:
+  - master

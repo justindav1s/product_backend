@@ -1,0 +1,19 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: shop-flux2
+  namespace: flux-system
+spec:
+  gitImplementation: go-git
+  interval: 1m0s
+  ref:
+    branch: master
+  secretRef:
+    name: flux-system
+  timeout: 20s
+  url: 'ssh://gitlab.com/justinndavis/inventory.git'
+  ignore: |
+    # exclude all
+    /*
+    # include charts directory
+    !/flux2/releases/shop-flux2/

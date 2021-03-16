@@ -1,0 +1,41 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: user
+  namespace: shop-flux2
+spec:
+  interval: 5m
+  helmVersion: v3
+  releaseName: user
+  targetNamespace: shop-flux2
+  forceUpgrade: true
+  chart:
+    spec:
+      chart: microservice
+      version: '1.0.12'
+      sourceRef:
+        kind: HelmRepository
+        name: jd-repo
+        namespace: flux-system
+      interval: 1m
+  values:
+    platform: ocp
+    versionlabel: v1
+    applabel: flux
+    image_reg: quay.io/justindav1s
+    image_name: user
+    image_tag: latest
+    containerport: 8080
+    spring_active_profile: dev
+    replicas: 1
+    container:
+      env:
+      - name: SPRING_PROFILES_ACTIVE
+        value: dev
+      - name: inventory.host
+        value: inventory:8080
+      - name: user.host
+        value: user:8080
+      - name: basket.host
+        value: basket:8080         
+    trigger: 2
